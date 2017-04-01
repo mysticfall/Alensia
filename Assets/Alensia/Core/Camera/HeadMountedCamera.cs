@@ -64,7 +64,7 @@ namespace Alensia.Core.Camera
 
         public Transform Pivot { get; private set; }
 
-        protected Vector3 LookAt
+        protected Vector3 FocalPoint
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Alensia.Core.Camera
             Transform.position = Pivot.position;
             Transform.rotation = Pivot.rotation;
 
-            Transform.LookAt(LookAt);
+            Transform.LookAt(FocalPoint);
         }
 
         public virtual void LateTick()
