@@ -245,7 +245,7 @@ namespace Alensia.Tests.Camera
 
         private class TestCamera : BaseOrbitingCamera
         {
-            private readonly Transform _anchorObject;
+            private readonly Transform _pivot;
 
             private readonly RotationalConstraints _rotationalConstraints;
 
@@ -261,24 +261,24 @@ namespace Alensia.Tests.Camera
                 get { return _distanceSettings; }
             }
 
-            protected override Vector3 Anchor
+            public override Transform Pivot
             {
-                get { return _anchorObject.position; }
+                get { return _pivot; }
             }
 
             protected override Vector3 AxisForward
             {
-                get { return _anchorObject.forward; }
+                get { return _pivot.forward; }
             }
 
             protected override Vector3 AxisUp
             {
-                get { return _anchorObject.up; }
+                get { return _pivot.up; }
             }
 
             public TestCamera(Transform anchor, UnityEngine.Camera camera) : base(camera)
             {
-                _anchorObject = anchor;
+                _pivot = anchor;
 
                 _rotationalConstraints = new RotationalConstraints
                 {

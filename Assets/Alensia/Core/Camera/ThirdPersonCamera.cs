@@ -25,27 +25,27 @@ namespace Alensia.Core.Camera
 
         public override bool Valid
         {
-            get { return base.Valid && _target != null; }
+            get { return base.Valid && Target != null; }
         }
 
-        protected override Vector3 Anchor
+        public ITransformable Target { get; private set; }
+
+        public override Transform Pivot
         {
-            get { return _anchor.position; }
+            get { return _pivot; }
         }
 
         protected override Vector3 AxisForward
         {
-            get { return _target.forward; }
+            get { return Target.Transform.forward; }
         }
 
         protected override Vector3 AxisUp
         {
-            get { return _target.up; }
+            get { return Target.Transform.up; }
         }
 
-        private Transform _target;
-
-        private Transform _anchor;
+        private Transform _pivot;
 
         private readonly RotationalConstraints _rotationalConstraints;
 
@@ -68,10 +68,18 @@ namespace Alensia.Core.Camera
         {
             Assert.IsNotNull(target, "target != null");
 
+            Target = target;
+
             var character = target as IHumanoid;
 
-            _target = target.Transform;
-            _anchor = character != null ? character.GetBodyPart(HumanBodyBones.Head) : _target;
+            if (character == null)
+            {
+                _pivot = Target.Transform;
+            }
+            else
+            {
+                _pivot = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
+            }
 
             Distance = DistanceSettings.Default;
         }
@@ -83,15 +91,16 @@ namespace Alensia.Core.Camera
 
             if (WallAvoidanceSettings.AvoidWalls)
             {
-                var direction = (Transform.position - Anchor).normalized;
-                var ray = new Ray(Anchor, direction);
+                var direction = (Transform.position - Pivot.position).normalized;
+                var ray = new Ray(Pivot.position, direction);
 
                 RaycastHit hit;
 
                 if (UnityEngine.Physics.Raycast(ray, out hit, preferredDistance))
                 {
                     preferredDistance =
-                        Vector3.Distance(Anchor, hit.point) - WallAvoidanceSettings.MinimumDistance;
+                        Vector3.Distance(Pivot.position, hit.point) -
+                        WallAvoidanceSettings.MinimumDistance;
                 }
             }
 

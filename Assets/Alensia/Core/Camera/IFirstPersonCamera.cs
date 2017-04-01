@@ -1,9 +1,6 @@
-﻿using Alensia.Core.Actor;
-
-namespace Alensia.Core.Camera
+﻿namespace Alensia.Core.Camera
 {
-    public interface IFirstPersonCamera : IRotatableCamera
+    public interface IFirstPersonCamera : ITrackingCamera, IRotatableCamera
     {
-        void Initialize(IHumanoid target);
     }
 }

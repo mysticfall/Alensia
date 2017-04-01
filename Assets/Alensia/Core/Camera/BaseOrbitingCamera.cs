@@ -59,7 +59,7 @@ namespace Alensia.Core.Camera
             }
         }
 
-        protected abstract Vector3 Anchor { get; }
+        public abstract Transform Pivot { get; }
 
         protected abstract Vector3 AxisForward { get; }
 
@@ -80,12 +80,12 @@ namespace Alensia.Core.Camera
             float heading, float elevation, float distance)
         {
             Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
-            Transform.position = Anchor - AxisForward * distance;
+            Transform.position = Pivot.position - AxisForward * distance;
 
-            Transform.RotateAround(Anchor, Transform.right, -elevation);
-            Transform.RotateAround(Anchor, AxisUp, heading);
+            Transform.RotateAround(Pivot.position, Transform.right, -elevation);
+            Transform.RotateAround(Pivot.position, AxisUp, heading);
 
-            Transform.LookAt(Anchor);
+            Transform.LookAt(Pivot);
         }
 
         public virtual void LateTick()

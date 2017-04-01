@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Alensia.Core.Common;
 
 namespace Alensia.Core.Camera
 {
     public interface ITrackingCamera : ICameraMode
     {
-        Transform Focus { get; set; }
+        ITransformable Target { get; }
+
+        void Initialize(ITransformable target);
     }
 }

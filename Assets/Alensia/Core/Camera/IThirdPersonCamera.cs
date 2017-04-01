@@ -1,11 +1,7 @@
-﻿using Alensia.Core.Common;
-
-namespace Alensia.Core.Camera
+﻿namespace Alensia.Core.Camera
 {
-    public interface IThirdPersonCamera : IRotatableCamera
+    public interface IThirdPersonCamera : ITrackingCamera, IRotatableCamera
     {
         WallAvoidanceSettings WallAvoidanceSettings { get; }
-
-        void Initialize(ITransformable target);
     }
 }

@@ -58,17 +58,17 @@ namespace Alensia.Core.Camera
             get { return _rotationalConstraints; }
         }
 
-        public Transform Target { get; private set; }
+        public ITransformable Target { get; private set; }
 
         public Transform Head { get; private set; }
 
-        public Transform MountPoint { get; private set; }
+        public Transform Pivot { get; private set; }
 
         protected Vector3 LookAt
         {
             get
             {
-                var rotation = Target.transform.rotation * Quaternion.Euler(-Elevation, Heading, 0);
+                var rotation = Target.Transform.rotation * Quaternion.Euler(-Elevation, Heading, 0);
 
                 return Head.position + rotation * Vector3.forward * LookAhead;
             }
@@ -92,25 +92,41 @@ namespace Alensia.Core.Camera
             _lookAhead = settings.LookAhead;
         }
 
-        public void Initialize(IHumanoid target)
+        public void Initialize(ITransformable target)
         {
             Assert.IsNotNull(target, "target != null");
 
-            Target = target.Transform;
-            Head = target.GetBodyPart(HumanBodyBones.Head);
-            MountPoint = Head.FindChild("CameraMount") ?? Head;
+            Target = target;
 
-            Assert.IsNotNull(target, "The target is missing a head bone");
+            var character = target as IHumanoid;
+
+            if (character == null)
+            {
+                Head = Target.Transform;
+            }
+            else
+            {
+                Head = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
+            }
+
+            Pivot = FindMountPoint(Head) ?? Head;
+        }
+
+        protected virtual Transform FindMountPoint(Transform parent)
+        {
+            Assert.IsNotNull(parent, "parent != null");
+
+            return parent.FindChild("CameraMount");
         }
 
         protected virtual void UpdatePosition(float heading, float elevation)
         {
-            Head.localRotation = MountPoint.localRotation *
+            Head.localRotation = Pivot.localRotation *
                                  Quaternion.Euler(new Vector3(-_elevation, _heading, 0)) *
-                                 Quaternion.Inverse(MountPoint.localRotation);
+                                 Quaternion.Inverse(Pivot.localRotation);
 
-            Transform.position = MountPoint.position;
-            Transform.rotation = MountPoint.rotation;
+            Transform.position = Pivot.position;
+            Transform.rotation = Pivot.rotation;
 
             Transform.LookAt(LookAt);
         }
