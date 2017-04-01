@@ -26,6 +26,10 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
+# Unity3D Build output
+Alensia_Data
+Alensia.x86_64
+
 # Builds
 *.apk
 *.unitypackage
