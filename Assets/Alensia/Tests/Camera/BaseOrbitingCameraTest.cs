@@ -65,7 +65,9 @@ namespace Alensia.Tests.Camera
             var camera = _cameraObject.AddComponent<UnityEngine.Camera>();
 
             Anchor = _anchorObject.GetComponent<Transform>();
+
             Camera = new TestCamera(Anchor, camera);
+            Camera.Activate();
         }
 
         [TearDown]
