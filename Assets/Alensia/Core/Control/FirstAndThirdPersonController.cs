@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public class FirstAndThirdPersonController : IPlayerController<IHumanoid>, IInitializable, ILateTickable
+    public class FirstAndThirdPersonController : IPlayerController<IHumanoid>, IInitializable, ITickable
     {
         public IHumanoid Player { get; private set; }
 
@@ -56,7 +56,7 @@ namespace Alensia.Core.Control
             CameraManager.ToThirdPerson(Player);
         }
 
-        public void LateTick()
+        public void Tick()
         {
             var camera = CameraManager.Mode;
 
@@ -178,13 +178,13 @@ namespace Alensia.Core.Control
 
             protected override ICameraMode Process(IRotatableCamera camera)
             {
-                var locomotion = Controller.Player.Locomotion;
+                var player = Controller.Player;
 
-                var prev = locomotion.Transform.eulerAngles.y;
+                var prev = player.Transform.eulerAngles.y;
 
-                locomotion.Turn(camera.Heading);
+                player.Locomotion.Turn(camera.Heading);
 
-                camera.Heading -= locomotion.Transform.eulerAngles.y - prev;
+                camera.Heading -= player.Transform.eulerAngles.y - prev;
 
                 return camera;
             }

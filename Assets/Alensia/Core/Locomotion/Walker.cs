@@ -4,17 +4,11 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Locomotion
 {
-    public abstract class BaseWalker : IWalker
+    public class Walker : IWalker
     {
-        public Transform Transform { get; private set; }
-
-        public Animator Animator { get; private set; }
-
         public WalkSpeedSettings MaximumSpeed { get; set; }
 
-        public WalkAnimationVariables WalkAnimationVariables { get; set; }
-
-        public abstract Vector3 Velocity { get;  }
+        public ILocomotion Locomotion { get; private set; }
 
         private Pacing _pacing = Pacing.Walking();
 
@@ -26,31 +20,19 @@ namespace Alensia.Core.Locomotion
 
         public event EventHandler<PacingChangeEventArgs> PacingChanged;
 
-        protected BaseWalker(
+        protected Walker(
             WalkSpeedSettings maximumSpeed,
-            WalkAnimationVariables walkAnimationVariables,
-            Transform transform,
-            Animator animator)
+            ILocomotion locomotion)
         {
             Assert.IsNotNull(maximumSpeed, "maximumSpeed != null");
-            Assert.IsNotNull(walkAnimationVariables, "walkAnimationVariables != null");
-            Assert.IsNotNull(transform, "transform != null");
-            Assert.IsNotNull(animator, "animator != null");
+            Assert.IsNotNull(locomotion, "locomotion != null");
 
             MaximumSpeed = maximumSpeed;
-            WalkAnimationVariables = walkAnimationVariables;
-            Transform = transform;
-            Animator = animator;
+            Locomotion = locomotion;
         }
-
-        public abstract void Move(Vector3 direction, float desiredSpeed);
-
-        public abstract void Rotate(Vector3 rotation, float desiredSpeed);
 
         public virtual void Walk(Vector2 direction)
         {
-            var vector = new Vector3(direction.x, 0, direction.y);
-
             Vector3 desiredVelocity;
 
             var magnitude = direction.magnitude;
@@ -62,23 +44,26 @@ namespace Alensia.Core.Locomotion
 
                 var sideRatio = direction.x / magnitude;
 
-                desiredVelocity =
-                    new Vector2(MaximumSpeed.Sideway * sideRatio, forwardSpeed * forwardRatio);
+                desiredVelocity = new Vector3
+                {
+                    x = MaximumSpeed.Sideway * sideRatio,
+                    y = 0,
+                    z = forwardSpeed * forwardRatio
+                };
             }
             else
             {
                 desiredVelocity = Vector3.zero;
             }
 
-            Move(vector.normalized, desiredVelocity.magnitude);
+            Locomotion.Move(desiredVelocity);
         }
 
         public virtual void Turn(float degrees)
         {
-            if (!Mathf.Approximately(degrees, 0))
-            {
-                Rotate(new Vector3(0, degrees, 0), MaximumSpeed.Angular);
-            }
+            var speed = Mathf.Min(Mathf.Abs(degrees), MaximumSpeed.Angular);
+
+            Locomotion.Rotate(Vector3.up * speed * Math.Sign(degrees));
         }
 
         public virtual void Jump(Vector2 direction)

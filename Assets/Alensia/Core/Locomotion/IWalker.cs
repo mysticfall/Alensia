@@ -1,16 +1,15 @@
 ﻿using System;
-using Alensia.Core.Animation;
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Locomotion
 {
-    public interface IWalker : ILocomotion, IAnimatable
+    public interface IWalker
     {
         WalkSpeedSettings MaximumSpeed { get; set; }
 
-        WalkAnimationVariables WalkAnimationVariables { get; set; }
+        ILocomotion Locomotion { get; }
 
         Pacing Pacing { get; set; }
 
@@ -37,16 +36,6 @@ namespace Alensia.Core.Locomotion
 
         [Range(0, 360)]
         public float Angular = 90;
-    }
-
-    [Serializable]
-    public class WalkAnimationVariables : IEditorSettings
-    {
-        public string Moving = "Moving";
-
-        public string ForwardVelocity = "Forward Velocity";
-
-        public string SidewayVelocity = "Sideway Velocity";
     }
 
     public class Pacing

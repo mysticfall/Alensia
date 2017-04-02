@@ -15,7 +15,7 @@ namespace Alensia.Demo.Controller
 
         public WalkSpeedSettings WalkSpeed;
 
-        public WalkAnimationVariables WalkAnimationVariables;
+        public AnimatedLocomotion.Settings AnimationSettings;
 
         public HeadMountedCamera.Settings FirstPersonCamera;
 
@@ -30,12 +30,13 @@ namespace Alensia.Demo.Controller
             Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
             Container.Bind<Camera>().FromInstance(Camera);
 
-            Container.Bind<IWalker>().To<AnimationBasedWalker>().AsSingle();
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
+            Container.Bind<ILocomotion>().To<TransformDrivenLocomotion>().AsSingle();
+            Container.Bind<IWalker>().To<Walker>().AsSingle();
 
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
             Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);
-            Container.Bind<WalkAnimationVariables>().FromInstance(WalkAnimationVariables);
+            Container.Bind<AnimatedLocomotion.Settings>().FromInstance(AnimationSettings);
 
             Container.Bind<HeadMountedCamera.Settings>().FromInstance(FirstPersonCamera);
             Container.Bind<ThirdPersonCamera.Settings>().FromInstance(ThirdPersonCamera);
