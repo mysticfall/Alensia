@@ -6,8 +6,4 @@ namespace Alensia.Core.Camera
     {
         UnityEngine.Camera Camera { get; }
     }
-
-    public interface ICameraModeSettings : IEditorSettings
-    {
-    }
 }
