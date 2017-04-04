@@ -180,11 +180,11 @@ namespace Alensia.Core.Control
             {
                 var player = Controller.Player;
 
-                var prev = player.Transform.eulerAngles.y;
+                var heading = player.Transform.eulerAngles.y;
 
-                player.Locomotion.Turn(camera.Heading);
+                player.Locomotion.TurnTo(heading + camera.Heading);
 
-                camera.Heading -= player.Transform.eulerAngles.y - prev;
+                camera.Heading -= player.Transform.eulerAngles.y - heading;
 
                 return camera;
             }

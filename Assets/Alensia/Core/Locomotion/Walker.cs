@@ -1,4 +1,5 @@
 ﻿using System;
+using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -59,11 +60,27 @@ namespace Alensia.Core.Locomotion
             Locomotion.Move(desiredVelocity);
         }
 
-        public virtual void Turn(float degrees)
+        public void WalkTo(Vector3 position)
         {
-            var speed = Mathf.Min(Mathf.Abs(degrees), MaximumSpeed.Angular);
+            throw new NotImplementedException();
+        }
 
-            Locomotion.Rotate(Vector3.up * speed * Math.Sign(degrees));
+        public void Turn(float direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TurnTo(float heading)
+        {
+            var current = Locomotion.Transform.localEulerAngles.y;
+            var delta = GeometryUtils.NormalizeAspectAngle(heading - current);
+
+            var speed = Mathf.Clamp(
+                delta / Time.deltaTime,
+                -MaximumSpeed.Angular,
+                MaximumSpeed.Angular);
+
+            Locomotion.Rotate(Vector3.up * speed);
         }
 
         public virtual void Jump(Vector2 direction)

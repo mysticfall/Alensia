@@ -17,7 +17,11 @@ namespace Alensia.Core.Locomotion
 
         void Walk(Vector2 direction);
 
-        void Turn(float degrees);
+        void WalkTo(Vector3 position);
+
+        void Turn(float direction);
+
+        void TurnTo(float heading);
 
         void Jump(Vector2 direction);
     }
