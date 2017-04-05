@@ -7,23 +7,29 @@ using TestRange = NUnit.Framework.RangeAttribute;
 namespace Alensia.Tests.Camera
 {
     [TestFixture, Description("Test suite for BaseOrbitingCamera class.")]
-    public class BaseOrbitingCameraTest : AssertionHelper
+    public class BaseOrbitingCameraTest : BaseCameraTest<BaseOrbitingCamera>
     {
-        public BaseOrbitingCamera Camera;
-
-        public Transform Anchor;
-
         public const float Tolerance = 0.0001f;
+
+        public Transform Pivot
+        {
+            get { return Camera.Pivot; }
+        }
+
+        public float ActualDistance
+        {
+            get { return Vector3.Distance(Camera.Transform.position, Pivot.position); }
+        }
 
         public float ActualHeading
         {
             get
             {
-                var offset = (Anchor.position - Camera.Transform.position).normalized;
-                var direction = Vector3.ProjectOnPlane(offset, Anchor.up);
+                var offset = (Pivot.position - Camera.Transform.position).normalized;
+                var direction = Vector3.ProjectOnPlane(offset, Pivot.up);
 
-                var heading = Vector3.Angle(Anchor.forward, direction);
-                var cross = Anchor.InverseTransformDirection(Vector3.Cross(Anchor.forward, direction));
+                var heading = Vector3.Angle(Pivot.forward, direction);
+                var cross = Pivot.InverseTransformDirection(Vector3.Cross(Pivot.forward, direction));
 
                 if (cross.y < 0) heading = -heading;
 
@@ -35,11 +41,11 @@ namespace Alensia.Tests.Camera
         {
             get
             {
-                var offset = (Anchor.position - Camera.Transform.position).normalized;
-                var direction = Quaternion.AngleAxis(-ActualHeading, Anchor.up) * offset;
+                var offset = (Pivot.position - Camera.Transform.position).normalized;
+                var direction = Quaternion.AngleAxis(-ActualHeading, Pivot.up) * offset;
 
-                var elevation = Vector3.Angle(Anchor.forward, direction);
-                var cross = Anchor.InverseTransformDirection(Vector3.Cross(Anchor.forward, direction));
+                var elevation = Vector3.Angle(Pivot.forward, direction);
+                var cross = Pivot.InverseTransformDirection(Vector3.Cross(Pivot.forward, direction));
 
                 if (cross.x > 0) elevation = -elevation;
 
@@ -47,37 +53,23 @@ namespace Alensia.Tests.Camera
             }
         }
 
-        public float ActualDistance
-        {
-            get { return Vector3.Distance(Camera.Transform.position, Anchor.position); }
-        }
-
-        private GameObject _cameraObject;
-
-        private GameObject _anchorObject;
-
-        [SetUp]
-        public void Setup()
-        {
-            _cameraObject = new GameObject();
-            _anchorObject = new GameObject();
-
-            var camera = _cameraObject.AddComponent<UnityEngine.Camera>();
-
-            Anchor = _anchorObject.GetComponent<Transform>();
-
-            Camera = new TestCamera(Anchor, camera);
-            Camera.Activate();
-        }
-
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
-            if (_cameraObject != null) Object.Destroy(_cameraObject);
-            if (_anchorObject != null) Object.Destroy(_anchorObject);
+            if (Pivot != null)
+            {
+                Object.Destroy(Pivot.gameObject);
+            }
 
-            _cameraObject = null;
-            _anchorObject = null;
+            base.TearDown();
+        }
+
+        protected override BaseOrbitingCamera CreateCamera(UnityEngine.Camera camera)
+        {
+            var pivotObject = new GameObject();
+            var pivot = pivotObject.GetComponent<Transform>();
+
+            return new TestCamera(pivot, camera);
         }
 
         [Test, Description("Changing Heading/Elevation/Distance should move the camera to a proper position.")]
@@ -112,14 +104,14 @@ namespace Alensia.Tests.Camera
             [Values(-120, 60)] float heading,
             [Values(-40, 15)] float elevation)
         {
-            Anchor.eulerAngles = new Vector3
+            Pivot.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Anchor.position = new Vector3
+            Pivot.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -154,14 +146,14 @@ namespace Alensia.Tests.Camera
             Camera.Elevation = elevation;
             Camera.Distance = distance;
 
-            Anchor.eulerAngles = new Vector3
+            Pivot.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Anchor.position = new Vector3
+            Pivot.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
