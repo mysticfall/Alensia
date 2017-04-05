@@ -15,6 +15,11 @@ namespace Alensia.Core.Control
 
         public float LastZoom { get; private set; }
 
+        public DesktopInputManager() : this(new ViewSensitivity())
+        {
+        }
+
+        [Inject]
         public DesktopInputManager(ViewSensitivity sensitivity)
         {
             Assert.IsNotNull(sensitivity, "sensitivity != null");

@@ -2,6 +2,7 @@
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
@@ -21,7 +22,12 @@ namespace Alensia.Core.Locomotion
 
         public event EventHandler<PacingChangeEventArgs> PacingChanged;
 
-        protected Walker(
+        public Walker(ILocomotion locomotion) : this(new WalkSpeedSettings(), locomotion)
+        {
+        }
+
+        [Inject]
+        public Walker(
             WalkSpeedSettings maximumSpeed,
             ILocomotion locomotion)
         {
@@ -60,17 +66,19 @@ namespace Alensia.Core.Locomotion
             Locomotion.Move(desiredVelocity);
         }
 
-        public void WalkTo(Vector3 position)
+        public virtual void WalkTo(Vector3 position)
         {
             throw new NotImplementedException();
         }
 
-        public void Turn(float direction)
+        public virtual void Turn(float direction)
         {
-            throw new NotImplementedException();
+            var speed = Math.Sign(direction) * MaximumSpeed.Angular;
+
+            Locomotion.Rotate(Vector3.up * speed);
         }
 
-        public void TurnTo(float heading)
+        public virtual void TurnTo(float heading)
         {
             var current = Locomotion.Transform.localEulerAngles.y;
             var delta = GeometryUtils.NormalizeAspectAngle(heading - current);

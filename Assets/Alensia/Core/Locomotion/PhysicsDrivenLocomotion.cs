@@ -1,6 +1,7 @@
 ﻿using Alensia.Core.Physics;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
@@ -8,6 +9,14 @@ namespace Alensia.Core.Locomotion
     {
         public Rigidbody Body { get; private set; }
 
+        public PhysicsDrivenLocomotion(
+            Rigidbody body,
+            Animator animator,
+            Transform transform) : this(new Settings(), body, animator, transform)
+        {
+        }
+
+        [Inject]
         public PhysicsDrivenLocomotion(
             Settings settings,
             Rigidbody body,

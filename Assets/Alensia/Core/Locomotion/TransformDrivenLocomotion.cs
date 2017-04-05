@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Zios;
+using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
@@ -9,6 +9,13 @@ namespace Alensia.Core.Locomotion
 
         public bool ApplyRotation;
 
+        public TransformDrivenLocomotion(
+            Animator animator,
+            Transform transform) : this(new Settings(), animator, transform)
+        {
+        }
+
+        [Inject]
         public TransformDrivenLocomotion(
             Settings settings,
             Animator animator,

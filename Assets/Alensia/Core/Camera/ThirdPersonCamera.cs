@@ -3,6 +3,7 @@ using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Camera
 {
@@ -53,6 +54,11 @@ namespace Alensia.Core.Camera
 
         private readonly WallAvoidanceSettings _wallAvoidanceSettings;
 
+        public ThirdPersonCamera(UnityEngine.Camera camera) : this(new Settings(), camera)
+        {
+        }
+
+        [Inject]
         public ThirdPersonCamera(
             Settings settings,
             UnityEngine.Camera camera) : base(camera)
@@ -110,11 +116,11 @@ namespace Alensia.Core.Camera
         [Serializable]
         public class Settings : IEditorSettings
         {
-            public RotationalConstraints Rotation;
+            public RotationalConstraints Rotation = new RotationalConstraints();
 
-            public DistanceSettings Distance;
+            public DistanceSettings Distance = new DistanceSettings();
 
-            public WallAvoidanceSettings WallAvoidance;
+            public WallAvoidanceSettings WallAvoidance = new WallAvoidanceSettings();
         }
     }
 }

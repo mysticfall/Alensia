@@ -20,6 +20,15 @@ namespace Alensia.Core.Control
         private readonly List<ICameraControl> _controls;
 
         public FirstAndThirdPersonController(
+            IHumanoid player,
+            IInputManager inputManager,
+            ICameraManager cameraManager) : this(
+            new ViewSensitivity(), player, inputManager, cameraManager)
+        {
+        }
+
+        [Inject]
+        public FirstAndThirdPersonController(
             ViewSensitivity viewSensitivity,
             IHumanoid player,
             IInputManager inputManager,

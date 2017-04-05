@@ -5,17 +5,17 @@ namespace Alensia.Core.Actor
 {
     public class Actor : IActor
     {
-        public Transform Transform { get; private set; }
-
         public Animator Animator { get; private set; }
 
-        public Actor(Transform transform, Animator animator)
-        {
-            Assert.IsNotNull(transform, "transform != null");
-            Assert.IsNotNull(animator, "animator != null");
+        public Transform Transform { get; private set; }
 
-            Transform = transform;
+        public Actor(Animator animator, Transform transform)
+        {
+            Assert.IsNotNull(animator, "animator != null");
+            Assert.IsNotNull(transform, "transform != null");
+
             Animator = animator;
+            Transform = transform;
         }
     }
 }

@@ -3,6 +3,7 @@ using Alensia.Core.Animation;
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
@@ -16,6 +17,12 @@ namespace Alensia.Core.Locomotion
 
         public Transform Transform { get; private set; }
 
+        public AnimatedLocomotion(
+            Animator animator, Transform transform) : this(new Settings(), animator, transform)
+        {
+        }
+
+        [Inject]
         public AnimatedLocomotion(Settings settings, Animator animator, Transform transform)
         {
             Assert.IsNotNull(settings, "settings != null");
@@ -71,9 +78,9 @@ namespace Alensia.Core.Locomotion
         [Serializable]
         public class Settings : IEditorSettings
         {
-            public MovementVariables MovementVariables;
+            public MovementVariables MovementVariables = new MovementVariables();
 
-            public RotationVariables RotationVariables;
+            public RotationVariables RotationVariables = new RotationVariables();
         }
     }
 

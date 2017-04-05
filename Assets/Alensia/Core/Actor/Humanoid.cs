@@ -10,8 +10,8 @@ namespace Alensia.Core.Actor
 
         public Humanoid(
             IWalker locomotion,
-            Transform transform,
-            Animator animator) : base(transform, animator)
+            Animator animator,
+            Transform transform) : base(animator, transform)
         {
             Assert.IsNotNull(locomotion, "locomotion != null");
 

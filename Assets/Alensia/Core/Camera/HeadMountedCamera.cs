@@ -83,6 +83,12 @@ namespace Alensia.Core.Camera
         private readonly RotationalConstraints _rotationalConstraints;
 
         public HeadMountedCamera(
+            UnityEngine.Camera camera) : this(new Settings(), camera)
+        {
+        }
+
+        [Inject]
+        public HeadMountedCamera(
             Settings settings,
             UnityEngine.Camera camera) : base(camera)
         {
@@ -145,7 +151,7 @@ namespace Alensia.Core.Camera
             [Range(0.1f, 10f)]
             public float LookAhead = 10f;
 
-            public RotationalConstraints Rotation;
+            public RotationalConstraints Rotation = new RotationalConstraints();
         }
     }
 }
