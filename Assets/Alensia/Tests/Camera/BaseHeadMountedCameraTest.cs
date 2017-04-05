@@ -1,23 +1,21 @@
 using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Common;
-using Alensia.Tests.Actor;
 using NUnit.Framework;
 using UnityEngine;
 using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    [TestFixture, Description("Test suite for HeadMountedCamera class.")]
-    public class HeadMountedCameraTest : BaseCameraTest<HeadMountedCamera>
+    public abstract class BaseHeadMountedCameraTest<T> : BaseCameraTest<HeadMountedCamera> where T : IActor
     {
         public const float Tolerance = 0.0001f;
 
-        public IHumanoid Actor { get; private set; }
+        public T Actor { get; private set; }
 
         public override void Setup()
         {
-            Actor = new DummyActor();
+            Actor = CreateActor();
 
             base.Setup();
         }
@@ -28,11 +26,13 @@ namespace Alensia.Tests.Camera
             {
                 Object.Destroy(Actor.Transform.gameObject);
 
-                Actor = null;
+                Actor = default(T);
             }
 
             base.TearDown();
         }
+
+        protected abstract T CreateActor();
 
         protected override HeadMountedCamera CreateCamera(UnityEngine.Camera camera)
         {
@@ -47,49 +47,17 @@ namespace Alensia.Tests.Camera
             return cam;
         }
 
-        public float ActualHeading
-        {
-            get
-            {
-                var head = Actor.GetBodyPart(HumanBodyBones.Head);
-                var body = Actor.Transform;
+        public abstract float ActualHeading { get; }
 
-                var direction = Vector3.ProjectOnPlane(head.forward, body.up);
+        public abstract float ActualElevation { get; }
 
-                var heading = Vector3.Angle(body.forward, direction);
-                var cross = body.InverseTransformDirection(Vector3.Cross(body.forward, direction));
-
-                if (cross.y < 0) heading = -heading;
-
-                return GeometryUtils.NormalizeAspectAngle(heading);
-            }
-        }
-
-        public float ActualElevation
-        {
-            get
-            {
-                var head = Actor.GetBodyPart(HumanBodyBones.Head);
-                var body = Actor.Transform;
-
-                var direction = Quaternion.AngleAxis(-ActualHeading, body.up) * head.forward;
-
-                var elevation = Vector3.Angle(body.forward, direction);
-                var cross = body.InverseTransformDirection(Vector3.Cross(body.forward, direction));
-
-                if (cross.x > 0) elevation = -elevation;
-
-                return GeometryUtils.NormalizeAspectAngle(elevation);
-            }
-        }
-
-        [Test, Description("It should use the target actor's head as the pivot point.")]
-        public void ShouldUseHeadPartAsPivotPoint()
+        [Test, Description("Initialize() should initialize the camera with the given target.")]
+        public void InitializeShouldSetTheTarget()
         {
             Expect(
-                Camera.Pivot,
-                Is.EqualTo(Actor.GetBodyPart(HumanBodyBones.Head))
-            );
+                Actor.Transform,
+                Is.EqualTo(Camera.Target),
+                "Unexpected camera target.");
         }
 
         [Test, Description("Changing Heading/Elevation should rotate the head to which the camera is attached.")]

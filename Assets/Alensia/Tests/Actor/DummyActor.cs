@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Alensia.Tests.Actor
 {
-    public class DummyActor : IHumanoid
+    public class DummyActor : IActor
     {
         public IWalker Locomotion { get; private set; }
 
@@ -12,7 +12,7 @@ namespace Alensia.Tests.Actor
 
         public Transform Transform { get; private set; }
 
-        public Transform Head { get; private set; }
+        public Transform Body { get; private set; }
 
         public DummyActor()
         {
@@ -27,21 +27,10 @@ namespace Alensia.Tests.Actor
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 
-            body.transform.parent = Transform;
-            body.transform.localPosition = new Vector3(0, 0.5f, 0);
+            Body = body.transform;
 
-
-            var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
-            head.transform.parent = body.transform;
-            head.transform.localPosition = new Vector3(0, 1.5f, 0);
-
-            Head = head.transform;
-        }
-
-        public Transform GetBodyPart(HumanBodyBones bone)
-        {
-            return bone == HumanBodyBones.Head ? Head : Animator.GetBoneTransform(bone);
+            Body.parent = Transform;
+            Body.localPosition = new Vector3(0, 0.5f, 0);
         }
     }
 }
