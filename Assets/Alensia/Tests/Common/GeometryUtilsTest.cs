@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Alensia.Tests.Common
 {
     [TestFixture, Description("Test suite for GeometryUtils.")]
-    public class GeometryUtilsTest : AssertionHelper
+    public class GeometryUtilsTest : BaseTest
     {
         [Test, Description("NormalizeAspectAngle() should normalize a given angle to -180 < v < 180 range.")]
         [TestCase(0, 0)]

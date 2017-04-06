@@ -9,8 +9,6 @@ namespace Alensia.Tests.Camera
     [TestFixture, Description("Test suite for BaseOrbitingCamera class.")]
     public class BaseOrbitingCameraTest : BaseCameraTest<BaseOrbitingCamera>
     {
-        public const float Tolerance = 0.0001f;
-
         public Transform Pivot
         {
             get { return Camera.Pivot; }

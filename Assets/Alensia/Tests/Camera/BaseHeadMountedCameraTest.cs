@@ -9,8 +9,6 @@ namespace Alensia.Tests.Camera
 {
     public abstract class BaseHeadMountedCameraTest<T> : BaseCameraTest<HeadMountedCamera> where T : IActor
     {
-        public const float Tolerance = 0.0001f;
-
         public T Actor { get; private set; }
 
         public override void Setup()
