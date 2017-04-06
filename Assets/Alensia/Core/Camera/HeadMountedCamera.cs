@@ -127,11 +127,15 @@ namespace Alensia.Core.Camera
 
         protected virtual void UpdatePosition(float heading, float elevation)
         {
-            Head.localRotation = Quaternion.Euler(new Vector3(-_elevation, _heading, 0));
-
-            if (Head != Pivot)
+            if (Head == Pivot)
             {
-                Head.localRotation *= Pivot.localRotation * Quaternion.Inverse(Pivot.localRotation);
+                Head.localRotation = Quaternion.Euler(new Vector3(-_elevation, _heading, 0));
+            }
+            else
+            {
+                Head.localRotation = Pivot.localRotation *
+                                     Quaternion.Euler(new Vector3(-_elevation, _heading, 0)) *
+                                     Quaternion.Inverse(Pivot.localRotation);
             }
 
             Transform.position = Pivot.position;
