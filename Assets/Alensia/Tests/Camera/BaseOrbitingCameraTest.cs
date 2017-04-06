@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Camera;
+﻿using Alensia.Core.Actor;
+using Alensia.Core.Camera;
 using Alensia.Core.Common;
 using NUnit.Framework;
 using UnityEngine;
@@ -6,28 +7,25 @@ using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    [TestFixture, Description("Test suite for BaseOrbitingCamera class.")]
-    public class BaseOrbitingCameraTest : BaseCameraTest<BaseOrbitingCamera>
+    public abstract class BaseOrbitingCameraTest<TCamera, TActor> : BaseTrackingCameraTest<TCamera, TActor>
+        where TCamera : BaseOrbitingCamera, ITrackingCamera
+        where TActor : IActor
     {
-        public Transform Pivot
-        {
-            get { return Camera.Pivot; }
-        }
-
         public float ActualDistance
         {
-            get { return Vector3.Distance(Camera.Transform.position, Pivot.position); }
+            get { return Vector3.Distance(Camera.Transform.position, Camera.Pivot.position); }
         }
 
         public float ActualHeading
         {
             get
             {
-                var offset = (Pivot.position - Camera.Transform.position).normalized;
-                var direction = Vector3.ProjectOnPlane(offset, Pivot.up);
+                var offset = (Camera.Pivot.position - Camera.Transform.position).normalized;
+                var direction = Vector3.ProjectOnPlane(offset, Camera.Pivot.up);
 
-                var heading = Vector3.Angle(Pivot.forward, direction);
-                var cross = Pivot.InverseTransformDirection(Vector3.Cross(Pivot.forward, direction));
+                var heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                var cross = Camera.Pivot.InverseTransformDirection(
+                    Vector3.Cross(Camera.Pivot.forward, direction));
 
                 if (cross.y < 0) heading = -heading;
 
@@ -39,35 +37,17 @@ namespace Alensia.Tests.Camera
         {
             get
             {
-                var offset = (Pivot.position - Camera.Transform.position).normalized;
-                var direction = Quaternion.AngleAxis(-ActualHeading, Pivot.up) * offset;
+                var offset = (Camera.Pivot.position - Camera.Transform.position).normalized;
+                var direction = Quaternion.AngleAxis(-ActualHeading, Camera.Pivot.up) * offset;
 
-                var elevation = Vector3.Angle(Pivot.forward, direction);
-                var cross = Pivot.InverseTransformDirection(Vector3.Cross(Pivot.forward, direction));
+                var elevation = Vector3.Angle(Camera.Pivot.forward, direction);
+                var cross = Camera.Pivot.InverseTransformDirection(
+                    Vector3.Cross(Camera.Pivot.forward, direction));
 
                 if (cross.x > 0) elevation = -elevation;
 
                 return GeometryUtils.NormalizeAspectAngle(elevation);
             }
-        }
-
-        [TearDown]
-        public override void TearDown()
-        {
-            if (Pivot != null)
-            {
-                Object.Destroy(Pivot.gameObject);
-            }
-
-            base.TearDown();
-        }
-
-        protected override BaseOrbitingCamera CreateCamera(UnityEngine.Camera camera)
-        {
-            var pivotObject = new GameObject();
-            var pivot = pivotObject.GetComponent<Transform>();
-
-            return new TestCamera(pivot, camera);
         }
 
         [Test, Description("Changing Heading/Elevation/Distance should move the camera to a proper position.")]
@@ -102,14 +82,14 @@ namespace Alensia.Tests.Camera
             [Values(-120, 60)] float heading,
             [Values(-40, 15)] float elevation)
         {
-            Pivot.eulerAngles = new Vector3
+            Actor.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Pivot.position = new Vector3
+            Actor.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -144,14 +124,14 @@ namespace Alensia.Tests.Camera
             Camera.Elevation = elevation;
             Camera.Distance = distance;
 
-            Pivot.eulerAngles = new Vector3
+            Actor.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Pivot.position = new Vector3
+            Actor.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -231,54 +211,6 @@ namespace Alensia.Tests.Camera
                 Camera.Distance,
                 Is.EqualTo(Camera.DistanceSettings.Maximum).Within(Tolerance),
                 "Unexpected camera distance.");
-        }
-
-        private class TestCamera : BaseOrbitingCamera
-        {
-            private readonly Transform _pivot;
-
-            private readonly RotationalConstraints _rotationalConstraints;
-
-            private readonly DistanceSettings _distanceSettings;
-
-            public override RotationalConstraints RotationalConstraints
-            {
-                get { return _rotationalConstraints; }
-            }
-
-            public override DistanceSettings DistanceSettings
-            {
-                get { return _distanceSettings; }
-            }
-
-            public override Transform Pivot
-            {
-                get { return _pivot; }
-            }
-
-            protected override Vector3 AxisForward
-            {
-                get { return _pivot.forward; }
-            }
-
-            protected override Vector3 AxisUp
-            {
-                get { return _pivot.up; }
-            }
-
-            public TestCamera(Transform anchor, UnityEngine.Camera camera) : base(camera)
-            {
-                _pivot = anchor;
-
-                _rotationalConstraints = new RotationalConstraints
-                {
-                    Up = 90,
-                    Down = 90,
-                    Side = 180
-                };
-
-                _distanceSettings = new DistanceSettings();
-            }
         }
     }
 }

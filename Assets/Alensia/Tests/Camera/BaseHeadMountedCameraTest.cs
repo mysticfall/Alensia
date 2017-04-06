@@ -7,31 +7,9 @@ using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class BaseHeadMountedCameraTest<T> : BaseCameraTest<HeadMountedCamera> where T : IActor
+    public abstract class BaseHeadMountedCameraTest<T> :
+        BaseTrackingCameraTest<HeadMountedCamera, T> where T : IActor
     {
-        public T Actor { get; private set; }
-
-        public override void Setup()
-        {
-            Actor = CreateActor();
-
-            base.Setup();
-        }
-
-        public override void TearDown()
-        {
-            if (Actor != null)
-            {
-                Object.Destroy(Actor.Transform.gameObject);
-
-                Actor = default(T);
-            }
-
-            base.TearDown();
-        }
-
-        protected abstract T CreateActor();
-
         protected override HeadMountedCamera CreateCamera(UnityEngine.Camera camera)
         {
             var cam = new HeadMountedCamera(camera);
@@ -48,15 +26,6 @@ namespace Alensia.Tests.Camera
         public abstract float ActualHeading { get; }
 
         public abstract float ActualElevation { get; }
-
-        [Test, Description("Initialize() should initialize the camera with the given target.")]
-        public void InitializeShouldSetTheTarget()
-        {
-            Expect(
-                Actor.Transform,
-                Is.EqualTo(Camera.Target),
-                "Unexpected camera target.");
-        }
 
         [Test, Description("Changing Heading/Elevation should rotate the head to which the camera is attached.")]
         public void ShouldRotateHeadToProperPosition(

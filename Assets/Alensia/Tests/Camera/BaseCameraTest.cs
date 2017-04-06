@@ -30,5 +30,19 @@ namespace Alensia.Tests.Camera
         }
 
         protected abstract T CreateCamera(UnityEngine.Camera camera);
+
+        [Test, Description("Activate() should make the camera in active state.")]
+        public void ActivateShouldMakeCameraInActiveStatus()
+        {
+            Expect(Camera.Active, Is.True, "Unexpected camera state.");
+        }
+
+        [Test, Description("Deactivate() should make the camera in inactive state.")]
+        public void DeactivateShouldMakeCameraInInactiveStatus()
+        {
+            Camera.Deactivate();
+
+            Expect(Camera.Active, Is.False, "Unexpected camera state.");
+        }
     }
 }
