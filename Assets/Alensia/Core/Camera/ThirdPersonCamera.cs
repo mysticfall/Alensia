@@ -116,7 +116,12 @@ namespace Alensia.Core.Camera
         [Serializable]
         public class Settings : IEditorSettings
         {
-            public RotationalConstraints Rotation = new RotationalConstraints();
+            public RotationalConstraints Rotation = new RotationalConstraints
+            {
+                Down = 80,
+                Side = 180,
+                Up = 80
+            };
 
             public DistanceSettings Distance = new DistanceSettings();
 

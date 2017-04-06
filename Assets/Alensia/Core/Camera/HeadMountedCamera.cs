@@ -155,7 +155,12 @@ namespace Alensia.Core.Camera
             [Range(0.1f, 10f)]
             public float LookAhead = 10f;
 
-            public RotationalConstraints Rotation = new RotationalConstraints();
+            public RotationalConstraints Rotation = new RotationalConstraints
+            {
+                Down = 65,
+                Side = 85,
+                Up = 60
+            };
         }
     }
 }
