@@ -153,5 +153,21 @@ namespace Alensia.Tests.Camera
                 Is.EqualTo(-30).Within(Tolerance),
                 "Unexpected camera elevation.");
         }
+
+        [Test, Description("It should restore the head to its initial rotation when it is deactivated.")]
+        public void ShouldRestoreHeadRotationUponDeactivation()
+        {
+            var rotation = Camera.Head.rotation;
+
+            Camera.Heading = 30;
+            Camera.Elevation = 80;
+
+            Camera.Deactivate();
+
+            Expect(
+                Camera.Head.rotation,
+                Is.EqualTo(rotation),
+                "Unexpected head rotation.");
+        }
     }
 }

@@ -80,6 +80,8 @@ namespace Alensia.Core.Camera
 
         private float _elevation;
 
+        private Quaternion _initialRotation;
+
         private readonly float _lookAhead;
 
         private readonly RotationalConstraints _rotationalConstraints;
@@ -118,6 +120,15 @@ namespace Alensia.Core.Camera
             }
 
             Pivot = FindMountPoint(Head) ?? Head;
+
+            _initialRotation = Head.localRotation;
+        }
+
+        protected override void OnDeactivate()
+        {
+            base.OnDeactivate();
+
+            Head.localRotation = _initialRotation;
         }
 
         protected virtual Transform FindMountPoint(Transform parent)
@@ -135,7 +146,8 @@ namespace Alensia.Core.Camera
             }
             else
             {
-                Head.localRotation = Pivot.localRotation *
+                Head.localRotation = _initialRotation *
+                                     Pivot.localRotation *
                                      Quaternion.Euler(new Vector3(-_elevation, _heading, 0)) *
                                      Quaternion.Inverse(Pivot.localRotation);
             }
