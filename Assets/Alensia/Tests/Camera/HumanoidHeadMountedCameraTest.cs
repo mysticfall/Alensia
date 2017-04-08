@@ -1,4 +1,5 @@
 using Alensia.Core.Actor;
+using Alensia.Core.Camera;
 using Alensia.Core.Common;
 using Alensia.Tests.Actor;
 using NUnit.Framework;
@@ -54,6 +55,8 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should use the target actor's head as the pivot point.")]
         public void ShouldUseHeadPartAsPivotPoint()
         {
+            if (Camera.Pivot.name == HeadMountedCamera.MountPointName) return;
+
             Expect(
                 Camera.Pivot,
                 Is.EqualTo(Actor.GetBodyPart(HumanBodyBones.Head)),
