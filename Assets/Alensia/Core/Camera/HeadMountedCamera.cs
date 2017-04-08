@@ -9,6 +9,8 @@ namespace Alensia.Core.Camera
 {
     public class HeadMountedCamera : BaseCameraMode, IFirstPersonCamera, ILateTickable
     {
+        public const string MountPointName = "CameraMount";
+
         public float Heading
         {
             get { return _heading; }
@@ -122,7 +124,7 @@ namespace Alensia.Core.Camera
         {
             Assert.IsNotNull(parent, "parent != null");
 
-            return parent.FindChild("CameraMount");
+            return parent.FindChild(MountPointName);
         }
 
         protected virtual void UpdatePosition(float heading, float elevation)
