@@ -18,7 +18,21 @@ namespace Alensia.Tests.Camera
                 var head = Camera.Pivot;
                 var body = Camera.Target.Transform;
 
-                var direction = Vector3.ProjectOnPlane(head.forward, body.up);
+                Vector3 direction;
+
+                if (Mathf.Approximately(Camera.Elevation, -90))
+                {
+                    direction = head.up;
+                }
+                else if (Mathf.Approximately(Camera.Elevation, 90))
+                {
+                    direction = -head.up;
+
+                }
+                else
+                {
+                    direction = Vector3.ProjectOnPlane(head.forward, body.up);
+                }
 
                 var heading = Vector3.Angle(body.forward, direction);
                 var cross = body.InverseTransformDirection(Vector3.Cross(body.forward, direction));

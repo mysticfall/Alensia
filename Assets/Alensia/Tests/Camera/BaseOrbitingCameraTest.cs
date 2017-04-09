@@ -21,9 +21,26 @@ namespace Alensia.Tests.Camera
             get
             {
                 var offset = (Camera.Pivot.position - Camera.Transform.position).normalized;
-                var direction = Vector3.ProjectOnPlane(offset, Camera.Pivot.up);
 
-                var heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                Vector3 direction;
+                float heading;
+
+                if (Mathf.Approximately(Camera.Elevation, -90))
+                {
+                    direction = Camera.Transform.up;
+                    heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                }
+                else if (Mathf.Approximately(Camera.Elevation, 90))
+                {
+                    direction = -Camera.Transform.up;
+                    heading = -Vector3.Angle(Camera.Pivot.forward, direction);
+                }
+                else
+                {
+                    direction = Vector3.ProjectOnPlane(offset, Camera.Pivot.up);
+                    heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                }
+
                 var cross = Camera.Pivot.InverseTransformDirection(
                     Vector3.Cross(Camera.Pivot.forward, direction));
 
@@ -48,6 +65,34 @@ namespace Alensia.Tests.Camera
 
                 return GeometryUtils.NormalizeAspectAngle(elevation);
             }
+        }
+
+        [Test, Description("It should return camera's rotation as heading when elevation is -90/90 degrees.")]
+        public void ShouldUseCameraRotationAsHeadingWhenElevationIs90Degrees(
+            [Values(5, 10)] float distance,
+            [TestRange(-180, 180, 45)] float heading,
+            [Values(-90, 90)] float elevation)
+        {
+            Actor.Transform.eulerAngles = new Vector3
+            {
+                x = Random.Range(-180, 180),
+                y = Random.Range(-180, 180),
+                z = Random.Range(-180, 180)
+            };
+
+            Camera.RotationalConstraints.Up = 90;
+            Camera.RotationalConstraints.Down = 90;
+
+            Camera.Heading = heading;
+            Camera.Elevation = elevation;
+            Camera.Distance = distance;
+
+            var expected = GeometryUtils.NormalizeAspectAngle(heading);
+
+            Expect(
+                ActualHeading,
+                Is.EqualTo(expected).Within(Tolerance),
+                "Unexpected camera heading.");
         }
 
         [Test, Description("Changing Heading/Elevation/Distance should move the camera to a proper position.")]

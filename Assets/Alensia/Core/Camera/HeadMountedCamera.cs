@@ -142,20 +142,27 @@ namespace Alensia.Core.Camera
         {
             if (Head == Pivot)
             {
-                Head.localRotation = Quaternion.Euler(new Vector3(-_elevation, _heading, 0));
+                Head.localRotation = Quaternion.Euler(new Vector3(-elevation, heading, 0));
             }
             else
             {
                 Head.localRotation = _initialRotation *
                                      Pivot.localRotation *
-                                     Quaternion.Euler(new Vector3(-_elevation, _heading, 0)) *
+                                     Quaternion.Euler(new Vector3(-elevation, heading, 0)) *
                                      Quaternion.Inverse(Pivot.localRotation);
             }
 
             Transform.position = Pivot.position;
             Transform.rotation = Pivot.rotation;
 
-            Transform.LookAt(FocalPoint);
+            if (Mathf.Abs(elevation) > 89)
+            {
+                Transform.LookAt(FocalPoint, Transform.up);
+            }
+            else
+            {
+                Transform.LookAt(FocalPoint);
+            }
         }
 
         public virtual void LateTick()

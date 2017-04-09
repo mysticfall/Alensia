@@ -83,9 +83,16 @@ namespace Alensia.Core.Camera
             Transform.position = Pivot.position - AxisForward * distance;
 
             Transform.RotateAround(Pivot.position, Transform.right, -elevation);
-            Transform.RotateAround(Pivot.position, AxisUp, heading);
 
-            Transform.LookAt(Pivot);
+            if (Mathf.Approximately(Mathf.Abs(elevation), 90))
+            {
+                Transform.Rotate(Vector3.forward, -heading);
+            }
+            else
+            {
+                Transform.RotateAround(Pivot.position, AxisUp, heading);
+                Transform.LookAt(Pivot);
+            }
         }
 
         public virtual void LateTick()

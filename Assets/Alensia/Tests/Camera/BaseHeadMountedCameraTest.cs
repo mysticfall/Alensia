@@ -113,6 +113,32 @@ namespace Alensia.Tests.Camera
                 "Unexpected camera elevation.");
         }
 
+        [Test, Description("It should return camera's rotation as heading when elevation is -90/90 degrees.")]
+        public void ShouldUseCameraRotationAsHeadingWhenElevationIs90Degrees(
+            [TestRange(-120, 120, 45)] float heading,
+            [Values(-90, 90)] float elevation)
+        {
+            Actor.Transform.eulerAngles = new Vector3
+            {
+                x = Random.Range(-180, 180),
+                y = Random.Range(-180, 180),
+                z = Random.Range(-180, 180)
+            };
+
+            Camera.RotationalConstraints.Up = 90;
+            Camera.RotationalConstraints.Down = 90;
+
+            Camera.Heading = heading;
+            Camera.Elevation = elevation;
+
+            var expected = GeometryUtils.NormalizeAspectAngle(heading);
+
+            Expect(
+                ActualHeading,
+                Is.EqualTo(expected).Within(Tolerance),
+                "Unexpected camera heading.");
+        }
+
         [Test, Description("Heading property should be clamped between the min. and the max. values.")]
         public void ShouldClampHeadingProperty()
         {
