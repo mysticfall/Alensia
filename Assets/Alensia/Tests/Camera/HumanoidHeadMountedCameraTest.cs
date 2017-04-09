@@ -26,7 +26,6 @@ namespace Alensia.Tests.Camera
                 else if (Mathf.Approximately(Camera.Elevation, 90))
                 {
                     direction = -Camera.AxisUp;
-
                 }
                 else
                 {
@@ -67,24 +66,22 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should use the target actor's head as the pivot point.")]
         public void ShouldUseHeadPartAsPivotPoint()
         {
-            var head = Actor.GetBodyPart(HumanBodyBones.Head);
-
-            if (head.FindChild(HeadMountedCamera.MountPointName))
+            if (Actor.Head.FindChild(HeadMountedCamera.MountPointName))
             {
                 return;
             }
 
             Expect(
                 Camera.Pivot,
-                Is.EqualTo(head.position),
+                Is.EqualTo(Actor.Head.position),
                 "Unexpected pivot position.");
             Expect(
                 Camera.AxisForward,
-                Is.EqualTo(head.forward),
+                Is.EqualTo(Actor.Head.forward),
                 "Unexpected pivot axis (forward).");
             Expect(
                 Camera.AxisUp,
-                Is.EqualTo(head.up),
+                Is.EqualTo(Actor.Head.up),
                 "Unexpected pivot axis (up).");
             Expect(
                 Camera.Head,

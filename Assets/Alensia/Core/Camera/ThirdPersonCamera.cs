@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using UnityEngine;
@@ -84,7 +84,7 @@ namespace Alensia.Core.Camera
             }
             else
             {
-                _pivotObject = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
+                _pivotObject = character.Head ?? Target.Transform;
             }
 
             Distance = DistanceSettings.Default;

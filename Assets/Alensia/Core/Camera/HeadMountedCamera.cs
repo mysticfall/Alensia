@@ -131,7 +131,7 @@ namespace Alensia.Core.Camera
             }
             else
             {
-                Head = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
+                Head = character.Head ?? Target.Transform;
             }
 
             _pivotObject = FindMountPoint(Head) ?? Head;
