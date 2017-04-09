@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using UnityEngine;
@@ -31,22 +31,22 @@ namespace Alensia.Core.Camera
 
         public ITransformable Target { get; private set; }
 
-        public override Transform Pivot
+        public override Vector3 Pivot
         {
-            get { return _pivot; }
+            get { return _pivotObject.position; }
         }
 
-        protected override Vector3 AxisForward
+        public override Vector3 AxisForward
         {
             get { return Target.Transform.forward; }
         }
 
-        protected override Vector3 AxisUp
+        public override Vector3 AxisUp
         {
             get { return Target.Transform.up; }
         }
 
-        private Transform _pivot;
+        private Transform _pivotObject;
 
         private readonly RotationalConstraints _rotationalConstraints;
 
@@ -80,11 +80,11 @@ namespace Alensia.Core.Camera
 
             if (character == null)
             {
-                _pivot = Target.Transform;
+                _pivotObject = Target.Transform;
             }
             else
             {
-                _pivot = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
+                _pivotObject = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
             }
 
             Distance = DistanceSettings.Default;
@@ -97,15 +97,15 @@ namespace Alensia.Core.Camera
 
             if (WallAvoidanceSettings.AvoidWalls)
             {
-                var direction = (Transform.position - Pivot.position).normalized;
-                var ray = new Ray(Pivot.position, direction);
+                var direction = (Transform.position - Pivot).normalized;
+                var ray = new Ray(Pivot, direction);
 
                 RaycastHit hit;
 
                 if (UnityEngine.Physics.Raycast(ray, out hit, preferredDistance))
                 {
                     preferredDistance =
-                        Vector3.Distance(Pivot.position, hit.point) -
+                        Vector3.Distance(Pivot, hit.point) -
                         WallAvoidanceSettings.MinimumDistance;
                 }
             }

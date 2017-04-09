@@ -29,9 +29,17 @@ namespace Alensia.Tests.Camera
         {
             Expect(
                 Camera.Pivot,
-                Is.EqualTo(Actor.Transform),
-                "Unexpected pivot object."
+                Is.EqualTo(Actor.Transform.position),
+                "Unexpected pivot position."
             );
+            Expect(
+                Camera.AxisForward,
+                Is.EqualTo(Actor.Transform.forward),
+                "Unexpected pivot axis (forward).");
+            Expect(
+                Camera.AxisUp,
+                Is.EqualTo(Actor.Transform.up),
+                "Unexpected pivot axis (up).");
             Expect(
                 Camera.Head,
                 Is.EqualTo(Actor.Transform),

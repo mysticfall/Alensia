@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Actor;
+﻿﻿using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Tests.Actor;
 using NUnit.Framework;
@@ -28,10 +28,21 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should find an object named 'CameraMount' and use it as a pivot point.")]
         public void ShouldUseMountPointAsPivotIfAvailable()
         {
+            var head = Actor.GetBodyPart(HumanBodyBones.Head);
+            var pivot = head.FindChild(HeadMountedCamera.MountPointName);
+
             Expect(
-                Camera.Pivot.name,
-                Is.EqualTo(HeadMountedCamera.MountPointName),
-                "Unexpected pivot object.");
+                Camera.Pivot,
+                Is.EqualTo(pivot.position),
+                "Unexpected pivot position.");
+            Expect(
+                Camera.AxisForward,
+                Is.EqualTo(pivot.forward),
+                "Unexpected pivot axis (forward).");
+            Expect(
+                Camera.AxisUp,
+                Is.EqualTo(pivot.up),
+                "Unexpected pivot axis (up).");
         }
     }
 }

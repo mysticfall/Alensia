@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Actor;
+﻿﻿using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Common;
 using NUnit.Framework;
@@ -13,14 +13,14 @@ namespace Alensia.Tests.Camera
     {
         public float ActualDistance
         {
-            get { return Vector3.Distance(Camera.Transform.position, Camera.Pivot.position); }
+            get { return Vector3.Distance(Camera.Transform.position, Camera.Pivot); }
         }
 
         public float ActualHeading
         {
             get
             {
-                var offset = (Camera.Pivot.position - Camera.Transform.position).normalized;
+                var offset = (Camera.Pivot - Camera.Transform.position).normalized;
 
                 Vector3 direction;
                 float heading;
@@ -28,21 +28,21 @@ namespace Alensia.Tests.Camera
                 if (Mathf.Approximately(Camera.Elevation, -90))
                 {
                     direction = Camera.Transform.up;
-                    heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                    heading = Vector3.Angle(Camera.AxisForward, direction);
                 }
                 else if (Mathf.Approximately(Camera.Elevation, 90))
                 {
                     direction = -Camera.Transform.up;
-                    heading = -Vector3.Angle(Camera.Pivot.forward, direction);
+                    heading = -Vector3.Angle(Camera.AxisForward, direction);
                 }
                 else
                 {
-                    direction = Vector3.ProjectOnPlane(offset, Camera.Pivot.up);
-                    heading = Vector3.Angle(Camera.Pivot.forward, direction);
+                    direction = Vector3.ProjectOnPlane(offset, Camera.AxisUp);
+                    heading = Vector3.Angle(Camera.AxisForward, direction);
                 }
 
-                var cross = Camera.Pivot.InverseTransformDirection(
-                    Vector3.Cross(Camera.Pivot.forward, direction));
+                var cross = Camera.Target.Transform.InverseTransformDirection(
+                    Vector3.Cross(Camera.AxisForward, direction));
 
                 if (cross.y < 0) heading = -heading;
 
@@ -54,12 +54,12 @@ namespace Alensia.Tests.Camera
         {
             get
             {
-                var offset = (Camera.Pivot.position - Camera.Transform.position).normalized;
-                var direction = Quaternion.AngleAxis(-ActualHeading, Camera.Pivot.up) * offset;
+                var offset = (Camera.Pivot - Camera.Transform.position).normalized;
+                var direction = Quaternion.AngleAxis(-ActualHeading, Camera.AxisUp) * offset;
 
-                var elevation = Vector3.Angle(Camera.Pivot.forward, direction);
-                var cross = Camera.Pivot.InverseTransformDirection(
-                    Vector3.Cross(Camera.Pivot.forward, direction));
+                var elevation = Vector3.Angle(Camera.AxisForward, direction);
+                var cross = Camera.Target.Transform.InverseTransformDirection(
+                    Vector3.Cross(Camera.AxisForward, direction));
 
                 if (cross.x > 0) elevation = -elevation;
 

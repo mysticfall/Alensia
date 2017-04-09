@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using UnityEngine;
@@ -64,7 +64,20 @@ namespace Alensia.Core.Camera
 
         public Transform Head { get; private set; }
 
-        public Transform Pivot { get; private set; }
+        public Vector3 Pivot
+        {
+            get { return _pivotObject.position; }
+        }
+
+        public Vector3 AxisForward
+        {
+            get { return _pivotObject.forward; }
+        }
+
+        public Vector3 AxisUp
+        {
+            get { return _pivotObject.up; }
+        }
 
         protected Vector3 FocalPoint
         {
@@ -81,6 +94,8 @@ namespace Alensia.Core.Camera
         private float _elevation;
 
         private Quaternion _initialRotation;
+
+        private Transform _pivotObject;
 
         private readonly float _lookAhead;
 
@@ -119,7 +134,7 @@ namespace Alensia.Core.Camera
                 Head = character.GetBodyPart(HumanBodyBones.Head) ?? Target.Transform;
             }
 
-            Pivot = FindMountPoint(Head) ?? Head;
+            _pivotObject = FindMountPoint(Head) ?? Head;
 
             _initialRotation = Head.localRotation;
         }
@@ -140,20 +155,20 @@ namespace Alensia.Core.Camera
 
         protected virtual void UpdatePosition(float heading, float elevation)
         {
-            if (Head == Pivot)
+            if (Head == _pivotObject)
             {
                 Head.localRotation = Quaternion.Euler(new Vector3(-elevation, heading, 0));
             }
             else
             {
                 Head.localRotation = _initialRotation *
-                                     Pivot.localRotation *
+                                     _pivotObject.localRotation *
                                      Quaternion.Euler(new Vector3(-elevation, heading, 0)) *
-                                     Quaternion.Inverse(Pivot.localRotation);
+                                     Quaternion.Inverse(_pivotObject.localRotation);
             }
 
-            Transform.position = Pivot.position;
-            Transform.rotation = Pivot.rotation;
+            Transform.position = Pivot;
+            Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
 
             if (Mathf.Abs(elevation) > 89)
             {

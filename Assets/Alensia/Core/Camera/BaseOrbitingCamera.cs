@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Common;
+﻿﻿using Alensia.Core.Common;
 using UnityEngine;
 using Zenject;
 
@@ -59,11 +59,11 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public abstract Transform Pivot { get; }
+        public abstract Vector3 Pivot { get; }
 
-        protected abstract Vector3 AxisForward { get; }
+        public abstract Vector3 AxisForward { get; }
 
-        protected abstract Vector3 AxisUp { get; }
+        public abstract Vector3 AxisUp { get; }
 
         private float _heading;
 
@@ -80,9 +80,9 @@ namespace Alensia.Core.Camera
             float heading, float elevation, float distance)
         {
             Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
-            Transform.position = Pivot.position - AxisForward * distance;
+            Transform.position = Pivot - AxisForward * distance;
 
-            Transform.RotateAround(Pivot.position, Transform.right, -elevation);
+            Transform.RotateAround(Pivot, Transform.right, -elevation);
 
             if (Mathf.Approximately(Mathf.Abs(elevation), 90))
             {
@@ -90,8 +90,8 @@ namespace Alensia.Core.Camera
             }
             else
             {
-                Transform.RotateAround(Pivot.position, AxisUp, heading);
-                Transform.LookAt(Pivot);
+                Transform.RotateAround(Pivot, AxisUp, heading);
+                Transform.LookAt(Pivot, AxisUp);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 
 namespace Alensia.Core.Camera
 {
@@ -10,6 +10,10 @@ namespace Alensia.Core.Camera
 
         float Elevation { get; set; }
 
-        Transform Pivot { get; }
+        Vector3 Pivot { get; }
+
+        Vector3 AxisForward { get; }
+
+        Vector3 AxisUp { get; }
     }
 }

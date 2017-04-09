@@ -15,23 +15,22 @@ namespace Alensia.Tests.Camera
         {
             get
             {
-                var head = Camera.Pivot;
                 var body = Camera.Target.Transform;
 
                 Vector3 direction;
 
                 if (Mathf.Approximately(Camera.Elevation, -90))
                 {
-                    direction = head.up;
+                    direction = Camera.AxisUp;
                 }
                 else if (Mathf.Approximately(Camera.Elevation, 90))
                 {
-                    direction = -head.up;
+                    direction = -Camera.AxisUp;
 
                 }
                 else
                 {
-                    direction = Vector3.ProjectOnPlane(head.forward, body.up);
+                    direction = Vector3.ProjectOnPlane(Camera.AxisForward, body.up);
                 }
 
                 var heading = Vector3.Angle(body.forward, direction);
@@ -47,10 +46,9 @@ namespace Alensia.Tests.Camera
         {
             get
             {
-                var head = Camera.Pivot;
                 var body = Camera.Target.Transform;
 
-                var direction = Quaternion.AngleAxis(-ActualHeading, body.up) * head.forward;
+                var direction = Quaternion.AngleAxis(-ActualHeading, body.up) * Camera.AxisForward;
 
                 var elevation = Vector3.Angle(body.forward, direction);
                 var cross = body.InverseTransformDirection(Vector3.Cross(body.forward, direction));
@@ -69,13 +67,25 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should use the target actor's head as the pivot point.")]
         public void ShouldUseHeadPartAsPivotPoint()
         {
-            if (Camera.Pivot.name == HeadMountedCamera.MountPointName) return;
+            var head = Actor.GetBodyPart(HumanBodyBones.Head);
+
+            if (head.FindChild(HeadMountedCamera.MountPointName))
+            {
+                return;
+            }
 
             Expect(
                 Camera.Pivot,
-                Is.EqualTo(Actor.GetBodyPart(HumanBodyBones.Head)),
-                "Unexpected pivot object."
-            );
+                Is.EqualTo(head.position),
+                "Unexpected pivot position.");
+            Expect(
+                Camera.AxisForward,
+                Is.EqualTo(head.forward),
+                "Unexpected pivot axis (forward).");
+            Expect(
+                Camera.AxisUp,
+                Is.EqualTo(head.up),
+                "Unexpected pivot axis (up).");
             Expect(
                 Camera.Head,
                 Is.EqualTo(Actor.GetBodyPart(HumanBodyBones.Head)),
