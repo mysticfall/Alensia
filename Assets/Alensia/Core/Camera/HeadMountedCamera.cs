@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using UnityEngine;
@@ -7,11 +7,11 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class HeadMountedCamera : BaseCameraMode, IFirstPersonCamera, ILateTickable
+    public class HeadMountedCamera : BaseRotatableCamera, IFirstPersonCamera, ILateTickable
     {
         public const string MountPointName = "CameraMount";
 
-        public float Heading
+        public override float Heading
         {
             get { return _heading; }
 
@@ -28,7 +28,7 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public float Elevation
+        public override float Elevation
         {
             get { return _elevation; }
 
@@ -55,7 +55,7 @@ namespace Alensia.Core.Camera
             get { return base.Valid && Head != null; }
         }
 
-        public RotationalConstraints RotationalConstraints
+        public override RotationalConstraints RotationalConstraints
         {
             get { return _rotationalConstraints; }
         }
@@ -64,17 +64,17 @@ namespace Alensia.Core.Camera
 
         public Transform Head { get; private set; }
 
-        public Vector3 Pivot
+        public override Vector3 Pivot
         {
             get { return _pivotObject.position; }
         }
 
-        public Vector3 AxisForward
+        public override Vector3 AxisForward
         {
             get { return _pivotObject.forward; }
         }
 
-        public Vector3 AxisUp
+        public override Vector3 AxisUp
         {
             get { return _pivotObject.up; }
         }

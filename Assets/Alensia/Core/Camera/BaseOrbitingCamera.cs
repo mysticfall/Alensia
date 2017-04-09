@@ -1,17 +1,14 @@
-﻿﻿using Alensia.Core.Common;
+﻿using Alensia.Core.Common;
 using UnityEngine;
 using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class BaseOrbitingCamera : BaseCameraMode,
-        IRotatableCamera, IZoomableCamera, ILateTickable
+    public abstract class BaseOrbitingCamera : BaseRotatableCamera, IZoomableCamera, ILateTickable
     {
-        public abstract RotationalConstraints RotationalConstraints { get; }
-
         public abstract DistanceSettings DistanceSettings { get; }
 
-        public float Heading
+        public override float Heading
         {
             get { return _heading; }
             set
@@ -27,7 +24,7 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public float Elevation
+        public override float Elevation
         {
             get { return _elevation; }
             set
@@ -58,12 +55,6 @@ namespace Alensia.Core.Camera
                 UpdatePosition(Heading, Elevation, distance);
             }
         }
-
-        public abstract Vector3 Pivot { get; }
-
-        public abstract Vector3 AxisForward { get; }
-
-        public abstract Vector3 AxisUp { get; }
 
         private float _heading;
 
