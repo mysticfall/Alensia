@@ -133,7 +133,16 @@ namespace Alensia.Core.Control
                 if (Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum) &&
                     Controller.InputManager.LastZoom < 0)
                 {
-                    nextCamera = Controller.CameraManager.ToFirstPerson(Controller.Player);
+                    var firstPersonCamera = Controller.CameraManager.ToFirstPerson(Controller.Player);
+                    var rotatableCamera = camera as IRotatableCamera;
+
+                    if (rotatableCamera != null)
+                    {
+                        firstPersonCamera.Heading = rotatableCamera.Heading;
+                        firstPersonCamera.Elevation = rotatableCamera.Elevation;
+                    }
+
+                    nextCamera = firstPersonCamera;
                 }
 
                 return nextCamera;
@@ -152,7 +161,12 @@ namespace Alensia.Core.Control
 
                 if (Controller.InputManager.LastZoom > 0)
                 {
-                    nextCamera = Controller.CameraManager.ToThirdPerson(Controller.Player);
+                    var thirdPersonCamera = Controller.CameraManager.ToThirdPerson(Controller.Player);
+
+                    thirdPersonCamera.Heading = camera.Heading;
+                    thirdPersonCamera.Elevation = camera.Elevation;
+
+                    nextCamera = thirdPersonCamera;
                 }
 
                 return nextCamera;
