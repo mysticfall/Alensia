@@ -33,7 +33,12 @@ namespace Alensia.Core.Camera
 
         public override Vector3 Pivot
         {
-            get { return _pivotObject.position; }
+            get
+            {
+                var humanoid = Target as IHumanoid;
+
+                return humanoid != null ? humanoid.Viewpoint : Target.Transform.position;
+            }
         }
 
         public override Vector3 AxisForward
@@ -45,8 +50,6 @@ namespace Alensia.Core.Camera
         {
             get { return Target.Transform.up; }
         }
-
-        private Transform _pivotObject;
 
         private readonly RotationalConstraints _rotationalConstraints;
 
@@ -75,18 +78,6 @@ namespace Alensia.Core.Camera
             Assert.IsNotNull(target, "target != null");
 
             Target = target;
-
-            var character = target as IHumanoid;
-
-            if (character == null)
-            {
-                _pivotObject = Target.Transform;
-            }
-            else
-            {
-                _pivotObject = character.Head ?? Target.Transform;
-            }
-
             Distance = DistanceSettings.Default;
         }
 

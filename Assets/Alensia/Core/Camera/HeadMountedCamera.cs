@@ -66,7 +66,12 @@ namespace Alensia.Core.Camera
 
         public override Vector3 Pivot
         {
-            get { return _pivotObject.position; }
+            get
+            {
+                var humanoid = Target as IHumanoid;
+
+                return !_hasMountPoint && humanoid != null ? humanoid.Viewpoint : _pivotObject.position;
+            }
         }
 
         public override Vector3 AxisForward
@@ -96,6 +101,8 @@ namespace Alensia.Core.Camera
         private Quaternion _initialRotation;
 
         private Transform _pivotObject;
+
+        private bool _hasMountPoint;
 
         private readonly float _lookAhead;
 
@@ -135,6 +142,7 @@ namespace Alensia.Core.Camera
             }
 
             _pivotObject = FindMountPoint(Head) ?? Head;
+            _hasMountPoint = Head != _pivotObject;
 
             _initialRotation = Head.localRotation;
         }
