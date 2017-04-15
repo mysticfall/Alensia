@@ -7,8 +7,8 @@ using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class BaseHeadMountedCameraTest<T> :
-        BaseTrackingCameraTest<HeadMountedCamera, T> where T : IActor
+    public abstract class HeadMountedCameraTest<T> :
+        TrackingCameraTest<HeadMountedCamera, T> where T : IActor
     {
         protected override HeadMountedCamera CreateCamera(UnityEngine.Camera camera)
         {

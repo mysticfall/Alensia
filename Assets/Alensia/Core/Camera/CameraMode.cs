@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class BaseCameraMode : ICameraMode
+    public abstract class CameraMode : ICameraMode
     {
         public UnityEngine.Camera Camera { get; private set; }
 
@@ -20,7 +20,7 @@ namespace Alensia.Core.Camera
             get { return true; }
         }
 
-        protected BaseCameraMode(UnityEngine.Camera camera)
+        protected CameraMode(UnityEngine.Camera camera)
         {
             Assert.IsNotNull(camera, "camera != null");
 

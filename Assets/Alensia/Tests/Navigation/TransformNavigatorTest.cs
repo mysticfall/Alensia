@@ -11,7 +11,7 @@ using TestRange = NUnit.Framework.RangeAttribute;
 namespace Alensia.Tests.Navigation
 {
     [TestFixture, Description("Test suite for TransformNavigator class.")]
-    public class TransformNavigatorTest : BaseTest
+    public class TransformNavigatorTest : TestBase
     {
         public TransformNavigator Navigator;
 

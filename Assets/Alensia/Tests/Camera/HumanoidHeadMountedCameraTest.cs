@@ -9,7 +9,7 @@ using TestRange = NUnit.Framework.RangeAttribute;
 namespace Alensia.Tests.Camera
 {
     [TestFixture, Description("Test suite for HeadMountedCamera class with a humanoid.")]
-    public class HumanoidHeadMountedCameraTest : BaseHeadMountedCameraTest<IHumanoid>
+    public class HumanoidHeadMountedCameraTest : HeadMountedCameraTest<IHumanoid>
     {
         public override float ActualHeading
         {

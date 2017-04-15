@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Alensia.Tests.Camera
 {
     [TestFixture, Description("Test suite for ThirdPersonCamera class.")]
-    public class ThirdPersonCameraTest : BaseOrbitingCameraTest<ThirdPersonCamera, IHumanoid>
+    public class ThirdPersonCameraTest : OrbitingCameraTest<ThirdPersonCamera, IHumanoid>
     {
         private GameObject _obstacle;
 

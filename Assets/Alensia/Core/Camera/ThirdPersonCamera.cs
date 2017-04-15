@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class ThirdPersonCamera : BaseOrbitingCamera, IThirdPersonCamera
+    public class ThirdPersonCamera : OrbitingCamera, IThirdPersonCamera
     {
         public override RotationalConstraints RotationalConstraints
         {

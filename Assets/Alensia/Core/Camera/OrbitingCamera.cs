@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class BaseOrbitingCamera : BaseRotatableCamera, IZoomableCamera, ILateTickable
+    public abstract class OrbitingCamera : RotatableCamera, IZoomableCamera, ILateTickable
     {
         public abstract DistanceSettings DistanceSettings { get; }
 
@@ -62,7 +62,7 @@ namespace Alensia.Core.Camera
 
         private float _distance;
 
-        protected BaseOrbitingCamera(
+        protected OrbitingCamera(
             UnityEngine.Camera camera) : base(camera)
         {
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class BaseRotatableCamera : BaseCameraMode, IRotatableCamera
+    public abstract class RotatableCamera : CameraMode, IRotatableCamera
     {
         public abstract RotationalConstraints RotationalConstraints { get; }
 
@@ -21,7 +21,7 @@ namespace Alensia.Core.Camera
             get { return Vector3.Cross(AxisUp, AxisForward); }
         }
 
-        protected BaseRotatableCamera(UnityEngine.Camera camera) : base(camera)
+        protected RotatableCamera(UnityEngine.Camera camera) : base(camera)
         {
         }
     }

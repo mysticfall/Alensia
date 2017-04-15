@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class HeadMountedCamera : BaseRotatableCamera, IFirstPersonCamera, ILateTickable
+    public class HeadMountedCamera : RotatableCamera, IFirstPersonCamera, ILateTickable
     {
         public const string MountPointName = "CameraMount";
 

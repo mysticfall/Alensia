@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class BaseCameraTest<T> : BaseTest where T : ICameraMode
+    public abstract class CameraTest<T> : TestBase where T : ICameraMode
     {
         public T Camera { get; private set; }
 

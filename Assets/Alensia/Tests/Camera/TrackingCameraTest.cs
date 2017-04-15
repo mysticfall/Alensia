@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class BaseTrackingCameraTest<TCamera, TActor> : BaseCameraTest<TCamera>
+    public abstract class TrackingCameraTest<TCamera, TActor> : CameraTest<TCamera>
         where TCamera : ITrackingCamera where TActor : IActor
     {
         public TActor Actor { get; private set; }

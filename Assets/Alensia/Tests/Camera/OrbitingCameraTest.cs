@@ -7,8 +7,8 @@ using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class BaseOrbitingCameraTest<TCamera, TActor> : BaseTrackingCameraTest<TCamera, TActor>
-        where TCamera : BaseOrbitingCamera, ITrackingCamera
+    public abstract class OrbitingCameraTest<TCamera, TActor> : TrackingCameraTest<TCamera, TActor>
+        where TCamera : OrbitingCamera, ITrackingCamera
         where TActor : IActor
     {
         public float ActualDistance

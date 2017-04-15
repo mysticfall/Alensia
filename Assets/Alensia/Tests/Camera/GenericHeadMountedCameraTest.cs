@@ -7,7 +7,7 @@ using TestRange = NUnit.Framework.RangeAttribute;
 namespace Alensia.Tests.Camera
 {
     [TestFixture, Description("Test suite for HeadMountedCamera class with a non humanoid actor.")]
-    public class GenericHeadMountedCameraTest : BaseHeadMountedCameraTest<IActor>
+    public class GenericHeadMountedCameraTest : HeadMountedCameraTest<IActor>
     {
         protected override IActor CreateActor()
         {
