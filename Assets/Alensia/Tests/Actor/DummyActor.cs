@@ -21,9 +21,7 @@ namespace Alensia.Tests.Actor
             Transform = root.transform;
             Animator = root.AddComponent<Animator>();
 
-            var locomotion = new TransformDrivenLocomotion(Animator, Transform);
-
-            Locomotion = new Walker(locomotion);
+            Locomotion = new Walker(Animator, Transform);
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 

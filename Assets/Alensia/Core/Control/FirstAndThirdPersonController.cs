@@ -201,13 +201,10 @@ namespace Alensia.Core.Control
 
             protected override ICameraMode Process(IRotatableCamera camera)
             {
-                var player = Controller.Player;
+                var locomotion = Controller.Player.Locomotion;
+                var speed = locomotion.RotateTowards(Vector3.up, camera.Heading);
 
-                var heading = player.Transform.eulerAngles.y;
-
-                player.Locomotion.TurnTo(heading + camera.Heading);
-
-                camera.Heading -= player.Transform.eulerAngles.y - heading;
+                camera.Heading -= speed * Time.deltaTime;
 
                 return camera;
             }
@@ -222,9 +219,9 @@ namespace Alensia.Core.Control
             protected override ICameraMode Process(ICameraMode camera)
             {
                 var locomotion = Controller.Player.Locomotion;
-                var movement = Controller.InputManager.LastMovement;
+                var movement = Controller.InputManager.LastMovement.normalized;
 
-                locomotion.Walk(movement.normalized);
+                locomotion.Move(new Vector3(movement.x, 0, movement.y));
 
                 return camera;
             }

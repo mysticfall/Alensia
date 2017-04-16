@@ -7,27 +7,32 @@ using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public class AnimatedLocomotion : ILocomotion, IAnimatable
+    public abstract class AnimatedLocomotion : Locomotion, IAnimatable
     {
+        public bool UseRootMotionForMovement = true;
+
+        public bool UseRootMotionForRotation = false;
+
         public MovementVariables MovementVariables { get; private set; }
 
         public RotationVariables RotationVariables { get; private set; }
 
         public Animator Animator { get; private set; }
 
-        public Transform Transform { get; private set; }
-
-        public AnimatedLocomotion(
-            Animator animator, Transform transform) : this(new Settings(), animator, transform)
+        protected AnimatedLocomotion(
+            Animator animator,
+            Transform transform) : this(new Settings(), animator, transform)
         {
         }
 
         [Inject]
-        public AnimatedLocomotion(Settings settings, Animator animator, Transform transform)
+        protected AnimatedLocomotion(
+            Settings settings,
+            Animator animator,
+            Transform transform) : base(transform)
         {
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(animator, "animator != null");
-            Assert.IsNotNull(transform, "transform != null");
 
             MovementVariables = settings.MovementVariables;
             RotationVariables = settings.RotationVariables;
@@ -36,43 +41,24 @@ namespace Alensia.Core.Locomotion
             Assert.IsNotNull(RotationVariables, "settings.RotationVariables != null");
 
             Animator = animator;
-            Transform = transform;
         }
 
-        public virtual Vector3 Move(Vector3 velocity)
+        protected override void UpdateVelocity(Vector3 velocity)
         {
-            var x = Animator.GetFloat(MovementVariables.SpeedRight);
-            var y = Animator.GetFloat(MovementVariables.SpeedUp);
-            var z = Animator.GetFloat(MovementVariables.SpeedForward);
+            Animator.SetBool(MovementVariables.Moving, velocity.magnitude > 0);
 
-            var current = new Vector3(x, y, z);
-            var effective = Vector3.LerpUnclamped(current, velocity, Time.deltaTime * 3.0f);
-
-            Animator.SetBool(MovementVariables.Moving, effective.magnitude > 0);
-
-            Animator.SetFloat(MovementVariables.SpeedRight, effective.x);
-            Animator.SetFloat(MovementVariables.SpeedUp, effective.y);
-            Animator.SetFloat(MovementVariables.SpeedForward, effective.z);
-
-            return effective;
+            Animator.SetFloat(MovementVariables.SpeedRight, velocity.x);
+            Animator.SetFloat(MovementVariables.SpeedUp, velocity.y);
+            Animator.SetFloat(MovementVariables.SpeedForward, velocity.z);
         }
 
-        public virtual Vector3 Rotate(Vector3 velocity)
+        protected override void UpdateRotation(Vector3 angularVelocity)
         {
-            var x = Animator.GetFloat(RotationVariables.SpeedPitch);
-            var y = Animator.GetFloat(RotationVariables.SpeedYaw);
-            var z = Animator.GetFloat(RotationVariables.SpeedRoll);
+            Animator.SetBool(RotationVariables.Turning, angularVelocity.magnitude > 0);
 
-            var current = new Vector3(x, y, z);
-            var effective = Vector3.LerpUnclamped(current, velocity, Time.deltaTime * 3.0f);
-
-            Animator.SetBool(RotationVariables.Turning, effective.magnitude > 0);
-
-            Animator.SetFloat(RotationVariables.SpeedPitch, effective.x);
-            Animator.SetFloat(RotationVariables.SpeedYaw, effective.y);
-            Animator.SetFloat(RotationVariables.SpeedRoll, effective.z);
-
-            return effective;
+            Animator.SetFloat(RotationVariables.SpeedPitch, angularVelocity.x);
+            Animator.SetFloat(RotationVariables.SpeedYaw, angularVelocity.y);
+            Animator.SetFloat(RotationVariables.SpeedRoll, angularVelocity.z);
         }
 
         [Serializable]

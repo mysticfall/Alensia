@@ -3,10 +3,14 @@ using UnityEngine;
 
 namespace Alensia.Core.Locomotion
 {
-    public interface ILocomotion : ITransformable
+    public interface ILocomotion : ITransformable, IActivatable
     {
-        Vector3 Move(Vector3 velocity);
+        float Move(Vector3 direction);
 
-        Vector3 Rotate(Vector3 velocity);
+        float MoveTowards(Vector3 position);
+
+        float Rotate(Vector3 axis);
+
+        float RotateTowards(Vector3 axis, float degree);
     }
 }

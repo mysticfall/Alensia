@@ -30,9 +30,12 @@ namespace Alensia.Demo.Controller
             Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
             Container.Bind<Camera>().FromInstance(Camera);
 
+            Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<FirstAndThirdPersonController>().AsSingle().NonLazy();
+
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
-            Container.Bind<ILocomotion>().To<TransformDrivenLocomotion>().AsSingle();
-            Container.Bind<IWalker>().To<Walker>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<Walker>().AsSingle();
 
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
             Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);
@@ -46,9 +49,6 @@ namespace Alensia.Demo.Controller
 
             Container.DeclareSignal<CameraChangeEvent>();
             Container.Bind<ICameraManager>().To<CameraManager>().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<FirstAndThirdPersonController>().AsSingle().NonLazy();
         }
     }
 }

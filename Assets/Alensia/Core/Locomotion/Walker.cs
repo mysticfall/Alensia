@@ -1,16 +1,13 @@
 ﻿using System;
-using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public class Walker : IWalker
+    public class Walker : AnimatedLocomotion, IWalker
     {
         public WalkSpeedSettings MaximumSpeed { get; set; }
-
-        public ILocomotion Locomotion { get; private set; }
 
         private Pacing _pacing = Pacing.Walking();
 
@@ -22,78 +19,100 @@ namespace Alensia.Core.Locomotion
 
         public event EventHandler<PacingChangeEventArgs> PacingChanged;
 
-        public Walker(ILocomotion locomotion) : this(new WalkSpeedSettings(), locomotion)
+        public Walker(
+            Animator animator,
+            Transform transform) : this(new WalkSpeedSettings(), animator, transform)
         {
         }
 
         [Inject]
         public Walker(
             WalkSpeedSettings maximumSpeed,
-            ILocomotion locomotion)
+            Animator animator,
+            Transform transform) : base(animator, transform)
         {
             Assert.IsNotNull(maximumSpeed, "maximumSpeed != null");
-            Assert.IsNotNull(locomotion, "locomotion != null");
 
             MaximumSpeed = maximumSpeed;
-            Locomotion = locomotion;
         }
 
-        public virtual void Walk(Vector2 direction)
+        public void Walk(Vector2 direction, float heading)
         {
-            Vector3 desiredVelocity;
+            throw new NotImplementedException();
+        }
 
+        public void Jump(Vector2 direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Vector3 _lastVelocity;
+
+        protected override Vector3 CalculateVelocity(Vector3 direction, float? distance = null)
+        {
             var magnitude = direction.magnitude;
+
+            float speed = 0;
 
             if (magnitude > 0)
             {
-                var forwardRatio = direction.y / magnitude;
-                var forwardSpeed = direction.y > 0 ? MaximumSpeed.Forward : MaximumSpeed.Backward;
-
+                var forwardRatio = direction.z / magnitude;
                 var sideRatio = direction.x / magnitude;
 
-                desiredVelocity = new Vector3
+                var forwardSpeed = direction.z > 0 ? MaximumSpeed.Forward : MaximumSpeed.Backward;
+                var sideSpeed = MaximumSpeed.Sideway;
+
+                speed = Mathf.Sqrt(
+                    Mathf.Pow(sideSpeed * sideRatio, 2) +
+                    Mathf.Pow(forwardSpeed * forwardRatio, 2));
+
+                if (distance.HasValue)
                 {
-                    x = MaximumSpeed.Sideway * sideRatio,
-                    y = 0,
-                    z = forwardSpeed * forwardRatio
-                };
-            }
-            else
-            {
-                desiredVelocity = Vector3.zero;
+                    var maximumSpeed = distance.Value / Time.deltaTime;
+                    speed = Mathf.Min(speed, maximumSpeed);
+                }
             }
 
-            Locomotion.Move(desiredVelocity);
+            // Do proper interpolation / smoothing.
+            var velocity = Vector3.Lerp(_lastVelocity, direction * speed, Time.deltaTime * 5f);
+
+            _lastVelocity = velocity;
+
+            return velocity;
         }
 
-        public virtual void WalkTo(Vector3 position)
+        protected override Vector3 CalculateAngularVelocity(Vector3 axis, float? degrees = null)
         {
-            throw new NotImplementedException();
+            var maximumSpeed = MaximumSpeed.Angular;
+
+            var speed = degrees.HasValue
+                ? Mathf.Clamp(degrees.Value / Time.deltaTime, -maximumSpeed, maximumSpeed)
+                : maximumSpeed;
+
+            return axis * speed;
         }
 
-        public virtual void Turn(float direction)
+        protected override void UpdateVelocity(Vector3 velocity)
         {
-            var speed = Math.Sign(direction) * MaximumSpeed.Angular;
+            base.UpdateVelocity(velocity);
 
-            Locomotion.Rotate(Vector3.up * speed);
+            if (UseRootMotionForMovement && Animator.applyRootMotion) return;
+
+            var target = Transform.position + Transform.rotation * velocity * Time.deltaTime;
+
+            Transform.position = target;
         }
 
-        public virtual void TurnTo(float heading)
+        protected override void UpdateRotation(Vector3 angularVelocity)
         {
-            var current = Locomotion.Transform.localEulerAngles.y;
-            var delta = GeometryUtils.NormalizeAspectAngle(heading - current);
+            base.UpdateRotation(angularVelocity);
 
-            var speed = Mathf.Clamp(
-                delta / Time.deltaTime,
-                -MaximumSpeed.Angular,
-                MaximumSpeed.Angular);
+            if (UseRootMotionForRotation && Animator.applyRootMotion) return;
 
-            Locomotion.Rotate(Vector3.up * speed);
-        }
+            var angle = (angularVelocity * Time.deltaTime).magnitude;
+            var rotation = Quaternion.AngleAxis(angle, angularVelocity.normalized);
 
-        public virtual void Jump(Vector2 direction)
-        {
-            throw new NotImplementedException();
+            Transform.localRotation *= rotation;
         }
 
         protected virtual void OnPacingChange(PacingChangeEventArgs args)
