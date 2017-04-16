@@ -171,7 +171,7 @@ MonoBehaviour:
     Vertical: 0.5
     Zoom: 0.5
   WalkSpeed:
-    Forward: 4
+    Forward: 1.4
     Backward: 1
     Sideway: 1
     Angular: 90
