@@ -44,6 +44,7 @@ namespace Alensia.Demo.Controller
             Container.BindInterfacesAndSelfTo<HeadMountedCamera>().AsSingle();
             Container.BindInterfacesAndSelfTo<ThirdPersonCamera>().AsSingle();
 
+            Container.DeclareSignal<CameraChangeEvent>();
             Container.Bind<ICameraManager>().To<CameraManager>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();

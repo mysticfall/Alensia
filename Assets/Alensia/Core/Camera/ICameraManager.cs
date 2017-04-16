@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
-using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera
 {
@@ -12,7 +10,7 @@ namespace Alensia.Core.Camera
 
         ReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
-        event EventHandler<CameraChangeEventArgs> CameraChanged;
+        CameraChangeEvent CameraChanged { get; }
 
         T Switch<T>() where T : class, ICameraMode;
 
@@ -21,17 +19,5 @@ namespace Alensia.Core.Camera
         IThirdPersonCamera ToThirdPerson(IActor target);
 
         void Follow(ITransformable target);
-    }
-
-    public class CameraChangeEventArgs : EventArgs
-    {
-        public readonly ICameraMode Mode;
-
-        public CameraChangeEventArgs(ICameraMode mode)
-        {
-            Assert.IsNotNull(mode, "mode != null");
-
-            Mode = mode;
-        }
     }
 }

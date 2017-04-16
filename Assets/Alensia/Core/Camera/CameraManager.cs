@@ -28,23 +28,22 @@ namespace Alensia.Core.Camera
 
                 _mode.Activate();
 
-                if (CameraChanged != null)
-                {
-                    CameraChanged(this, new CameraChangeEventArgs(_mode));
-                }
+                CameraChanged.Fire(_mode);
             }
         }
 
         public ReadOnlyCollection<ICameraMode> AvailableModes { get; private set; }
 
-        public event EventHandler<CameraChangeEventArgs> CameraChanged;
+        public CameraChangeEvent CameraChanged { get; private set; }
 
-        public CameraManager(List<ICameraMode> modes)
+        public CameraManager(List<ICameraMode> modes, CameraChangeEvent cameraChanged)
         {
             Assert.IsNotNull(modes, "modes != null");
             Assert.IsTrue(modes.Count > 0, "modes.Count > 0");
+            Assert.IsNotNull(cameraChanged, "cameraChanged != null");
 
             AvailableModes = modes.AsReadOnly();
+            CameraChanged = cameraChanged;
         }
 
         public T Switch<T>() where T : class, ICameraMode
