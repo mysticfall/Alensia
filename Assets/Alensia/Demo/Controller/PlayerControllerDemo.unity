@@ -199,7 +199,7 @@ MonoBehaviour:
       Side: 180
     Distance:
       Default: 1
-      Minimum: 0.1
+      Minimum: 0.3
       Maximum: 10
     WallAvoidance:
       AvoidWalls: 1

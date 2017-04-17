@@ -13,7 +13,7 @@ namespace Alensia.Core.Camera
 
         [Tooltip("The minimum distance between the camera and the target.")]
         [Range(0, 10)]
-        public float Minimum = 0.1f;
+        public float Minimum = 0.3f;
 
         [Tooltip("The maximum distance of camera from the target.")]
         [Range(1, 100)]
