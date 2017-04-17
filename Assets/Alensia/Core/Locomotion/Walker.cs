@@ -14,14 +14,28 @@ namespace Alensia.Core.Locomotion
         public Pacing Pacing
         {
             get { return _pacing; }
-            set { _pacing = value; }
+            set
+            {
+                Assert.IsNotNull(value, "Pacing != null");
+
+                var oldPacing = _pacing;
+
+                _pacing = value;
+
+                if (oldPacing != _pacing)
+                {
+                    OnPacingChange(_pacing, oldPacing);
+                }
+            }
         }
 
-        public event EventHandler<PacingChangeEventArgs> PacingChanged;
+        public PacingChangeEvent PacingChanged { get; private set; }
 
         public Walker(
             Animator animator,
-            Transform transform) : this(new WalkSpeedSettings(), animator, transform)
+            Transform transform,
+            PacingChangeEvent pacingChanged) :
+            this(new WalkSpeedSettings(), animator, transform, pacingChanged)
         {
         }
 
@@ -29,11 +43,14 @@ namespace Alensia.Core.Locomotion
         public Walker(
             WalkSpeedSettings maximumSpeed,
             Animator animator,
-            Transform transform) : base(animator, transform)
+            Transform transform,
+            PacingChangeEvent pacingChanged) : base(animator, transform)
         {
             Assert.IsNotNull(maximumSpeed, "maximumSpeed != null");
+            Assert.IsNotNull(pacingChanged, "pacingChanged != null");
 
             MaximumSpeed = maximumSpeed;
+            PacingChanged = pacingChanged;
         }
 
         public void Walk(Vector2 direction, float heading)
@@ -71,6 +88,8 @@ namespace Alensia.Core.Locomotion
                     var maximumSpeed = distance.Value / Time.deltaTime;
                     speed = Mathf.Min(speed, maximumSpeed);
                 }
+
+                speed *= Pacing.SpeedModifier;
             }
 
             // Do proper interpolation / smoothing.
@@ -115,12 +134,9 @@ namespace Alensia.Core.Locomotion
             Transform.localRotation *= rotation;
         }
 
-        protected virtual void OnPacingChange(PacingChangeEventArgs args)
+        protected virtual void OnPacingChange(Pacing newPacing, Pacing oldPacing)
         {
-            if (PacingChanged != null)
-            {
-                PacingChanged(this, new PacingChangeEventArgs(Pacing));
-            }
+            PacingChanged.Fire(newPacing, oldPacing);
         }
     }
 }

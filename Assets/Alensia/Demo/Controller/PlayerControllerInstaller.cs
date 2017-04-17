@@ -35,6 +35,7 @@ namespace Alensia.Demo.Controller
 
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
 
+            Container.DeclareSignal<PacingChangeEvent>();
             Container.BindInterfacesAndSelfTo<Walker>().AsSingle();
 
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);

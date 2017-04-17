@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Actor;
 using Alensia.Core.Camera;
+using Alensia.Core.Locomotion;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -56,7 +57,7 @@ namespace Alensia.Core.Control
                 new ZoomCamera(this),
                 new RotateCamera(this),
                 new Turn(this),
-                new Walk(this)
+                new Move(this)
             };
         }
 
@@ -210,17 +211,26 @@ namespace Alensia.Core.Control
             }
         }
 
-        class Walk : CameraControl<ICameraMode>
+        class Move : CameraControl<ICameraMode>
         {
-            public Walk(FirstAndThirdPersonController controller) : base(controller)
+            private readonly Pacing _walking = Pacing.Walking();
+
+            private readonly Pacing _running = Pacing.Running();
+
+            public Move(FirstAndThirdPersonController controller) : base(controller)
             {
             }
 
             protected override ICameraMode Process(ICameraMode camera)
             {
-                var locomotion = Controller.Player.Locomotion;
-                var movement = Controller.InputManager.LastMovement.normalized;
+                var input = Controller.InputManager;
 
+                var locomotion = Controller.Player.Locomotion;
+                var movement = input.LastMovement.normalized;
+
+                var pacing = Input.GetKey(KeyCode.LeftShift) ? _running : _walking;
+
+                locomotion.Pacing = pacing;
                 locomotion.Move(new Vector3(movement.x, 0, movement.y));
 
                 return camera;
