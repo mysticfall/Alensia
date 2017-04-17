@@ -83,7 +83,9 @@ namespace Alensia.Core.Camera
             if (WallAvoidanceSettings.AvoidWalls)
             {
                 var direction = (Transform.position - Pivot).normalized;
-                var ray = new Ray(Pivot, direction);
+                var origin = Pivot + direction * DistanceSettings.Minimum;
+
+                var ray = new Ray(origin, direction);
 
                 RaycastHit hit;
 
