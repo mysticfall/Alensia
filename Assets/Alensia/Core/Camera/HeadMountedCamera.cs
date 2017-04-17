@@ -47,7 +47,7 @@ namespace Alensia.Core.Camera
 
         public float LookAhead
         {
-            get { return _lookAhead; }
+            get { return _settings.LookAhead; }
         }
 
         public override bool Valid
@@ -57,7 +57,7 @@ namespace Alensia.Core.Camera
 
         public override RotationalConstraints RotationalConstraints
         {
-            get { return _rotationalConstraints; }
+            get { return _settings.Rotation; }
         }
 
         public ITransformable Target { get; private set; }
@@ -104,9 +104,7 @@ namespace Alensia.Core.Camera
 
         private bool _hasMountPoint;
 
-        private readonly float _lookAhead;
-
-        private readonly RotationalConstraints _rotationalConstraints;
+        private readonly Settings _settings;
 
         public HeadMountedCamera(
             UnityEngine.Camera camera) : this(new Settings(), camera)
@@ -120,8 +118,7 @@ namespace Alensia.Core.Camera
         {
             Assert.IsNotNull(settings, "settings != null");
 
-            _rotationalConstraints = settings.Rotation;
-            _lookAhead = settings.LookAhead;
+            _settings = settings;
         }
 
         public void Initialize(ITransformable target)

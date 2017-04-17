@@ -11,17 +11,17 @@ namespace Alensia.Core.Camera
     {
         public override RotationalConstraints RotationalConstraints
         {
-            get { return _rotationalConstraints; }
+            get { return _settings.Rotation; }
         }
 
         public override DistanceSettings DistanceSettings
         {
-            get { return _distanceSettings; }
+            get { return _settings.Distance; }
         }
 
         public WallAvoidanceSettings WallAvoidanceSettings
         {
-            get { return _wallAvoidanceSettings; }
+            get { return _settings.WallAvoidance; }
         }
 
         public override bool Valid
@@ -51,11 +51,7 @@ namespace Alensia.Core.Camera
             get { return Target.Transform.up; }
         }
 
-        private readonly RotationalConstraints _rotationalConstraints;
-
-        private readonly DistanceSettings _distanceSettings;
-
-        private readonly WallAvoidanceSettings _wallAvoidanceSettings;
+        private readonly Settings _settings;
 
         public ThirdPersonCamera(UnityEngine.Camera camera) : this(new Settings(), camera)
         {
@@ -68,9 +64,7 @@ namespace Alensia.Core.Camera
         {
             Assert.IsNotNull(settings, "settings != null");
 
-            _rotationalConstraints = settings.Rotation;
-            _distanceSettings = settings.Distance;
-            _wallAvoidanceSettings = settings.WallAvoidance;
+            _settings = settings;
         }
 
         public void Initialize(ITransformable target)

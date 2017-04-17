@@ -13,11 +13,19 @@ namespace Alensia.Core.Locomotion
 
         public bool UseRootMotionForRotation = false;
 
-        public MovementVariables MovementVariables { get; private set; }
+        public MovementVariables MovementVariables
+        {
+            get { return _settings.MovementVariables; }
+        }
 
-        public RotationVariables RotationVariables { get; private set; }
+        public RotationVariables RotationVariables
+        {
+            get { return _settings.RotationVariables; }
+        }
 
         public Animator Animator { get; private set; }
+
+        private readonly Settings _settings;
 
         protected AnimatedLocomotion(
             Animator animator,
@@ -34,11 +42,7 @@ namespace Alensia.Core.Locomotion
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(animator, "animator != null");
 
-            MovementVariables = settings.MovementVariables;
-            RotationVariables = settings.RotationVariables;
-
-            Assert.IsNotNull(MovementVariables, "settings.MovementVariables != null");
-            Assert.IsNotNull(RotationVariables, "settings.RotationVariables != null");
+            _settings = settings;
 
             Animator = animator;
         }
