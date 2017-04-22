@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public class Walker : AnimatedLocomotion, IWalker
+    public class Walker : AnimatedLocomotion, IWalker, IInitializable, IDisposable
     {
         public WalkSpeedSettings MaximumSpeed { get; set; }
 
@@ -34,6 +34,8 @@ namespace Alensia.Core.Locomotion
 
         public PacingChangeEvent PacingChanged { get; private set; }
 
+        private bool _rootMotionApplied;
+
         public Walker(
             IGroundDetector groundDetector,
             Animator animator,
@@ -60,6 +62,20 @@ namespace Alensia.Core.Locomotion
             GroundDetector = groundDetector;
         }
 
+        public void Initialize()
+        {
+            GroundDetector.GroundHit.Listen(OnHitGround);
+            GroundDetector.GroundLeft.Listen(OnLeaveGround);
+
+            _rootMotionApplied = Animator.applyRootMotion;
+        }
+
+        public void Dispose()
+        {
+            GroundDetector.GroundHit.Unlisten(OnHitGround);
+            GroundDetector.GroundLeft.Unlisten(OnLeaveGround);
+        }
+
         public void Walk(Vector2 direction, float heading)
         {
             throw new NotImplementedException();
@@ -74,6 +90,8 @@ namespace Alensia.Core.Locomotion
 
         protected override Vector3 CalculateVelocity(Vector3 direction, float? distance = null)
         {
+            if (!GroundDetector.Grounded) return Vector3.zero;
+
             var magnitude = direction.magnitude;
 
             float speed = 0;
@@ -109,6 +127,8 @@ namespace Alensia.Core.Locomotion
 
         protected override Vector3 CalculateAngularVelocity(Vector3 axis, float? degrees = null)
         {
+            if (!GroundDetector.Grounded) return Vector3.zero;
+
             var maximumSpeed = MaximumSpeed.Angular;
 
             var speed = degrees.HasValue
@@ -118,18 +138,26 @@ namespace Alensia.Core.Locomotion
             return axis * speed;
         }
 
-        protected override void Update(Vector3 velocity, Vector3 angularVelocity)
+        protected virtual void OnHitGround(Collider ground)
         {
-            if (UseRootMotion)
-            {
-                Animator.applyRootMotion = GroundDetector.Grounded;
-            }
+            if (!UseRootMotion) return;
 
-            base.Update(velocity, angularVelocity);
+            Animator.applyRootMotion = _rootMotionApplied;
+        }
+
+        protected virtual void OnLeaveGround(Collider ground)
+        {
+            if (!UseRootMotion) return;
+
+            _rootMotionApplied = Animator.applyRootMotion;
+
+            Animator.applyRootMotion = false;
         }
 
         protected override void UpdateVelocity(Vector3 velocity)
         {
+            if (!GroundDetector.Grounded) return;
+
             var target = Transform.position +
                          Transform.rotation * velocity * Time.deltaTime;
 
@@ -138,6 +166,8 @@ namespace Alensia.Core.Locomotion
 
         protected override void UpdateRotation(Vector3 angularVelocity)
         {
+            if (!GroundDetector.Grounded) return;
+
             var angle = (angularVelocity * Time.deltaTime).magnitude;
             var rotation = Quaternion.AngleAxis(angle, angularVelocity.normalized);
 
