@@ -120,29 +120,24 @@ namespace Alensia.Core.Locomotion
 
         protected override void Update(Vector3 velocity, Vector3 angularVelocity)
         {
-            //if (!GroundDetector.Grounded) return;
-            Animator.applyRootMotion = GroundDetector.Grounded;
+            if (UseRootMotion)
+            {
+                Animator.applyRootMotion = GroundDetector.Grounded;
+            }
 
             base.Update(velocity, angularVelocity);
         }
 
         protected override void UpdateVelocity(Vector3 velocity)
         {
-            base.UpdateVelocity(velocity);
-
-            if (UseRootMotionForMovement && Animator.applyRootMotion) return;
-
-            var target = Transform.position + Transform.rotation * velocity * Time.deltaTime;
+            var target = Transform.position +
+                         Transform.rotation * velocity * Time.deltaTime;
 
             Transform.position = target;
         }
 
         protected override void UpdateRotation(Vector3 angularVelocity)
         {
-            base.UpdateRotation(angularVelocity);
-
-            if (UseRootMotionForRotation && Animator.applyRootMotion) return;
-
             var angle = (angularVelocity * Time.deltaTime).magnitude;
             var rotation = Quaternion.AngleAxis(angle, angularVelocity.normalized);
 
