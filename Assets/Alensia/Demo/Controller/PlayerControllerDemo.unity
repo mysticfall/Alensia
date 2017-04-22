@@ -175,6 +175,11 @@ MonoBehaviour:
     Backward: 1
     Sideway: 1
     Angular: 90
+  GroundDetection:
+    GroundLayer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    Tolerance: 0.2
   AnimationSettings:
     MovementVariables:
       Moving: Moving

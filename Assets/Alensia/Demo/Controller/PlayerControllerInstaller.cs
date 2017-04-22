@@ -2,6 +2,7 @@ using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Control;
 using Alensia.Core.Locomotion;
+using Alensia.Core.Physics;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +16,8 @@ namespace Alensia.Demo.Controller
 
         public WalkSpeedSettings WalkSpeed;
 
+        public GroundDetectionSettings GroundDetection;
+
         public AnimatedLocomotion.Settings AnimationSettings;
 
         public HeadMountedCamera.Settings FirstPersonCamera;
@@ -26,6 +29,7 @@ namespace Alensia.Demo.Controller
             var parent = transform.parent;
 
             Container.Bind<Transform>().FromInstance(parent);
+            Container.Bind<Collider>().FromInstance(parent.GetComponent<Collider>());
             Container.Bind<Rigidbody>().FromInstance(parent.GetComponent<Rigidbody>());
             Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
             Container.Bind<Camera>().FromInstance(Camera);
@@ -35,8 +39,17 @@ namespace Alensia.Demo.Controller
 
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
 
+            Container.DeclareSignal<GroundHitEvent>();
+            Container.DeclareSignal<GroundLeaveEvent>();
+
+            Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection);
+            Container.BindInterfacesAndSelfTo<RayCastingGroundDetector>().AsSingle();
+
             Container.DeclareSignal<PacingChangeEvent>();
             Container.BindInterfacesAndSelfTo<Walker>().AsSingle();
+
+            Container.DeclareSignal<CollisionEnterEvent>();
+            Container.DeclareSignal<CollisionExitEvent>();
 
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
             Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);

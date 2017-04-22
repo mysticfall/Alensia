@@ -13,6 +13,11 @@ namespace Alensia.Core.Locomotion
 
         public bool UseRootMotionForRotation = false;
 
+        public bool UseRootMotion
+        {
+            get { return UseRootMotionForMovement || UseRootMotionForRotation; }
+        }
+
         public MovementVariables MovementVariables
         {
             get { return _settings.MovementVariables; }

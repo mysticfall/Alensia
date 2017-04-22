@@ -1,46 +1,57 @@
-﻿using Alensia.Core.Common;
+﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Alensia.Core.Physics
 {
-    [RequireComponent(typeof(Collider))]
-    public class GroundDetector : MonoBehaviour
+    public abstract class GroundDetector : IGroundDetector, IDisposable
     {
-        public Collider Collider { get; private set; }
+        public abstract GroundDetectionSettings Settings { get; }
 
-        public bool Grounded { get; private set; }
+        public abstract Collider Target { get; }
 
-        public void Start()
+        public Collider Ground { get; private set; }
+
+        public bool Grounded
         {
-            //Collider = this.GetComponentOrFail<Collider>();
+            get { return Ground; }
         }
 
-        public void OnCollisionStay(Collision collisionInfo)
-        {
-            //if (center - extent >= y)
-            if (!Grounded && collisionInfo.contacts.Length > 0)
-            {
-                Grounded = true;
+        public GroundHitEvent GroundHit { get; private set; }
 
-                SendMessage("OnHitGround");
-            }
+        public GroundLeaveEvent GroundLeft { get; private set; }
+
+        protected GroundDetector(GroundHitEvent groundHit, GroundLeaveEvent groundLeft)
+        {
+            Assert.IsNotNull(groundHit, "groundHit != null");
+            Assert.IsNotNull(groundLeft, "groundLeft != null");
+
+            GroundHit = groundHit;
+            GroundLeft = groundLeft;
         }
 
-        public void OnCollisionExit(Collision collisionInfo)
+        public virtual void Dispose()
         {
-            if (Grounded)
+            Ground = null;
+        }
+
+        protected virtual bool IsGround(Collider collider)
+        {
+            return true;
+        }
+
+        protected void OnDetectGround(Collider ground)
+        {
+            var oldGround = Ground;
+
+            Ground = ground;
+
+            if (!oldGround && ground)
             {
-                var center = Collider.bounds.center.y;
-                var extent = Collider.bounds.extents.y;
-
-                var inAir = collisionInfo.contacts.Length == 0;
-
-                if (inAir)
-                {
-                    Grounded = false;
-
-                    SendMessage("OnLeaveGround");
-                }
+                GroundHit.Fire(Ground);
+            } else if (oldGround && !ground)
+            {
+                GroundLeft.Fire(oldGround);
             }
         }
     }

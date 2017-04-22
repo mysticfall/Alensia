@@ -1,5 +1,6 @@
 using Alensia.Core.Actor;
 using Alensia.Core.Locomotion;
+using Alensia.Core.Physics;
 using UnityEngine;
 
 namespace Alensia.Tests.Actor
@@ -21,7 +22,11 @@ namespace Alensia.Tests.Actor
             Transform = root.transform;
             Animator = root.AddComponent<Animator>();
 
-            Locomotion = new Walker(Animator, Transform, new PacingChangeEvent());
+            var collider = root.AddComponent<BoxCollider>();
+            var detector = new RayCastingGroundDetector(
+                collider, new GroundHitEvent(), new GroundLeaveEvent());
+
+            Locomotion = new Walker(detector, Animator, Transform, new PacingChangeEvent());
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 

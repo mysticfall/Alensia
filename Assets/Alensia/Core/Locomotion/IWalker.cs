@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using Alensia.Core.Physics;
+using UnityEngine;
 
 namespace Alensia.Core.Locomotion
 {
     public interface IWalker : ILocomotion
     {
         WalkSpeedSettings MaximumSpeed { get; set; }
+
+        IGroundDetector GroundDetector { get; }
 
         Pacing Pacing { get; set; }
 

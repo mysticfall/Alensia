@@ -1,4 +1,5 @@
 ﻿using System;
+using Alensia.Core.Physics;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -8,6 +9,8 @@ namespace Alensia.Core.Locomotion
     public class Walker : AnimatedLocomotion, IWalker
     {
         public WalkSpeedSettings MaximumSpeed { get; set; }
+
+        public IGroundDetector GroundDetector { get; private set; }
 
         private Pacing _pacing = Pacing.Walking();
 
@@ -32,25 +35,29 @@ namespace Alensia.Core.Locomotion
         public PacingChangeEvent PacingChanged { get; private set; }
 
         public Walker(
+            IGroundDetector groundDetector,
             Animator animator,
             Transform transform,
             PacingChangeEvent pacingChanged) :
-            this(new WalkSpeedSettings(), animator, transform, pacingChanged)
+            this(new WalkSpeedSettings(), groundDetector, animator, transform, pacingChanged)
         {
         }
 
         [Inject]
         public Walker(
             WalkSpeedSettings maximumSpeed,
+            IGroundDetector groundDetector,
             Animator animator,
             Transform transform,
             PacingChangeEvent pacingChanged) : base(animator, transform)
         {
             Assert.IsNotNull(maximumSpeed, "maximumSpeed != null");
+            Assert.IsNotNull(groundDetector, "groundDetector != null");
             Assert.IsNotNull(pacingChanged, "pacingChanged != null");
 
             MaximumSpeed = maximumSpeed;
             PacingChanged = pacingChanged;
+            GroundDetector = groundDetector;
         }
 
         public void Walk(Vector2 direction, float heading)
@@ -109,6 +116,14 @@ namespace Alensia.Core.Locomotion
                 : maximumSpeed;
 
             return axis * speed;
+        }
+
+        protected override void Update(Vector3 velocity, Vector3 angularVelocity)
+        {
+            //if (!GroundDetector.Grounded) return;
+            Animator.applyRootMotion = GroundDetector.Grounded;
+
+            base.Update(velocity, angularVelocity);
         }
 
         protected override void UpdateVelocity(Vector3 velocity)
