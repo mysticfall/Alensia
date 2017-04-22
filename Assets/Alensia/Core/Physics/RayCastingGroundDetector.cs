@@ -22,7 +22,7 @@ namespace Alensia.Core.Physics
             {
                 var bounds = Target.bounds;
 
-                return bounds.center - new Vector3(0, bounds.extents.y);
+                return bounds.center - new Vector3(0, bounds.extents.y - 0.001f);
             }
         }
 
