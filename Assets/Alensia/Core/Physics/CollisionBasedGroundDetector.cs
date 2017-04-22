@@ -58,14 +58,14 @@ namespace Alensia.Core.Physics
             CollisionDetector.CollisionExited.Unlisten(OnCollisionExit);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected virtual void OnCollisionEnter(Collision collision)
         {
             var ground = FindGroundContacts(collision.contacts).FirstOrDefault();
 
             OnDetectGround(ground);
         }
 
-        private void OnCollisionExit(Collision collision)
+        protected virtual void OnCollisionExit(Collision collision)
         {
             if (FindGroundContacts(collision.contacts).Exists(c => c == Ground))
             {
