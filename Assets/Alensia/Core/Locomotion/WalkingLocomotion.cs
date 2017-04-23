@@ -86,7 +86,8 @@ namespace Alensia.Core.Locomotion
 
         public void Walk(Vector2 direction, float heading)
         {
-            throw new NotImplementedException();
+            Move(direction);
+            RotateTowards(Vector3.up, heading);
         }
 
         public void Jump(Vector2 direction)
