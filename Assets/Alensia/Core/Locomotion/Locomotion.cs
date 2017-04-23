@@ -47,6 +47,8 @@ namespace Alensia.Core.Locomotion
 
         public float Move(Vector3 direction)
         {
+            if (!Active) return 0;
+
             _targetVelocity = CalculateVelocity(direction.normalized);
 
             return _targetVelocity.magnitude;
@@ -54,6 +56,8 @@ namespace Alensia.Core.Locomotion
 
         public float MoveTowards(Vector3 position)
         {
+            if (!Active) return 0;
+
             var offset = position - Transform.localPosition;
 
             var direction = offset.normalized;
@@ -66,6 +70,8 @@ namespace Alensia.Core.Locomotion
 
         public float Rotate(Vector3 axis)
         {
+            if (!Active) return 0;
+
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized);
 
             return _targetAngularVelocity.magnitude;
@@ -73,6 +79,8 @@ namespace Alensia.Core.Locomotion
 
         public float RotateTowards(Vector3 axis, float degree)
         {
+            if (!Active) return 0;
+
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized, degree);
 
             return _targetAngularVelocity.magnitude * Math.Sign(degree);
