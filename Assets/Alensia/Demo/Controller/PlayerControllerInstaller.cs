@@ -26,34 +26,65 @@ namespace Alensia.Demo.Controller
 
         public override void InstallBindings()
         {
+            InstallModel();
+            InstallAnimator();
+            InstallPhysics();
+
+            InstallInputControl();
+            InstallLocomotion();
+            InstallCameraControl();
+
+            InstallCharacter();
+        }
+
+        protected virtual void InstallModel()
+        {
             var parent = transform.parent;
 
             Container.Bind<Transform>().FromInstance(parent);
+        }
+
+        protected virtual void InstallPhysics()
+        {
+            var parent = transform.parent;
+
             Container.Bind<Collider>().FromInstance(parent.GetComponent<Collider>());
             Container.Bind<Rigidbody>().FromInstance(parent.GetComponent<Rigidbody>());
-            Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
-            Container.Bind<Camera>().FromInstance(Camera);
-
-            Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<FirstAndThirdPersonController>().AsSingle().NonLazy();
-
-            Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
 
             Container.DeclareSignal<GroundHitEvent>();
             Container.DeclareSignal<GroundLeaveEvent>();
 
             Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection);
             Container.BindInterfacesAndSelfTo<RayCastingGroundDetector>().AsSingle();
+        }
+
+        protected virtual void InstallAnimator()
+        {
+            var parent = transform.parent;
+
+            Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
+        }
+
+        protected virtual void InstallInputControl()
+        {
+            Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
+
+            Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<FirstAndThirdPersonController>().AsSingle().NonLazy();
+        }
+
+        protected virtual void InstallLocomotion()
+        {
+            Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);
+            Container.Bind<AnimatedLocomotion.Settings>().FromInstance(AnimationSettings);
 
             Container.DeclareSignal<PacingChangeEvent>();
             Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
+        }
 
-            Container.DeclareSignal<CollisionEnterEvent>();
-            Container.DeclareSignal<CollisionExitEvent>();
-
-            Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
-            Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);
-            Container.Bind<AnimatedLocomotion.Settings>().FromInstance(AnimationSettings);
+        protected virtual void InstallCameraControl()
+        {
+            Container.Bind<Camera>().FromInstance(Camera);
 
             Container.Bind<HeadMountedCamera.Settings>().FromInstance(FirstPersonCamera);
             Container.Bind<ThirdPersonCamera.Settings>().FromInstance(ThirdPersonCamera);
@@ -63,6 +94,11 @@ namespace Alensia.Demo.Controller
 
             Container.DeclareSignal<CameraChangeEvent>();
             Container.Bind<ICameraManager>().To<CameraManager>().AsSingle();
+        }
+
+        protected virtual void InstallCharacter()
+        {
+            Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
         }
     }
 }
