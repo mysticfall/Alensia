@@ -13,10 +13,32 @@ So, I decided to create everything from the scratch in my own way.
 
 It uses [Zenject](https://github.com/modesttree/Zenject), a dependency injection framework for Unity3D.
 
+The demo requires [Standard Assets](https://www.assetstore.unity3d.com/en/#!/content/32351) 
+package to run, but strafing moves('_A_' and '_D_' key) won't work as intended, because it does not 
+provide suitable animations.
+
 ## Status
 
 It's in a very very very early stage of development. So don't even think about 
 actually using it for anything.
+
+Below list shows the features implemented by the project so far:
+
+### Camera API
+
+ * Simple camera manager API.
+ * Third person camera mode with orbiting and wall avoidance features.
+ * Head mounted first person camera mode, which shows character's body when looking down.
+
+### Locomotion API
+
+ * Generic locomotion API template.
+ * Animation and transform based locomotion for humanoid characters.
+
+### Physics API
+
+* Simple collision detector API.
+* Collision and ray cast based ground detector API.
 
 ## FAQ
 
