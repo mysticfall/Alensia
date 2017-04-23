@@ -57,7 +57,7 @@ namespace Alensia.Core.Camera
 
             if (camera == null) return null;
 
-            camera.Initialize((IHumanoid) target);
+            camera.Initialize(target);
 
             Mode = camera;
 
