@@ -60,31 +60,27 @@ namespace Alensia.Core.Physics
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            var ground = FindGroundContacts(collision.contacts).FirstOrDefault();
-
-            OnDetectGround(ground);
+            OnDetectGround(FindGroundContacts(collision.contacts));
         }
 
         protected virtual void OnCollisionExit(Collision collision)
         {
-            if (FindGroundContacts(collision.contacts).Exists(c => c == Ground))
-            {
-                OnDetectGround(null);
-            }
+            OnDetectGround(FindGroundContacts(collision.contacts));
         }
 
-        protected virtual List<Collider> FindGroundContacts(IEnumerable<ContactPoint> contacts)
+        protected virtual IEnumerable<Collider> FindGroundContacts(
+            IEnumerable<ContactPoint> contacts)
         {
             var center = Target.bounds.center.y;
             var extent = Target.bounds.extents.y;
 
             var bottom = center - extent;
-            var groundContacts = from c in contacts
-                where
-                c.point.y <= bottom + Settings.Tolerance && IsGround(c.otherCollider)
+
+            var grounds = from c in contacts
+                where c.point.y <= bottom + Settings.Tolerance && IsGround(c.otherCollider)
                 select c.otherCollider;
 
-            return groundContacts.ToList();
+            return grounds;
         }
     }
 }

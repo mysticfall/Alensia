@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,11 +12,11 @@ namespace Alensia.Core.Physics
 
         public abstract Collider Target { get; }
 
-        public Collider Ground { get; private set; }
+        public IEnumerable<Collider> Grounds { get; private set; }
 
         public bool Grounded
         {
-            get { return Ground; }
+            get { return Grounds.Any(); }
         }
 
         public GroundHitEvent GroundHit { get; private set; }
@@ -28,11 +30,13 @@ namespace Alensia.Core.Physics
 
             GroundHit = groundHit;
             GroundLeft = groundLeft;
+
+            Grounds = Enumerable.Empty<Collider>();
         }
 
         public virtual void Dispose()
         {
-            Ground = null;
+            Grounds = Enumerable.Empty<Collider>();
         }
 
         protected virtual bool IsGround(Collider collider)
@@ -40,18 +44,23 @@ namespace Alensia.Core.Physics
             return true;
         }
 
-        protected void OnDetectGround(Collider ground)
+        protected void OnDetectGround(IEnumerable<Collider> grounds)
         {
-            var oldGround = Ground;
+            var collection = grounds.ToList();
 
-            Ground = ground;
+            var oldContacts = Grounds.Except(collection).ToList();
+            var contacts = collection.Except(Grounds).ToList();
 
-            if (!oldGround && ground)
+            Grounds = collection;
+
+            if (oldContacts.Any())
             {
-                GroundHit.Fire(Ground);
-            } else if (oldGround && !ground)
+                GroundLeft.Fire(oldContacts);
+            }
+
+            if (contacts.Any())
             {
-                GroundLeft.Fire(oldGround);
+                GroundHit.Fire(contacts);
             }
         }
     }

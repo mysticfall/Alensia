@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
@@ -59,35 +60,12 @@ namespace Alensia.Core.Physics
 
         protected virtual void DetectGround()
         {
-            var origin = Origin;
-            var distance = MaximumDistance;
+            var ray = new Ray(Origin, Vector3.down);
+            var hits = UnityEngine.Physics.RaycastAll(ray, MaximumDistance, Settings.GroundLayer);
 
-            Collider ground = null;
+            var grounds = hits.Select(h => h.collider).Where(IsGround);
 
-            while (ground == null && distance > 0)
-            {
-                RaycastHit hit;
-
-                var ray = new Ray(origin, Vector3.down);
-
-                if (UnityEngine.Physics.Raycast(ray, out hit, MaximumDistance, Settings.GroundLayer))
-                {
-                    if (IsGround(hit.collider))
-                    {
-                        ground = hit.collider;
-                    }
-                    else
-                    {
-                        origin += new Vector3(0, hit.distance, 0);
-                    }
-                }
-                else
-                {
-                    distance = 0;
-                }
-            }
-
-            OnDetectGround(ground);
+            OnDetectGround(grounds);
         }
 
         public virtual void FixedTick()

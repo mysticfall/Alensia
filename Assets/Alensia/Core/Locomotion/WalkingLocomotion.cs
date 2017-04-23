@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Physics;
 using UnityEngine;
@@ -143,15 +144,17 @@ namespace Alensia.Core.Locomotion
             return axis * speed;
         }
 
-        protected virtual void OnHitGround(Collider ground)
+        protected virtual void OnHitGround(IEnumerable<Collider> grounds)
         {
             if (!Active) Activate();
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, false);
         }
 
-        protected virtual void OnLeaveGround(Collider ground)
+        protected virtual void OnLeaveGround(IEnumerable<Collider> grounds)
         {
+            if (GroundDetector.Grounded) return;
+
             if (Active) Deactivate();
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, true);

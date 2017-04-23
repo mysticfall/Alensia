@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Alensia.Core.Physics
 {
@@ -8,7 +9,7 @@ namespace Alensia.Core.Physics
 
         Collider Target { get; }
 
-        Collider Ground { get; }
+        IEnumerable<Collider> Grounds  { get; }
 
         bool Grounded { get; }
 
