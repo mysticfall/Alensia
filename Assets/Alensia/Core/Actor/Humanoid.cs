@@ -25,10 +25,10 @@ namespace Alensia.Core.Actor
             }
         }
 
-        public IWalker Locomotion { get; private set; }
+        public IWalkingLocomotion Locomotion { get; private set; }
 
         public Humanoid(
-            IWalker locomotion,
+            IWalkingLocomotion locomotion,
             Animator animator,
             Transform transform) : base(animator, transform)
         {

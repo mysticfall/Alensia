@@ -7,7 +7,7 @@ namespace Alensia.Tests.Actor
 {
     public class DummyActor : IActor
     {
-        public IWalker Locomotion { get; private set; }
+        public IWalkingLocomotion Locomotion { get; private set; }
 
         public Animator Animator { get; private set; }
 
@@ -26,7 +26,7 @@ namespace Alensia.Tests.Actor
             var detector = new RayCastingGroundDetector(
                 collider, new GroundHitEvent(), new GroundLeaveEvent());
 
-            Locomotion = new Walker(detector, Animator, Transform, new PacingChangeEvent());
+            Locomotion = new WalkingLocomotion(detector, Animator, Transform, new PacingChangeEvent());
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 

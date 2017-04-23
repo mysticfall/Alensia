@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public abstract class Locomotion : ILocomotion, ITickable
+    public abstract class Locomotion : ILocomotion, IInitializable, ITickable
     {
         public Transform Transform { get; private set; }
 
@@ -20,7 +20,10 @@ namespace Alensia.Core.Locomotion
             Assert.IsNotNull(transform, "transform != null");
 
             Transform = transform;
+        }
 
+        public virtual void Initialize()
+        {
             Activate();
         }
 

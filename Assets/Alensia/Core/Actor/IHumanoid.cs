@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Actor
 {
-    public interface IHumanoid : IActor, ILocomotiveObject<IWalker>
+    public interface IHumanoid : IActor, IWalker
     {
         Transform Head { get; }
 

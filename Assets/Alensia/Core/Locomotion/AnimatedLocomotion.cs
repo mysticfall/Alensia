@@ -58,6 +58,23 @@ namespace Alensia.Core.Locomotion
             Animator = animator;
         }
 
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+
+            Animator.applyRootMotion = UseRootMotion;
+        }
+
+        protected override void OnDeactivate()
+        {
+            base.OnDeactivate();
+
+            UpdateVelocityVariables(Vector3.zero);
+            UpdateRotationVariables(Vector3.zero);
+
+            Animator.applyRootMotion = false;
+        }
+
         protected override void Update(Vector3 velocity, Vector3 angularVelocity)
         {
             UpdateVelocityVariables(velocity);

@@ -46,7 +46,7 @@ namespace Alensia.Demo.Controller
             Container.BindInterfacesAndSelfTo<RayCastingGroundDetector>().AsSingle();
 
             Container.DeclareSignal<PacingChangeEvent>();
-            Container.BindInterfacesAndSelfTo<Walker>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
 
             Container.DeclareSignal<CollisionEnterEvent>();
             Container.DeclareSignal<CollisionExitEvent>();
