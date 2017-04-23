@@ -14,11 +14,9 @@ namespace Alensia.Demo.Controller
 
         public ViewSensitivity ViewSensitivity;
 
-        public WalkSpeedSettings WalkSpeed;
+        public WalkingLocomotion.Settings Locomotion;
 
         public GroundDetectionSettings GroundDetection;
-
-        public AnimatedLocomotion.Settings AnimationSettings;
 
         public HeadMountedCamera.Settings FirstPersonCamera;
 
@@ -75,8 +73,7 @@ namespace Alensia.Demo.Controller
 
         protected virtual void InstallLocomotion()
         {
-            Container.Bind<WalkSpeedSettings>().FromInstance(WalkSpeed);
-            Container.Bind<AnimatedLocomotion.Settings>().FromInstance(AnimationSettings);
+            Container.Bind<WalkingLocomotion.Settings>().FromInstance(Locomotion);
 
             Container.DeclareSignal<PacingChangeEvent>();
             Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();

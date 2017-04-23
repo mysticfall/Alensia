@@ -170,17 +170,9 @@ MonoBehaviour:
     Horizontal: 0.5
     Vertical: 0.5
     Zoom: 0.5
-  WalkSpeed:
-    Forward: 1.4
-    Backward: 1
-    Sideway: 1
-    Angular: 90
-  GroundDetection:
-    GroundLayer:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    Tolerance: 0.2
-  AnimationSettings:
+  Locomotion:
+    UseRootMotionForMovement: 1
+    UseRootMotionForRotation: 0
     MovementVariables:
       Moving: Moving
       SpeedForward: SpeedForward
@@ -191,6 +183,16 @@ MonoBehaviour:
       SpeedPitch: SpeedPitch
       SpeedRoll: SpeedRoll
       SpeedYaw: SpeedYaw
+    MaximumSpeed:
+      Forward: 1.4
+      Backward: 1
+      Sideway: 1
+      Angular: 90
+  GroundDetection:
+    GroundLayer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    Tolerance: 0.2
   FirstPersonCamera:
     LookAhead: 10
     Rotation:

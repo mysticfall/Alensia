@@ -1,4 +1,5 @@
 ﻿using System;
+using Alensia.Core.Common;
 using Alensia.Core.Physics;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -8,7 +9,15 @@ namespace Alensia.Core.Locomotion
 {
     public class WalkingLocomotion : AnimatedLocomotion, IWalkingLocomotion, IDisposable
     {
-        public WalkSpeedSettings MaximumSpeed { get; set; }
+        public WalkSpeedSettings MaximumSpeed
+        {
+            get { return _settings.MaximumSpeed; }
+        }
+
+        public LocomotionVariables JumpingAndFallingVariables
+        {
+            get { return _settings.JumpingAndFallingVariables; }
+        }
 
         public IGroundDetector GroundDetector { get; private set; }
 
@@ -34,28 +43,31 @@ namespace Alensia.Core.Locomotion
 
         public PacingChangeEvent PacingChanged { get; private set; }
 
+        private readonly Settings _settings;
+
         public WalkingLocomotion(
             IGroundDetector groundDetector,
             Animator animator,
             Transform transform,
             PacingChangeEvent pacingChanged) :
-            this(new WalkSpeedSettings(), groundDetector, animator, transform, pacingChanged)
+            this(new Settings(), groundDetector, animator, transform, pacingChanged)
         {
         }
 
         [Inject]
         public WalkingLocomotion(
-            WalkSpeedSettings maximumSpeed,
+            Settings settings,
             IGroundDetector groundDetector,
             Animator animator,
             Transform transform,
-            PacingChangeEvent pacingChanged) : base(animator, transform)
+            PacingChangeEvent pacingChanged) : base(settings, animator, transform)
         {
-            Assert.IsNotNull(maximumSpeed, "maximumSpeed != null");
+            Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(groundDetector, "groundDetector != null");
             Assert.IsNotNull(pacingChanged, "pacingChanged != null");
 
-            MaximumSpeed = maximumSpeed;
+            _settings = settings;
+
             PacingChanged = pacingChanged;
             GroundDetector = groundDetector;
         }
@@ -133,11 +145,15 @@ namespace Alensia.Core.Locomotion
         protected virtual void OnHitGround(Collider ground)
         {
             if (!Active) Activate();
+
+            Animator.SetBool(JumpingAndFallingVariables.Falling, false);
         }
 
         protected virtual void OnLeaveGround(Collider ground)
         {
             if (Active) Deactivate();
+
+            Animator.SetBool(JumpingAndFallingVariables.Falling, true);
         }
 
         protected override void UpdateVelocity(Vector3 velocity)
@@ -159,6 +175,22 @@ namespace Alensia.Core.Locomotion
         protected virtual void OnPacingChange(Pacing newPacing, Pacing oldPacing)
         {
             PacingChanged.Fire(newPacing, oldPacing);
+        }
+
+        [Serializable]
+        public new class Settings : AnimatedLocomotion.Settings
+        {
+            public WalkSpeedSettings MaximumSpeed = new WalkSpeedSettings();
+
+            public LocomotionVariables JumpingAndFallingVariables = new LocomotionVariables();
+        }
+
+        [Serializable]
+        public class LocomotionVariables : IEditorSettings
+        {
+            public string Jumping = "Jumping";
+
+            public string Falling = "Falling";
         }
     }
 }

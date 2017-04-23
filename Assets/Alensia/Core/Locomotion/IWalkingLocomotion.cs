@@ -5,7 +5,7 @@ namespace Alensia.Core.Locomotion
 {
     public interface IWalkingLocomotion : ILocomotion
     {
-        WalkSpeedSettings MaximumSpeed { get; set; }
+        WalkSpeedSettings MaximumSpeed { get; }
 
         IGroundDetector GroundDetector { get; }
 
