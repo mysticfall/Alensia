@@ -5,7 +5,8 @@ using Zenject;
 
 namespace Alensia.Core.Physics
 {
-    public class RayCastingGroundDetector : GroundDetector, IFixedTickable
+    public abstract class RayCastingGroundDetector<T> : GroundDetector, IFixedTickable
+        where T : Collider
     {
         public override GroundDetectionSettings Settings
         {
@@ -17,27 +18,12 @@ namespace Alensia.Core.Physics
             get { return _target; }
         }
 
-        public virtual Vector3 Origin
-        {
-            get
-            {
-                var bounds = Target.bounds;
-
-                return bounds.center - new Vector3(0, bounds.extents.y - 0.001f);
-            }
-        }
-
-        protected virtual float MaximumDistance
-        {
-            get { return Settings.Tolerance; }
-        }
-
         private readonly GroundDetectionSettings _settings;
 
-        private readonly Collider _target;
+        private readonly T _target;
 
-        public RayCastingGroundDetector(
-            Collider target,
+        protected RayCastingGroundDetector(
+            T target,
             GroundHitEvent groundHit,
             GroundLeaveEvent groundLeft) :
             this(new GroundDetectionSettings(), target, groundHit, groundLeft)
@@ -45,9 +31,9 @@ namespace Alensia.Core.Physics
         }
 
         [Inject]
-        public RayCastingGroundDetector(
+        protected RayCastingGroundDetector(
             GroundDetectionSettings settings,
-            Collider target,
+            T target,
             GroundHitEvent groundHit,
             GroundLeaveEvent groundLeft) : base(groundHit, groundLeft)
         {
@@ -60,13 +46,20 @@ namespace Alensia.Core.Physics
 
         protected virtual void DetectGround()
         {
-            var ray = new Ray(Origin, Vector3.down);
-            var hits = UnityEngine.Physics.RaycastAll(ray, MaximumDistance, Settings.GroundLayer);
-
-            var grounds = hits.Select(h => h.collider).Where(IsGround);
+            var hits = CastRay(CreateRay(), _target);
+            var grounds = hits.Select(h => h.collider).Where(h => h != Target && IsGround(h));
 
             OnDetectGround(grounds);
         }
+
+        protected abstract Vector3 CalculateOrigin(T target);
+
+        protected virtual Ray CreateRay()
+        {
+            return new Ray(CalculateOrigin(_target), Vector3.down);
+        }
+
+        protected abstract RaycastHit[] CastRay(Ray ray, T target);
 
         public virtual void FixedTick()
         {

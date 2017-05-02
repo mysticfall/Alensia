@@ -46,14 +46,14 @@ namespace Alensia.Demo.Controller
         {
             var parent = transform.parent;
 
-            Container.Bind<Collider>().FromInstance(parent.GetComponent<Collider>());
+            Container.Bind<CapsuleCollider>().FromInstance(parent.GetComponent<CapsuleCollider>());
             Container.Bind<Rigidbody>().FromInstance(parent.GetComponent<Rigidbody>());
 
             Container.DeclareSignal<GroundHitEvent>();
             Container.DeclareSignal<GroundLeaveEvent>();
 
             Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection);
-            Container.BindInterfacesAndSelfTo<RayCastingGroundDetector>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CapsuleColliderGroundDetector>().AsSingle();
         }
 
         protected virtual void InstallAnimator()
