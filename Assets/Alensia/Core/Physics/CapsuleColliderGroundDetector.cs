@@ -25,8 +25,9 @@ namespace Alensia.Core.Physics
         protected override Vector3 CalculateOrigin(CapsuleCollider target)
         {
             var bounds = Target.bounds;
+            var offset = new Vector3(0, bounds.extents.y - target.radius - 0.001f);
 
-            return bounds.center - new Vector3(0, bounds.extents.y - target.radius);
+            return bounds.center - offset;
         }
 
         protected override RaycastHit[] CastRay(Ray ray, CapsuleCollider target)
