@@ -1,6 +1,6 @@
 ﻿namespace Alensia.Core.Camera
 {
-    public interface IThirdPersonCamera : ITrackingCamera, IRotatableCamera
+    public interface IThirdPersonCamera : IPerspectiveCamera, ITrackingCamera, IRotatableCamera
     {
         WallAvoidanceSettings WallAvoidanceSettings { get; }
     }
