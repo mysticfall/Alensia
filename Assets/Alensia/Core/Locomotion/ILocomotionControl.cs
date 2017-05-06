@@ -1,6 +1,6 @@
-﻿using Alensia.Core.Locomotion;
+﻿using Alensia.Core.Control;
 
-namespace Alensia.Core.Control
+namespace Alensia.Core.Locomotion
 {
     public interface ILocomotionControl<out T> : IControl where T : ILocomotion
     {

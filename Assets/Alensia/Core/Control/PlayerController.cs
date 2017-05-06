@@ -4,7 +4,6 @@ using System.Linq;
 using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
-using Alensia.Core.Locomotion;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -46,14 +45,13 @@ namespace Alensia.Core.Control
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            CameraManager.ToThirdPerson(Player);
+            //TODO Make it easier to register default key bindings.
+            InputManager.Register(RotatableCameraControl.Keys.Yaw, new AxisInput("Mouse X"));
+            InputManager.Register(RotatableCameraControl.Keys.Pitch, new AxisInput("Mouse Y"));
+            InputManager.Register(OrbitingCameraControl.Keys.Zoom, new AxisInput("Mouse ScrollWheel"));
 
-            InputManager.Register(RotateCameraControl.Keys.Horizontal, new AxisInput("Mouse X"));
-            InputManager.Register(RotateCameraControl.Keys.Vertical, new AxisInput("Mouse Y"));
-            InputManager.Register(ZoomCameraControl.Keys.Zoom, new AxisInput("Mouse ScrollWheel"));
-
-            InputManager.Register(WalkingControl.Keys.Horizontal, new AxisInput("Horizontal"));
-            InputManager.Register(WalkingControl.Keys.Vertical, new AxisInput("Vertical"));
+            InputManager.Register(PlayerMovementControl.Keys.Horizontal, new AxisInput("Horizontal"));
+            InputManager.Register(PlayerMovementControl.Keys.Vertical, new AxisInput("Vertical"));
 
             foreach (var control in Controls)
             {
