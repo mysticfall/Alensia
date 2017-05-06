@@ -39,7 +39,8 @@ namespace Alensia.Core.Camera
         public CameraManager(List<ICameraMode> modes, CameraChangeEvent cameraChanged)
         {
             Assert.IsNotNull(modes, "modes != null");
-            Assert.IsTrue(modes.Count > 0, "modes.Count > 0");
+            Assert.IsTrue(modes.Any(), "modes.Any()");
+
             Assert.IsNotNull(cameraChanged, "cameraChanged != null");
 
             AvailableModes = modes.AsReadOnly();
