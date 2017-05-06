@@ -11,7 +11,9 @@ So, I decided to create everything from the scratch in my own way.
 
 ## Dependencies
 
-It uses [Zenject](https://github.com/modesttree/Zenject), a dependency injection framework for Unity3D.
+ * [Zenject](https://github.com/modesttree/Zenject) - Dependency injection framework for Unity3D.
+ * [UniRx](https://github.com/neuecc/UniRx) - Reactive Extensions for Unity
+ (Requires `ZEN_SIGNALS_ADD_UNIRX` scripting symbol).
 
 The demo requires [Standard Assets](https://www.assetstore.unity3d.com/en/#!/content/32351) 
 package to run, but strafing moves('_A_' and '_D_' key) won't work as intended, because it does not 
@@ -34,6 +36,15 @@ Below list shows the features implemented by the project so far:
 
  * Generic locomotion API template.
  * Animation and transform based locomotion for humanoid characters.
+
+### Input API
+
+ * Provides reactive API for input values, based on _UniRx_.
+ * Basic input binding managements.
+
+### Control API
+
+ * High level abstraction for action and input mappings (work in progress).
 
 ### Physics API
 

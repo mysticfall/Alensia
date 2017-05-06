@@ -1,16 +1,15 @@
-﻿using Alensia.Core.Actor;
-using Alensia.Core.Camera;
+﻿using System.Collections.Generic;
+using Alensia.Core.Actor;
+using Alensia.Core.Input;
 
 namespace Alensia.Core.Control
 {
-    public interface IPlayerController<out TPlayer> where TPlayer : IActor
+    public interface IPlayerController<out T> where T : IActor
     {
-        TPlayer Player { get; }
+        T Player { get; }
+
+        IList<IControl> Controls { get; }
 
         IInputManager InputManager { get; }
-
-        ICameraManager CameraManager { get; }
-
-        ViewSensitivity ViewSensitivity { get; }
     }
 }

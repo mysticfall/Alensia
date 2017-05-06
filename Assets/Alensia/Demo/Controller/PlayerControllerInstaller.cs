@@ -1,6 +1,7 @@
 using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Control;
+using Alensia.Core.Input;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
 using UnityEngine;
@@ -28,9 +29,9 @@ namespace Alensia.Demo.Controller
             InstallAnimator();
             InstallPhysics();
 
-            InstallInputControl();
+            InstallControls();
             InstallLocomotion();
-            InstallCameraControl();
+            InstallCameras();
 
             InstallCharacter();
         }
@@ -63,12 +64,19 @@ namespace Alensia.Demo.Controller
             Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
         }
 
-        protected virtual void InstallInputControl()
+        protected virtual void InstallControls()
         {
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
 
-            Container.BindInterfacesAndSelfTo<DesktopInputManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<FirstAndThirdPersonController>().AsSingle().NonLazy();
+            Container.DeclareSignal<BindingChangeEvent>();
+            Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<RotateCameraControl>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ZoomCameraControl>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<WalkingControl>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle().NonLazy();
         }
 
         protected virtual void InstallLocomotion()
@@ -79,7 +87,7 @@ namespace Alensia.Demo.Controller
             Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
         }
 
-        protected virtual void InstallCameraControl()
+        protected virtual void InstallCameras()
         {
             Container.Bind<Camera>().FromInstance(Camera);
 
