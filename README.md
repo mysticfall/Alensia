@@ -1,13 +1,39 @@
 # Alensia
 
-A high level framework to build RPG style games using Unity3D engine.
+A _programmer's framework_ to build RPG style games on Unity engine.
 
 ## Motivation
 
-I just started to learn C# and Unity3D to create my own game, but couldn't get used 
-to the way it's supposed to be done.
+I've been writing business applications in Scala and Java for quite a long time, but I always 
+wanted to create my own game someday.
 
-So, I decided to create everything from the scratch in my own way.   
+I had thought I'll never be able to do that until I discovered Unity is freely available on 
+Linux (which has been my main OS since 2001), and supports C# as its main language. 
+
+So I was like "Why not?" and decided to give it a try.
+
+But even though I could grasp basics of Unity and C# without too much trouble, I soon realized 
+that it requires certain changes in my attitude, or mentality to follow the way that is 
+recommended by tutorials or any other material I could find on the internet.
+
+As a programmer, I cannot but think that the most important parts of any system I build to be 
+the code itself. I believe that class hierarchies are the conceptual models which represent 
+the system as a coherent whole, for example, and reading API documentation is the best way to 
+figure out any project, and the likes.
+
+However, with Unity, you are supposed to purchase a bunch of items from Asset Store and throw 
+them into your game objects and configure them via GUI. Then you can fill in the gaps with 
+'scripts' which are often monolithic, heavyweight classes that cannot be instantiated outside 
+the Unity runtime, or be easily reused without copy pasting the source.
+
+As such, you are actually _discouraged_ from designing a coherent structure with class 
+hierarchies, and it's not easy to follow commonly regarded best practices in programming, like 
+'programming to interfaces, rather than implementations', or preferring POCOs to improve 
+testability, and etc.
+
+I'm not saying the Unity's way is inherently bad. But at least for those people who have  
+strong programming background and intend to create a game on their own, I thought there coud 
+be a better way for them to utilize their knowledge.
 
 ## Dependencies
 
@@ -48,8 +74,13 @@ Below list shows the features implemented by the project so far:
 
 ### Physics API
 
-* Simple collision detector API.
-* Collision and ray cast based ground detector API.
+ * Simple collision detector API.
+ * Collision and ray cast based ground detector API.
+
+## Plans
+
+For now, I'm working on character customization API (based on _UMA_), and a simple 
+wrapper around _IMGUI_, so I could make a basic character creator demo.
 
 ## FAQ
 
@@ -60,11 +91,18 @@ Sorry, I have no idea. The name just came up to my mind.
 > Isn't there everything you need on Asset Store already? Are you really that 
 poor so you can't affford to buy anything?
 
-Let's just say I'm so arrogant that I can't stand to look at any code other 
-people wrote.
+As I've written my motivation above, I wanted to make a foundation on which I can 
+build my game in a way that I feel the most comfortable and intuitive.
 
-Besides that, there are not many options if you want to make an open source 
-game, as only a few items on Asset Store supports such an usage.
+In a word, it's a '_programmer's framework_', for those who prefer writing codes 
+to tweaking GUIs like me.  
+
+Besides that, there are not many options if you want to make an open source game, 
+as only a few items on Asset Store supports such an usage.
+
+So, as a supporter of open source movement, I want to help people creating open 
+source games, and also hope that my project would benefit from contributions by 
+similar minded people in future. 
 
 > So, it's just a framework then? Where's the real game?
 
