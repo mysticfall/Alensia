@@ -66,7 +66,7 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should use the target actor's head as the pivot point.")]
         public void ShouldUseHeadPartAsPivotPoint()
         {
-            if (Actor.Head.FindChild(HeadMountedCamera.MountPointName))
+            if (Actor.Head.Find(HeadMountedCamera.MountPointName))
             {
                 return;
             }

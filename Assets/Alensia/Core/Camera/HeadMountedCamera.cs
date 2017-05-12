@@ -157,7 +157,7 @@ namespace Alensia.Core.Camera
         {
             Assert.IsNotNull(parent, "parent != null");
 
-            return parent.FindChild(MountPointName);
+            return parent.Find(MountPointName);
         }
 
         protected virtual void UpdatePosition(float heading, float elevation)

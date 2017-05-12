@@ -18,7 +18,7 @@ namespace Alensia.Tests.Camera
 
             if (_obstacle == null) return;
 
-            Object.Destroy(_obstacle);
+            Object.DestroyImmediate(_obstacle);
 
             _obstacle = null;
         }

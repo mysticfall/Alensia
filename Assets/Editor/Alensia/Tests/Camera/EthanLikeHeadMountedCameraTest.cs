@@ -28,7 +28,7 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should find an object named 'CameraMount' and use it as a pivot point.")]
         public void ShouldUseMountPointAsPivotIfAvailable()
         {
-            var pivot = Actor.Head.FindChild(HeadMountedCamera.MountPointName);
+            var pivot = Actor.Head.Find(HeadMountedCamera.MountPointName);
 
             Expect(
                 Camera.Pivot,
