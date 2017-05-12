@@ -148,6 +148,8 @@ namespace Alensia.Core.Camera
         {
             base.OnDeactivate();
 
+            if (Head == null) return;
+
             Head.localRotation = _initialRotation;
         }
 
