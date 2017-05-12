@@ -21,7 +21,7 @@ namespace Alensia.Tests.Camera
         {
             if (Actor != null)
             {
-                Object.Destroy(Actor.Transform.gameObject);
+                Object.DestroyImmediate(Actor.Transform.gameObject);
 
                 Actor = default(TActor);
             }
