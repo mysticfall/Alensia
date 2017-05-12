@@ -188,6 +188,9 @@ MonoBehaviour:
       Backward: 1
       Sideway: 1
       Angular: 90
+    JumpingAndFallingVariables:
+      Jumping: Jumping
+      Falling: Falling
   GroundDetection:
     GroundLayer:
       serializedVersion: 2
