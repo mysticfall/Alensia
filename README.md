@@ -35,9 +35,11 @@ I'm not saying the Unity's way is inherently bad. But at least for those people 
 strong programming background and intend to create a game on their own, I thought there coud 
 be a better way for them to utilize their knowledge.
 
-## Dependencies
+## Requirements
 
- * [Zenject](https://github.com/modesttree/Zenject) - Dependency injection framework for Unity3D.
+Alensia requires Unity _2017.1 Beta_ to run, and it depends on the following external assets:
+
+ * [Zenject](https://github.com/modesttree/Zenject) - Dependency injection framework for Unity.
  * [UniRx](https://github.com/neuecc/UniRx) - Reactive Extensions for Unity
  (Requires `ZEN_SIGNALS_ADD_UNIRX` scripting symbol).
 
