@@ -9,32 +9,17 @@ namespace Alensia.Core.Locomotion
 {
     public abstract class AnimatedLocomotion : Locomotion, IAnimatable
     {
-        public bool UseRootMotionForMovement
-        {
-            get { return _settings.UseRootMotionForMovement; }
-        }
+        public bool UseRootMotionForMovement => _settings.UseRootMotionForMovement;
 
-        public bool UseRootMotionForRotation
-        {
-            get { return _settings.UseRootMotionForRotation; }
-        }
+        public bool UseRootMotionForRotation => _settings.UseRootMotionForRotation;
 
-        public bool UseRootMotion
-        {
-            get { return UseRootMotionForMovement || UseRootMotionForRotation; }
-        }
+        public bool UseRootMotion => UseRootMotionForMovement || UseRootMotionForRotation;
 
-        public MovementVariables MovementVariables
-        {
-            get { return _settings.MovementVariables; }
-        }
+        public MovementVariables MovementVariables => _settings.MovementVariables;
 
-        public RotationVariables RotationVariables
-        {
-            get { return _settings.RotationVariables; }
-        }
+        public RotationVariables RotationVariables => _settings.RotationVariables;
 
-        public Animator Animator { get; private set; }
+        public Animator Animator { get; }
 
         private readonly Settings _settings;
 

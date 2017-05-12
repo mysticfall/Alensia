@@ -6,19 +6,13 @@ namespace Alensia.Core.Camera
 {
     public abstract class CameraMode : ICameraMode
     {
-        public UnityEngine.Camera Camera { get; private set; }
+        public UnityEngine.Camera Camera { get; }
 
-        public Transform Transform
-        {
-            get { return Camera.transform; }
-        }
+        public Transform Transform => Camera.transform;
 
         public bool Active { get; private set; }
 
-        public virtual bool Valid
-        {
-            get { return true; }
-        }
+        public virtual bool Valid => true;
 
         protected CameraMode(UnityEngine.Camera camera)
         {

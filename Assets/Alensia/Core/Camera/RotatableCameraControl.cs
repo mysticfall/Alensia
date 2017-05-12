@@ -10,24 +10,15 @@ namespace Alensia.Core.Camera
     {
         public const string Id = "Camera";
 
-        public IBindingKey<IAxisInput> Yaw
-        {
-            get { return Keys.Yaw; }
-        }
+        public IBindingKey<IAxisInput> Yaw => Keys.Yaw;
 
-        public IBindingKey<IAxisInput> Pitch
-        {
-            get { return Keys.Pitch; }
-        }
+        public IBindingKey<IAxisInput> Pitch => Keys.Pitch;
 
         protected IAxisInput X { get; private set; }
 
         protected IAxisInput Y { get; private set; }
 
-        public override bool Valid
-        {
-            get { return base.Valid && X != null && Y != null; }
-        }
+        public override bool Valid => base.Valid && X != null && Y != null;
 
         public RotatableCameraControl(
             ICameraManager cameraManager,

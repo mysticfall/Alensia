@@ -9,25 +9,13 @@ namespace Alensia.Core.Camera
 {
     public class ThirdPersonCamera : OrbitingCamera, IThirdPersonCamera
     {
-        public override RotationalConstraints RotationalConstraints
-        {
-            get { return _settings.Rotation; }
-        }
+        public override RotationalConstraints RotationalConstraints => _settings.Rotation;
 
-        public override DistanceSettings DistanceSettings
-        {
-            get { return _settings.Distance; }
-        }
+        public override DistanceSettings DistanceSettings => _settings.Distance;
 
-        public WallAvoidanceSettings WallAvoidanceSettings
-        {
-            get { return _settings.WallAvoidance; }
-        }
+        public WallAvoidanceSettings WallAvoidanceSettings => _settings.WallAvoidance;
 
-        public override bool Valid
-        {
-            get { return base.Valid && Target != null; }
-        }
+        public override bool Valid => base.Valid && Target != null;
 
         public ITransformable Target { get; private set; }
 
@@ -37,19 +25,13 @@ namespace Alensia.Core.Camera
             {
                 var humanoid = Target as IHumanoid;
 
-                return humanoid != null ? humanoid.Viewpoint : Target.Transform.position;
+                return humanoid?.Viewpoint ?? Target.Transform.position;
             }
         }
 
-        public override Vector3 AxisForward
-        {
-            get { return Target.Transform.forward; }
-        }
+        public override Vector3 AxisForward => Target.Transform.forward;
 
-        public override Vector3 AxisUp
-        {
-            get { return Target.Transform.up; }
-        }
+        public override Vector3 AxisUp => Target.Transform.up;
 
         private readonly Settings _settings;
 

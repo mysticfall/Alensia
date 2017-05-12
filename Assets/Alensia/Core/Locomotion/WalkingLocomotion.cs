@@ -10,17 +10,11 @@ namespace Alensia.Core.Locomotion
 {
     public class WalkingLocomotion : AnimatedLocomotion, IWalkingLocomotion, IDisposable
     {
-        public WalkSpeedSettings MaximumSpeed
-        {
-            get { return _settings.MaximumSpeed; }
-        }
+        public WalkSpeedSettings MaximumSpeed => _settings.MaximumSpeed;
 
-        public LocomotionVariables JumpingAndFallingVariables
-        {
-            get { return _settings.JumpingAndFallingVariables; }
-        }
+        public LocomotionVariables JumpingAndFallingVariables => _settings.JumpingAndFallingVariables;
 
-        public IGroundDetector GroundDetector { get; private set; }
+        public IGroundDetector GroundDetector { get; }
 
         private Pacing _pacing = Pacing.Walking();
 
@@ -42,7 +36,7 @@ namespace Alensia.Core.Locomotion
             }
         }
 
-        public PacingChangeEvent PacingChanged { get; private set; }
+        public PacingChangeEvent PacingChanged { get; }
 
         private readonly Settings _settings;
 

@@ -8,19 +8,11 @@ namespace Alensia.Core.Physics
 {
     public class CollisionBasedGroundDetector : GroundDetector, IInitializable
     {
-        public override GroundDetectionSettings Settings
-        {
-            get { return _settings; }
-        }
+        public override GroundDetectionSettings Settings { get; }
 
-        public override Collider Target
-        {
-            get { return CollisionDetector.Target; }
-        }
+        public override Collider Target => CollisionDetector.Target;
 
         public ICollisionDetector CollisionDetector { get; set; }
-
-        private readonly GroundDetectionSettings _settings;
 
         public CollisionBasedGroundDetector(
             ICollisionDetector detector,
@@ -40,7 +32,7 @@ namespace Alensia.Core.Physics
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(detector, "detector != null");
 
-            _settings = settings;
+            Settings = settings;
             CollisionDetector = detector;
         }
 

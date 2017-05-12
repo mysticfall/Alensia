@@ -6,12 +6,9 @@ namespace Alensia.Core.Locomotion
     public abstract class LocomotionControl<T> : Control.Control, ILocomotionControl<T>
         where T : class, ILocomotion
     {
-        public T Locomotion { get; private set; }
+        public T Locomotion { get; }
 
-        public override bool Valid
-        {
-            get { return base.Valid && Locomotion.Active; }
-        }
+        public override bool Valid => base.Valid && Locomotion.Active;
 
         protected LocomotionControl(T locomotion, IInputManager inputManager) : base(inputManager)
         {

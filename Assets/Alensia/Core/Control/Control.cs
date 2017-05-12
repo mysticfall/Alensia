@@ -10,16 +10,13 @@ namespace Alensia.Core.Control
 {
     public abstract class Control : IControl, IInitializable, IDisposable
     {
-        public IInputManager InputManager { get; private set; }
+        public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }
 
         public bool Active { get; private set; }
 
-        public virtual bool Valid
-        {
-            get { return true; }
-        }
+        public virtual bool Valid => true;
 
         private readonly CompositeDisposable _disposables;
 

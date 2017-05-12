@@ -2,12 +2,13 @@
 using System.Linq;
 using UniRx;
 using UnityEngine.Assertions;
+using static UnityEngine.Input;
 
 namespace Alensia.Core.Input
 {
     public class AxisInput : ModifierInput<float>, IAxisInput
     {
-        public string Axis { get; private set; }
+        public string Axis { get; }
 
         public AxisInput(string axis) : this(axis, Enumerable.Empty<ITrigger>().ToList())
         {
@@ -22,7 +23,7 @@ namespace Alensia.Core.Input
 
         protected override IObservable<float> Observe(IObservable<long> onTick)
         {
-            return onTick.Select(_ => UnityEngine.Input.GetAxis(Axis));
+            return onTick.Select(_ => GetAxis(Axis));
         }
     }
 }

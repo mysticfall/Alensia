@@ -45,20 +45,11 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public float LookAhead
-        {
-            get { return _settings.LookAhead; }
-        }
+        public float LookAhead => _settings.LookAhead;
 
-        public override bool Valid
-        {
-            get { return base.Valid && Head != null; }
-        }
+        public override bool Valid => base.Valid && Head != null;
 
-        public override RotationalConstraints RotationalConstraints
-        {
-            get { return _settings.Rotation; }
-        }
+        public override RotationalConstraints RotationalConstraints => _settings.Rotation;
 
         public ITransformable Target { get; private set; }
 
@@ -74,15 +65,9 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public override Vector3 AxisForward
-        {
-            get { return _pivotObject.forward; }
-        }
+        public override Vector3 AxisForward => _pivotObject.forward;
 
-        public override Vector3 AxisUp
-        {
-            get { return _pivotObject.up; }
-        }
+        public override Vector3 AxisUp => _pivotObject.up;
 
         protected Vector3 FocalPoint
         {

@@ -5,9 +5,9 @@ namespace Alensia.Core.Actor
 {
     public class Actor : IActor
     {
-        public Animator Animator { get; private set; }
+        public Animator Animator { get; }
 
-        public Transform Transform { get; private set; }
+        public Transform Transform { get; }
 
         public Actor(Animator animator, Transform transform)
         {

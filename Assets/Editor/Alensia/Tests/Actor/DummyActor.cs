@@ -7,13 +7,13 @@ namespace Alensia.Tests.Actor
 {
     public class DummyActor : IActor
     {
-        public IWalkingLocomotion Locomotion { get; private set; }
+        public IWalkingLocomotion Locomotion { get; }
 
-        public Animator Animator { get; private set; }
+        public Animator Animator { get; }
 
-        public Transform Transform { get; private set; }
+        public Transform Transform { get; }
 
-        public Transform Body { get; private set; }
+        public Transform Body { get; }
 
         public DummyActor()
         {

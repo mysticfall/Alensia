@@ -5,10 +5,7 @@ namespace Alensia.Core.Input
 {
     public abstract class Input<T> : IInput<T>
     {
-        public IReadOnlyReactiveProperty<T> Value
-        {
-            get { return _value; }
-        }
+        public IReadOnlyReactiveProperty<T> Value => _value;
 
         private ReadOnlyReactiveProperty<T> _value;
 
@@ -47,7 +44,7 @@ namespace Alensia.Core.Input
 
         public void Tick()
         {
-            if (_subject != null) _subject.OnNext(_count++);
+            _subject?.OnNext(_count++);
         }
     }
 }

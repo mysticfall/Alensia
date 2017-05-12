@@ -8,17 +8,11 @@ namespace Alensia.Core.Camera
 {
     public class OrbitingCameraControl : RotatableCameraControl
     {
-        public IBindingKey<IAxisInput> Zoom
-        {
-            get { return Keys.Zoom; }
-        }
+        public IBindingKey<IAxisInput> Zoom => Keys.Zoom;
 
         protected IAxisInput Scroll { get; private set; }
 
-        public override bool Valid
-        {
-            get { return base.Valid && Scroll != null; }
-        }
+        public override bool Valid => base.Valid && Scroll != null;
 
         public OrbitingCameraControl(
             ICameraManager cameraManager,

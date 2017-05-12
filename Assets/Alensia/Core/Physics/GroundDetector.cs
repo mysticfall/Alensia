@@ -14,14 +14,11 @@ namespace Alensia.Core.Physics
 
         public IEnumerable<Collider> Grounds { get; private set; }
 
-        public bool Grounded
-        {
-            get { return Grounds.Any(); }
-        }
+        public bool Grounded => Grounds.Any();
 
-        public GroundHitEvent GroundHit { get; private set; }
+        public GroundHitEvent GroundHit { get; }
 
-        public GroundLeaveEvent GroundLeft { get; private set; }
+        public GroundLeaveEvent GroundLeft { get; }
 
         protected GroundDetector(GroundHitEvent groundHit, GroundLeaveEvent groundLeft)
         {

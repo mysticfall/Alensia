@@ -7,7 +7,7 @@ namespace Alensia.Core.Locomotion
 {
     public abstract class Locomotion : ILocomotion, IInitializable, ITickable
     {
-        public Transform Transform { get; private set; }
+        public Transform Transform { get; }
 
         public bool Active { get; private set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.Input;
 
 namespace Alensia.Core.Input
 {
@@ -16,7 +17,7 @@ namespace Alensia.Core.Input
 
         protected override IObservable<Vector3> Observe(IObservable<long> onTick)
         {
-            return onTick.Select(_ => UnityEngine.Input.mousePosition);
+            return onTick.Select(_ => mousePosition);
         }
     }
 }

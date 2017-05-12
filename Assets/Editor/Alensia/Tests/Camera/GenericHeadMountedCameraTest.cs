@@ -14,15 +14,11 @@ namespace Alensia.Tests.Camera
             return new DummyActor();
         }
 
-        public override float ActualHeading
-        {
-            get { return GeometryUtils.NormalizeAspectAngle(Actor.Transform.localEulerAngles.y); }
-        }
+        public override float ActualHeading =>
+            GeometryUtils.NormalizeAspectAngle(Actor.Transform.localEulerAngles.y);
 
-        public override float ActualElevation
-        {
-            get { return -GeometryUtils.NormalizeAspectAngle(Actor.Transform.localEulerAngles.x); }
-        }
+        public override float ActualElevation =>
+            -GeometryUtils.NormalizeAspectAngle(Actor.Transform.localEulerAngles.x);
 
         [Test, Description("It should use the target actor itself as the pivot point.")]
         public void ShouldUseTargetActorItselfAsPivotPoint()

@@ -8,17 +8,9 @@ namespace Alensia.Core.Physics
     public abstract class RayCastingGroundDetector<T> : GroundDetector, IFixedTickable
         where T : Collider
     {
-        public override GroundDetectionSettings Settings
-        {
-            get { return _settings; }
-        }
+        public override GroundDetectionSettings Settings { get; }
 
-        public override Collider Target
-        {
-            get { return _target; }
-        }
-
-        private readonly GroundDetectionSettings _settings;
+        public override Collider Target => _target;
 
         private readonly T _target;
 
@@ -40,7 +32,7 @@ namespace Alensia.Core.Physics
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(target, "target != null");
 
-            _settings = settings;
+            Settings = settings;
             _target = target;
         }
 

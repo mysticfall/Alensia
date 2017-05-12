@@ -11,10 +11,7 @@ namespace Alensia.Tests.Camera
         where TCamera : OrbitingCamera, ITrackingCamera
         where TActor : IActor
     {
-        public float ActualDistance
-        {
-            get { return Vector3.Distance(Camera.Transform.position, Camera.Pivot); }
-        }
+        public float ActualDistance => Vector3.Distance(Camera.Transform.position, Camera.Pivot);
 
         public float ActualHeading
         {

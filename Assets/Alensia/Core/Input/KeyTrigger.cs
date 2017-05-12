@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEngine.Input;
 
 namespace Alensia.Core.Input
 {
@@ -6,20 +7,11 @@ namespace Alensia.Core.Input
     {
         public readonly KeyCode Key;
 
-        public bool Up
-        {
-            get { return UnityEngine.Input.GetKeyUp(Key); }
-        }
+        public bool Up => GetKeyUp(Key);
 
-        public bool Down
-        {
-            get { return UnityEngine.Input.GetKeyDown(Key); }
-        }
+        public bool Down => GetKeyDown(Key);
 
-        public bool Hold
-        {
-            get { return UnityEngine.Input.GetKey(Key); }
-        }
+        public bool Hold => GetKey(Key);
 
         public KeyTrigger(KeyCode key)
         {

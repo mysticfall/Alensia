@@ -13,15 +13,9 @@ namespace Alensia.Core.Control
     {
         public const string Id = "Locomotion";
 
-        public IBindingKey<IAxisInput> Horizontal
-        {
-            get { return Keys.Horizontal; }
-        }
+        public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 
-        public IBindingKey<IAxisInput> Vertical
-        {
-            get { return Keys.Vertical; }
-        }
+        public IBindingKey<IAxisInput> Vertical => Keys.Vertical;
 
         public readonly ICameraManager CameraManager;
 
@@ -29,10 +23,7 @@ namespace Alensia.Core.Control
 
         protected IAxisInput Y { get; private set; }
 
-        public override bool Valid
-        {
-            get { return base.Valid && X != null && Y != null; }
-        }
+        public override bool Valid => base.Valid && X != null && Y != null;
 
         public PlayerMovementControl(
             IWalkingLocomotion locomotion,

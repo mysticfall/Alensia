@@ -9,14 +9,11 @@ namespace Alensia.Core.Control
 {
     public class PlayerCameraControl<T> : OrbitingCameraControl where T : class, IActor
     {
-        public T Player { get; private set; }
+        public T Player { get; }
 
-        public ViewSensitivity ViewSensitivity { get; private set; }
+        public ViewSensitivity ViewSensitivity { get; }
 
-        public override bool Valid
-        {
-            get { return base.Valid && CameraManager.Mode is IPerspectiveCamera; }
-        }
+        public override bool Valid => base.Valid && CameraManager.Mode is IPerspectiveCamera;
 
         public PlayerCameraControl(
             T player,

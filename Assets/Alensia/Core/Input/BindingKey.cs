@@ -5,7 +5,7 @@ namespace Alensia.Core.Input
 {
     public class BindingKey<T> : IBindingKey<T> where T : IInput
     {
-        public string Id { get; private set; }
+        public string Id { get; }
 
         public BindingKey(string id)
         {

@@ -6,11 +6,11 @@ namespace Alensia.Core.Actor
 {
     public class Humanoid : Actor, IHumanoid
     {
-        public Transform Head { get; private set; }
+        public Transform Head { get; }
 
-        public Transform LeftEye { get; private set; }
+        public Transform LeftEye { get; }
 
-        public Transform RightEye { get; private set; }
+        public Transform RightEye { get; }
 
         public Vector3 Viewpoint
         {
@@ -25,7 +25,7 @@ namespace Alensia.Core.Actor
             }
         }
 
-        public IWalkingLocomotion Locomotion { get; private set; }
+        public IWalkingLocomotion Locomotion { get; }
 
         public Humanoid(
             IWalkingLocomotion locomotion,

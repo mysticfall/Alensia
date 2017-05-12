@@ -6,7 +6,7 @@ namespace Alensia.Core.Input
 {
     public abstract class TriggerInput : ModifierInput<float>, ITriggerInput
     {
-        public IList<ITrigger> Triggers { get; private set; }
+        public IList<ITrigger> Triggers { get; }
 
         protected TriggerInput(ITrigger trigger) :
             this(new List<ITrigger> {trigger}, Enumerable.Empty<ITrigger>().ToList())

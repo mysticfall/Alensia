@@ -5,7 +5,7 @@ namespace Alensia.Core.Camera
 {
     public abstract class CameraControl : Control.Control, ICameraControl
     {
-        public ICameraManager CameraManager { get; private set; }
+        public ICameraManager CameraManager { get; }
 
         protected CameraControl(
             ICameraManager cameraManager, IInputManager inputManager) : base(inputManager)

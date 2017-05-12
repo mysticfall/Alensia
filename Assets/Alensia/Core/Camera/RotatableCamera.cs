@@ -16,10 +16,7 @@ namespace Alensia.Core.Camera
 
         public abstract Vector3 AxisUp { get; }
 
-        public Vector3 AxisRight
-        {
-            get { return Vector3.Cross(AxisUp, AxisForward); }
-        }
+        public Vector3 AxisRight => Vector3.Cross(AxisUp, AxisForward);
 
         protected RotatableCamera(UnityEngine.Camera camera) : base(camera)
         {

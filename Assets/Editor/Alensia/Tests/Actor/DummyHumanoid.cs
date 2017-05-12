@@ -5,22 +5,13 @@ namespace Alensia.Tests.Actor
 {
     public class DummyHumanoid : DummyActor, IHumanoid
     {
-        public Transform Head { get; private set; }
+        public Transform Head { get; }
 
-        public Transform LeftEye
-        {
-            get { return null; }
-        }
+        public Transform LeftEye => null;
 
-        public Transform RightEye
-        {
-            get { return null; }
-        }
+        public Transform RightEye => null;
 
-        public Vector3 Viewpoint
-        {
-            get { return Head.position; }
-        }
+        public Vector3 Viewpoint => Head.position;
 
         public DummyHumanoid()
         {

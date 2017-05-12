@@ -12,13 +12,13 @@ namespace Alensia.Core.Control
 {
     public class PlayerController : IPlayerController<IHumanoid>, IInitializable, IDisposable
     {
-        public IList<IControl> Controls { get; private set; }
+        public IList<IControl> Controls { get; }
 
-        public IHumanoid Player { get; private set; }
+        public IHumanoid Player { get; }
 
-        public IInputManager InputManager { get; private set; }
+        public IInputManager InputManager { get; }
 
-        public ICameraManager CameraManager { get; private set; }
+        public ICameraManager CameraManager { get; }
 
         public PlayerController(
             List<IControl> controls,

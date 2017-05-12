@@ -7,7 +7,7 @@ namespace Alensia.Core.Input
 {
     public abstract class ModifierInput<T> : Input<T>, IModifierInput
     {
-        public IList<ITrigger> Modifiers { get; private set; }
+        public IList<ITrigger> Modifiers { get; }
 
         protected ModifierInput() :
             this(Enumerable.Empty<ITrigger>().ToList())

@@ -9,12 +9,9 @@ namespace Alensia.Core.Input
 {
     public class InputManager : IInputManager, ITickable, IDisposable
     {
-        public ICollection<IBindingKey> Keys
-        {
-            get { return _bindings.AsReadOnly(); }
-        }
+        public ICollection<IBindingKey> Keys => _bindings.AsReadOnly();
 
-        public BindingChangeEvent BindingChanged { get; private set; }
+        public BindingChangeEvent BindingChanged { get; }
 
         private readonly List<IBindingKey> _bindings;
 

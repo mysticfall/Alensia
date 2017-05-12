@@ -20,8 +20,7 @@ namespace Alensia.Core.Camera
             {
                 if (value == null || value == _mode) return;
 
-                if (_mode != null) _mode.Deactivate();
-
+                _mode?.Deactivate();
                 _mode = value;
 
                 if (_mode == null) return;
@@ -32,9 +31,9 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public ReadOnlyCollection<ICameraMode> AvailableModes { get; private set; }
+        public ReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
-        public CameraChangeEvent CameraChanged { get; private set; }
+        public CameraChangeEvent CameraChanged { get; }
 
         public CameraManager(List<ICameraMode> modes, CameraChangeEvent cameraChanged)
         {
