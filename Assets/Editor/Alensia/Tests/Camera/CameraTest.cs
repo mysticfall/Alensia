@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Camera;
+﻿﻿using Alensia.Core.Camera;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -8,9 +8,10 @@ namespace Alensia.Tests.Camera
     {
         public T Camera { get; private set; }
 
-        [SetUp]
-        public virtual void Setup()
+        protected override void PrepareScene()
         {
+            base.PrepareScene();
+
             var gameObject = new GameObject();
             var camera = gameObject.AddComponent<UnityEngine.Camera>();
 

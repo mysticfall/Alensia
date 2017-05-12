@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Actor;
+﻿﻿using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using NUnit.Framework;
 using UnityEngine;
@@ -10,11 +10,11 @@ namespace Alensia.Tests.Camera
     {
         public TActor Actor { get; private set; }
 
-        public override void Setup()
+        protected override void PrepareScene()
         {
             Actor = CreateActor();
 
-            base.Setup();
+            base.PrepareScene();
         }
 
         public override void TearDown()
