@@ -37,8 +37,7 @@ be a better way for them to utilize their knowledge.
 
 ## Requirements
 
-Alensia requires Unity _2017.1 Beta_ to run, and it depends on the following external assets:
-
+ * Unity _2017.1 Beta_ with _.NET 4.6_ API compatibility (Change in _Player Settings_).
  * [Zenject](https://github.com/modesttree/Zenject) - Dependency injection framework for Unity.
  * [UniRx](https://github.com/neuecc/UniRx) - Reactive Extensions for Unity
  (Requires `ZEN_SIGNALS_ADD_UNIRX` scripting symbol).
