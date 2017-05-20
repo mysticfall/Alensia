@@ -151,14 +151,7 @@ namespace Alensia.Core.Camera
             Transform.position = Pivot;
             Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
 
-            if (Mathf.Abs(elevation) > 89)
-            {
-                Transform.LookAt(FocalPoint, AxisUp);
-            }
-            else
-            {
-                Transform.LookAt(FocalPoint);
-            }
+            Transform.LookAt(FocalPoint);
         }
 
         public virtual void LateTick()
