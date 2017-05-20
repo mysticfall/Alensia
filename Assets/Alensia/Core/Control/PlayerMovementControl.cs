@@ -109,11 +109,6 @@ namespace Alensia.Core.Control
             }
         }
 
-        protected void OnPaceChange(bool running)
-        {
-            Locomotion.Pacing = running ? Pacing.Running() : Pacing.Walking();
-        }
-
         public static class Keys
         {
             public static IBindingKey<IAxisInput> Horizontal =
