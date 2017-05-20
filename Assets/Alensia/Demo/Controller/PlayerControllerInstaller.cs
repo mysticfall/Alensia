@@ -69,6 +69,8 @@ namespace Alensia.Demo.Controller
             Container.DeclareSignal<BindingChangeEvent>();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 
+            Container.BindInterfacesAndSelfTo<GameControl>().AsSingle().NonLazy();
+
             Container.BindInterfacesAndSelfTo<PlayerCameraControl<IHumanoid>>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
 

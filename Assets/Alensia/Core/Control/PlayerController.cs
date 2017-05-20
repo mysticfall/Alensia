@@ -46,6 +46,10 @@ namespace Alensia.Core.Control
             Cursor.visible = false;
 
             //TODO Make it easier to register default key bindings.
+            InputManager.Register(
+                GameControl.Keys.ShowMenu, 
+                new TriggerDownInput(new KeyTrigger(KeyCode.Escape)));
+
             InputManager.Register(RotatableCameraControl.Keys.Yaw, new AxisInput("Mouse X"));
             InputManager.Register(RotatableCameraControl.Keys.Pitch, new AxisInput("Mouse Y"));
             InputManager.Register(OrbitingCameraControl.Keys.Zoom, new AxisInput("Mouse ScrollWheel"));
