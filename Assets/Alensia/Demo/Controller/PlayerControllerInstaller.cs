@@ -11,8 +11,6 @@ namespace Alensia.Demo.Controller
 {
     public class PlayerControllerInstaller : MonoInstaller<PlayerControllerInstaller>
     {
-        public Camera Camera;
-
         public ViewSensitivity ViewSensitivity;
 
         public WalkingLocomotion.Settings Locomotion;
@@ -87,7 +85,7 @@ namespace Alensia.Demo.Controller
 
         protected virtual void InstallCameras()
         {
-            Container.Bind<Camera>().FromInstance(Camera);
+            Container.Bind<Camera>().FromInstance(Camera.main);
 
             Container.Bind<HeadMountedCamera.Settings>().FromInstance(FirstPersonCamera);
             Container.Bind<ThirdPersonCamera.Settings>().FromInstance(ThirdPersonCamera);
