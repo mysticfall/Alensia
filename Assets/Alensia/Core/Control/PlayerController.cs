@@ -52,7 +52,7 @@ namespace Alensia.Core.Control
 
             InputManager.Register(RotatableCameraControl.Keys.Yaw, new AxisInput("Mouse X"));
             InputManager.Register(RotatableCameraControl.Keys.Pitch, new AxisInput("Mouse Y"));
-            InputManager.Register(OrbitingCameraControl.Keys.Zoom, new AxisInput("Mouse ScrollWheel"));
+            InputManager.Register(OrbitingCameraControl.Keys.Zoom, new AxisInput("Mouse ScrollWheel", 0.15f));
 
             InputManager.Register(PlayerMovementControl.Keys.Horizontal, new AxisInput("Horizontal"));
             InputManager.Register(PlayerMovementControl.Keys.Vertical, new AxisInput("Vertical"));
