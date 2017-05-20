@@ -47,7 +47,7 @@ namespace Alensia.Core.Control
 
             //TODO Make it easier to register default key bindings.
             InputManager.Register(
-                GameControl.Keys.ShowMenu, 
+                GameControl.Keys.ShowMenu,
                 new TriggerDownInput(new KeyTrigger(KeyCode.Escape)));
 
             InputManager.Register(RotatableCameraControl.Keys.Yaw, new AxisInput("Mouse X"));
@@ -56,6 +56,9 @@ namespace Alensia.Core.Control
 
             InputManager.Register(PlayerMovementControl.Keys.Horizontal, new AxisInput("Horizontal"));
             InputManager.Register(PlayerMovementControl.Keys.Vertical, new AxisInput("Vertical"));
+            InputManager.Register(
+                PlayerMovementControl.Keys.HoldToRun,
+                new TriggerStateInput(new KeyTrigger(KeyCode.LeftShift)));
 
             foreach (var control in Controls)
             {

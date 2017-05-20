@@ -17,13 +17,25 @@ namespace Alensia.Core.Control
 
         public IBindingKey<IAxisInput> Vertical => Keys.Vertical;
 
+        protected IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
+
         public readonly ICameraManager CameraManager;
 
         protected IAxisInput X { get; private set; }
 
         protected IAxisInput Y { get; private set; }
 
-        public override bool Valid => base.Valid && X != null && Y != null;
+        protected TriggerStateInput Running { get; private set; }
+
+        public override bool Valid => base.Valid &&
+                                      Locomotion.Active &&
+                                      X != null &&
+                                      Y != null &&
+                                      Running != null;
+
+        private readonly Pacing _walking = Pacing.Walking();
+
+        private readonly Pacing _running = Pacing.Running();
 
         public PlayerMovementControl(
             IWalkingLocomotion locomotion,
@@ -37,7 +49,7 @@ namespace Alensia.Core.Control
 
         protected override ICollection<IBindingKey> PrepareBindings()
         {
-            return new List<IBindingKey> {Keys.Horizontal, Keys.Vertical};
+            return new List<IBindingKey> {Keys.Horizontal, Keys.Vertical, Keys.HoldToRun};
         }
 
         protected override void OnBindingChange(IBindingKey key)
@@ -53,6 +65,11 @@ namespace Alensia.Core.Control
             {
                 Y = InputManager.Get(Keys.Vertical);
             }
+
+            if (Equals(key, Keys.HoldToRun))
+            {
+                Running = InputManager.Get(Keys.HoldToRun);
+            }
         }
 
         protected override void OnActivate()
@@ -60,13 +77,13 @@ namespace Alensia.Core.Control
             base.OnActivate();
 
             var direction = Observable
-                .Zip(X.Value, Y.Value)
-                .Select(xs => new Vector2(xs[0], xs[1]).normalized);
+                .Zip(X.Value, Y.Value, Running.Value)
+                .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]));
 
-            Subsribe(direction, OnMove);
+            Subsribe(direction, r => OnMove(r.Item1, r.Item2 > 0));
         }
 
-        protected void OnMove(Vector2 input)
+        protected void OnMove(Vector2 input, bool running)
         {
             var camera = CameraManager.Mode as IRotatableCamera;
 
@@ -80,6 +97,21 @@ namespace Alensia.Core.Control
             var movement = input.normalized;
 
             Locomotion.Move(new Vector3(movement.x, 0, movement.y));
+
+            if (running && Locomotion.Pacing != _running)
+            {
+                Locomotion.Pacing = _running;
+            }
+
+            if (!running && Locomotion.Pacing == _running)
+            {
+                Locomotion.Pacing = _walking;
+            }
+        }
+
+        protected void OnPaceChange(bool running)
+        {
+            Locomotion.Pacing = running ? Pacing.Running() : Pacing.Walking();
         }
 
         public static class Keys
@@ -89,6 +121,9 @@ namespace Alensia.Core.Control
 
             public static IBindingKey<IAxisInput> Vertical =
                 new BindingKey<IAxisInput>(Id + ".Vertical");
+
+            public static IBindingKey<TriggerStateInput> HoldToRun =
+                new BindingKey<TriggerStateInput>(Id + ".HoldToRun");
         }
     }
 }
