@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Alensia.Core.Physics
 {
-    public class GroundLeaveEvent : Signal<IEnumerable<Collider>, GroundLeaveEvent>
+    public class GroundLeaveEvent : Signal<ISet<Collider>, GroundLeaveEvent>
     {
     }
 }

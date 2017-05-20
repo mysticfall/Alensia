@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ModestTree;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace Alensia.Core.Physics
 {
@@ -12,7 +13,7 @@ namespace Alensia.Core.Physics
 
         public abstract Collider Target { get; }
 
-        public IEnumerable<Collider> Grounds { get; private set; }
+        public ISet<Collider> Grounds { get; private set; } = new HashSet<Collider>();
 
         public bool Grounded => Grounds.Any();
 
@@ -27,13 +28,11 @@ namespace Alensia.Core.Physics
 
             GroundHit = groundHit;
             GroundLeft = groundLeft;
-
-            Grounds = Enumerable.Empty<Collider>();
         }
 
         public virtual void Dispose()
         {
-            Grounds = Enumerable.Empty<Collider>();
+            Grounds = new HashSet<Collider>();
         }
 
         protected virtual bool IsGround(Collider collider)
@@ -43,10 +42,10 @@ namespace Alensia.Core.Physics
 
         protected void OnDetectGround(IEnumerable<Collider> grounds)
         {
-            var collection = grounds.ToList();
+            var collection = grounds.ToHashSet();
 
-            var oldContacts = Grounds.Except(collection).ToList();
-            var contacts = collection.Except(Grounds).ToList();
+            var oldContacts = Grounds.Except(collection).ToHashSet();
+            var contacts = collection.Except(Grounds).ToHashSet();
 
             Grounds = collection;
 

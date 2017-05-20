@@ -9,7 +9,7 @@ namespace Alensia.Core.Physics
 
         Collider Target { get; }
 
-        IEnumerable<Collider> Grounds  { get; }
+        ISet<Collider> Grounds  { get; }
 
         bool Grounded { get; }
 

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Alensia.Core.Physics
 {
-    public class GroundHitEvent : Signal<IEnumerable<Collider>, GroundHitEvent>
+    public class GroundHitEvent : Signal<ISet<Collider>, GroundHitEvent>
     {
     }
 }
