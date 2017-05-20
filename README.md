@@ -119,7 +119,7 @@ Maybe in next 10 years? (I hope Unity will still be there then.)
 
 Other than using the [issue tracker](https://github.com/mysticfall/Alensia/issues) 
 at the project page, You can visit the official forum thread 
-[here](https://forum.unity3d.com/threads/alensia-an-open-source-rpg-framework-wanna-be-in-a-very-very-early-stage.465618/) 
+[here](https://forum.unity3d.com/threads/alensia-an-open-source-programmer-friendly-rpg-framework-in-a-very-very-early-stage.465618/) 
 and leave your comments.
 
 ## License
