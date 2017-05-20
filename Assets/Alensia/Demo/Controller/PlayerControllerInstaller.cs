@@ -1,7 +1,4 @@
 using Alensia.Core.Actor;
-using Alensia.Core.Camera;
-using Alensia.Core.Control;
-using Alensia.Core.Input;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
 using UnityEngine;
@@ -11,15 +8,9 @@ namespace Alensia.Demo.Controller
 {
     public class PlayerControllerInstaller : MonoInstaller<PlayerControllerInstaller>
     {
-        public ViewSensitivity ViewSensitivity;
-
         public WalkingLocomotion.Settings Locomotion;
 
         public GroundDetectionSettings GroundDetection;
-
-        public HeadMountedCamera.Settings FirstPersonCamera;
-
-        public ThirdPersonCamera.Settings ThirdPersonCamera;
 
         public override void InstallBindings()
         {
@@ -27,57 +18,33 @@ namespace Alensia.Demo.Controller
             InstallAnimator();
             InstallPhysics();
 
-            InstallControls();
             InstallLocomotion();
-            InstallCameras();
-
             InstallCharacter();
         }
 
-        protected virtual void InstallModel()
+        protected void InstallModel()
         {
-            var parent = transform.parent;
-
-            Container.Bind<Transform>().FromInstance(parent);
+            Container.Bind<Transform>().FromInstance(GetComponent<Transform>()).AsSingle();
         }
 
-        protected virtual void InstallPhysics()
+        protected void InstallPhysics()
         {
-            var parent = transform.parent;
-
-            Container.Bind<CapsuleCollider>().FromInstance(parent.GetComponent<CapsuleCollider>());
-            Container.Bind<Rigidbody>().FromInstance(parent.GetComponent<Rigidbody>());
+            Container.Bind<CapsuleCollider>().FromInstance(GetComponent<CapsuleCollider>()).AsSingle();
+            Container.Bind<Rigidbody>().FromInstance(GetComponent<Rigidbody>()).AsSingle();
 
             Container.DeclareSignal<GroundHitEvent>();
             Container.DeclareSignal<GroundLeaveEvent>();
 
-            Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection);
+            Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection).AsSingle();
             Container.BindInterfacesAndSelfTo<CapsuleColliderGroundDetector>().AsSingle();
         }
 
-        protected virtual void InstallAnimator()
+        protected void InstallAnimator()
         {
-            var parent = transform.parent;
-
-            Container.Bind<Animator>().FromInstance(parent.GetComponent<Animator>());
+            Container.Bind<Animator>().FromInstance(GetComponent<Animator>()).AsSingle();
         }
 
-        protected virtual void InstallControls()
-        {
-            Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
-
-            Container.DeclareSignal<BindingChangeEvent>();
-            Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<GameControl>().AsSingle().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<PlayerCameraControl<IHumanoid>>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
-
-            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle().NonLazy();
-        }
-
-        protected virtual void InstallLocomotion()
+        protected void InstallLocomotion()
         {
             Container.Bind<WalkingLocomotion.Settings>().FromInstance(Locomotion);
 
@@ -85,21 +52,7 @@ namespace Alensia.Demo.Controller
             Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
         }
 
-        protected virtual void InstallCameras()
-        {
-            Container.Bind<Camera>().FromInstance(Camera.main);
-
-            Container.Bind<HeadMountedCamera.Settings>().FromInstance(FirstPersonCamera);
-            Container.Bind<ThirdPersonCamera.Settings>().FromInstance(ThirdPersonCamera);
-
-            Container.BindInterfacesAndSelfTo<HeadMountedCamera>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ThirdPersonCamera>().AsSingle();
-
-            Container.DeclareSignal<CameraChangeEvent>();
-            Container.Bind<ICameraManager>().To<CameraManager>().AsSingle();
-        }
-
-        protected virtual void InstallCharacter()
+        protected void InstallCharacter()
         {
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
         }
