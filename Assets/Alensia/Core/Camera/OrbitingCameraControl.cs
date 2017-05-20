@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using UniRx;
@@ -41,7 +40,7 @@ namespace Alensia.Core.Camera
 
             var zoom = Scroll.Value
                 .Where(_ => CameraManager.Mode is IZoomableCamera)
-                .Select(v => (float) -Math.Sign(v));
+                .Select(v => v * -15);
 
             Subsribe(zoom, OnZoom);
         }
