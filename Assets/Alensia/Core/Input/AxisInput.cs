@@ -25,6 +25,7 @@ namespace Alensia.Core.Input
 
         public AxisInput(string axis, float? smoothing, IList<ITrigger> modifiers) : base(modifiers)
         {
+            Assert.IsTrue(!smoothing.HasValue || smoothing.Value > 0, "smoothing > 0");
             Assert.IsNotNull(axis, "axis != null");
 
             Axis = axis;
@@ -33,15 +34,17 @@ namespace Alensia.Core.Input
 
         protected override IObservable<float> Observe(IObservable<long> onTick)
         {
-            if (Smoothing.HasValue)
+            if (!Smoothing.HasValue)
             {
-                return onTick
-                    .Select(_ => GetAxis(Axis))
-                    .Scan((previous, current) =>
-                        Mathf.Lerp(previous, current, Time.deltaTime / Smoothing.Value));
+                return onTick.Select(_ => GetAxis(Axis));
             }
 
-            return onTick.Select(_ => GetAxis(Axis));
+            var smoothing = Smoothing.Value;
+
+            return onTick
+                .Select(_ => GetAxis(Axis))
+                .Scan(GetAxis(Axis), (previous, current) =>
+                    Mathf.Lerp(previous, current, Time.deltaTime / smoothing));
         }
     }
 }
