@@ -17,9 +17,13 @@ namespace Alensia.Core.Control
 
         public IBindingKey<IAxisInput> Vertical => Keys.Vertical;
 
-        protected IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
+        public IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
 
         public readonly ICameraManager CameraManager;
+
+        public Pacing WalkingPace = Pacing.Walking();
+
+        public Pacing RunningPace = Pacing.Running();
 
         protected IAxisInput X { get; private set; }
 
@@ -32,10 +36,6 @@ namespace Alensia.Core.Control
                                       X != null &&
                                       Y != null &&
                                       Running != null;
-
-        private readonly Pacing _walking = Pacing.Walking();
-
-        private readonly Pacing _running = Pacing.Running();
 
         public PlayerMovementControl(
             IWalkingLocomotion locomotion,
@@ -83,7 +83,7 @@ namespace Alensia.Core.Control
             Subsribe(direction, r => OnMove(r.Item1, r.Item2 > 0));
         }
 
-        protected void OnMove(Vector2 input, bool running)
+        protected virtual void OnMove(Vector2 input, bool running)
         {
             var camera = CameraManager.Mode as IRotatableCamera;
 
@@ -98,14 +98,14 @@ namespace Alensia.Core.Control
 
             Locomotion.Move(new Vector3(movement.x, 0, movement.y));
 
-            if (running && Locomotion.Pacing != _running)
+            if (running && Locomotion.Pacing != RunningPace)
             {
-                Locomotion.Pacing = _running;
+                Locomotion.Pacing = RunningPace;
             }
 
-            if (!running && Locomotion.Pacing == _running)
+            if (!running && Locomotion.Pacing == RunningPace)
             {
-                Locomotion.Pacing = _walking;
+                Locomotion.Pacing = WalkingPace;
             }
         }
 

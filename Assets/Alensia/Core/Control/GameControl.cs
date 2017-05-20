@@ -42,7 +42,7 @@ namespace Alensia.Core.Control
             Subsribe(ShowMenuInput.Value, OnShowMenu);
         }
 
-        protected void OnShowMenu(float value)
+        protected virtual void OnShowMenu(float value)
         {
             //TODO: We don't have any menu yet, so we just quit for now.
             Application.Quit();
