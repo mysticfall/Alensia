@@ -2,6 +2,7 @@ using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using Alensia.Tests.Actor;
 using NUnit.Framework;
+using UnityEngine;
 using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
@@ -23,9 +24,14 @@ namespace Alensia.Tests.Camera
         [Test, Description("It should use the target actor itself as the pivot point.")]
         public void ShouldUseTargetActorItselfAsPivotPoint()
         {
+            Camera.CameraOffset = new Vector3(0.5f, 0.2f, 0.1f);
+
+            var offset = Actor.Transform.TransformDirection(Camera.CameraOffset) *
+                         Camera.CameraOffset.magnitude;
+
             Expect(
                 Camera.Pivot,
-                Is.EqualTo(Actor.Transform.position),
+                Is.EqualTo(Actor.Transform.position + offset),
                 "Unexpected pivot position."
             );
             Expect(

@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 43770267}
   _installerPrefabs: []
   _scriptableObjectInstallers: []
+  _autoRun: 1
   _kernel: {fileID: 0}
 --- !u!114 &43770267
 MonoBehaviour:
@@ -165,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29716944553144448e87ea3bd3ecc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 677176017}
   ViewSensitivity:
     Horizontal: 0.5
     Vertical: 0.5
@@ -197,11 +197,14 @@ MonoBehaviour:
       m_Bits: 4294967295
     Tolerance: 0.2
   FirstPersonCamera:
-    LookAhead: 10
     Rotation:
       Up: 60
       Down: 65
       Side: 85
+    LookAhead: 10
+    CameraOffset: {x: 0, y: 0, z: 0.3}
+    HeadAxisUp: 3
+    HeadAxisFoward: 4
   ThirdPersonCamera:
     Rotation:
       Up: 80
@@ -540,7 +543,7 @@ GameObject:
   - component: {fileID: 677176014}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -615,38 +618,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!1 &765700837
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 765700838}
-  m_Layer: 0
-  m_Name: CameraMount
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &765700838
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 765700837}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.078, y: -0.095, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 919478560}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
---- !u!4 &919478560 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 420338, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
-  m_PrefabInternal: {fileID: 563248172}
 --- !u!1001 &1144812584
 Prefab:
   m_ObjectHideFlags: 0
@@ -854,10 +825,10 @@ MonoBehaviour:
   _installers: []
   _installerPrefabs: []
   _scriptableObjectInstallers: []
+  _autoRun: 1
   _parentNewObjectsUnderRoot: 0
   _contractNames: []
   _parentContractName: 
-  _autoRun: 1
 --- !u!4 &1506224612
 Transform:
   m_ObjectHideFlags: 0
