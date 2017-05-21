@@ -35,7 +35,7 @@ namespace Alensia.Core.Common
                 case Axis.InverseZ:
                     return transform.forward * -1;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(axis));
             }
         }
 
@@ -56,7 +56,7 @@ namespace Alensia.Core.Common
                 case Axis.InverseZ:
                     return Vector3.forward * -1;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(axis));
             }
         }
     }
