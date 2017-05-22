@@ -62,7 +62,7 @@ namespace Alensia.Core.Control
 
             foreach (var control in Controls)
             {
-                control.Activate();
+                control.Active = true;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Alensia.Core.Control
         {
             foreach (var control in Controls)
             {
-                control.Deactivate();
+                control.Active = false;
             }
         }
     }

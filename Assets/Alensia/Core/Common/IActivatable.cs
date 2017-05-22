@@ -2,10 +2,6 @@
 {
     public interface IActivatable
     {
-        bool Active { get; }
-
-        void Activate();
-
-        void Deactivate();
+        bool Active { get; set; }
     }
 }

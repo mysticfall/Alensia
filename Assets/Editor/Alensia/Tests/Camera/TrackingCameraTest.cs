@@ -1,4 +1,4 @@
-﻿﻿using Alensia.Core.Actor;
+﻿using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using NUnit.Framework;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Alensia.Tests.Camera
 {
     public abstract class TrackingCameraTest<TCamera, TActor> : CameraTest<TCamera>
-        where TCamera : ITrackingCamera where TActor : IActor
+        where TCamera : class, ITrackingCamera where TActor : IActor
     {
         public TActor Actor { get; private set; }
 

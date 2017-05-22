@@ -10,40 +10,40 @@ namespace Alensia.Core.Camera
 
         public Transform Transform => Camera.transform;
 
-        public bool Active { get; private set; }
+        public bool Active
+        {
+            get { return _active; }
+            set
+            {
+                if (_active == value) return;
+
+                if (value && !Valid)
+                {
+                    throw new InvalidOperationException("Invalid camera state.");
+                }
+
+                _active = value;
+
+                if (_active)
+                {
+                    OnActivate();
+                }
+                else
+                {
+                    OnDeactivate();
+                }
+            }
+        }
 
         public virtual bool Valid => true;
+
+        private bool _active;
 
         protected CameraMode(UnityEngine.Camera camera)
         {
             Assert.IsNotNull(camera, "camera != null");
 
             Camera = camera;
-        }
-
-        public void Activate()
-        {
-            if (Valid)
-            {
-                if (Active) return;
-
-                Active = true;
-
-                OnActivate();
-            }
-            else
-            {
-                throw new InvalidOperationException("Invalid camera state.");
-            }
-        }
-
-        public void Deactivate()
-        {
-            if (!Active) return;
-
-            Active = false;
-
-            OnDeactivate();
         }
 
         protected virtual void OnActivate()

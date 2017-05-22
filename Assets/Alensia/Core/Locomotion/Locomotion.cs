@@ -9,7 +9,27 @@ namespace Alensia.Core.Locomotion
     {
         public Transform Transform { get; }
 
-        public bool Active { get; private set; }
+        public bool Active
+        {
+            get { return _active; }
+            set
+            {
+                if (_active == value) return;
+
+                _active = value;
+
+                if (_active)
+                {
+                    OnActivate();
+                }
+                else
+                {
+                    OnDeactivate();
+                }
+            }
+        }
+
+        private bool _active;
 
         private Vector3 _targetVelocity;
 
@@ -24,25 +44,7 @@ namespace Alensia.Core.Locomotion
 
         public virtual void Initialize()
         {
-            Activate();
-        }
-
-        public void Activate()
-        {
-            if (Active) return;
-
             Active = true;
-
-            OnActivate();
-        }
-
-        public void Deactivate()
-        {
-            if (!Active) return;
-
-            Active = false;
-
-            OnDeactivate();
         }
 
         public float Move(Vector3 direction)

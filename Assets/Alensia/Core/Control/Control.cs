@@ -14,9 +14,31 @@ namespace Alensia.Core.Control
 
         public ICollection<IBindingKey> Bindings { get; private set; }
 
-        public bool Active { get; private set; }
+        public bool Active
+        {
+            get { return _active; }
+            set
+            {
+                if (_active == value) return;
+
+                _active = value;
+
+                _disposables.Clear();
+
+                if (_active)
+                {
+                    OnActivate();
+                }
+                else
+                {
+                    OnDeactivate();
+                }
+            }
+        }
 
         public virtual bool Valid => true;
+
+        private bool _active;
 
         private readonly CompositeDisposable _disposables;
 
@@ -39,33 +61,11 @@ namespace Alensia.Core.Control
 
         public virtual void Dispose()
         {
-            if (Active) Deactivate();
+            if (Active) Active = false;
 
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
             InputManager.BindingChanged.Unlisten(ProcessBindingChange);
-        }
-
-        public void Activate()
-        {
-            if (Active) return;
-
-            _disposables.Clear();
-
-            Active = true;
-
-            OnActivate();
-        }
-
-        public void Deactivate()
-        {
-            if (!Active) return;
-
-            _disposables.Clear();
-
-            Active = false;
-
-            OnDeactivate();
         }
 
         protected virtual void OnActivate()
@@ -84,11 +84,11 @@ namespace Alensia.Core.Control
 
             var active = Active;
 
-            if (active) Deactivate();
+            Active = false;
 
             OnBindingChange(key);
 
-            if (active) Activate();
+            Active = active;
         }
 
         protected virtual void OnBindingChange(IBindingKey key)

@@ -20,12 +20,13 @@ namespace Alensia.Core.Camera
             {
                 if (value == null || value == _mode) return;
 
-                _mode?.Deactivate();
-                _mode = value;
+                lock (this)
+                {
+                    if (_mode != null) _mode.Active = false;
 
-                if (_mode == null) return;
-
-                _mode.Activate();
+                    _mode = value;
+                    _mode.Active = true;
+                }
 
                 CameraChanged.Fire(_mode);
             }

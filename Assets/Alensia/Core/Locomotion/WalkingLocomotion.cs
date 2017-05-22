@@ -140,7 +140,7 @@ namespace Alensia.Core.Locomotion
 
         protected virtual void OnHitGround(IEnumerable<Collider> grounds)
         {
-            if (!Active) Activate();
+            if (!Active) Active = true;
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, false);
         }
@@ -149,7 +149,7 @@ namespace Alensia.Core.Locomotion
         {
             if (GroundDetector.Grounded) return;
 
-            if (Active) Deactivate();
+            if (Active) Active = false;
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, true);
         }

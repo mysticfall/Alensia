@@ -1,10 +1,10 @@
-﻿﻿using Alensia.Core.Camera;
+﻿using Alensia.Core.Camera;
 using NUnit.Framework;
 using UnityEngine;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class CameraTest<T> : TestBase where T : ICameraMode
+    public abstract class CameraTest<T> : TestBase where T : class, ICameraMode
     {
         public T Camera { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Alensia.Tests.Camera
             var camera = gameObject.AddComponent<UnityEngine.Camera>();
 
             Camera = CreateCamera(camera);
-            Camera.Activate();
+            Camera.Active = true;
         }
 
         [TearDown]
@@ -24,7 +24,7 @@ namespace Alensia.Tests.Camera
         {
             if (Camera != null)
             {
-                if (Camera.Active) Camera.Deactivate();
+                if (Camera.Active) Camera.Active = false;
 
                 Object.DestroyImmediate(Camera.Transform.gameObject);
             }
@@ -43,7 +43,7 @@ namespace Alensia.Tests.Camera
         [Test, Description("Deactivate() should make the camera in inactive state.")]
         public void DeactivateShouldMakeCameraInInactiveStatus()
         {
-            Camera.Deactivate();
+            Camera.Active = false;
 
             Expect(Camera.Active, Is.False, "Unexpected camera state.");
         }
