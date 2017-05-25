@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Geom
 {
     public interface ITransformable
     {

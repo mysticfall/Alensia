@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Geom
 {
     public enum Axis
     {

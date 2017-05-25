@@ -1,6 +1,7 @@
 ﻿using System;
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
+using Alensia.Core.Geom;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;

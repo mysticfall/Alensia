@@ -1,4 +1,4 @@
-﻿namespace Alensia.Core.Common
+﻿namespace Alensia.Core.Geom
 {
     public class GeometryUtils
     {

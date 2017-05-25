@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Alensia.Core.Actor;
-using Alensia.Core.Common;
+using Alensia.Core.Geom;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera

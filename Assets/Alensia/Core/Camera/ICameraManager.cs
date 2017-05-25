@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Alensia.Core.Actor;
-using Alensia.Core.Common;
+using Alensia.Core.Geom;
 
 namespace Alensia.Core.Camera
 {

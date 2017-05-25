@@ -1,5 +1,5 @@
 using Alensia.Core.Actor;
-using Alensia.Core.Common;
+using Alensia.Core.Geom;
 using Alensia.Tests.Actor;
 using NUnit.Framework;
 using UnityEngine;

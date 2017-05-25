@@ -1,5 +1,5 @@
 using Alensia.Core.Actor;
-using Alensia.Core.Common;
+using Alensia.Core.Geom;
 using Alensia.Tests.Actor;
 using NUnit.Framework;
 using UnityEngine;
@@ -68,7 +68,7 @@ namespace Alensia.Tests.Camera
             Camera.CameraOffset = new Vector3(0.5f, 0.2f, 0.1f);
 
             var offset = Actor.Head.TransformDirection(Camera.CameraOffset) *
-                Camera.CameraOffset.magnitude;
+                         Camera.CameraOffset.magnitude;
 
             Expect(
                 Camera.Pivot,
