@@ -3,6 +3,7 @@ using Alensia.Core.Camera;
 using Alensia.Core.Control;
 using Alensia.Core.Input;
 using Alensia.Core.Locomotion;
+using Alensia.Core.UI;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -19,6 +20,8 @@ namespace Alensia.Demo.Controller
 
         public ThirdPersonCamera.Settings ThirdPersonCamera;
 
+        public UIManager.Settings UI;
+
         protected void OnValidate()
         {
             Assert.IsNotNull(Player, "Player != null");
@@ -29,9 +32,19 @@ namespace Alensia.Demo.Controller
 
         public override void InstallBindings()
         {
+            InstallUI();
             InstallControls();
             InstallCameras();
             InstallPlayer();
+        }
+
+        protected void InstallUI()
+        {
+            Container.Bind<GuiRenderer>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+
+            Container.Bind<UIManager.Settings>().FromInstance(UI);
+
+            Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
         }
 
         protected void InstallCameras()
