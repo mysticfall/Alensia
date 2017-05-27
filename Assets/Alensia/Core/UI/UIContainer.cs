@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ModestTree;
 using UnityEngine;
 
@@ -99,13 +100,7 @@ namespace Alensia.Core.UI
             PaintChildren();
         }
 
-        protected virtual void PaintChildren()
-        {
-            foreach (var child in Components)
-            {
-                PaintChild(child);
-            }
-        }
+        protected virtual void PaintChildren() => Components.ToList().ForEach(PaintChild);
 
         protected virtual void PaintChild(IComponent child)
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -70,7 +71,9 @@ namespace Alensia.Core.UI
         {
             lock (this)
             {
-                _children.ForEach(c => c.Paint());
+                var children = Components.ToList();
+
+                children.ForEach(c => c.Paint());
             }
         }
 

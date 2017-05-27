@@ -45,7 +45,9 @@ namespace Alensia.Core.UI
                 .ShrinkBy(container.Padding)
                 .ShrinkBy(container.InnerPadding);
 
-            foreach (var child in Components)
+            var children = Components.ToList();
+
+            foreach (var child in children)
             {
                 var bounds = new Rect
                 {
