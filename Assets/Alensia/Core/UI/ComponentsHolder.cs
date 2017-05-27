@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.UI
 {
-    public class ComponentHolder : IComponentsHolder
+    public class ComponentsHolder : IComponentsHolder
     {
         public IReadOnlyList<IComponent> Components => _children;
 

@@ -22,7 +22,7 @@ namespace Alensia.Core.UI
 
         public IObservable<IComponent> ComponentRemoved => _components.ComponentRemoved;
 
-        private readonly IComponentsHolder _components = new ComponentHolder();
+        private readonly IComponentsHolder _components = new ComponentsHolder();
 
         private bool _hasValidLayout;
 
