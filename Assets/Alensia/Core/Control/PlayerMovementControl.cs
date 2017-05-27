@@ -32,7 +32,6 @@ namespace Alensia.Core.Control
         protected TriggerStateInput Running { get; private set; }
 
         public override bool Valid => base.Valid &&
-                                      Locomotion.Active &&
                                       X != null &&
                                       Y != null &&
                                       Running != null;
