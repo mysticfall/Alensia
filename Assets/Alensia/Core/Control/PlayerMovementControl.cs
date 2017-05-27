@@ -75,11 +75,12 @@ namespace Alensia.Core.Control
         {
             base.OnActivate();
 
-            var direction = Observable
+            Observable
                 .Zip(X.Value, Y.Value, Running.Value)
-                .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]));
-
-            Subsribe(direction, r => OnMove(r.Item1, r.Item2 > 0));
+                .Where(_ => Active && Valid)
+                .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]))
+                .Subscribe(r => OnMove(r.Item1, r.Item2 > 0))
+                .AddTo(Observers);
         }
 
         protected virtual void OnMove(Vector2 input, bool running)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.Control
@@ -39,7 +40,10 @@ namespace Alensia.Core.Control
         {
             base.OnActivate();
 
-            Subsribe(ShowMenuInput.Value, OnShowMenu);
+            ShowMenuInput.Value
+                .Where(_ => Active && Valid)
+                .Subscribe(OnShowMenu)
+                .AddTo(Observers);
         }
 
         protected virtual void OnShowMenu(float value)

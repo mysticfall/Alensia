@@ -38,11 +38,12 @@ namespace Alensia.Core.Camera
         {
             base.OnActivate();
 
-            var zoom = Scroll.Value
+            Scroll.Value
+                .Where(_ => Active && Valid)
                 .Where(_ => CameraManager.Mode is IZoomableCamera)
-                .Select(v => v * -15);
-
-            Subsribe(zoom, OnZoom);
+                .Select(v => v * -15)
+                .Subscribe(OnZoom)
+                .AddTo(Observers);
         }
 
         protected void OnZoom(float input)

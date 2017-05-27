@@ -39,21 +39,24 @@ namespace Alensia.Core.Control
         {
             base.OnActivate();
 
-            var toFirstPerson = Scroll.Value
+            Scroll.Value
+                .Where(_ => Active && Valid)
                 .Where(_ => CameraManager.Mode is IThirdPersonCamera)
                 .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Where(v => v > 0)
                 .Select(_ => (IZoomableCamera) CameraManager.Mode)
                 .Where(camera => Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum))
-                .Select(_ => (IThirdPersonCamera) CameraManager.Mode);
+                .Select(_ => (IThirdPersonCamera) CameraManager.Mode)
+                .Subscribe(SwitchToFirstPerson)
+                .AddTo(Observers);
 
-            var toThirdPerson = Scroll.Value
+            Scroll.Value
+                .Where(_ => Active && Valid)
                 .Where(_ => CameraManager.Mode is IFirstPersonCamera)
                 .Where(v => v < 0)
-                .Select(_ => (IFirstPersonCamera) CameraManager.Mode);
-
-            Subsribe(toFirstPerson, SwitchToFirstPerson);
-            Subsribe(toThirdPerson, SwitchToThirdPerson);
+                .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
+                .Subscribe(SwitchToThirdPerson)
+                .AddTo(Observers);
         }
 
         protected override void OnRotate(Vector2 input, IRotatableCamera camera)

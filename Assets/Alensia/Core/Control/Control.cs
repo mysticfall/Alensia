@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Common;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine.Assertions;
@@ -9,11 +8,13 @@ using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public abstract class Control : IControl, IInitializable, IDisposable, IObserverHost
+    public abstract class Control : IControl, IInitializable, IDisposable
     {
         public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }
+
+        protected readonly CompositeDisposable Observers;
 
         public bool Active
         {
@@ -24,7 +25,7 @@ namespace Alensia.Core.Control
 
                 _active = value;
 
-                Disposables.Clear();
+                Observers.Clear();
 
                 if (_active)
                 {
@@ -39,8 +40,6 @@ namespace Alensia.Core.Control
 
         public virtual bool Valid => true;
 
-        public CompositeDisposable Disposables { get; } = new CompositeDisposable();
-
         private bool _active;
 
         protected Control(IInputManager inputManager)
@@ -49,6 +48,8 @@ namespace Alensia.Core.Control
 
             InputManager = inputManager;
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
+
+            Observers = new CompositeDisposable();
         }
 
         public virtual void Initialize()
@@ -92,11 +93,6 @@ namespace Alensia.Core.Control
 
         protected virtual void OnBindingChange(IBindingKey key)
         {
-        }
-
-        protected void Subsribe<T>(UniRx.IObservable<T> observable, Action<T> action)
-        {
-            this.Subscribe(observable.Where(_ => Valid && Active), action);
         }
     }
 }

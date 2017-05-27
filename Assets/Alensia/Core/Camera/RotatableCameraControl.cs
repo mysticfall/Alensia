@@ -50,12 +50,13 @@ namespace Alensia.Core.Camera
         {
             base.OnActivate();
 
-            var rotation = Observable
+            Observable
                 .Zip(X.Value, Y.Value)
+                .Where(_ => Active && Valid)
                 .Where(_ => CameraManager.Mode is IRotatableCamera)
-                .Select(xs => new Vector2(xs[0], xs[1]));
-
-            Subsribe(rotation, OnRotate);
+                .Select(xs => new Vector2(xs[0], xs[1]))
+                .Subscribe(OnRotate)
+                .AddTo(Observers);
         }
 
         protected void OnRotate(Vector2 input)
