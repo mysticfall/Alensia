@@ -8,8 +8,6 @@ namespace Alensia.Core.UI
 
         RectOffset InnerPadding { get; }
 
-        void Pack();
-
         void InvalidateLayout();
     }
 }

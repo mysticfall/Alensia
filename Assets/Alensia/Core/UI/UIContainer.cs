@@ -84,8 +84,6 @@ namespace Alensia.Core.UI
             }
         }
 
-        public void Pack() => Size = PreferredSize;
-
         public virtual void InvalidateLayout() => _hasValidLayout = false;
 
         protected virtual void PerformLayout()

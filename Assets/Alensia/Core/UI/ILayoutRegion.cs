@@ -17,4 +17,22 @@ namespace Alensia.Core.UI
 
         RectOffset Margin { get; set; }
     }
+
+    public static class LayoutRegionExtensions
+    {
+        public static void Pack(this ILayoutRegion region)
+        {
+            region.Size = region.PreferredSize;
+        }
+
+        public static void CenterOnScreen(this ILayoutRegion region)
+        {
+            var size = region.Size;
+
+            var x = (Screen.width - size.x) / 2;
+            var y = (Screen.height - size.y) / 2;
+
+            region.Position = new Vector2(x, y);
+        }
+    }
 }
