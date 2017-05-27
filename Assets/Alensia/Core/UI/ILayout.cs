@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Alensia.Core.UI
 {
-    public interface ILayout : IComponentsHolder
+    public interface ILayout
     {
         Vector2 CalculateMinimumSize(IContainer container);
 

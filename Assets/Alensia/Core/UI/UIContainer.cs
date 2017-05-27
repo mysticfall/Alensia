@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ModestTree;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.UI
@@ -9,13 +10,19 @@ namespace Alensia.Core.UI
     {
         public ILayout Layout { get; }
 
-        public IReadOnlyList<IComponent> Components => Layout.Components;
+        public IReadOnlyList<IComponent> Components => _components.Components;
 
         public override Vector2 MinimumSize => Layout.CalculateMinimumSize(this);
 
         public override Vector2 PreferredSize => Layout.CalculatePreferredSize(this);
 
         public virtual RectOffset InnerPadding => new RectOffset(0, 0, 0, 0);
+
+        public IObservable<IComponent> ComponentAdded => _components.ComponentAdded;
+
+        public IObservable<IComponent> ComponentRemoved => _components.ComponentRemoved;
+
+        private readonly IComponentsHolder _components = new ComponentHolder();
 
         private bool _hasValidLayout;
 
@@ -32,18 +39,18 @@ namespace Alensia.Core.UI
         {
             Assert.IsNotNull(layout, "layout != null");
 
-            layout.RemoveAll();
+            _components.RemoveAll();
 
             Layout = layout;
         }
 
-        public bool Contains(IComponent child) => Layout.Contains(child);
+        public bool Contains(IComponent child) => _components.Contains(child);
 
         public virtual void Add(IComponent child)
         {
             lock (this)
             {
-                Layout.Add(child);
+                _components.Add(child);
 
                 child.Parent = this;
 
@@ -55,7 +62,7 @@ namespace Alensia.Core.UI
         {
             lock (this)
             {
-                Layout.Remove(child);
+                _components.Remove(child);
 
                 child.Parent = null;
 
@@ -69,7 +76,7 @@ namespace Alensia.Core.UI
             {
                 var children = new List<IComponent>(Components);
 
-                Layout.RemoveAll();
+                _components.RemoveAll();
 
                 children.ForEach(c => c.Parent = null);
 

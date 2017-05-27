@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace Alensia.Core.UI
 {
-    public class NullLayout : Layout<object>
+    public class NullLayout : Layout
     {
         public override Vector2 CalculateMinimumSize(IContainer container)
         {
-            return Components.Aggregate(Rect.zero, (area, child) => area.Add(child.Bounds)).size;
+            var children = container.Components.ToList();
+
+            return children.Aggregate(Rect.zero, (area, child) => area.Add(child.Bounds)).size;
         }
 
         public override Vector2 CalculatePreferredSize(IContainer container) =>

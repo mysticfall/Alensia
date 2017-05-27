@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UniRx;
 
 namespace Alensia.Core.UI
 {
@@ -13,5 +14,9 @@ namespace Alensia.Core.UI
         void Remove(IComponent child);
 
         void RemoveAll();
+
+        IObservable<IComponent> ComponentAdded { get; }
+
+        IObservable<IComponent> ComponentRemoved { get; }
     }
 }

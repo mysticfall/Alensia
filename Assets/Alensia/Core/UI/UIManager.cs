@@ -16,9 +16,13 @@ namespace Alensia.Core.UI
             set { _settings.Skin = value; }
         }
 
-        public IReadOnlyList<IComponent> Components => _children;
+        public IReadOnlyList<IComponent> Components => _components.Components;
 
-        private readonly List<IComponent> _children = new List<IComponent>();
+        public UniRx.IObservable<IComponent> ComponentAdded => _components.ComponentAdded;
+
+        public UniRx.IObservable<IComponent> ComponentRemoved => _components.ComponentRemoved;
+
+        private readonly IComponentsHolder _components = new ComponentHolder();
 
         private readonly Settings _settings;
 
@@ -29,43 +33,13 @@ namespace Alensia.Core.UI
             _settings = settings;
         }
 
-        public bool Contains(IComponent child)
-        {
-            lock (this)
-            {
-                return _children.Contains(child);
-            }
-        }
+        public bool Contains(IComponent child) => _components.Contains(child);
 
-        public void Add(IComponent child)
-        {
-            Assert.IsNotNull(child, "child != null");
+        public void Add(IComponent child) => _components.Add(child);
 
-            lock (this)
-            {
-                if (_children.Contains(child)) return;
+        public void Remove(IComponent child) => _components.Remove(child);
 
-                _children.Add(child);
-            }
-        }
-
-        public void Remove(IComponent child)
-        {
-            Assert.IsNotNull(child, "child != null");
-
-            lock (this)
-            {
-                _children.Remove(child);
-            }
-        }
-
-        public virtual void RemoveAll()
-        {
-            lock (this)
-            {
-                _children.Clear();
-            }
-        }
+        public virtual void RemoveAll() => _components.RemoveAll();
 
         public void GuiRender()
         {

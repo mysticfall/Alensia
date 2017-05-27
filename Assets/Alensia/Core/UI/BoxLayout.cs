@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Alensia.Core.UI
 {
-    public class BoxLayout : Layout<object>
+    public class BoxLayout : Layout
     {
         public BoxOrientation Orientation { get; }
 
@@ -16,7 +16,7 @@ namespace Alensia.Core.UI
         }
 
         public Vector2 CaculateSize(IContainer container, bool minimize = false)
-            => Components
+            => container.Components.ToList()
                 .Aggregate(Rect.zero, Fold(container, minimize)).size
                 .GrowBy(container.Padding)
                 .GrowBy(container.InnerPadding);
@@ -45,7 +45,7 @@ namespace Alensia.Core.UI
                 .ShrinkBy(container.Padding)
                 .ShrinkBy(container.InnerPadding);
 
-            var children = Components.ToList();
+            var children = container.Components.ToList();
 
             foreach (var child in children)
             {
