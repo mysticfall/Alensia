@@ -16,6 +16,8 @@ namespace Alensia.Core.Control
 
         protected readonly CompositeDisposable Observers;
 
+        protected readonly CompositeDisposable ConstantObservers;
+
         public bool Active
         {
             get { return _active; }
@@ -50,6 +52,7 @@ namespace Alensia.Core.Control
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
             Observers = new CompositeDisposable();
+            ConstantObservers = new CompositeDisposable();
         }
 
         public virtual void Initialize()
@@ -66,6 +69,8 @@ namespace Alensia.Core.Control
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
             InputManager.BindingChanged.Unlisten(ProcessBindingChange);
+
+            ConstantObservers.Clear();
         }
 
         protected virtual void OnActivate()
