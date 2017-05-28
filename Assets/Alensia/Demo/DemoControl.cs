@@ -2,7 +2,7 @@ using Alensia.Core.Control;
 using Alensia.Core.Input;
 using Alensia.Core.UI;
 
-namespace Alensia.Demo.Controller
+namespace Alensia.Demo
 {
     public class DemoControl : GameControl
     {

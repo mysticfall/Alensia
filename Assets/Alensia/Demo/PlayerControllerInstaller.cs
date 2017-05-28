@@ -4,7 +4,7 @@ using Alensia.Core.Physics;
 using UnityEngine;
 using Zenject;
 
-namespace Alensia.Demo.Controller
+namespace Alensia.Demo
 {
     public class PlayerControllerInstaller : MonoInstaller<PlayerControllerInstaller>
     {

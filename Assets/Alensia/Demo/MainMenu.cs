@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Alensia.Demo.Controller
+namespace Alensia.Demo
 {
     public class MainMenu : Box
     {

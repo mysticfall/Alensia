@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace Alensia.Demo.Controller
+namespace Alensia.Demo
 {
     public class GameInstaller : MonoInstaller<GameInstaller>
     {
