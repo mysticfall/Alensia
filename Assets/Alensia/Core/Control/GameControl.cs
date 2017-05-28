@@ -1,14 +1,18 @@
 using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
+using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
 {
-    public class GameControl : Control
+    public abstract class GameControl : Control
     {
         public const string Id = "Game";
+
+        public IUIManager UIManager { get; }
 
         public IBindingKey<ITriggerInput> ShowMenu = Keys.ShowMenu;
 
@@ -16,8 +20,23 @@ namespace Alensia.Core.Control
 
         public override bool Valid => base.Valid && ShowMenuInput != null;
 
-        public GameControl(IInputManager inputManager) : base(inputManager)
+        private IComponent _mainMenu;
+
+        protected GameControl(IUIManager uiManager, IInputManager inputManager) : base(inputManager)
         {
+            Assert.IsNotNull(uiManager, "uiManager != null");
+
+            UIManager = uiManager;
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            UIManager.ComponentRemoved
+                .Where(c => _mainMenu == c)
+                .Subscribe(_ => _mainMenu = null)
+                .AddTo(ConstantObservers);
         }
 
         protected override ICollection<IBindingKey> PrepareBindings()
@@ -50,15 +69,28 @@ namespace Alensia.Core.Control
 
             ShowMenuInput.Value
                 .Where(_ => Active && Valid)
-                .Subscribe(OnShowMenu)
+                .Subscribe(_ => OnShowMenu())
                 .AddTo(Observers);
         }
 
-        protected virtual void OnShowMenu(float value)
+        protected virtual void OnShowMenu()
         {
-            //TODO: We don't have any menu yet, so we just quit for now.
-            Application.Quit();
+            lock (this)
+            {
+                if (_mainMenu != null)
+                {
+                    UIManager.Remove(_mainMenu);
+                }
+                else
+                {
+                    _mainMenu = CreateMainMenu();
+
+                    UIManager.Add(_mainMenu);
+                }
+            }
         }
+
+        protected abstract IComponent CreateMainMenu();
 
         public static class Keys
         {
