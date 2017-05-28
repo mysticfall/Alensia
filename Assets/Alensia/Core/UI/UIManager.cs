@@ -16,6 +16,25 @@ namespace Alensia.Core.UI
             set { _settings.Skin = value; }
         }
 
+        public CursorDefinition ActiveCursor
+        {
+            get { return _activeCursor; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                if (_activeCursor == value) return;
+
+                _activeCursor = value;
+
+                value.Apply();
+            }
+        }
+
+        public void ShowCursor() => ActiveCursor = _settings.DefaultCursor;
+
+        public void HideCursor() => ActiveCursor = CursorDefinition.Hidden;
+
         public IReadOnlyList<IComponent> Components => _components.Components;
 
         public UniRx.IObservable<IComponent> ComponentAdded => _components.ComponentAdded;
@@ -26,11 +45,15 @@ namespace Alensia.Core.UI
 
         private readonly Settings _settings;
 
+        private CursorDefinition _activeCursor;
+
         public UIManager(Settings settings)
         {
             Assert.IsNotNull(settings, "settings != null");
 
             _settings = settings;
+
+            ActiveCursor = settings.DefaultCursor;
         }
 
         public bool Contains(IComponent child) => _components.Contains(child);
@@ -55,6 +78,8 @@ namespace Alensia.Core.UI
         public class Settings : IEditorSettings
         {
             public GUISkin Skin;
+
+            public CursorDefinition DefaultCursor = CursorDefinition.Default;
         }
     }
 }

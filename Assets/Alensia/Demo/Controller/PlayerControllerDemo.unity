@@ -712,6 +712,11 @@ MonoBehaviour:
       MinimumDistance: 0.1
   UI:
     Skin: {fileID: 0}
+    DefaultCursor:
+      Visible: 1
+      LockMode: 0
+      Hotspot: {x: 0, y: 0}
+      Image: {fileID: 0}
 --- !u!1 &1576208025
 GameObject:
   m_ObjectHideFlags: 0
