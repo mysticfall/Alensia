@@ -23,19 +23,22 @@ namespace Alensia.Core.Control
             get { return _active; }
             set
             {
-                if (_active == value) return;
-
-                _active = value;
-
-                Observers.Clear();
-
-                if (_active)
+                lock (this)
                 {
-                    OnActivate();
-                }
-                else
-                {
-                    OnDeactivate();
+                    if (_active == value) return;
+
+                    _active = value;
+
+                    Observers.Clear();
+
+                    if (_active)
+                    {
+                        OnActivate();
+                    }
+                    else
+                    {
+                        OnDeactivate();
+                    }
                 }
             }
         }
@@ -60,6 +63,8 @@ namespace Alensia.Core.Control
             Bindings = PrepareBindings().ToList().AsReadOnly();
 
             InputManager.BindingChanged.Listen(ProcessBindingChange);
+
+            RegisterDefaultBindings();
         }
 
         public virtual void Dispose()
@@ -83,17 +88,24 @@ namespace Alensia.Core.Control
 
         protected abstract ICollection<IBindingKey> PrepareBindings();
 
+        protected virtual void RegisterDefaultBindings()
+        {
+        }
+
         private void ProcessBindingChange(IBindingKey key)
         {
             if (!Bindings.Contains(key)) return;
 
-            var active = Active;
+            lock (this)
+            {
+                var active = Active;
 
-            Active = false;
+                Active = false;
 
-            OnBindingChange(key);
+                OnBindingChange(key);
 
-            Active = active;
+                Active = active;
+            }
         }
 
         protected virtual void OnBindingChange(IBindingKey key)

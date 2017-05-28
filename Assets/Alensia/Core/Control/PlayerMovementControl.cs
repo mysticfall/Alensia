@@ -67,6 +67,15 @@ namespace Alensia.Core.Control
             return new List<IBindingKey> {Keys.Horizontal, Keys.Vertical, Keys.HoldToRun};
         }
 
+        protected override void RegisterDefaultBindings()
+        {
+            base.RegisterDefaultBindings();
+
+            InputManager.Register(Keys.Horizontal, new AxisInput("Horizontal"));
+            InputManager.Register(Keys.Vertical, new AxisInput("Vertical"));
+            InputManager.Register(Keys.HoldToRun, new TriggerStateInput(new KeyTrigger(KeyCode.LeftShift)));
+        }
+
         protected override void OnBindingChange(IBindingKey key)
         {
             base.OnBindingChange(key);

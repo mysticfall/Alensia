@@ -72,7 +72,7 @@ namespace Alensia.Demo.Controller
 
             Container.BindInterfacesAndSelfTo<PlayerCameraControl<IHumanoid>>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Core.Control.Controller>().AsSingle().NonLazy();
         }
 
         protected void InstallPlayer()

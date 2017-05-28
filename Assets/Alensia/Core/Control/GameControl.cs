@@ -25,6 +25,14 @@ namespace Alensia.Core.Control
             return new List<IBindingKey> {Keys.ShowMenu};
         }
 
+        protected override void RegisterDefaultBindings()
+        {
+            base.RegisterDefaultBindings();
+
+            InputManager.Register(
+                Keys.ShowMenu,
+                new TriggerDownInput(new KeyTrigger(KeyCode.Escape)));
+        }
 
         protected override void OnBindingChange(IBindingKey key)
         {

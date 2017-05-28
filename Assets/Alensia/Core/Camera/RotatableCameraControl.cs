@@ -30,6 +30,14 @@ namespace Alensia.Core.Camera
         {
             return new List<IBindingKey> {Yaw, Pitch};
         }
+        
+        protected override void RegisterDefaultBindings()
+        {
+            base.RegisterDefaultBindings();
+
+            InputManager.Register(Keys.Yaw, new AxisInput("Mouse X"));
+            InputManager.Register(Keys.Pitch, new AxisInput("Mouse Y"));
+        }
 
         protected override void OnBindingChange(IBindingKey key)
         {
