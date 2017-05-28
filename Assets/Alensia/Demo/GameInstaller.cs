@@ -1,8 +1,6 @@
-using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Control;
 using Alensia.Core.Input;
-using Alensia.Core.Locomotion;
 using Alensia.Core.UI;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,8 +10,6 @@ namespace Alensia.Demo
 {
     public class GameInstaller : MonoInstaller<GameInstaller>
     {
-        public GameObject Player;
-
         public ViewSensitivity ViewSensitivity;
 
         public HeadMountedCamera.Settings FirstPersonCamera;
@@ -24,7 +20,6 @@ namespace Alensia.Demo
 
         protected void OnValidate()
         {
-            Assert.IsNotNull(Player, "Player != null");
             Assert.IsNotNull(ViewSensitivity, "ViewSensitivity != null");
             Assert.IsNotNull(FirstPersonCamera, "FirstPersonCamera != null");
             Assert.IsNotNull(ThirdPersonCamera, "ThirdPersonCamera != null");
@@ -35,7 +30,6 @@ namespace Alensia.Demo
             InstallUI();
             InstallControls();
             InstallCameras();
-            InstallPlayer();
         }
 
         protected void InstallUI()
@@ -69,24 +63,7 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<DemoControl>().AsSingle().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<PlayerCameraControl<IHumanoid>>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Core.Control.Controller>().AsSingle().NonLazy();
-        }
-
-        protected void InstallPlayer()
-        {
-            Container
-                .Bind<IHumanoid>()
-                .FromSubContainerResolve()
-                .ByNewPrefab(Player)
-                .AsSingle();
-
-            Container
-                .Bind<IWalkingLocomotion>()
-                .FromResolveGetter<IHumanoid>(h => h.Locomotion)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<Controller>().AsSingle().NonLazy();
         }
     }
 }
