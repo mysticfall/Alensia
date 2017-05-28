@@ -42,9 +42,6 @@ namespace Alensia.Core.Control
 
         public virtual void Initialize()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
             //TODO Make it easier to register default key bindings.
             InputManager.Register(
                 GameControl.Keys.ShowMenu,
