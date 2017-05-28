@@ -3,7 +3,6 @@ using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
 using UniRx;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
@@ -50,7 +49,7 @@ namespace Alensia.Core.Control
 
             InputManager.Register(
                 Keys.ShowMenu,
-                new TriggerDownInput(new KeyTrigger(KeyCode.Escape)));
+                new TriggerDownInput(new ButtonTrigger("Cancel")));
         }
 
         protected override void OnBindingChange(IBindingKey key)
