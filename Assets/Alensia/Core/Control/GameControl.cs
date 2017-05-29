@@ -66,7 +66,7 @@ namespace Alensia.Core.Control
         {
             base.OnActivate();
 
-            ShowMenuInput.Value
+            ShowMenuInput?.Value
                 .Where(_ => Active && Valid)
                 .Subscribe(_ => OnShowMenu())
                 .AddTo(Observers);

@@ -41,7 +41,11 @@ namespace Alensia.Core.Input
         {
             lock (this)
             {
-                return _bindingMap[key] as T;
+                IInput binding;
+
+                _bindingMap.TryGetValue(key, out binding);
+
+                return binding as T;
             }
         }
 

@@ -104,7 +104,7 @@ namespace Alensia.Core.Control
 
                 OnBindingChange(key);
 
-                Active = active;
+                Active = Valid && active;
             }
         }
 
