@@ -14,16 +14,8 @@ namespace Alensia.Core.Input
             Id = id;
         }
 
-        public override bool Equals(object obj)
-        {
-            var item = obj as BindingKey<T>;
+        public override bool Equals(object obj) => Id.Equals((obj as BindingKey<T>)?.Id);
 
-            return item != null && Id.Equals(item.Id);
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }
