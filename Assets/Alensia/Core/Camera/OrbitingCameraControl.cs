@@ -28,16 +28,16 @@ namespace Alensia.Core.Camera
         {
             base.RegisterDefaultBindings();
 
-            InputManager.Register(Keys.Zoom, new AxisInput("Mouse ScrollWheel", 0.15f));
+            InputManager.Register(Zoom, new AxisInput("Mouse ScrollWheel", 0.15f));
         }
 
         protected override void OnBindingChange(IBindingKey key)
         {
             base.OnBindingChange(key);
 
-            if (Equals(key, Keys.Zoom))
+            if (Equals(key, Zoom))
             {
-                Scroll = InputManager.Get(Keys.Zoom);
+                Scroll = InputManager.Get(Zoom);
             }
         }
 

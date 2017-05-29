@@ -40,7 +40,7 @@ namespace Alensia.Core.Control
 
         protected override ICollection<IBindingKey> PrepareBindings()
         {
-            return new List<IBindingKey> {Keys.ShowMenu};
+            return new List<IBindingKey> {ShowMenu};
         }
 
         protected override void RegisterDefaultBindings()
@@ -48,7 +48,7 @@ namespace Alensia.Core.Control
             base.RegisterDefaultBindings();
 
             InputManager.Register(
-                Keys.ShowMenu,
+                ShowMenu,
                 new TriggerDownInput(new ButtonTrigger("Cancel")));
         }
 
@@ -56,9 +56,9 @@ namespace Alensia.Core.Control
         {
             base.OnBindingChange(key);
 
-            if (Equals(key, Keys.ShowMenu))
+            if (Equals(key, ShowMenu))
             {
-                ShowMenuInput = InputManager.Get(Keys.ShowMenu);
+                ShowMenuInput = InputManager.Get(ShowMenu);
             }
         }
 

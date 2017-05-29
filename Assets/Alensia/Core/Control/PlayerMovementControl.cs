@@ -64,35 +64,35 @@ namespace Alensia.Core.Control
 
         protected override ICollection<IBindingKey> PrepareBindings()
         {
-            return new List<IBindingKey> {Keys.Horizontal, Keys.Vertical, Keys.HoldToRun};
+            return new List<IBindingKey> {Horizontal, Vertical, HoldToRun};
         }
 
         protected override void RegisterDefaultBindings()
         {
             base.RegisterDefaultBindings();
 
-            InputManager.Register(Keys.Horizontal, new AxisInput("Horizontal"));
-            InputManager.Register(Keys.Vertical, new AxisInput("Vertical"));
-            InputManager.Register(Keys.HoldToRun, new TriggerStateInput(new KeyTrigger(KeyCode.LeftShift)));
+            InputManager.Register(Horizontal, new AxisInput("Horizontal"));
+            InputManager.Register(Vertical, new AxisInput("Vertical"));
+            InputManager.Register(HoldToRun, new TriggerStateInput(new KeyTrigger(KeyCode.LeftShift)));
         }
 
         protected override void OnBindingChange(IBindingKey key)
         {
             base.OnBindingChange(key);
 
-            if (Equals(key, Keys.Horizontal))
+            if (Equals(key, Horizontal))
             {
-                X = InputManager.Get(Keys.Horizontal);
+                X = InputManager.Get(Horizontal);
             }
 
-            if (Equals(key, Keys.Vertical))
+            if (Equals(key, Vertical))
             {
-                Y = InputManager.Get(Keys.Vertical);
+                Y = InputManager.Get(Vertical);
             }
 
-            if (Equals(key, Keys.HoldToRun))
+            if (Equals(key, HoldToRun))
             {
-                Running = InputManager.Get(Keys.HoldToRun);
+                Running = InputManager.Get(HoldToRun);
             }
         }
 

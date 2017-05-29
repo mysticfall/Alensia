@@ -35,22 +35,22 @@ namespace Alensia.Core.Camera
         {
             base.RegisterDefaultBindings();
 
-            InputManager.Register(Keys.Yaw, new AxisInput("Mouse X"));
-            InputManager.Register(Keys.Pitch, new AxisInput("Mouse Y"));
+            InputManager.Register(Yaw, new AxisInput("Mouse X"));
+            InputManager.Register(Pitch, new AxisInput("Mouse Y"));
         }
 
         protected override void OnBindingChange(IBindingKey key)
         {
             base.OnBindingChange(key);
 
-            if (Equals(key, Keys.Yaw))
+            if (Equals(key, Yaw))
             {
-                X = InputManager.Get(Keys.Yaw);
+                X = InputManager.Get(Yaw);
             }
 
-            if (Equals(key, Keys.Pitch))
+            if (Equals(key, Pitch))
             {
-                Y = InputManager.Get(Keys.Pitch);
+                Y = InputManager.Get(Pitch);
             }
         }
 
