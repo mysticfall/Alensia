@@ -1,0 +1,11 @@
+{
+    "windows": {
+        "MainMenu": {
+            "title": "알렌시아 데모",
+            "buttons": {
+                "resume": "게임으로 돌아가가",
+                "quit": "데스크탑으로 나가기"
+            }
+        }
+    }
+}

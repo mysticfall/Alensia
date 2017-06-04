@@ -1,0 +1,11 @@
+{
+    "windows": {
+        "MainMenu": {
+            "title": "Alensia Demo",
+            "buttons": {
+                "resume": "Return to Game",
+                "quit": "Quit to Desktop"
+            }
+        }
+    }
+}

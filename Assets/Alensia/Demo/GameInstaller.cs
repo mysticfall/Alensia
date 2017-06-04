@@ -1,5 +1,6 @@
 using Alensia.Core.Camera;
 using Alensia.Core.Control;
+using Alensia.Core.I18n;
 using Alensia.Core.Input;
 using Alensia.Core.UI;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace Alensia.Demo
 
         public ThirdPersonCamera.Settings ThirdPersonCamera;
 
+        public LocaleService.Settings Locale;
+
+        public ResourceSettings Translations;
+
         public UIManager.Settings UI;
 
         protected void OnValidate()
@@ -27,9 +32,20 @@ namespace Alensia.Demo
 
         public override void InstallBindings()
         {
+            InstallLocalization();
             InstallUI();
             InstallControls();
             InstallCameras();
+        }
+
+        protected void InstallLocalization()
+        {
+            Container.Bind<LocaleService.Settings>().FromInstance(Locale);
+            Container.Bind<ResourceSettings>().FromInstance(Translations);
+
+            Container.DeclareSignal<LocaleChangeEvent>();
+            Container.BindInterfacesAndSelfTo<LocaleService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<JsonResourceTranslator>().AsSingle();
         }
 
         protected void InstallUI()
