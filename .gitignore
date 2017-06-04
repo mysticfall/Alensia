@@ -5,7 +5,12 @@
 /[Bb]uilds/
 /Assets/*
 !/Assets/Alensia
+!/Assets/Alensia.meta
 /Assets/Alensia/Game*
+!/Assets/Editor
+/Assets/Editor/*
+!/Assets/Editor/Alensia
+!/Assets/Editor/Alensia.meta
 !/Assets/Plugins
 /Assets/Plugins/*
 !/Assets/Plugins/Json.NET
