@@ -1,9 +1,8 @@
-using UniRx;
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
-    public class Button : UIComponent, IContentHolder, IClickable<Button>
+    public class Label : UIComponent, IContentHolder
     {
         public string Text
         {
@@ -26,27 +25,18 @@ namespace Alensia.Core.UI
         public GUIContent Content { get; } = new GUIContent();
 
         public override Vector2 MinimumSize => this.MinimumSize(Style);
-
+        
         public override Vector2 PreferredSize => this.PreferredSize(Style);
 
-        public IObservable<Button> Clicked { get; } = new Subject<Button>();
+        protected override GUIStyle DefaultStyle => Manager.Skin.label;
 
-        protected override GUIStyle DefaultStyle => Manager.Skin.button;
-
-        public Button(IUIManager manager) : this(null, manager)
-        {
-        }
-
-        public Button(object constraints, IUIManager manager) : base(constraints, manager)
+        public Label(IUIManager manager) : base(manager)
         {
         }
 
         protected override void PaintComponent()
         {
-            if (GUI.Button(Bounds, Content, Style))
-            {
-                ((Subject<Button>) Clicked).OnNext(this);
-            }
+            GUI.Label(Bounds, Content, Style);
         }
     }
 }

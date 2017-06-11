@@ -2,6 +2,7 @@ using Alensia.Core.Control;
 using Alensia.Core.I18n;
 using Alensia.Core.Input;
 using Alensia.Core.UI;
+using Alensia.Core.UI.Legacy;
 using UnityEngine.Assertions;
 
 namespace Alensia.Demo

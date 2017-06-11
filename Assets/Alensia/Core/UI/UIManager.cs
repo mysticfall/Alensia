@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.UI.Legacy;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;

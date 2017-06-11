@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface IClickable<T>
     {

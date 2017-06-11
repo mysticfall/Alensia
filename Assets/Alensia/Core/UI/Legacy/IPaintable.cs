@@ -1,6 +1,6 @@
 using System;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface IPaintable
     {

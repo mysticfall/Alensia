@@ -4,7 +4,7 @@ using ModestTree;
 using UniRx;
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public abstract class UIContainer : UIComponent, IContainer
     {

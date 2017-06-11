@@ -1,4 +1,4 @@
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface ICoordinatesHost
     {

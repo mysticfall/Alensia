@@ -1,7 +1,7 @@
 using Alensia.Core.Common;
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface IComponent : ILayoutRegion, IPaintable, IStyleable, IActivatable, IHideable
     {

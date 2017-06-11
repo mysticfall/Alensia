@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public class Box : UIContainer, IContentHolder
     {

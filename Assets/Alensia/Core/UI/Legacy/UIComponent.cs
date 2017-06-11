@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public abstract class UIComponent : IComponent
     {

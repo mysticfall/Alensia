@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public class ComponentsHolder : IComponentsHolder
     {

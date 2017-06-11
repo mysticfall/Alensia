@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     [Serializable]
     public class CursorDefinition

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
+using Alensia.Core.UI.Legacy;
 using UniRx;
 using UnityEngine.Assertions;
 

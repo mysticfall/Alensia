@@ -2,7 +2,7 @@ using Alensia.Core.Geom;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface IContentHolder : IBounded
     {

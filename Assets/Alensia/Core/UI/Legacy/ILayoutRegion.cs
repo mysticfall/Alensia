@@ -1,7 +1,7 @@
 using Alensia.Core.Geom;
 using UnityEngine;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface ILayoutRegion : IBounded
     {

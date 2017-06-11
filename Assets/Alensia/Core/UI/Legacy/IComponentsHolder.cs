@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Legacy
 {
     public interface IComponentsHolder
     {

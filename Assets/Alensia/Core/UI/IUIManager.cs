@@ -1,3 +1,4 @@
+using Alensia.Core.UI.Legacy;
 using UnityEngine;
 
 namespace Alensia.Core.UI
