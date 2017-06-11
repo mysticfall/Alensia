@@ -1,10 +1,8 @@
 namespace Alensia.Core.I18n
 {
-    public interface ITranslator
+    public interface ITranslator : IMessages
     {
         ILocaleService LocaleService { get; }
-
-        string this[string key] { get; }
 
         string Translate(string key, params object[] args);
     }

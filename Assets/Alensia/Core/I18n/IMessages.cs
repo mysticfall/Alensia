@@ -1,6 +1,6 @@
 namespace Alensia.Core.I18n
 {
-    public interface ITranslationSet
+    public interface IMessages
     {
         bool Contains(string key);
 

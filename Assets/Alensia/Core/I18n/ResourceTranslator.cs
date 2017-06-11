@@ -30,13 +30,13 @@ namespace Alensia.Core.I18n
             return $"{path}{BaseName}-{locale.Name}";
         }
 
-        protected override ITranslationSet Load(CultureInfo locale)
+        protected override IMessages Load(CultureInfo locale, IMessages parent)
         {
             var resource = Resources.Load<T>(GetResourceName(locale));
 
-            return resource == null ? null : Load(resource, locale);
+            return resource == null ? null : Load(resource, locale, parent);
         }
 
-        protected abstract ITranslationSet Load(T resource, CultureInfo locale);
+        protected abstract IMessages Load(T resource, CultureInfo locale, IMessages parent);
     }
 }

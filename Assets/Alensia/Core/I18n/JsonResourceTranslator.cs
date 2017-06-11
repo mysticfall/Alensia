@@ -14,9 +14,11 @@ namespace Alensia.Core.I18n
         {
         }
 
-        protected override ITranslationSet Load(TextAsset resource, CultureInfo locale)
+        protected override IMessages Load(
+            TextAsset resource, CultureInfo locale, IMessages parent)
         {
             Assert.IsNotNull(resource, "resource != null");
+            Assert.IsNotNull(locale, "locale != null");
 
             var dictionary = JObject
                 .Parse(resource.text)
@@ -24,7 +26,7 @@ namespace Alensia.Core.I18n
                 .Where(p => !p.Any())
                 .Aggregate(new Dictionary<string, string>(), Aggregate);
 
-            return new DictionaryTranslationSet(dictionary);
+            return new DictionaryMessages(dictionary, parent);
         }
 
         private static Dictionary<string, string> Aggregate(
