@@ -6,6 +6,8 @@ namespace Alensia.Core.Control
 {
     public interface IControl : IActivatable, IValidatable
     {
+        string Name { get; }
+
         IInputManager InputManager { get; }
 
         ICollection<IBindingKey> Bindings { get; }

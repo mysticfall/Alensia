@@ -12,6 +12,8 @@ namespace Alensia.Core.Control
     {
         public const string Id = "Game";
 
+        public override string Name => Id;
+        
         public IUIManager UIManager { get; }
 
         public IBindingKey<ITriggerInput> ShowMenu = Keys.ShowMenu;

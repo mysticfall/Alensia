@@ -15,6 +15,8 @@ namespace Alensia.Core.Control
     {
         public const string Id = "Locomotion";
 
+        public override string Name => Id;
+
         public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 
         public IBindingKey<IAxisInput> Vertical => Keys.Vertical;

@@ -10,6 +10,8 @@ namespace Alensia.Core.Camera
     {
         public const string Id = "Camera";
 
+        public override string Name => Id;
+
         public IBindingKey<IAxisInput> Yaw => Keys.Yaw;
 
         public IBindingKey<IAxisInput> Pitch => Keys.Pitch;

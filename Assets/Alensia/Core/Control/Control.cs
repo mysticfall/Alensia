@@ -10,6 +10,8 @@ namespace Alensia.Core.Control
 {
     public abstract class Control : IControl, IInitializable, IDisposable
     {
+        public abstract string Name { get; }
+
         public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }

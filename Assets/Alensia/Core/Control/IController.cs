@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
+using Alensia.Core.Common;
 
 namespace Alensia.Core.Control
 {
-    public interface IController
+    public interface IController : IActivatable, IDirectory<IControl>
     {
-        IList<IControl> Controls { get; }
+        IReadOnlyList<IControl> Controls { get; }
+
+        void EnableControl(string name);
+
+        void DisableControl(string name);
     }
 }
