@@ -1,9 +1,8 @@
+using Alensia.Core.Common;
+
 namespace Alensia.Core.I18n
 {
-    public interface IMessages
+    public interface IMessages : IDirectory<string>
     {
-        bool Contains(string key);
-
-        string this[string key] { get; }
     }
 }

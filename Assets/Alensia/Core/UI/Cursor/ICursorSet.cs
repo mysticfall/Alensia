@@ -1,9 +1,8 @@
+using Alensia.Core.Common;
+
 namespace Alensia.Core.UI.Cursor
 {
-    public interface ICursorSet
+    public interface ICursorSet : IDirectory<ICursorDefinition>
     {
-        bool Contains(string key);
-
-        ICursorDefinition this[string key] { get; }
     }
 }
