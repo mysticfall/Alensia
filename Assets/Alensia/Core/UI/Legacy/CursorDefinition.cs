@@ -16,10 +16,10 @@ namespace Alensia.Core.UI.Legacy
 
         public void Apply()
         {
-            Cursor.visible = Visible;
-            Cursor.lockState = LockMode;
+            UnityEngine.Cursor.visible = Visible;
+            UnityEngine.Cursor.lockState = LockMode;
 
-            Cursor.SetCursor(Image, Hotspot, CursorMode.Auto);
+            UnityEngine.Cursor.SetCursor(Image, Hotspot, CursorMode.Auto);
         }
 
         public static CursorDefinition Hidden = new CursorDefinition
