@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using Alensia.Core.Actor;
 
 namespace Alensia.Core.Camera
@@ -7,7 +7,7 @@ namespace Alensia.Core.Camera
     {
         ICameraMode Mode { get; }
 
-        ReadOnlyCollection<ICameraMode> AvailableModes { get; }
+        IReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
         CameraChangeEvent CameraChanged { get; }
 

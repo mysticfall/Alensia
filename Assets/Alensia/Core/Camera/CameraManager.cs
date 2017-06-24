@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Actor;
 using UnityEngine.Assertions;
@@ -31,7 +29,7 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public ReadOnlyCollection<ICameraMode> AvailableModes { get; }
+        public IReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
         public CameraChangeEvent CameraChanged { get; }
 
