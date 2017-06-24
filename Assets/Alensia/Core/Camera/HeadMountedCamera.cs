@@ -2,6 +2,7 @@
 using Alensia.Core.Actor;
 using Alensia.Core.Common;
 using Alensia.Core.Geom;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -111,6 +112,11 @@ namespace Alensia.Core.Camera
             Assert.IsNotNull(settings, "settings != null");
 
             _settings = settings;
+
+            OnDeactivate
+                .Where(_ => Head != null)
+                .Subscribe(_ => Head.localRotation = _initialRotation)
+                .AddTo(this);
         }
 
         public void Initialize(ITransformable target)
@@ -133,15 +139,6 @@ namespace Alensia.Core.Camera
             _initialRotation = Head.localRotation;
         }
 
-        protected override void OnDeactivate()
-        {
-            base.OnDeactivate();
-
-            if (Head == null) return;
-
-            Head.localRotation = _initialRotation;
-        }
-
         protected virtual void UpdatePosition(float heading, float elevation)
         {
             Head.localRotation = Quaternion.identity;
@@ -157,7 +154,7 @@ namespace Alensia.Core.Camera
 
         public virtual void LateTick()
         {
-            if (Active) UpdatePosition(Heading, Elevation);
+            if (Active.Value) UpdatePosition(Heading, Elevation);
         }
 
         [Serializable]

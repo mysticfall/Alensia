@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using ModestTree;
 using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
 
 namespace Alensia.Core.Physics
 {
-    public abstract class GroundDetector : IGroundDetector, IDisposable
+    public abstract class GroundDetector : BaseObject, IGroundDetector
     {
         public abstract GroundDetectionSettings Settings { get; }
 
@@ -30,15 +30,7 @@ namespace Alensia.Core.Physics
             GroundLeft = groundLeft;
         }
 
-        public virtual void Dispose()
-        {
-            Grounds = new HashSet<Collider>();
-        }
-
-        protected virtual bool IsGround(Collider collider)
-        {
-            return true;
-        }
+        protected virtual bool IsGround(Collider collider) => true;
 
         protected void OnDetectGround(IEnumerable<Collider> grounds)
         {

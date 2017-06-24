@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Physics;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public class WalkingLocomotion : AnimatedLocomotion, IWalkingLocomotion, IDisposable
+    public class WalkingLocomotion : AnimatedLocomotion, IWalkingLocomotion
     {
         public WalkSpeedSettings MaximumSpeed => _settings.MaximumSpeed;
 
@@ -38,6 +39,8 @@ namespace Alensia.Core.Locomotion
 
         public PacingChangeEvent PacingChanged { get; }
 
+        private Vector3 _lastVelocity;
+
         private readonly Settings _settings;
 
         public WalkingLocomotion(
@@ -65,15 +68,18 @@ namespace Alensia.Core.Locomotion
 
             PacingChanged = pacingChanged;
             GroundDetector = groundDetector;
+
+            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
+            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
         }
 
-        public override void Initialize()
+        private void AfterInitialize()
         {
             GroundDetector.GroundHit.Listen(OnHitGround);
             GroundDetector.GroundLeft.Listen(OnLeaveGround);
         }
 
-        public void Dispose()
+        private void AfterDispose()
         {
             GroundDetector.GroundHit.Unlisten(OnHitGround);
             GroundDetector.GroundLeft.Unlisten(OnLeaveGround);
@@ -89,8 +95,6 @@ namespace Alensia.Core.Locomotion
         {
             throw new NotImplementedException();
         }
-
-        private Vector3 _lastVelocity;
 
         protected override Vector3 CalculateVelocity(Vector3 direction, float? distance = null)
         {
@@ -140,7 +144,7 @@ namespace Alensia.Core.Locomotion
 
         protected virtual void OnHitGround(IEnumerable<Collider> grounds)
         {
-            if (!Active) Active = true;
+            if (!Active.Value) Activate();
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, false);
         }
@@ -149,7 +153,7 @@ namespace Alensia.Core.Locomotion
         {
             if (GroundDetector.Grounded) return;
 
-            if (Active) Active = false;
+            if (Active.Value) Deactivate();
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, true);
         }

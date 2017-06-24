@@ -16,7 +16,7 @@ namespace Alensia.Tests.Camera
             var camera = gameObject.AddComponent<UnityEngine.Camera>();
 
             Camera = CreateCamera(camera);
-            Camera.Active = true;
+            Camera.Activate();
         }
 
         [TearDown]
@@ -24,7 +24,7 @@ namespace Alensia.Tests.Camera
         {
             if (Camera != null)
             {
-                if (Camera.Active) Camera.Active = false;
+                if (Camera.Active.Value) Camera.Deactivate();
 
                 Object.DestroyImmediate(Camera.Transform.gameObject);
             }
@@ -43,7 +43,7 @@ namespace Alensia.Tests.Camera
         [Test, Description("Deactivate() should make the camera in inactive state.")]
         public void DeactivateShouldMakeCameraInInactiveStatus()
         {
-            Camera.Active = false;
+            Camera.Deactivate();
 
             Expect(Camera.Active, Is.False, "Unexpected camera state.");
         }

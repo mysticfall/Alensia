@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using UniRx;
@@ -41,22 +42,19 @@ namespace Alensia.Core.Camera
             }
         }
 
-        protected override void OnActivate()
+        protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.OnActivate();
+            base.Subscribe(disposables);
 
             Scroll.Value
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Select(v => v * -15)
                 .Subscribe(OnZoom)
-                .AddTo(Observers);
+                .AddTo(disposables);
         }
 
-        protected void OnZoom(float input)
-        {
-            OnZoom(input, (IZoomableCamera) CameraManager.Mode);
-        }
+        protected void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode);
 
         protected virtual void OnZoom(float input, IZoomableCamera camera)
         {

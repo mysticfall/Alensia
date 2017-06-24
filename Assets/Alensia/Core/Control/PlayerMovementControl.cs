@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
@@ -6,6 +7,7 @@ using Alensia.Core.Locomotion;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Tuple = UniRx.Tuple;
 
 namespace Alensia.Core.Control
 {
@@ -82,16 +84,14 @@ namespace Alensia.Core.Control
             }
         }
 
-        protected override void OnActivate()
+        protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.OnActivate();
-
             Observable
                 .Zip(X.Value, Y.Value, Running.Value)
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]))
                 .Subscribe(r => OnMove(r.Item1, r.Item2 > 0))
-                .AddTo(Observers);
+                .AddTo(disposables);
         }
 
         protected virtual void OnMove(Vector2 input, bool running)

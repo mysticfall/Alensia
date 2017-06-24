@@ -1,37 +1,17 @@
 using System;
+using Alensia.Core.Common;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public abstract class Locomotion : ILocomotion, IInitializable, ITickable
+    public abstract class Locomotion : BaseActivatable, ITickable
     {
         public Transform Transform { get; }
 
         public GameObject GameObject => Transform.gameObject;
-
-        public bool Active
-        {
-            get { return _active; }
-            set
-            {
-                if (_active == value) return;
-
-                _active = value;
-
-                if (_active)
-                {
-                    OnActivate();
-                }
-                else
-                {
-                    OnDeactivate();
-                }
-            }
-        }
-
-        private bool _active;
 
         private Vector3 _targetVelocity;
 
@@ -42,16 +22,14 @@ namespace Alensia.Core.Locomotion
             Assert.IsNotNull(transform, "transform != null");
 
             Transform = transform;
-        }
 
-        public virtual void Initialize()
-        {
-            Active = true;
+            OnInitialize.Subscribe(_ => Activate()).AddTo(this);
+            Active.Subscribe(_ => Reset()).AddTo(this);
         }
 
         public float Move(Vector3 direction)
         {
-            if (!Active) return 0;
+            if (!Active.Value) return 0;
 
             _targetVelocity = CalculateVelocity(direction.normalized);
 
@@ -60,7 +38,7 @@ namespace Alensia.Core.Locomotion
 
         public float MoveTowards(Vector3 position)
         {
-            if (!Active) return 0;
+            if (!Active.Value) return 0;
 
             var offset = position - Transform.localPosition;
 
@@ -74,7 +52,7 @@ namespace Alensia.Core.Locomotion
 
         public float Rotate(Vector3 axis)
         {
-            if (!Active) return 0;
+            if (!Active.Value) return 0;
 
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized);
 
@@ -83,7 +61,7 @@ namespace Alensia.Core.Locomotion
 
         public float RotateTowards(Vector3 axis, float degree)
         {
-            if (!Active) return 0;
+            if (!Active.Value) return 0;
 
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized, degree);
 
@@ -98,20 +76,10 @@ namespace Alensia.Core.Locomotion
 
         public virtual void Tick()
         {
-            if (!Active) return;
+            if (!Active.Value) return;
 
             Update(_targetVelocity, _targetAngularVelocity);
 
-            Reset();
-        }
-
-        protected virtual void OnActivate()
-        {
-            Reset();
-        }
-
-        protected virtual void OnDeactivate()
-        {
             Reset();
         }
 

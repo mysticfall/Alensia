@@ -1,6 +1,7 @@
 ﻿using System;
 using Alensia.Core.Animation;
 using Alensia.Core.Common;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -41,19 +42,18 @@ namespace Alensia.Core.Locomotion
             _settings = settings;
 
             Animator = animator;
+
+            OnActivate.Subscribe(_ => AfterActivate()).AddTo(this);
+            OnDeactivate.Subscribe(_ => AfterDeactivate()).AddTo(this);
         }
 
-        protected override void OnActivate()
+        private void AfterActivate()
         {
-            base.OnActivate();
-
             Animator.applyRootMotion = UseRootMotion;
         }
 
-        protected override void OnDeactivate()
+        private void AfterDeactivate()
         {
-            base.OnDeactivate();
-
             UpdateVelocityVariables(Vector3.zero);
             UpdateRotationVariables(Vector3.zero);
 

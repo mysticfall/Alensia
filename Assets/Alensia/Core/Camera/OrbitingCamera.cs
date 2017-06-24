@@ -88,7 +88,7 @@ namespace Alensia.Core.Camera
 
         public virtual void LateTick()
         {
-            if (Active) UpdatePosition(Heading, Elevation, Distance);
+            if (Active.Value) UpdatePosition(Heading, Elevation, Distance);
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using Alensia.Core.Input.Generic;
+using UniRx;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Input
 {
-    public class InputManager : IInputManager, ITickable, IDisposable
+    public class InputManager : BaseObject, IInputManager, ITickable
     {
         public ICollection<IBindingKey> Keys => _bindings.AsReadOnly();
 
@@ -17,8 +18,6 @@ namespace Alensia.Core.Input
 
         private readonly IDictionary<IBindingKey, IInput> _bindingMap;
 
-        private bool _disposed;
-
         public InputManager(BindingChangeEvent bindingChanged)
         {
             Assert.IsNotNull(bindingChanged, "bindingChanged != null");
@@ -27,6 +26,21 @@ namespace Alensia.Core.Input
 
             _bindings = new List<IBindingKey>();
             _bindingMap = new Dictionary<IBindingKey, IInput>();
+
+            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
+        }
+
+        private void AfterDispose()
+        {
+            lock (this)
+            {
+                var keys = new List<IBindingKey>(Keys.Reverse());
+
+                foreach (var key in keys)
+                {
+                    Deregister(key);
+                }
+            }
         }
 
         public bool Contains(IBindingKey key)
@@ -53,8 +67,6 @@ namespace Alensia.Core.Input
         {
             lock (this)
             {
-                CheckStatus();
-
                 Deregister(key);
 
                 _bindings.Add(key);
@@ -70,8 +82,6 @@ namespace Alensia.Core.Input
         {
             lock (this)
             {
-                CheckStatus();
-
                 if (!_bindingMap.ContainsKey(key)) return;
 
                 var existingInput = _bindingMap[key];
@@ -85,38 +95,12 @@ namespace Alensia.Core.Input
             BindingChanged.Fire(key);
         }
 
-        public void Dispose()
-        {
-            lock (this)
-            {
-                CheckStatus();
-
-                var keys = new List<IBindingKey>(Keys.Reverse());
-
-                foreach (var key in keys)
-                {
-                    Deregister(key);
-                }
-
-                _disposed = true;
-            }
-        }
-
         public void Tick()
         {
             // ReSharper disable once InconsistentlySynchronizedField
             foreach (var input in _bindingMap.Values)
             {
                 input.Tick();
-            }
-        }
-
-        private void CheckStatus()
-        {
-            if (_disposed)
-            {
-                throw new InvalidOperationException(
-                    "The component was disposed already.");
             }
         }
     }

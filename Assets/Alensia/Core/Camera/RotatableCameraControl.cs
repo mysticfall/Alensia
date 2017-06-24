@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using UniRx;
@@ -32,7 +33,7 @@ namespace Alensia.Core.Camera
         {
             return new List<IBindingKey> {Yaw, Pitch};
         }
-        
+
         protected override void RegisterDefaultBindings()
         {
             base.RegisterDefaultBindings();
@@ -56,23 +57,18 @@ namespace Alensia.Core.Camera
             }
         }
 
-        protected override void OnActivate()
+        protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.OnActivate();
-
             Observable
                 .Zip(X.Value, Y.Value)
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IRotatableCamera)
                 .Select(xs => new Vector2(xs[0], xs[1]))
                 .Subscribe(OnRotate)
-                .AddTo(Observers);
+                .AddTo(disposables);
         }
 
-        protected void OnRotate(Vector2 input)
-        {
-            OnRotate(input, (IRotatableCamera) CameraManager.Mode);
-        }
+        protected void OnRotate(Vector2 input) => OnRotate(input, (IRotatableCamera) CameraManager.Mode);
 
         protected virtual void OnRotate(Vector2 input, IRotatableCamera camera)
         {

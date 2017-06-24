@@ -9,6 +9,9 @@ namespace Alensia.Core.Input
     {
         public IList<ITrigger> Modifiers { get; }
 
+        protected override IObservable<long> OnTick => 
+            base.OnTick.Where(_ => Modifiers.All(t => t.Hold));
+
         protected ModifierInput() :
             this(Enumerable.Empty<ITrigger>().ToList())
         {
@@ -19,11 +22,6 @@ namespace Alensia.Core.Input
             Assert.IsNotNull(modifiers, "modifiers != null");
 
             Modifiers = modifiers.ToList().AsReadOnly();
-        }
-
-        protected override IObservable<long> ObserveTick()
-        {
-            return base.ObserveTick().Where(_ => Modifiers.All(t => t.Hold));
         }
     }
 }

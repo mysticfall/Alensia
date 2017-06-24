@@ -1,50 +1,28 @@
-﻿using Alensia.Core.Input.Generic;
+﻿using Alensia.Core.Common;
+using Alensia.Core.Input.Generic;
 using UniRx;
 
 namespace Alensia.Core.Input
 {
-    public abstract class Input<T> : IInput<T>
+    public abstract class Input<T> : BaseObject, IInput<T>
     {
-        public IReadOnlyReactiveProperty<T> Value => _value;
+        public IObservable<T> Value { get; private set; }
 
-        private ReadOnlyReactiveProperty<T> _value;
-
-        private Subject<long> _subject;
-
-        private long _count;
-
-        protected virtual IObservable<long> ObserveTick()
-        {
-            return _subject;
-        }
+        protected virtual IObservable<long> OnTick => _count;
 
         protected abstract IObservable<T> Observe(IObservable<long> onTick);
 
-        public virtual void Initialize()
+        private readonly ReactiveProperty<long> _count;
+
+        protected Input()
         {
-            //TODO Can't rely on Observable.EveryUpdate() since it's invoked later than every other ITickables.
-            _subject = new Subject<long>();
-            _count = 0;
+            _count = new ReactiveProperty<long>();
 
-            var onTick = ObserveTick();
-
-            _value = new ReadOnlyReactiveProperty<T>(Observe(onTick), false);
+            OnInitialize.Subscribe(_ => Value = Observe(OnTick)).AddTo(this);
+            OnDispose.Subscribe(_ => _count.Dispose()).AddTo(this);
         }
 
-        public virtual void Dispose()
-        {
-            _subject = null;
-            _count = 0;
-
-            if (_value == null) return;
-
-            _value.Dispose();
-            _value = null;
-        }
-
-        public void Tick()
-        {
-            _subject?.OnNext(_count++);
-        }
+        //TODO Can't rely on Observable.EveryUpdate() since it's invoked later than every other ITickables.
+        public void Tick() => _count.Value += 1;
     }
 }

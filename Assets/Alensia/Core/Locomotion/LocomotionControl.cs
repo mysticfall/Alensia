@@ -8,7 +8,7 @@ namespace Alensia.Core.Locomotion
     {
         public T Locomotion { get; }
 
-        public override bool Valid => base.Valid && Locomotion.Active;
+        public override bool Valid => base.Valid && Locomotion.Active.Value;
 
         protected LocomotionControl(T locomotion, IInputManager inputManager) : base(inputManager)
         {

@@ -22,10 +22,10 @@ namespace Alensia.Core.Camera
 
                 lock (this)
                 {
-                    if (_mode != null) _mode.Active = false;
+                    if (_mode != null) _mode.Active.Value = false;
 
                     _mode = value;
-                    _mode.Active = true;
+                    _mode.Active.Value = true;
                 }
 
                 CameraChanged.Fire(_mode);

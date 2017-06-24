@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Physics
 {
-    public class CollisionBasedGroundDetector : GroundDetector, IInitializable
+    public class CollisionBasedGroundDetector : GroundDetector
     {
         public override GroundDetectionSettings Settings { get; }
 
@@ -34,18 +36,19 @@ namespace Alensia.Core.Physics
 
             Settings = settings;
             CollisionDetector = detector;
+
+            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
+            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
         }
 
-        public virtual void Initialize()
+        private void AfterInitialize()
         {
             CollisionDetector.CollisionEntered.Listen(OnCollisionEnter);
             CollisionDetector.CollisionExited.Listen(OnCollisionExit);
         }
 
-        public override void Dispose()
+        private void AfterDispose()
         {
-            base.Dispose();
-
             CollisionDetector.CollisionEntered.Unlisten(OnCollisionEnter);
             CollisionDetector.CollisionExited.Unlisten(OnCollisionExit);
         }

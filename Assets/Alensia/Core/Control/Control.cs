@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine.Assertions;
-using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public abstract class Control : IControl, IInitializable, IDisposable
+    public abstract class Control : BaseActivatable, IControl
     {
         public abstract string Name { get; }
 
@@ -16,38 +16,11 @@ namespace Alensia.Core.Control
 
         public ICollection<IBindingKey> Bindings { get; private set; }
 
-        protected readonly CompositeDisposable Observers;
-
-        protected readonly CompositeDisposable ConstantObservers;
-
-        public bool Active
-        {
-            get { return _active; }
-            set
-            {
-                lock (this)
-                {
-                    if (_active == value) return;
-
-                    _active = value;
-
-                    Observers.Clear();
-
-                    if (_active)
-                    {
-                        OnActivate();
-                    }
-                    else
-                    {
-                        OnDeactivate();
-                    }
-                }
-            }
-        }
-
         public virtual bool Valid => true;
 
         private bool _active;
+
+        private readonly ICollection<IDisposable> _disposables = new CompositeDisposable();
 
         protected Control(IInputManager inputManager)
         {
@@ -56,11 +29,14 @@ namespace Alensia.Core.Control
             InputManager = inputManager;
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
-            Observers = new CompositeDisposable();
-            ConstantObservers = new CompositeDisposable();
+            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
+            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
+
+            OnActivate.Subscribe(_ => Subscribe(_disposables)).AddTo(this);
+            OnDeactivate.Subscribe(_ => _disposables.Clear()).AddTo(this);
         }
 
-        public virtual void Initialize()
+        private void AfterInitialize()
         {
             Bindings = PrepareBindings().ToList().AsReadOnly();
 
@@ -69,24 +45,16 @@ namespace Alensia.Core.Control
             RegisterDefaultBindings();
         }
 
-        public virtual void Dispose()
+        private void AfterDispose()
         {
-            if (Active) Active = false;
+            if (Active.Value) Deactivate();
 
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
             InputManager.BindingChanged.Unlisten(ProcessBindingChange);
-
-            ConstantObservers.Clear();
         }
 
-        protected virtual void OnActivate()
-        {
-        }
-
-        protected virtual void OnDeactivate()
-        {
-        }
+        protected abstract void Subscribe(ICollection<IDisposable> disposables);
 
         protected abstract ICollection<IBindingKey> PrepareBindings();
 
@@ -100,13 +68,13 @@ namespace Alensia.Core.Control
 
             lock (this)
             {
-                var active = Active;
+                var wasActive = Active.Value;
 
-                Active = false;
+                Deactivate();
 
                 OnBindingChange(key);
 
-                Active = Valid && active;
+                if (Valid && wasActive) Activate();
             }
         }
 

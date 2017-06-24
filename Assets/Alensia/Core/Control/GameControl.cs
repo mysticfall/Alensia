@@ -53,14 +53,12 @@ namespace Alensia.Core.Control
             }
         }
 
-        protected override void OnActivate()
+        protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.OnActivate();
-
             ShowMenuInput?.Value
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Subscribe(_ => OnShowMenu())
-                .AddTo(Observers);
+                .AddTo(disposables);
         }
 
         protected virtual void OnShowMenu()

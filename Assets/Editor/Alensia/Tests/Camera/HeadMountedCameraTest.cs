@@ -188,7 +188,7 @@ namespace Alensia.Tests.Camera
             Camera.Heading = 30;
             Camera.Elevation = 80;
 
-            Camera.Active = false;
+            Camera.Deactivate();
 
             Expect(
                 Camera.Head.rotation,

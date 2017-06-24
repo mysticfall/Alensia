@@ -1,5 +1,8 @@
-﻿using Alensia.Core.Actor;
+﻿using System;
+using System.Collections.Generic;
+using Alensia.Core.Actor;
 using Alensia.Core.Camera;
+using Alensia.Core.Common;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine;
@@ -26,21 +29,16 @@ namespace Alensia.Core.Control
 
             Player = player;
             ViewSensitivity = viewSensitivity;
+
+            OnInitialize.Subscribe(_ => CameraManager.ToThirdPerson(Player)).AddTo(this);
         }
 
-        public override void Initialize()
+        protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.Initialize();
-
-            CameraManager.ToThirdPerson(Player);
-        }
-
-        protected override void OnActivate()
-        {
-            base.OnActivate();
+            base.Subscribe(disposables);
 
             Scroll.Value
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IThirdPersonCamera)
                 .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Where(v => v > 0)
@@ -48,15 +46,15 @@ namespace Alensia.Core.Control
                 .Where(camera => Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum))
                 .Select(_ => (IThirdPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToFirstPerson)
-                .AddTo(Observers);
+                .AddTo(disposables);
 
             Scroll.Value
-                .Where(_ => Active && Valid)
+                .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IFirstPersonCamera)
                 .Where(v => v < 0)
                 .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToThirdPerson)
-                .AddTo(Observers);
+                .AddTo(disposables);
         }
 
         protected override void OnRotate(Vector2 input, IRotatableCamera camera)

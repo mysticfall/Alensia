@@ -1,33 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
+using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
-using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public class Controller : IController, IInitializable, IDisposable
+    public class Controller : BaseActivatable, IController
     {
         public IReadOnlyList<IControl> Controls { get; }
-
-        public bool Active
-        {
-            get { return _active; }
-            set
-            {
-                lock (this)
-                {
-                    if (_active == value) return;
-
-                    foreach (var control in Controls)
-                    {
-                        control.Active = value;
-                    }
-
-                    _active = value;
-                }
-            }
-        }
 
         private readonly IDictionary<string, IControl> _controls;
 
@@ -47,11 +29,12 @@ namespace Alensia.Core.Control
             {
                 _controls.Add(control.Name, control);
             }
+
+            Active.Subscribe(ChangeControlStatus).AddTo(this);
+
+            OnInitialize.Subscribe(_ => Activate()).AddTo(this);
+            OnDispose.Subscribe(_ => Deactivate()).AddTo(this);
         }
-
-        public virtual void Initialize() => Active = true;
-
-        public virtual void Dispose() => Active = false;
 
         public bool Contains(string key) => _controls.ContainsKey(key);
 
@@ -61,14 +44,22 @@ namespace Alensia.Core.Control
         {
             var control = this[name];
 
-            if (control != null && !control.Active) control.Active = true;
+            if (control != null && !control.Active.Value) control.Activate();
         }
 
         public virtual void DisableControl(string name)
         {
             var control = this[name];
 
-            if (control != null && control.Active) control.Active = false;
+            if (control != null && control.Active.Value) control.Deactivate();
+        }
+
+        private void ChangeControlStatus(bool active)
+        {
+            foreach (var control in Controls)
+            {
+                control.Active.Value = active;
+            }
         }
     }
 }
