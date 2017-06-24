@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Alensia.Core.Actor;
-using Alensia.Core.Geom;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera
@@ -76,11 +75,6 @@ namespace Alensia.Core.Camera
             Mode = camera;
 
             return camera;
-        }
-
-        public void Follow(ITransformable target)
-        {
-            throw new NotImplementedException();
         }
     }
 }

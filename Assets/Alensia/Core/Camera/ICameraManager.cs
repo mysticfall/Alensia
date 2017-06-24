@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Alensia.Core.Actor;
-using Alensia.Core.Geom;
 
 namespace Alensia.Core.Camera
 {
@@ -17,7 +16,5 @@ namespace Alensia.Core.Camera
         IFirstPersonCamera ToFirstPerson(IActor target);
 
         IThirdPersonCamera ToThirdPerson(IActor target);
-
-        void Follow(ITransformable target);
     }
 }
