@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Alensia.Core.Common;
+using UniRx;
 using UnityEngine.Assertions;
 using Zenject;
 
@@ -14,36 +15,15 @@ namespace Alensia.Core.I18n
 
         public CultureInfo DefaultLocale { get; }
 
-        public CultureInfo CurrentLocale
-        {
-            get { return _currentLocale; }
-            set
-            {
-                Assert.IsNotNull(value, "value != null");
+        public IReactiveProperty<CultureInfo> CurrentLocale { get;  }
 
-                lock (this)
-                {
-                    if (Equals(_currentLocale, value)) return;
-
-                    _currentLocale = value;
-                }
-
-                LocaleChanged.Fire(value);
-            }
-        }
-
-        public LocaleChangeEvent LocaleChanged { get; }
-
-        private CultureInfo _currentLocale;
-
-        public LocaleService(LocaleChangeEvent localeChanged) : this(new Settings(), localeChanged)
+        public LocaleService() : this(new Settings())
         {
         }
 
         [Inject]
-        public LocaleService(Settings settings, LocaleChangeEvent localeChanged)
+        public LocaleService(Settings settings)
         {
-            Assert.IsNotNull(localeChanged, "localeChanged != null");
             Assert.IsNotNull(settings, "settings != null");
 
             Assert.IsNotNull(settings.SupportedLocales, "settings.SupportedLocales != null");
@@ -52,17 +32,14 @@ namespace Alensia.Core.I18n
                 settings.SupportedLocales.Contains(settings.DefaultLocale),
                 "!settings.SupportedLocales.Contains(settings.DefaultLocale)");
 
-            LocaleChanged = localeChanged;
-
             DefaultLocale = settings.DefaultLocale.ToCulture();
+            CurrentLocale = new ReactiveProperty<CultureInfo>(DefaultLocale);
 
             SupportedLocales = settings
                 .SupportedLocales
                 .Select(tag => tag.ToCulture())
                 .ToList()
                 .AsReadOnly();
-
-            _currentLocale = DefaultLocale;
         }
 
         [Serializable]

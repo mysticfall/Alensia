@@ -1,4 +1,5 @@
 ﻿using Alensia.Core.Physics;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.Locomotion
@@ -9,9 +10,7 @@ namespace Alensia.Core.Locomotion
 
         IGroundDetector GroundDetector { get; }
 
-        Pacing Pacing { get; set; }
-
-        PacingChangeEvent PacingChanged { get; }
+        IReactiveProperty<Pacing> Pacing { get; }
 
         void Walk(Vector2 direction, float heading);
 

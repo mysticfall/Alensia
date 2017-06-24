@@ -16,7 +16,7 @@ namespace Alensia.Core.Control
 
         public ViewSensitivity ViewSensitivity { get; }
 
-        public override bool Valid => base.Valid && CameraManager.Mode is IPerspectiveCamera;
+        public override bool Valid => base.Valid && CameraManager.Mode.Value is IPerspectiveCamera;
 
         public PlayerCameraControl(
             T player,
@@ -39,20 +39,20 @@ namespace Alensia.Core.Control
 
             Scroll.Value
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IThirdPersonCamera)
-                .Where(_ => CameraManager.Mode is IZoomableCamera)
+                .Where(_ => CameraManager.Mode.Value is IThirdPersonCamera)
+                .Where(_ => CameraManager.Mode.Value is IZoomableCamera)
                 .Where(v => v > 0)
-                .Select(_ => (IZoomableCamera) CameraManager.Mode)
+                .Select(_ => (IZoomableCamera) CameraManager.Mode.Value)
                 .Where(camera => Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum))
-                .Select(_ => (IThirdPersonCamera) CameraManager.Mode)
+                .Select(_ => (IThirdPersonCamera) CameraManager.Mode.Value)
                 .Subscribe(SwitchToFirstPerson)
                 .AddTo(disposables);
 
             Scroll.Value
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IFirstPersonCamera)
+                .Where(_ => CameraManager.Mode.Value is IFirstPersonCamera)
                 .Where(v => v < 0)
-                .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
+                .Select(_ => (IFirstPersonCamera) CameraManager.Mode.Value)
                 .Subscribe(SwitchToThirdPerson)
                 .AddTo(disposables);
         }

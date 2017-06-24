@@ -34,9 +34,6 @@ namespace Alensia.Demo
             Container.Bind<CapsuleCollider>().FromInstance(GetComponent<CapsuleCollider>()).AsSingle();
             Container.Bind<Rigidbody>().FromInstance(GetComponent<Rigidbody>()).AsSingle();
 
-            Container.DeclareSignal<GroundHitEvent>();
-            Container.DeclareSignal<GroundLeaveEvent>();
-
             Container.Bind<GroundDetectionSettings>().FromInstance(GroundDetection).AsSingle();
             Container.BindInterfacesAndSelfTo<CapsuleColliderGroundDetector>().AsSingle();
         }
@@ -49,8 +46,6 @@ namespace Alensia.Demo
         protected void InstallLocomotion()
         {
             Container.Bind<WalkingLocomotion.Settings>().FromInstance(Locomotion);
-
-            Container.DeclareSignal<PacingChangeEvent>();
             Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
         }
 

@@ -3,7 +3,6 @@ using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.Input.Generic;
 using UniRx;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Input
@@ -12,22 +11,22 @@ namespace Alensia.Core.Input
     {
         public ICollection<IBindingKey> Keys => _bindings.AsReadOnly();
 
-        public BindingChangeEvent BindingChanged { get; }
+        public IObservable<IBindingKey> OnBindingChange => _onBindingChange;
 
         private readonly List<IBindingKey> _bindings;
 
         private readonly IDictionary<IBindingKey, IInput> _bindingMap;
 
-        public InputManager(BindingChangeEvent bindingChanged)
+        private readonly Subject<IBindingKey> _onBindingChange;
+
+        public InputManager()
         {
-            Assert.IsNotNull(bindingChanged, "bindingChanged != null");
-
-            BindingChanged = bindingChanged;
-
             _bindings = new List<IBindingKey>();
             _bindingMap = new Dictionary<IBindingKey, IInput>();
 
             OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
+
+            _onBindingChange = new Subject<IBindingKey>();
         }
 
         private void AfterDispose()
@@ -75,7 +74,7 @@ namespace Alensia.Core.Input
 
             input.Initialize();
 
-            BindingChanged.Fire(key);
+            _onBindingChange.OnNext(key);
         }
 
         public void Deregister(IBindingKey key)
@@ -92,7 +91,7 @@ namespace Alensia.Core.Input
                 _bindingMap.Remove(key);
             }
 
-            BindingChanged.Fire(key);
+            _onBindingChange.OnNext(key);
         }
 
         public void Tick()

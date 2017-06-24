@@ -34,13 +34,13 @@ namespace Alensia.Core.Control
 
             OnActivate.Subscribe(_ => Subscribe(_disposables)).AddTo(this);
             OnDeactivate.Subscribe(_ => _disposables.Clear()).AddTo(this);
+
+            InputManager.OnBindingChange.Subscribe(ProcessBindingChange).AddTo(this);
         }
 
         private void AfterInitialize()
         {
             Bindings = PrepareBindings().ToList().AsReadOnly();
-
-            InputManager.BindingChanged.Listen(ProcessBindingChange);
 
             RegisterDefaultBindings();
         }
@@ -50,8 +50,6 @@ namespace Alensia.Core.Control
             if (Active.Value) Deactivate();
 
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
-
-            InputManager.BindingChanged.Unlisten(ProcessBindingChange);
         }
 
         protected abstract void Subscribe(ICollection<IDisposable> disposables);

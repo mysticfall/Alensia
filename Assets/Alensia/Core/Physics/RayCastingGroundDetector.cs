@@ -14,20 +14,12 @@ namespace Alensia.Core.Physics
 
         private readonly T _target;
 
-        protected RayCastingGroundDetector(
-            T target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) :
-            this(new GroundDetectionSettings(), target, groundHit, groundLeft)
+        protected RayCastingGroundDetector(T target) : this(new GroundDetectionSettings(), target)
         {
         }
 
         [Inject]
-        protected RayCastingGroundDetector(
-            GroundDetectionSettings settings,
-            T target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) : base(groundHit, groundLeft)
+        protected RayCastingGroundDetector(GroundDetectionSettings settings, T target)
         {
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(target, "target != null");
@@ -46,16 +38,10 @@ namespace Alensia.Core.Physics
 
         protected abstract Vector3 CalculateOrigin(T target);
 
-        protected virtual Ray CreateRay()
-        {
-            return new Ray(CalculateOrigin(_target), Vector3.down);
-        }
+        protected virtual Ray CreateRay() => new Ray(CalculateOrigin(_target), Vector3.down);
 
         protected abstract RaycastHit[] CastRay(Ray ray, T target);
 
-        public virtual void FixedTick()
-        {
-            DetectGround();
-        }
+        public void FixedTick() => DetectGround();
     }
 }

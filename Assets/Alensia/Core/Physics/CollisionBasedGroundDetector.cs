@@ -2,6 +2,7 @@
 using System.Linq;
 using Alensia.Core.Common;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -12,45 +13,25 @@ namespace Alensia.Core.Physics
     {
         public override GroundDetectionSettings Settings { get; }
 
-        public override Collider Target => CollisionDetector.Target;
+        public override Collider Target { get; }
 
-        public ICollisionDetector CollisionDetector { get; set; }
-
-        public CollisionBasedGroundDetector(
-            ICollisionDetector detector,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) : this(
-            new GroundDetectionSettings(), detector, groundHit, groundLeft)
+        public CollisionBasedGroundDetector(Collider target) : 
+            this(new GroundDetectionSettings(), target)
         {
         }
 
         [Inject]
         public CollisionBasedGroundDetector(
-            GroundDetectionSettings settings,
-            ICollisionDetector detector,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) : base(groundHit, groundLeft)
+            GroundDetectionSettings settings, Collider target)
         {
             Assert.IsNotNull(settings, "settings != null");
-            Assert.IsNotNull(detector, "detector != null");
+            Assert.IsNotNull(target, "target != null");
 
             Settings = settings;
-            CollisionDetector = detector;
+            Target = target;
 
-            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
-            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
-        }
-
-        private void AfterInitialize()
-        {
-            CollisionDetector.CollisionEntered.Listen(OnCollisionEnter);
-            CollisionDetector.CollisionExited.Listen(OnCollisionExit);
-        }
-
-        private void AfterDispose()
-        {
-            CollisionDetector.CollisionEntered.Unlisten(OnCollisionEnter);
-            CollisionDetector.CollisionExited.Unlisten(OnCollisionExit);
+            target.OnCollisionEnterAsObservable().Subscribe(OnCollisionEnter).AddTo(this);
+            target.OnCollisionExitAsObservable().Subscribe(OnCollisionExit).AddTo(this);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)

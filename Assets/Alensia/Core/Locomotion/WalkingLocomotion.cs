@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Physics;
 using UniRx;
@@ -17,27 +16,7 @@ namespace Alensia.Core.Locomotion
 
         public IGroundDetector GroundDetector { get; }
 
-        private Pacing _pacing = Pacing.Walking();
-
-        public Pacing Pacing
-        {
-            get { return _pacing; }
-            set
-            {
-                Assert.IsNotNull(value, "Pacing != null");
-
-                var oldPacing = _pacing;
-
-                _pacing = value;
-
-                if (oldPacing != _pacing)
-                {
-                    OnPacingChange(_pacing, oldPacing);
-                }
-            }
-        }
-
-        public PacingChangeEvent PacingChanged { get; }
+        public IReactiveProperty<Pacing> Pacing { get;  }
 
         private Vector3 _lastVelocity;
 
@@ -46,9 +25,8 @@ namespace Alensia.Core.Locomotion
         public WalkingLocomotion(
             IGroundDetector groundDetector,
             Animator animator,
-            Transform transform,
-            PacingChangeEvent pacingChanged) :
-            this(new Settings(), groundDetector, animator, transform, pacingChanged)
+            Transform transform) :
+            this(new Settings(), groundDetector, animator, transform)
         {
         }
 
@@ -57,32 +35,18 @@ namespace Alensia.Core.Locomotion
             Settings settings,
             IGroundDetector groundDetector,
             Animator animator,
-            Transform transform,
-            PacingChangeEvent pacingChanged) : base(settings, animator, transform)
+            Transform transform) : base(settings, animator, transform)
         {
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(groundDetector, "groundDetector != null");
-            Assert.IsNotNull(pacingChanged, "pacingChanged != null");
 
             _settings = settings;
 
-            PacingChanged = pacingChanged;
+            Pacing = new ReactiveProperty<Pacing>(Core.Locomotion.Pacing.Walking());
             GroundDetector = groundDetector;
 
-            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
-            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
-        }
-
-        private void AfterInitialize()
-        {
-            GroundDetector.GroundHit.Listen(OnHitGround);
-            GroundDetector.GroundLeft.Listen(OnLeaveGround);
-        }
-
-        private void AfterDispose()
-        {
-            GroundDetector.GroundHit.Unlisten(OnHitGround);
-            GroundDetector.GroundLeft.Unlisten(OnLeaveGround);
+            groundDetector.OnGroundHit.Subscribe(_ => WhenHitGround()).AddTo(this);
+            groundDetector.OnGroundLeave.Subscribe(_ => WhenLeaveGround()).AddTo(this);
         }
 
         public void Walk(Vector2 direction, float heading)
@@ -120,7 +84,7 @@ namespace Alensia.Core.Locomotion
                     speed = Mathf.Min(speed, maximumSpeed);
                 }
 
-                speed *= Pacing.SpeedModifier;
+                speed *= Pacing.Value.SpeedModifier;
             }
 
             // Do proper interpolation / smoothing.
@@ -142,16 +106,16 @@ namespace Alensia.Core.Locomotion
             return axis * speed;
         }
 
-        protected virtual void OnHitGround(IEnumerable<Collider> grounds)
+        protected virtual void WhenHitGround()
         {
             if (!Active.Value) Activate();
 
             Animator.SetBool(JumpingAndFallingVariables.Falling, false);
         }
 
-        protected virtual void OnLeaveGround(IEnumerable<Collider> grounds)
+        protected virtual void WhenLeaveGround()
         {
-            if (GroundDetector.Grounded) return;
+            if (GroundDetector.Grounded.Value) return;
 
             if (Active.Value) Deactivate();
 
@@ -172,11 +136,6 @@ namespace Alensia.Core.Locomotion
             var rotation = Quaternion.AngleAxis(angle, angularVelocity.normalized);
 
             Transform.localRotation *= rotation;
-        }
-
-        protected virtual void OnPacingChange(Pacing newPacing, Pacing oldPacing)
-        {
-            PacingChanged.Fire(newPacing, oldPacing);
         }
 
         [Serializable]

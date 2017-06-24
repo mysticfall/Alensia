@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Input.Generic;
+using UniRx;
 
 namespace Alensia.Core.Input
 {
     public interface IInputManager
     {
         ICollection<IBindingKey> Keys { get; }
-
-        BindingChangeEvent BindingChanged { get; }
 
         T Get<T>(IBindingKey<T> key) where T : class, IInput;
 
@@ -16,5 +15,7 @@ namespace Alensia.Core.Input
         void Register<T>(IBindingKey<T> key, T input) where T : class, IInput;
 
         void Deregister(IBindingKey key);
+
+        IObservable<IBindingKey> OnBindingChange { get; }
     }
 }

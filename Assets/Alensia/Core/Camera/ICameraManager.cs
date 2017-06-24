@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Actor;
+using UniRx;
 
 namespace Alensia.Core.Camera
 {
     public interface ICameraManager
     {
-        ICameraMode Mode { get; }
+        IReadOnlyReactiveProperty<ICameraMode> Mode { get; }
 
         IReadOnlyCollection<ICameraMode> AvailableModes { get; }
-
-        CameraChangeEvent CameraChanged { get; }
 
         T Switch<T>() where T : class, ICameraMode;
 

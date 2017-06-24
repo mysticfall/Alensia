@@ -1,47 +1,37 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Actor;
+using Alensia.Core.Common;
+using UniRx;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera
 {
-    public class CameraManager : ICameraManager
+    public class CameraManager : BaseObject, ICameraManager
     {
-        private ICameraMode _mode;
-
-        public ICameraMode Mode
-        {
-            get { return _mode; }
-
-            private set
-            {
-                if (value == null || value == _mode) return;
-
-                lock (this)
-                {
-                    if (_mode != null) _mode.Active.Value = false;
-
-                    _mode = value;
-                    _mode.Active.Value = true;
-                }
-
-                CameraChanged.Fire(_mode);
-            }
-        }
+        public IReadOnlyReactiveProperty<ICameraMode> Mode { get; }
 
         public IReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
-        public CameraChangeEvent CameraChanged { get; }
+        private readonly IReactiveProperty<ICameraMode> _mode;
 
-        public CameraManager(List<ICameraMode> modes, CameraChangeEvent cameraChanged)
+        public CameraManager(List<ICameraMode> modes)
         {
             Assert.IsNotNull(modes, "modes != null");
             Assert.IsTrue(modes.Any(), "modes.Any()");
 
-            Assert.IsNotNull(cameraChanged, "cameraChanged != null");
-
             AvailableModes = modes.AsReadOnly();
-            CameraChanged = cameraChanged;
+
+            _mode = new ReactiveProperty<ICameraMode>();
+            Mode = new ReadOnlyReactiveProperty<ICameraMode>(_mode);
+
+            Mode.Pairwise().Subscribe(Switch).AddTo(this);
+        }
+
+        private static void Switch(Pair<ICameraMode> cameras)
+        {
+            cameras.Previous?.Deactivate();
+            cameras.Current?.Activate();
         }
 
         public T Switch<T>() where T : class, ICameraMode
@@ -57,7 +47,7 @@ namespace Alensia.Core.Camera
 
             camera.Initialize(target);
 
-            Mode = camera;
+            _mode.Value = camera;
 
             return camera;
         }
@@ -70,7 +60,7 @@ namespace Alensia.Core.Camera
 
             camera.Initialize(target);
 
-            Mode = camera;
+            _mode.Value = camera;
 
             return camera;
         }

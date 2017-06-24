@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using UniRx;
 
 namespace Alensia.Core.I18n
 {
@@ -9,8 +10,6 @@ namespace Alensia.Core.I18n
 
         CultureInfo DefaultLocale { get; }
 
-        CultureInfo CurrentLocale { get; set; }
-
-        LocaleChangeEvent LocaleChanged { get; }
+        IReactiveProperty<CultureInfo> CurrentLocale { get; }
     }
 }

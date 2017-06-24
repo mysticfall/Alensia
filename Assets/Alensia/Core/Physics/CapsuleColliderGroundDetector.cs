@@ -5,20 +5,14 @@ namespace Alensia.Core.Physics
 {
     public class CapsuleColliderGroundDetector : RayCastingGroundDetector<CapsuleCollider>
     {
-        public CapsuleColliderGroundDetector(
-            CapsuleCollider target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) :
-            this(new GroundDetectionSettings(), target, groundHit, groundLeft)
+        public CapsuleColliderGroundDetector(CapsuleCollider target) :
+            this(new GroundDetectionSettings(), target)
         {
         }
 
         [Inject]
         public CapsuleColliderGroundDetector(
-            GroundDetectionSettings settings,
-            CapsuleCollider target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) : base(settings, target, groundHit, groundLeft)
+            GroundDetectionSettings settings, CapsuleCollider target) : base(settings, target)
         {
         }
 

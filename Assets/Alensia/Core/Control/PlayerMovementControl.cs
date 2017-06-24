@@ -96,7 +96,7 @@ namespace Alensia.Core.Control
 
         protected virtual void OnMove(Vector2 input, bool running)
         {
-            var camera = CameraManager.Mode as IRotatableCamera;
+            var camera = CameraManager.Mode.Value as IRotatableCamera;
 
             if (input.magnitude > 0 && camera is IPerspectiveCamera)
             {
@@ -109,14 +109,14 @@ namespace Alensia.Core.Control
 
             Locomotion.Move(new Vector3(movement.x, 0, movement.y));
 
-            if (running && Locomotion.Pacing != RunningPace)
+            if (running && Locomotion.Pacing.Value != RunningPace)
             {
-                Locomotion.Pacing = RunningPace;
+                Locomotion.Pacing.Value = RunningPace;
             }
 
-            if (!running && Locomotion.Pacing == RunningPace)
+            if (!running && Locomotion.Pacing.Value == RunningPace)
             {
-                Locomotion.Pacing = WalkingPace;
+                Locomotion.Pacing.Value = WalkingPace;
             }
         }
 

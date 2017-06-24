@@ -25,10 +25,9 @@ namespace Alensia.Tests.Actor
             Animator = root.AddComponent<Animator>();
 
             var collider = root.AddComponent<BoxCollider>();
-            var detector = new LineCastingGroundDetector(
-                collider, new GroundHitEvent(), new GroundLeaveEvent());
+            var detector = new LineCastingGroundDetector(collider);
 
-            Locomotion = new WalkingLocomotion(detector, Animator, Transform, new PacingChangeEvent());
+            Locomotion = new WalkingLocomotion(detector, Animator, Transform);
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 

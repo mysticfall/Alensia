@@ -43,7 +43,6 @@ namespace Alensia.Demo
             Container.Bind<LocaleService.Settings>().FromInstance(Locale);
             Container.Bind<ResourceSettings>().FromInstance(Translations);
 
-            Container.DeclareSignal<LocaleChangeEvent>();
             Container.BindInterfacesAndSelfTo<LocaleService>().AsSingle();
             Container.BindInterfacesAndSelfTo<JsonResourceTranslator>().AsSingle();
         }
@@ -65,15 +64,13 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<HeadMountedCamera>().AsSingle();
             Container.BindInterfacesAndSelfTo<ThirdPersonCamera>().AsSingle();
 
-            Container.DeclareSignal<CameraChangeEvent>();
-            Container.Bind<ICameraManager>().To<CameraManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
         }
 
         protected void InstallControls()
         {
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
 
-            Container.DeclareSignal<BindingChangeEvent>();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<DemoControl>().AsSingle().NonLazy();

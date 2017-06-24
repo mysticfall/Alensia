@@ -62,13 +62,13 @@ namespace Alensia.Core.Camera
             Observable
                 .Zip(X.Value, Y.Value)
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IRotatableCamera)
+                .Where(_ => CameraManager.Mode.Value is IRotatableCamera)
                 .Select(xs => new Vector2(xs[0], xs[1]))
                 .Subscribe(OnRotate)
                 .AddTo(disposables);
         }
 
-        protected void OnRotate(Vector2 input) => OnRotate(input, (IRotatableCamera) CameraManager.Mode);
+        protected void OnRotate(Vector2 input) => OnRotate(input, (IRotatableCamera) CameraManager.Mode.Value);
 
         protected virtual void OnRotate(Vector2 input, IRotatableCamera camera)
         {

@@ -1,13 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Alensia.Core.Common;
+using UniRx;
 using UnityEngine.Assertions;
-using Zenject;
 
 namespace Alensia.Core.I18n
 {
-    public abstract class Translator : ITranslator, IInitializable, IDisposable
+    public abstract class Translator : BaseObject, ITranslator
     {
         public ILocaleService LocaleService { get; }
 
@@ -18,20 +18,15 @@ namespace Alensia.Core.I18n
             Assert.IsNotNull(localeService, "localeService != null");
 
             LocaleService = localeService;
-        }
 
-        public virtual void Initialize()
-        {
-            Messages = Load(LocaleService.CurrentLocale);
+            LocaleService.CurrentLocale
+                .Where(_ => Initialized)
+                .Subscribe(OnLocaleChange)
+                .AddTo(this);
 
-            LocaleService.LocaleChanged.Listen(OnLocaleChange);
-        }
-
-        public virtual void Dispose()
-        {
-            LocaleService.LocaleChanged.Unlisten(OnLocaleChange);
-
-            Messages = null;
+            OnInitialize
+                .Subscribe(_ => Messages = Load(LocaleService.CurrentLocale.Value))
+                .AddTo(this);
         }
 
         protected virtual void OnLocaleChange(CultureInfo locale) => Messages = Load(locale);

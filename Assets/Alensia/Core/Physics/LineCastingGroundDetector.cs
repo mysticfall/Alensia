@@ -5,20 +5,14 @@ namespace Alensia.Core.Physics
 {
     public class LineCastingGroundDetector : RayCastingGroundDetector<Collider>
     {
-        public LineCastingGroundDetector(
-            Collider target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) :
-            this(new GroundDetectionSettings(), target, groundHit, groundLeft)
+        public LineCastingGroundDetector(Collider target) :
+            this(new GroundDetectionSettings(), target)
         {
         }
 
         [Inject]
         public LineCastingGroundDetector(
-            GroundDetectionSettings settings,
-            Collider target,
-            GroundHitEvent groundHit,
-            GroundLeaveEvent groundLeft) : base(settings, target, groundHit, groundLeft)
+            GroundDetectionSettings settings, Collider target) : base(settings, target)
         {
         }
 
