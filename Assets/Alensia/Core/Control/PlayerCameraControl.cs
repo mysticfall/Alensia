@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using Alensia.Core.Actor;
+﻿using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
-using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -15,24 +13,19 @@ namespace Alensia.Core.Control
 
         public ViewSensitivity ViewSensitivity { get; }
 
-        public IUIManager UIManager { get; }
-
         public override bool Valid => base.Valid && CameraManager.Mode is IPerspectiveCamera;
 
         public PlayerCameraControl(
             T player,
             ViewSensitivity viewSensitivity,
-            IUIManager uiManager,
             ICameraManager cameraManager,
             IInputManager inputManager) : base(cameraManager, inputManager)
         {
             Assert.IsNotNull(player, "player != null");
             Assert.IsNotNull(viewSensitivity, "viewSensitivity != null");
-            Assert.IsNotNull(uiManager, "uiManager != null");
 
             Player = player;
             ViewSensitivity = viewSensitivity;
-            UIManager = uiManager;
         }
 
         public override void Initialize()
@@ -40,10 +33,6 @@ namespace Alensia.Core.Control
             base.Initialize();
 
             CameraManager.ToThirdPerson(Player);
-
-            UIManager.ComponentAdded.Merge(UIManager.ComponentRemoved)
-                .Subscribe(_ => OnUIChange())
-                .AddTo(ConstantObservers);
         }
 
         protected override void OnActivate()
@@ -68,15 +57,6 @@ namespace Alensia.Core.Control
                 .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToThirdPerson)
                 .AddTo(Observers);
-
-            UIManager.HideCursor();
-        }
-
-        protected override void OnDeactivate()
-        {
-            base.OnDeactivate();
-
-            UIManager.ShowCursor();
         }
 
         protected override void OnRotate(Vector2 input, IRotatableCamera camera)
@@ -94,8 +74,6 @@ namespace Alensia.Core.Control
         {
             base.OnZoom(input * ViewSensitivity.Zoom, camera);
         }
-
-        protected virtual void OnUIChange() => Active = !UIManager.Components.Any();
 
         protected void SwitchToFirstPerson(IThirdPersonCamera camera)
         {

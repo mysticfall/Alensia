@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
-using Alensia.Core.UI.Legacy;
 using UniRx;
 using UnityEngine.Assertions;
 
@@ -13,7 +13,7 @@ namespace Alensia.Core.Control
         public const string Id = "Game";
 
         public override string Name => Id;
-        
+
         public IUIManager UIManager { get; }
 
         public IBindingKey<ITriggerInput> ShowMenu = Keys.ShowMenu;
@@ -22,23 +22,11 @@ namespace Alensia.Core.Control
 
         public override bool Valid => base.Valid && ShowMenuInput != null;
 
-        private IComponent _mainMenu;
-
         protected GameControl(IUIManager uiManager, IInputManager inputManager) : base(inputManager)
         {
             Assert.IsNotNull(uiManager, "uiManager != null");
 
             UIManager = uiManager;
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            UIManager.ComponentRemoved
-                .Where(c => _mainMenu == c)
-                .Subscribe(_ => _mainMenu = null)
-                .AddTo(ConstantObservers);
         }
 
         protected override ICollection<IBindingKey> PrepareBindings()
@@ -77,22 +65,8 @@ namespace Alensia.Core.Control
 
         protected virtual void OnShowMenu()
         {
-            lock (this)
-            {
-                if (_mainMenu != null)
-                {
-                    UIManager.Remove(_mainMenu);
-                }
-                else
-                {
-                    _mainMenu = CreateMainMenu();
-
-                    UIManager.Add(_mainMenu);
-                }
-            }
+            throw new NotImplementedException();
         }
-
-        protected abstract IComponent CreateMainMenu();
 
         public static class Keys
         {

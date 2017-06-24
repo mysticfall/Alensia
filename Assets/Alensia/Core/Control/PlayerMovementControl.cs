@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.Locomotion;
-using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,8 +20,6 @@ namespace Alensia.Core.Control
         public IBindingKey<IAxisInput> Vertical => Keys.Vertical;
 
         public IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
-
-        public readonly IUIManager UIManager;
 
         public readonly ICameraManager CameraManager;
 
@@ -44,24 +40,12 @@ namespace Alensia.Core.Control
 
         public PlayerMovementControl(
             IWalkingLocomotion locomotion,
-            IUIManager uiManager,
             ICameraManager cameraManager,
             IInputManager inputManager) : base(locomotion, inputManager)
         {
-            Assert.IsNotNull(uiManager, "uiManager != null");
             Assert.IsNotNull(cameraManager, "cameraManager != null");
 
-            UIManager = uiManager;
             CameraManager = cameraManager;
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            UIManager.ComponentAdded.Merge(UIManager.ComponentRemoved)
-                .Subscribe(_ => OnUIChange())
-                .AddTo(ConstantObservers);
         }
 
         protected override ICollection<IBindingKey> PrepareBindings()
@@ -135,8 +119,6 @@ namespace Alensia.Core.Control
                 Locomotion.Pacing = WalkingPace;
             }
         }
-
-        protected virtual void OnUIChange() => Active = !UIManager.Components.Any();
 
         public static class Keys
         {
