@@ -9,6 +9,8 @@ namespace Alensia.Core.Locomotion
     {
         public Transform Transform { get; }
 
+        public GameObject GameObject => Transform.gameObject;
+
         public bool Active
         {
             get { return _active; }

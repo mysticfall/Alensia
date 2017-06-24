@@ -10,6 +10,8 @@ namespace Alensia.Core.Camera
 
         public Transform Transform => Camera.transform;
 
+        public GameObject GameObject => Transform.gameObject;
+
         public bool Active
         {
             get { return _active; }

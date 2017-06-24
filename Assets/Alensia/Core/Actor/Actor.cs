@@ -9,6 +9,8 @@ namespace Alensia.Core.Actor
 
         public Transform Transform { get; }
 
+        public GameObject GameObject => Transform.gameObject;
+
         public Actor(Animator animator, Transform transform)
         {
             Assert.IsNotNull(animator, "animator != null");

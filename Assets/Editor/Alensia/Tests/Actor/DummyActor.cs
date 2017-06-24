@@ -13,6 +13,8 @@ namespace Alensia.Tests.Actor
 
         public Transform Transform { get; }
 
+        public GameObject GameObject => Transform.gameObject;
+
         public Transform Body { get; }
 
         public DummyActor()
