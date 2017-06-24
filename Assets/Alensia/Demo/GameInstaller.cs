@@ -50,8 +50,6 @@ namespace Alensia.Demo
 
         protected void InstallUI()
         {
-            Container.Bind<GuiRenderer>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
-
             Container.Bind<UIManager.Settings>().FromInstance(UI);
 
             Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
