@@ -55,7 +55,7 @@ namespace Alensia.Core.Control
 
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            ShowMenuInput?.Value
+            ShowMenuInput?.OnChange
                 .Where(_ => Valid)
                 .Subscribe(_ => OnShowMenu())
                 .AddTo(disposables);

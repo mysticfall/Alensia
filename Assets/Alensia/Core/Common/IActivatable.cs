@@ -4,7 +4,7 @@ namespace Alensia.Core.Common
 {
     public interface IActivatable
     {
-        IReactiveProperty<bool> Active { get; }
+        bool Active { get; set; }
 
         void Activate();
 
@@ -13,5 +13,7 @@ namespace Alensia.Core.Common
         IObservable<Unit> OnActivate { get; }
 
         IObservable<Unit> OnDeactivate { get; }
+
+        IObservable<bool> OnActiveStateChange { get; }
     }
 }

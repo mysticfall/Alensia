@@ -4,7 +4,7 @@ namespace Alensia.Core.Common
 {
     public interface ICloseableOnce
     {
-        IReadOnlyReactiveProperty<bool> Closed { get; }
+        bool Closed { get; set; }
 
         IObservable<Unit> OnClose { get; }
 

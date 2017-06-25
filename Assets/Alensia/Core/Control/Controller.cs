@@ -2,7 +2,6 @@
 using System.Linq;
 using Alensia.Core.Common;
 using UniRx;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
@@ -30,7 +29,7 @@ namespace Alensia.Core.Control
                 _controls.Add(control.Name, control);
             }
 
-            Active.Subscribe(ChangeControlStatus).AddTo(this);
+            OnActiveStateChange.Subscribe(ChangeControlStatus).AddTo(this);
 
             OnInitialize.Subscribe(_ => Activate()).AddTo(this);
             OnDispose.Subscribe(_ => Deactivate()).AddTo(this);
@@ -44,21 +43,21 @@ namespace Alensia.Core.Control
         {
             var control = this[name];
 
-            if (control != null && !control.Active.Value) control.Activate();
+            if (control != null && !control.Active) control.Activate();
         }
 
         public virtual void DisableControl(string name)
         {
             var control = this[name];
 
-            if (control != null && control.Active.Value) control.Deactivate();
+            if (control != null && control.Active) control.Deactivate();
         }
 
         private void ChangeControlStatus(bool active)
         {
             foreach (var control in Controls)
             {
-                control.Active.Value = active;
+                control.Active = active;
             }
         }
     }

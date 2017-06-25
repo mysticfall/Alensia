@@ -47,7 +47,7 @@ namespace Alensia.Core.Control
 
         private void AfterDispose()
         {
-            if (Active.Value) Deactivate();
+            if (Active) Deactivate();
 
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
         }
@@ -66,7 +66,7 @@ namespace Alensia.Core.Control
 
             lock (this)
             {
-                var wasActive = Active.Value;
+                var wasActive = Active;
 
                 Deactivate();
 

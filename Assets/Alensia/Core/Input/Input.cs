@@ -6,23 +6,36 @@ namespace Alensia.Core.Input
 {
     public abstract class Input<T> : BaseObject, IInput<T>
     {
-        public IObservable<T> Value { get; private set; }
+        public T Value => _value.Value;
 
-        protected virtual IObservable<long> OnTick => _count;
+        public IObservable<T> OnChange => _observable.AsObservable();
+
+        protected virtual IObservable<long> OnTick => _tick;
 
         protected abstract IObservable<T> Observe(IObservable<long> onTick);
 
-        private readonly ReactiveProperty<long> _count;
+        private IObservable<T> _observable;
+
+        private IReadOnlyReactiveProperty<T> _value;
+
+        private readonly Subject<long> _tick;
+
+        private long _count;
 
         protected Input()
         {
-            _count = new ReactiveProperty<long>();
+            _tick = new Subject<long>();
 
-            OnInitialize.Subscribe(_ => Value = Observe(OnTick)).AddTo(this);
-            OnDispose.Subscribe(_ => _count.Dispose()).AddTo(this);
+            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
+        }
+
+        private void AfterInitialize()
+        {
+            _observable = Observe(OnTick);
+            _value = _observable.ToReadOnlyReactiveProperty();
         }
 
         //TODO Can't rely on Observable.EveryUpdate() since it's invoked later than every other ITickables.
-        public void Tick() => _count.Value += 1;
+        public void Tick() => _tick.OnNext(_count++);
     }
 }

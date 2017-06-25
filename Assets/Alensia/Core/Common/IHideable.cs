@@ -4,7 +4,7 @@ namespace Alensia.Core.Common
 {
     public interface IHideable
     {
-        IReactiveProperty<bool> Visible { get; }
+        bool Visible { get; set; }
 
         void Show();
 
@@ -13,5 +13,7 @@ namespace Alensia.Core.Common
         IObservable<Unit> OnShow { get; }
 
         IObservable<Unit> OnHide { get; }
+
+        IObservable<bool> OnVisibilityChange { get; }
     }
 }

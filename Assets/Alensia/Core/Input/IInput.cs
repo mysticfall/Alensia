@@ -12,6 +12,8 @@ namespace Alensia.Core.Input.Generic
 {
     public interface IInput<T> : IInput
     {
-        UniRx.IObservable<T> Value { get; }
+        T Value { get; }
+
+        UniRx.IObservable<T> OnChange { get; }
     }
 }

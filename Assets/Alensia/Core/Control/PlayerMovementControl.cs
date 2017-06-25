@@ -87,7 +87,7 @@ namespace Alensia.Core.Control
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
             Observable
-                .Zip(X.Value, Y.Value, Running.Value)
+                .Zip(X.OnChange, Y.OnChange, Running.OnChange)
                 .Where(_ => Valid)
                 .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]))
                 .Subscribe(r => OnMove(r.Item1, r.Item2 > 0))
@@ -96,7 +96,7 @@ namespace Alensia.Core.Control
 
         protected virtual void OnMove(Vector2 input, bool running)
         {
-            var camera = CameraManager.Mode.Value as IRotatableCamera;
+            var camera = CameraManager.Mode as IRotatableCamera;
 
             if (input.magnitude > 0 && camera is IPerspectiveCamera)
             {
@@ -109,14 +109,14 @@ namespace Alensia.Core.Control
 
             Locomotion.Move(new Vector3(movement.x, 0, movement.y));
 
-            if (running && Locomotion.Pacing.Value != RunningPace)
+            if (running && Locomotion.Pacing != RunningPace)
             {
-                Locomotion.Pacing.Value = RunningPace;
+                Locomotion.Pacing = RunningPace;
             }
 
-            if (!running && Locomotion.Pacing.Value == RunningPace)
+            if (!running && Locomotion.Pacing == RunningPace)
             {
-                Locomotion.Pacing.Value = WalkingPace;
+                Locomotion.Pacing = WalkingPace;
             }
         }
 

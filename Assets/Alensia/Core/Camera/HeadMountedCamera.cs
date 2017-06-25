@@ -154,7 +154,7 @@ namespace Alensia.Core.Camera
 
         public virtual void LateTick()
         {
-            if (Active.Value) UpdatePosition(Heading, Elevation);
+            if (Active) UpdatePosition(Heading, Elevation);
         }
 
         [Serializable]

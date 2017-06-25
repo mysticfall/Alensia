@@ -16,9 +16,22 @@ namespace Alensia.Core.Locomotion
 
         public IGroundDetector GroundDetector { get; }
 
-        public IReactiveProperty<Pacing> Pacing { get;  }
+        public Pacing Pacing
+        {
+            get { return _pacing.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _pacing.Value = value;
+            }
+        }
+
+        public UniRx.IObservable<Pacing> OnPacingChange => _pacing;
 
         private Vector3 _lastVelocity;
+
+        private readonly IReactiveProperty<Pacing> _pacing;
 
         private readonly Settings _settings;
 
@@ -41,12 +54,11 @@ namespace Alensia.Core.Locomotion
             Assert.IsNotNull(groundDetector, "groundDetector != null");
 
             _settings = settings;
+            _pacing = new ReactiveProperty<Pacing>(Pacing.Walking());
 
-            Pacing = new ReactiveProperty<Pacing>(Core.Locomotion.Pacing.Walking());
             GroundDetector = groundDetector;
 
-            groundDetector.OnGroundHit.Subscribe(_ => WhenHitGround()).AddTo(this);
-            groundDetector.OnGroundLeave.Subscribe(_ => WhenLeaveGround()).AddTo(this);
+            groundDetector.OnGroundedStateChange.Subscribe(OnGroundedStateChange).AddTo(this);
         }
 
         public void Walk(Vector2 direction, float heading)
@@ -84,7 +96,7 @@ namespace Alensia.Core.Locomotion
                     speed = Mathf.Min(speed, maximumSpeed);
                 }
 
-                speed *= Pacing.Value.SpeedModifier;
+                speed *= Pacing.SpeedModifier;
             }
 
             // Do proper interpolation / smoothing.
@@ -106,20 +118,11 @@ namespace Alensia.Core.Locomotion
             return axis * speed;
         }
 
-        protected virtual void WhenHitGround()
+        protected virtual void OnGroundedStateChange(bool grounded)
         {
-            if (!Active.Value) Activate();
+            Active = grounded;
 
-            Animator.SetBool(JumpingAndFallingVariables.Falling, false);
-        }
-
-        protected virtual void WhenLeaveGround()
-        {
-            if (GroundDetector.Grounded.Value) return;
-
-            if (Active.Value) Deactivate();
-
-            Animator.SetBool(JumpingAndFallingVariables.Falling, true);
+            Animator.SetBool(JumpingAndFallingVariables.Falling, !grounded);
         }
 
         protected override void UpdateVelocity(Vector3 velocity)

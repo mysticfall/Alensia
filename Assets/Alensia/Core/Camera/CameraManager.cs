@@ -9,9 +9,20 @@ namespace Alensia.Core.Camera
 {
     public class CameraManager : BaseObject, ICameraManager
     {
-        public IReadOnlyReactiveProperty<ICameraMode> Mode { get; }
+        public ICameraMode Mode
+        {
+            get { return _mode.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _mode.Value = value;
+            }
+        }
 
         public IReadOnlyCollection<ICameraMode> AvailableModes { get; }
+
+        public IObservable<ICameraMode> OnCameraModeChange => _mode;
 
         private readonly IReactiveProperty<ICameraMode> _mode;
 
@@ -23,9 +34,8 @@ namespace Alensia.Core.Camera
             AvailableModes = modes.AsReadOnly();
 
             _mode = new ReactiveProperty<ICameraMode>();
-            Mode = new ReadOnlyReactiveProperty<ICameraMode>(_mode);
 
-            Mode.Pairwise().Subscribe(Switch).AddTo(this);
+            _mode.Pairwise().Subscribe(Switch).AddTo(this);
         }
 
         private static void Switch(Pair<ICameraMode> cameras)

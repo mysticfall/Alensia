@@ -13,14 +13,26 @@ namespace Alensia.Core.Physics
 
         public abstract Collider Target { get; }
 
-        public IReadOnlyReactiveCollection<Collider> Grounds => _grounds;
+        public ISet<Collider> GroundContacts => _grounds.ToHashSet();
 
-        public IReadOnlyReactiveProperty<bool> Grounded =>
-            Grounds.ObserveCountChanged().Select(c => c > 0).ToReadOnlyReactiveProperty();
+        public bool Grounded => _grounds.Any();
 
-        public IObservable<Unit> OnGroundHit => Grounded.Where(v => v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnGroundHit => OnGroundedStateChange.Where(v => v).Select(_ => Unit.Default);
 
-        public IObservable<Unit> OnGroundLeave => Grounded.Where(v => !v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnGroundLeave => OnGroundedStateChange.Where(v => !v).Select(_ => Unit.Default);
+
+        public IObservable<bool> OnGroundedStateChange => _grounds.ObserveCountChanged().Select(c => c > 0);
+
+        public IObservable<ISet<Collider>> OnGroundContactsChange
+        {
+            get
+            {
+                var onAdd = _grounds.ObserveAdd().Select(e => e.Value);
+                var onRemove = _grounds.ObserveRemove().Select(e => e.Value);
+
+                return onAdd.Merge(onRemove).Select(_ => (ISet<Collider>) _grounds.ToHashSet());
+            }
+        }
 
         private readonly ReactiveCollection<Collider> _grounds;
 
@@ -37,8 +49,8 @@ namespace Alensia.Core.Physics
             {
                 var collection = grounds.ToHashSet();
 
-                var oldContacts = Grounds.Except(collection).ToHashSet();
-                var contacts = collection.Except(Grounds).ToHashSet();
+                var oldContacts = GroundContacts.Except(collection);
+                var contacts = collection.Except(GroundContacts);
 
                 oldContacts.ForEach(c => _grounds.Remove(c));
                 contacts.ForEach(c => _grounds.Add(c));

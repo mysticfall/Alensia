@@ -10,6 +10,8 @@ namespace Alensia.Core.I18n
 
         CultureInfo DefaultLocale { get; }
 
-        IReactiveProperty<CultureInfo> CurrentLocale { get; }
+        CultureInfo CurrentLocale { get; set; }
+
+        IObservable<CultureInfo> OnLocaleChange { get; }
     }
 }

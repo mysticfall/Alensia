@@ -4,7 +4,7 @@ namespace Alensia.Core.Common
 {
     public interface IOpenableOnce
     {
-        IReadOnlyReactiveProperty<bool> Opened { get; }
+        bool Opened { get; set; }
 
         IObservable<Unit> OnOpen { get; }
 

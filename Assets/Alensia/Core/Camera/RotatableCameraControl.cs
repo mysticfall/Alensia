@@ -60,15 +60,15 @@ namespace Alensia.Core.Camera
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
             Observable
-                .Zip(X.Value, Y.Value)
+                .Zip(X.OnChange, Y.OnChange)
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode.Value is IRotatableCamera)
+                .Where(_ => CameraManager.Mode is IRotatableCamera)
                 .Select(xs => new Vector2(xs[0], xs[1]))
                 .Subscribe(OnRotate)
                 .AddTo(disposables);
         }
 
-        protected void OnRotate(Vector2 input) => OnRotate(input, (IRotatableCamera) CameraManager.Mode.Value);
+        protected void OnRotate(Vector2 input) => OnRotate(input, (IRotatableCamera) CameraManager.Mode);
 
         protected virtual void OnRotate(Vector2 input, IRotatableCamera camera)
         {

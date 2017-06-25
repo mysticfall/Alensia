@@ -24,7 +24,7 @@ namespace Alensia.Tests.Camera
         {
             if (Camera != null)
             {
-                if (Camera.Active.Value) Camera.Deactivate();
+                if (Camera.Active) Camera.Deactivate();
 
                 Object.DestroyImmediate(Camera.Transform.gameObject);
             }

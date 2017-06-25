@@ -6,7 +6,7 @@ namespace Alensia.Core.Camera
 {
     public interface ICameraManager
     {
-        IReadOnlyReactiveProperty<ICameraMode> Mode { get; }
+        ICameraMode Mode { get; set; }
 
         IReadOnlyCollection<ICameraMode> AvailableModes { get; }
 
@@ -15,5 +15,7 @@ namespace Alensia.Core.Camera
         IFirstPersonCamera ToFirstPerson(IActor target);
 
         IThirdPersonCamera ToThirdPerson(IActor target);
+
+        IObservable<ICameraMode> OnCameraModeChange { get; }
     }
 }

@@ -10,7 +10,9 @@ namespace Alensia.Core.Locomotion
 
         IGroundDetector GroundDetector { get; }
 
-        IReactiveProperty<Pacing> Pacing { get; }
+        Pacing Pacing { get; set; }
+
+        IObservable<Pacing> OnPacingChange { get; }
 
         void Walk(Vector2 direction, float heading);
 

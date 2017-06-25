@@ -15,7 +15,20 @@ namespace Alensia.Core.I18n
 
         public CultureInfo DefaultLocale { get; }
 
-        public IReactiveProperty<CultureInfo> CurrentLocale { get;  }
+        public CultureInfo CurrentLocale
+        {
+            get { return _locale.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _locale.Value = value;
+            }
+        }
+
+        public UniRx.IObservable<CultureInfo> OnLocaleChange => _locale;
+
+        private readonly IReactiveProperty<CultureInfo> _locale;
 
         public LocaleService() : this(new Settings())
         {
@@ -25,7 +38,6 @@ namespace Alensia.Core.I18n
         public LocaleService(Settings settings)
         {
             Assert.IsNotNull(settings, "settings != null");
-
             Assert.IsNotNull(settings.SupportedLocales, "settings.SupportedLocales != null");
 
             Assert.IsTrue(
@@ -33,7 +45,8 @@ namespace Alensia.Core.I18n
                 "!settings.SupportedLocales.Contains(settings.DefaultLocale)");
 
             DefaultLocale = settings.DefaultLocale.ToCulture();
-            CurrentLocale = new ReactiveProperty<CultureInfo>(DefaultLocale);
+
+            _locale = new ReactiveProperty<CultureInfo>(DefaultLocale);
 
             SupportedLocales = settings
                 .SupportedLocales

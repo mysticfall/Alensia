@@ -46,15 +46,15 @@ namespace Alensia.Core.Camera
         {
             base.Subscribe(disposables);
 
-            Scroll.Value
+            Scroll.OnChange
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode.Value is IZoomableCamera)
+                .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Select(v => v * -15)
                 .Subscribe(OnZoom)
                 .AddTo(disposables);
         }
 
-        protected void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode.Value);
+        protected void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode);
 
         protected virtual void OnZoom(float input, IZoomableCamera camera)
         {

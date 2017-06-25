@@ -19,13 +19,13 @@ namespace Alensia.Core.I18n
 
             LocaleService = localeService;
 
-            LocaleService.CurrentLocale
+            LocaleService.OnLocaleChange
                 .Where(_ => Initialized)
                 .Subscribe(OnLocaleChange)
                 .AddTo(this);
 
             OnInitialize
-                .Subscribe(_ => Messages = Load(LocaleService.CurrentLocale.Value))
+                .Subscribe(_ => Messages = Load(LocaleService.CurrentLocale))
                 .AddTo(this);
         }
 

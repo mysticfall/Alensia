@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.Physics
@@ -9,12 +10,16 @@ namespace Alensia.Core.Physics
 
         Collider Target { get; }
 
-        IReadOnlyReactiveCollection<Collider> Grounds { get; }
+        ISet<Collider> GroundContacts { get; }
 
-        IReadOnlyReactiveProperty<bool> Grounded { get; }
+        bool Grounded { get; }
 
         IObservable<Unit> OnGroundHit { get; }
 
         IObservable<Unit> OnGroundLeave { get; }
+
+        IObservable<bool> OnGroundedStateChange { get; }
+
+        IObservable<ISet<Collider>> OnGroundContactsChange { get; }
     }
 }

@@ -24,12 +24,12 @@ namespace Alensia.Core.Locomotion
             Transform = transform;
 
             OnInitialize.Subscribe(_ => Activate()).AddTo(this);
-            Active.Subscribe(_ => Reset()).AddTo(this);
+            OnActiveStateChange.Subscribe(_ => Reset()).AddTo(this);
         }
 
         public float Move(Vector3 direction)
         {
-            if (!Active.Value) return 0;
+            if (!Active) return 0;
 
             _targetVelocity = CalculateVelocity(direction.normalized);
 
@@ -38,7 +38,7 @@ namespace Alensia.Core.Locomotion
 
         public float MoveTowards(Vector3 position)
         {
-            if (!Active.Value) return 0;
+            if (!Active) return 0;
 
             var offset = position - Transform.localPosition;
 
@@ -52,7 +52,7 @@ namespace Alensia.Core.Locomotion
 
         public float Rotate(Vector3 axis)
         {
-            if (!Active.Value) return 0;
+            if (!Active) return 0;
 
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized);
 
@@ -61,7 +61,7 @@ namespace Alensia.Core.Locomotion
 
         public float RotateTowards(Vector3 axis, float degree)
         {
-            if (!Active.Value) return 0;
+            if (!Active) return 0;
 
             _targetAngularVelocity = CalculateAngularVelocity(axis.normalized, degree);
 
@@ -76,7 +76,7 @@ namespace Alensia.Core.Locomotion
 
         public virtual void Tick()
         {
-            if (!Active.Value) return;
+            if (!Active) return;
 
             Update(_targetVelocity, _targetAngularVelocity);
 
