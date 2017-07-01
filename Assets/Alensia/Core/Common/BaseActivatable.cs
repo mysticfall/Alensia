@@ -10,9 +10,9 @@ namespace Alensia.Core.Common
             set { _active.Value = value; }
         }
 
-        public IObservable<Unit> OnActivate => _active.Where(v => v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
 
-        public IObservable<Unit> OnDeactivate => _active.Where(v => !v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnDeactivate => _active.Where(v => !v).AsUnitObservable();
 
         public IObservable<bool> OnActiveStateChange => _active;
 

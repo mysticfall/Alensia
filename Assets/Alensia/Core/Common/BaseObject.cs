@@ -11,9 +11,9 @@ namespace Alensia.Core.Common
 
         public bool Disposed => _disposed.Value;
 
-        public UniRx.IObservable<Unit> OnInitialize => _initialized.Where(v => v).Select(_ => Unit.Default);
+        public UniRx.IObservable<Unit> OnInitialize => _initialized.Where(v => v).AsUnitObservable();
 
-        public UniRx.IObservable<Unit> OnDispose => _disposed.Where(v => v).Select(_ => Unit.Default);
+        public UniRx.IObservable<Unit> OnDispose => _disposed.Where(v => v).AsUnitObservable();
 
         private readonly IReactiveProperty<bool> _initialized;
 

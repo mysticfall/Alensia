@@ -17,9 +17,9 @@ namespace Alensia.Core.Physics
 
         public bool Grounded => _grounds.Any();
 
-        public IObservable<Unit> OnGroundHit => OnGroundedStateChange.Where(v => v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnGroundHit => OnGroundedStateChange.Where(v => v).AsUnitObservable();
 
-        public IObservable<Unit> OnGroundLeave => OnGroundedStateChange.Where(v => !v).Select(_ => Unit.Default);
+        public IObservable<Unit> OnGroundLeave => OnGroundedStateChange.Where(v => !v).AsUnitObservable();
 
         public IObservable<bool> OnGroundedStateChange => _grounds.ObserveCountChanged().Select(c => c > 0);
 
