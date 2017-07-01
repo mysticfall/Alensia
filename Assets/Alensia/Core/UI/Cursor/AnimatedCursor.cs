@@ -14,12 +14,9 @@ namespace Alensia.Core.UI.Cursor
 
         public float FramesPerSecond => _framesPerSecond;
 
-        [SerializeField]
-        private Texture2D[] _images;
+        [SerializeField] private Texture2D[] _images;
 
-        [Range(1f, 60f)]
-        [SerializeField]
-        private float _framesPerSecond = 30;
+        [Range(1f, 60f)] [SerializeField] private float _framesPerSecond = 30;
 
         public override Vector2 Size
         {
@@ -52,7 +49,7 @@ namespace Alensia.Core.UI.Cursor
             _framesPerSecond = framePerSecond;
         }
 
-        public override IDisposable Apply()
+        public override UniRx.IObservable<Texture2D> Create()
         {
             var interval = Observable
                 .Interval(
@@ -63,8 +60,7 @@ namespace Alensia.Core.UI.Cursor
                 .Range(0, _images.Length)
                 .Select(i => _images[i])
                 .Zip(interval, (image, _) => image)
-                .RepeatSafe()
-                .Subscribe(Apply);
+                .RepeatSafe();
         }
     }
 }

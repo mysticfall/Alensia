@@ -1,5 +1,5 @@
-﻿using System;
-using Alensia.Core.Common;
+﻿using Alensia.Core.Common;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,7 +13,7 @@ namespace Alensia.Core.UI.Cursor
 
         public Vector2 Hotspot => _hotspot;
 
-        public abstract IDisposable Apply();
+        public abstract IObservable<Texture2D> Create();
 
         [SerializeField]
         private string _name;
@@ -31,13 +31,6 @@ namespace Alensia.Core.UI.Cursor
 
             _name = name;
             _hotspot = hotspot;
-        }
-
-        protected virtual void Apply(Texture2D image)
-        {
-            //TODO Can't use CursorMode.Auto, because it doesn't work on Linux yet.
-            //(See: https://forum.unity3d.com/threads/cursor-setcursor-does-not-work-in-editor.476617/)
-            UnityEngine.Cursor.SetCursor(image, Hotspot, CursorMode.ForceSoftware);
         }
     }
 }

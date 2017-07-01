@@ -1,4 +1,4 @@
-using System;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.UI.Cursor
@@ -11,6 +11,6 @@ namespace Alensia.Core.UI.Cursor
 
         Vector2 Hotspot { get; }
 
-        IDisposable Apply();
+        IObservable<Texture2D> Create();
     }
 }
