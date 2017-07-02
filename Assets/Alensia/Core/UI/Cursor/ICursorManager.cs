@@ -4,8 +4,6 @@ namespace Alensia.Core.UI.Cursor
     {
         ICursorSet CursorSet { get; set; }
 
-        string Cursor { get; }
-
         string DefaultCursor { get; set; }
     }
 }

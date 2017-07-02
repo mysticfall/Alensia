@@ -2,6 +2,7 @@
 using System.Linq;
 using Alensia.Core.Common;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
@@ -33,6 +34,10 @@ namespace Alensia.Core.Control
 
             OnInitialize.Subscribe(_ => Activate()).AddTo(this);
             OnDispose.Subscribe(_ => Deactivate()).AddTo(this);
+
+            //TODO Find a better way to handle cursor mode & visibility.
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public bool Contains(string key) => _controls.ContainsKey(key);

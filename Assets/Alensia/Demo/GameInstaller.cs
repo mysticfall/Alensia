@@ -76,11 +76,11 @@ namespace Alensia.Demo
 
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 
-            Container.BindInterfacesAndSelfTo<DemoControl>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameControl>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerCameraControl>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
 
-            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle();
         }
 
         protected void InstallReferences()

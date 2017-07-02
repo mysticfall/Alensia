@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
+using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
 {
-    public abstract class GameControl : Control
+    public class GameControl : Control
     {
         public const string Id = "Game";
 
         public override string Name => Id;
+
+        public string MainMenu { get; set; } = "MainMenu";
 
         public IUIManager UIManager { get; }
 
@@ -20,19 +23,18 @@ namespace Alensia.Core.Control
 
         protected ITriggerInput ShowMenuInput { get; private set; }
 
-        public override bool Valid => base.Valid && ShowMenuInput != null;
+        public override bool Valid => base.Valid && ShowMenuInput != null && MainMenu != null;
 
-        protected GameControl(IUIManager uiManager, IInputManager inputManager) : base(inputManager)
+        public GameControl(
+            IUIManager uiManager,
+            IInputManager inputManager) : base(inputManager)
         {
             Assert.IsNotNull(uiManager, "uiManager != null");
 
             UIManager = uiManager;
         }
 
-        protected override ICollection<IBindingKey> PrepareBindings()
-        {
-            return new List<IBindingKey> {ShowMenu};
-        }
+        protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {ShowMenu};
 
         protected override void RegisterDefaultBindings()
         {
@@ -63,7 +65,24 @@ namespace Alensia.Core.Control
 
         protected virtual void OnShowMenu()
         {
-            throw new NotImplementedException();
+            lock (this)
+            {
+                var screen = UIManager.FindScreen(ScreenNames.Windows);
+                var menu = screen.FindUI<IUIHandler>(MainMenu);
+
+                if (menu == null)
+                {
+                    screen.ShowUI<UIHandler>(MainMenu);
+                }
+                else
+                {
+                    menu.Close();
+                }
+            }
+        }
+
+        protected virtual void OnHideMenu()
+        {
         }
 
         public static class Keys
