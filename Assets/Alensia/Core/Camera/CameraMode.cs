@@ -20,5 +20,9 @@ namespace Alensia.Core.Camera
 
             Camera = camera;
         }
+
+        public virtual void Reset()
+        {
+        }
     }
 }

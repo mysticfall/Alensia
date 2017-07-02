@@ -21,5 +21,13 @@ namespace Alensia.Core.Camera
         protected RotatableCamera(UnityEngine.Camera camera) : base(camera)
         {
         }
+
+        public override void Reset()
+        {
+            base.Reset();
+
+            Heading = 0;
+            Elevation = 0;
+        }
     }
 }

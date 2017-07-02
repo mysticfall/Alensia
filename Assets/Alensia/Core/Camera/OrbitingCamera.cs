@@ -67,6 +67,13 @@ namespace Alensia.Core.Camera
         {
         }
 
+        public override void Reset()
+        {
+            base.Reset();
+
+            Distance = DistanceSettings.Default;
+        }
+
         protected virtual void UpdatePosition(
             float heading, float elevation, float distance)
         {
