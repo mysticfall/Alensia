@@ -1,4 +1,6 @@
+using Alensia.Core.Actor;
 using Alensia.Core.Camera;
+using Alensia.Core.Common;
 using Alensia.Core.Control;
 using Alensia.Core.I18n;
 using Alensia.Core.Input;
@@ -36,6 +38,7 @@ namespace Alensia.Demo
             InstallUI();
             InstallControls();
             InstallCameras();
+            InstallReferences();
         }
 
         protected void InstallLocalization()
@@ -74,7 +77,19 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<DemoControl>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<Controller>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerCameraControl>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle().NonLazy();
+        }
+
+        protected void InstallReferences()
+        {
+            Container
+                .Bind<IReferenceAlias<IHumanoid>>()
+                .WithId(PlayerController.PlayerAliasName)
+                .To<ReferenceAlias<IHumanoid>>()
+                .AsSingle();
         }
     }
 }

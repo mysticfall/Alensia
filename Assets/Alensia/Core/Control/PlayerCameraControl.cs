@@ -2,35 +2,50 @@
 using System.Collections.Generic;
 using Alensia.Core.Actor;
 using Alensia.Core.Camera;
-using Alensia.Core.Common;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public class PlayerCameraControl<T> : OrbitingCameraControl where T : class, IActor
+    public class PlayerCameraControl : OrbitingCameraControl, IPlayerControl
     {
-        public T Player { get; }
+        public IHumanoid Player
+        {
+            get { return _player; }
+            set
+            {
+                lock (this)
+                {
+                    if (_player == value) return;
+
+                    _player = value;
+                }
+
+                OnPlayerChange(value);
+            }
+        }
 
         public ViewSensitivity ViewSensitivity { get; }
 
-        public override bool Valid => base.Valid && CameraManager.Mode is IPerspectiveCamera;
+        public override bool Valid => base.Valid &&
+                                      Player != null &&
+                                      CameraManager.Mode is IPerspectiveCamera;
+
+        private IHumanoid _player;
 
         public PlayerCameraControl(
-            T player,
+            [InjectOptional] IHumanoid player,
             ViewSensitivity viewSensitivity,
             ICameraManager cameraManager,
             IInputManager inputManager) : base(cameraManager, inputManager)
         {
-            Assert.IsNotNull(player, "player != null");
             Assert.IsNotNull(viewSensitivity, "viewSensitivity != null");
 
             Player = player;
             ViewSensitivity = viewSensitivity;
-
-            OnInitialize.Subscribe(_ => CameraManager.ToThirdPerson(Player)).AddTo(this);
         }
 
         protected override void Subscribe(ICollection<IDisposable> disposables)
@@ -55,6 +70,13 @@ namespace Alensia.Core.Control
                 .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToThirdPerson)
                 .AddTo(disposables);
+        }
+
+        protected virtual void OnPlayerChange(IHumanoid player)
+        {
+            if (player == null) return;
+            
+            CameraManager.ToThirdPerson(player).Reset();
         }
 
         protected override void OnRotate(Vector2 input, IRotatableCamera camera)

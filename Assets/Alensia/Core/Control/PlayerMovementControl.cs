@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Alensia.Core.Actor;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
@@ -11,11 +12,15 @@ using Tuple = UniRx.Tuple;
 
 namespace Alensia.Core.Control
 {
-    public class PlayerMovementControl : LocomotionControl<IWalkingLocomotion>
+    public class PlayerMovementControl : LocomotionControl<IWalkingLocomotion>, IPlayerControl
     {
         public const string Id = "Locomotion";
 
         public override string Name => Id;
+
+        public IHumanoid Player { get; set; }
+
+        public override IWalkingLocomotion Locomotion => Player.Locomotion;
 
         public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 
@@ -41,9 +46,8 @@ namespace Alensia.Core.Control
                                       Running != null;
 
         public PlayerMovementControl(
-            IWalkingLocomotion locomotion,
             ICameraManager cameraManager,
-            IInputManager inputManager) : base(locomotion, inputManager)
+            IInputManager inputManager) : base(inputManager)
         {
             Assert.IsNotNull(cameraManager, "cameraManager != null");
 

@@ -1,4 +1,5 @@
 using Alensia.Core.Actor;
+using Alensia.Core.Common;
 using Alensia.Core.Control;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
@@ -21,7 +22,6 @@ namespace Alensia.Demo
 
             InstallLocomotion();
             InstallCharacter();
-            InstallControls();
         }
 
         protected void InstallModel()
@@ -52,13 +52,12 @@ namespace Alensia.Demo
         protected void InstallCharacter()
         {
             Container.Bind<IHumanoid>().To<Humanoid>().AsSingle();
-        }
 
-        protected void InstallControls()
-        {
-            Container.BindInterfacesAndSelfTo<PlayerCameraControl<IHumanoid>>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerMovementControl>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Controller>().AsSingle();
+            Container
+                .Bind<ReferenceInitializer<IHumanoid>>()
+                .AsSingle()
+                .WithArguments(PlayerController.PlayerAliasName)
+                .NonLazy();
         }
     }
 }
