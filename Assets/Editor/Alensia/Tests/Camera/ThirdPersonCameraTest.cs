@@ -1,6 +1,6 @@
-﻿using Alensia.Core.Actor;
-using Alensia.Core.Camera;
-using Alensia.Tests.Actor;
+﻿using Alensia.Core.Camera;
+using Alensia.Core.Character;
+using Alensia.Tests.Character;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -33,12 +33,12 @@ namespace Alensia.Tests.Camera
 
             cam.WallAvoidanceSettings.AvoidWalls = false;
 
-            cam.Initialize(Actor);
+            cam.Initialize(Character);
 
             return cam;
         }
 
-        protected override IHumanoid CreateActor()
+        protected override IHumanoid CreateCharacter()
         {
             return new DummyHumanoid();
         }
@@ -56,7 +56,7 @@ namespace Alensia.Tests.Camera
             float proximity,
             float actual)
         {
-            var transform = Actor.Transform;
+            var transform = Character.Transform;
 
             _obstacle = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             _obstacle.transform.position = transform.position + new Vector3(0, 1, -5);

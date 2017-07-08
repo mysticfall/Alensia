@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Actor;
+﻿using Alensia.Core.Character;
 
 namespace Alensia.Core.Control
 {

@@ -1,4 +1,4 @@
-﻿using Alensia.Core.Actor;
+﻿using Alensia.Core.Character;
 using Alensia.Core.Camera;
 using Alensia.Core.Geom;
 using NUnit.Framework;
@@ -7,9 +7,9 @@ using TestRange = NUnit.Framework.RangeAttribute;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class OrbitingCameraTest<TCamera, TActor> : TrackingCameraTest<TCamera, TActor>
+    public abstract class OrbitingCameraTest<TCamera, TCharacter> : TrackingCameraTest<TCamera, TCharacter>
         where TCamera : OrbitingCamera, ITrackingCamera
-        where TActor : IActor
+        where TCharacter : ICharacter
     {
         public float ActualDistance => Vector3.Distance(Camera.Transform.position, Camera.Pivot);
 
@@ -70,7 +70,7 @@ namespace Alensia.Tests.Camera
             [TestRange(-180, 180, 45)] float heading,
             [Values(-90, 90)] float elevation)
         {
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
@@ -124,14 +124,14 @@ namespace Alensia.Tests.Camera
             [Values(-120, 60)] float heading,
             [Values(-40, 15)] float elevation)
         {
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Actor.Transform.position = new Vector3
+            Character.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -166,14 +166,14 @@ namespace Alensia.Tests.Camera
             Camera.Elevation = elevation;
             Camera.Distance = distance;
 
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Actor.Transform.position = new Vector3
+            Character.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),

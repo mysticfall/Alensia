@@ -1,11 +1,11 @@
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
 using UnityEngine;
 
-namespace Alensia.Tests.Actor
+namespace Alensia.Tests.Character
 {
-    public class DummyActor : IActor
+    public class DummyCharacter : ICharacter
     {
         public IWalkingLocomotion Locomotion { get; }
 
@@ -17,7 +17,7 @@ namespace Alensia.Tests.Actor
 
         public Transform Body { get; }
 
-        public DummyActor()
+        public DummyCharacter()
         {
             var root = new GameObject();
 

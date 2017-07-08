@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UniRx;
 

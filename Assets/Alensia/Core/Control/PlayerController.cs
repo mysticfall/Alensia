@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine.Assertions;

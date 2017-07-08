@@ -1,4 +1,4 @@
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using Alensia.Core.Control;
 using Alensia.Core.Locomotion;

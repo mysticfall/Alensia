@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Actor
+namespace Alensia.Core.Character
 {
-    public class Actor : IActor
+    public class Character : ICharacter
     {
         public Animator Animator { get; }
 
@@ -11,7 +11,7 @@ namespace Alensia.Core.Actor
 
         public GameObject GameObject => Transform.gameObject;
 
-        public Actor(Animator animator, Transform transform)
+        public Character(Animator animator, Transform transform)
         {
             Assert.IsNotNull(animator, "animator != null");
             Assert.IsNotNull(transform, "transform != null");

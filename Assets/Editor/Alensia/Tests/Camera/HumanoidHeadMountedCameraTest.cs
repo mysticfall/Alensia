@@ -1,6 +1,6 @@
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Geom;
-using Alensia.Tests.Actor;
+using Alensia.Tests.Character;
 using NUnit.Framework;
 using UnityEngine;
 using TestRange = NUnit.Framework.RangeAttribute;
@@ -57,34 +57,31 @@ namespace Alensia.Tests.Camera
             }
         }
 
-        protected override IHumanoid CreateActor()
-        {
-            return new DummyHumanoid();
-        }
+        protected override IHumanoid CreateCharacter() => new DummyHumanoid();
 
-        [Test, Description("It should place the camera at the target actor's head with proper offset.")]
+        [Test, Description("It should place the camera at the target character's head with proper offset.")]
         public void ShouldPlaceCameraAtHeadWithProperOffset()
         {
             Camera.CameraOffset = new Vector3(0.5f, 0.2f, 0.1f);
 
-            var offset = Actor.Head.TransformDirection(Camera.CameraOffset) *
+            var offset = Character.Head.TransformDirection(Camera.CameraOffset) *
                          Camera.CameraOffset.magnitude;
 
             Expect(
                 Camera.Pivot,
-                Is.EqualTo(Actor.Head.position + offset),
+                Is.EqualTo(Character.Head.position + offset),
                 "Unexpected pivot position.");
             Expect(
                 Camera.AxisForward,
-                Is.EqualTo(Actor.Head.forward),
+                Is.EqualTo(Character.Head.forward),
                 "Unexpected pivot axis (forward).");
             Expect(
                 Camera.AxisUp,
-                Is.EqualTo(Actor.Head.up),
+                Is.EqualTo(Character.Head.up),
                 "Unexpected pivot axis (up).");
             Expect(
                 Camera.Head,
-                Is.EqualTo(Actor.GetBodyPart(HumanBodyBones.Head)),
+                Is.EqualTo(Character.GetBodyPart(HumanBodyBones.Head)),
                 "Unexpected head transform."
             );
         }

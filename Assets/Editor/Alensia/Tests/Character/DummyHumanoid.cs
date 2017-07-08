@@ -1,9 +1,9 @@
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using UnityEngine;
 
-namespace Alensia.Tests.Actor
+namespace Alensia.Tests.Character
 {
-    public class DummyHumanoid : DummyActor, IHumanoid
+    public class DummyHumanoid : DummyCharacter, IHumanoid
     {
         public Transform Head { get; }
 

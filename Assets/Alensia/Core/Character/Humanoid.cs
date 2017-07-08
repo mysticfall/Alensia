@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Actor
+namespace Alensia.Core.Character
 {
-    public class Humanoid : Actor, IHumanoid
+    public class Humanoid : Character, IHumanoid
     {
         public Transform Head { get; }
 

@@ -1,5 +1,5 @@
-﻿using Alensia.Core.Actor;
-using Alensia.Tests.Actor;
+﻿using Alensia.Core.Character;
+using Alensia.Tests.Character;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace Alensia.Tests.Camera
      System.ComponentModel.Description("Test suite for HeadMountedCamera class with an Ethan-like character.")]
     public class EthanLikeHeadMountedCameraTest : HumanoidHeadMountedCameraTest
     {
-        protected override IHumanoid CreateActor()
+        protected override IHumanoid CreateCharacter()
         {
             var humanoid = new DummyHumanoid
             {

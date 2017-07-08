@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Camera;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;

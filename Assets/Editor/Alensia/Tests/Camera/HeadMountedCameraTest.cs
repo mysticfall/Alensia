@@ -1,5 +1,5 @@
-using Alensia.Core.Actor;
 using Alensia.Core.Camera;
+using Alensia.Core.Character;
 using Alensia.Core.Geom;
 using NUnit.Framework;
 using UnityEngine;
@@ -8,7 +8,7 @@ using TestRange = NUnit.Framework.RangeAttribute;
 namespace Alensia.Tests.Camera
 {
     public abstract class HeadMountedCameraTest<T> :
-        TrackingCameraTest<HeadMountedCamera, T> where T : IActor
+        TrackingCameraTest<HeadMountedCamera, T> where T : ICharacter
     {
         protected override HeadMountedCamera CreateCamera(UnityEngine.Camera camera)
         {
@@ -18,7 +18,7 @@ namespace Alensia.Tests.Camera
             cam.RotationalConstraints.Side = 120;
             cam.RotationalConstraints.Down = 60;
 
-            cam.Initialize(Actor);
+            cam.Initialize(Character);
 
             return cam;
         }
@@ -47,19 +47,19 @@ namespace Alensia.Tests.Camera
                 "Unexpected head elevation.");
         }
 
-        [Test, Description("It should adjust the camera position according to the actor's position and rotation.")]
-        public void ShouldReflectActorPositionAndRotation(
+        [Test, Description("It should adjust the camera position according to the character's position and rotation.")]
+        public void ShouldReflectCharacterPositionAndRotation(
             [Values(-120, 60)] float heading,
             [Values(-40, 60)] float elevation)
         {
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Actor.Transform.position = new Vector3
+            Character.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -87,14 +87,14 @@ namespace Alensia.Tests.Camera
             Camera.Heading = heading;
             Camera.Elevation = elevation;
 
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),
                 z = Random.Range(-180, 180)
             };
 
-            Actor.Transform.position = new Vector3
+            Character.Transform.position = new Vector3
             {
                 x = Random.Range(-10, 10),
                 y = Random.Range(-10, 10),
@@ -118,7 +118,7 @@ namespace Alensia.Tests.Camera
             [TestRange(-120, 120, 45)] float heading,
             [Values(-90, 90)] float elevation)
         {
-            Actor.Transform.eulerAngles = new Vector3
+            Character.Transform.eulerAngles = new Vector3
             {
                 x = Random.Range(-180, 180),
                 y = Random.Range(-180, 180),

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine.Assertions;
@@ -49,7 +49,7 @@ namespace Alensia.Core.Camera
             return AvailableModes.FirstOrDefault(m => m is T) as T;
         }
 
-        public IFirstPersonCamera ToFirstPerson(IActor target)
+        public IFirstPersonCamera ToFirstPerson(ICharacter target)
         {
             var camera = Switch<IFirstPersonCamera>();
 
@@ -62,7 +62,7 @@ namespace Alensia.Core.Camera
             return camera;
         }
 
-        public IThirdPersonCamera ToThirdPerson(IActor target)
+        public IThirdPersonCamera ToThirdPerson(ICharacter target)
         {
             var camera = Switch<IThirdPersonCamera>();
 

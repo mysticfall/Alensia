@@ -1,40 +1,40 @@
-﻿using Alensia.Core.Actor;
-using Alensia.Core.Camera;
+﻿using Alensia.Core.Camera;
+using Alensia.Core.Character;
 using NUnit.Framework;
 using UnityEngine;
 
 namespace Alensia.Tests.Camera
 {
-    public abstract class TrackingCameraTest<TCamera, TActor> : CameraTest<TCamera>
-        where TCamera : class, ITrackingCamera where TActor : IActor
+    public abstract class TrackingCameraTest<TCamera, TCharacter> : CameraTest<TCamera>
+        where TCamera : class, ITrackingCamera where TCharacter : ICharacter
     {
-        public TActor Actor { get; private set; }
+        public TCharacter Character { get; private set; }
 
         protected override void PrepareScene()
         {
-            Actor = CreateActor();
+            Character = CreateCharacter();
 
             base.PrepareScene();
         }
 
         public override void TearDown()
         {
-            if (Actor != null)
+            if (Character != null)
             {
-                Object.DestroyImmediate(Actor.Transform.gameObject);
+                Object.DestroyImmediate(Character.Transform.gameObject);
 
-                Actor = default(TActor);
+                Character = default(TCharacter);
             }
 
             base.TearDown();
         }
 
-        protected abstract TActor CreateActor();
+        protected abstract TCharacter CreateCharacter();
 
         [Test, Description("Initialize() should initialize the camera with the given target.")]
         public void InitializeShouldSetTheTarget()
         {
-            Expect(Actor, Is.EqualTo(Camera.Target), "Unexpected camera target.");
+            Expect(Character, Is.EqualTo(Camera.Target), "Unexpected camera target.");
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Alensia.Core.Actor;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using Alensia.Core.Geom;
 using UniRx;

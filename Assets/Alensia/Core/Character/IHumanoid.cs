@@ -1,9 +1,9 @@
 ﻿using Alensia.Core.Locomotion;
 using UnityEngine;
 
-namespace Alensia.Core.Actor
+namespace Alensia.Core.Character
 {
-    public interface IHumanoid : IActor, IWalker
+    public interface IHumanoid : ICharacter, IWalker
     {
         Transform Head { get; }
 
