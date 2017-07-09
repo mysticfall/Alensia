@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using Alensia.Core.Common;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
-    public class Character : ICharacter
+    public class Character : BaseObject, ICharacter
     {
+        public virtual string Name => Transform.name;
+
         public Animator Animator { get; }
 
         public Transform Transform { get; }

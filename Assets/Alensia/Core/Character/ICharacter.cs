@@ -1,9 +1,9 @@
 ﻿using Alensia.Core.Animation;
-using Alensia.Core.Geom;
+using Alensia.Core.Common;
 
 namespace Alensia.Core.Character
 {
-    public interface ICharacter : ITransformable, IAnimatable
+    public interface ICharacter : IEntity, IAnimatable
     {
     }
 }

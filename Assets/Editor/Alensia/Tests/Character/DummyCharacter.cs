@@ -7,6 +7,8 @@ namespace Alensia.Tests.Character
 {
     public class DummyCharacter : ICharacter
     {
+        public string Name => Transform.name;
+
         public IWalkingLocomotion Locomotion { get; }
 
         public Animator Animator { get; }
