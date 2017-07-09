@@ -1,5 +1,5 @@
-using Alensia.Core.Character;
 using Alensia.Core.Camera;
+using Alensia.Core.Character;
 using Alensia.Core.Common;
 using Alensia.Core.Control;
 using Alensia.Core.I18n;
@@ -11,7 +11,7 @@ using Zenject;
 
 namespace Alensia.Demo
 {
-    public class GameInstaller : MonoInstaller<GameInstaller>
+    public class GameInstaller : MonoInstaller
     {
         public ViewSensitivity ViewSensitivity;
 
@@ -25,7 +25,7 @@ namespace Alensia.Demo
 
         public UIManager.Settings UI;
 
-        protected void OnValidate()
+        protected virtual void OnValidate()
         {
             Assert.IsNotNull(ViewSensitivity, "ViewSensitivity != null");
             Assert.IsNotNull(FirstPersonCamera, "FirstPersonCamera != null");
@@ -41,7 +41,7 @@ namespace Alensia.Demo
             InstallReferences();
         }
 
-        protected void InstallLocalization()
+        protected virtual void InstallLocalization()
         {
             Container.Bind<LocaleService.Settings>().FromInstance(Locale);
             Container.Bind<ResourceSettings>().FromInstance(Translations);
@@ -50,14 +50,14 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<JsonResourceTranslator>().AsSingle();
         }
 
-        protected void InstallUI()
+        protected virtual void InstallUI()
         {
             Container.Bind<UIManager.Settings>().FromInstance(UI);
 
             Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
         }
 
-        protected void InstallCameras()
+        protected virtual void InstallCameras()
         {
             Container.Bind<Camera>().FromInstance(Camera.main);
 
@@ -70,7 +70,7 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
         }
 
-        protected void InstallControls()
+        protected virtual void InstallControls()
         {
             Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
 
@@ -83,7 +83,7 @@ namespace Alensia.Demo
             Container.BindInterfacesAndSelfTo<PlayerController>().AsSingle();
         }
 
-        protected void InstallReferences()
+        protected virtual void InstallReferences()
         {
             Container
                 .Bind<IReferenceAlias<IHumanoid>>()
