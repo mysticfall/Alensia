@@ -24,7 +24,10 @@ namespace Alensia.Integrations.UMA
             var character = umaData.transform.root;
             var context = character.GetComponentInChildren<GameObjectContext>();
 
-            context?.Run();
+            if (context != null && !context.Initialized)
+            {
+                context.Run();
+            }
         }
     }
 }
