@@ -57,9 +57,5 @@ namespace Alensia.Demo
             Application.Quit();
 #endif
         }
-
-        public class Factory : Factory<MainMenuHandler>
-        {
-        }
     }
 }
