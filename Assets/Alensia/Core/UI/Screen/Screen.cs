@@ -30,6 +30,11 @@ namespace Alensia.Core.UI.Screen
                               new Dictionary<string, ScreenItemDefinition>();
 
             CreateInitialItems();
+
+            foreach (var handler in Items)
+            {
+                handler.Initialize(context);
+            }
         }
 
         protected virtual void CreateInitialItems()
