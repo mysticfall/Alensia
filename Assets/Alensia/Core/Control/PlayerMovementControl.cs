@@ -20,7 +20,7 @@ namespace Alensia.Core.Control
 
         public IHumanoid Player { get; set; }
 
-        public override IWalkingLocomotion Locomotion => Player.Locomotion;
+        public override IWalkingLocomotion Locomotion => Player?.Locomotion;
 
         public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 
