@@ -53,7 +53,6 @@ namespace Alensia.Core.Control
             }
         }
 
-
         public virtual void DisablePlayerControl()
         {
             foreach (var control in PlayerControls)
