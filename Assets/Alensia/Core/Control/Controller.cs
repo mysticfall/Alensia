@@ -15,7 +15,7 @@ namespace Alensia.Core.Control
 
         private bool _active;
 
-        //TODO We can't use IList here due to a Zenject's limitation.
+        //TODO Change to IList later: https://github.com/modesttree/Zenject/issues/281
         public Controller(List<IControl> controls)
         {
             Assert.IsNotNull(controls, "controls != null");
