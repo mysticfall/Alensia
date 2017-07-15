@@ -46,7 +46,14 @@ namespace Alensia.Core.Camera
 
         public T Switch<T>() where T : class, ICameraMode
         {
-            return AvailableModes.FirstOrDefault(m => m is T) as T;
+            var camera = AvailableModes.FirstOrDefault(m => m is T) as T;
+
+            if (camera != null)
+            {
+                Mode = camera;
+            }
+
+            return camera;
         }
 
         public IFirstPersonCamera ToFirstPerson(ICharacter target)
@@ -57,7 +64,7 @@ namespace Alensia.Core.Camera
 
             camera.Initialize(target);
 
-            _mode.Value = camera;
+            Mode = camera;
 
             return camera;
         }
@@ -70,7 +77,7 @@ namespace Alensia.Core.Camera
 
             camera.Initialize(target);
 
-            _mode.Value = camera;
+            Mode = camera;
 
             return camera;
         }
