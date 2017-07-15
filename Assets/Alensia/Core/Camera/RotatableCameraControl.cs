@@ -29,10 +29,11 @@ namespace Alensia.Core.Camera
         {
         }
 
-        protected override ICollection<IBindingKey> PrepareBindings()
-        {
-            return new List<IBindingKey> {Yaw, Pitch};
-        }
+        protected override bool Supports(ICameraMode camera) =>
+            base.Supports(camera) && camera is IRotatableCamera;
+
+        protected override ICollection<IBindingKey> PrepareBindings() => 
+            new List<IBindingKey> {Yaw, Pitch};
 
         protected override void RegisterDefaultBindings()
         {
@@ -62,7 +63,6 @@ namespace Alensia.Core.Camera
             Observable
                 .Zip(X.OnChange, Y.OnChange)
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IRotatableCamera)
                 .Select(xs => new Vector2(xs[0], xs[1]))
                 .Subscribe(OnRotate)
                 .AddTo(disposables);

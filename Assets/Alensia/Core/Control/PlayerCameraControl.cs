@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Alensia.Core.Character;
 using Alensia.Core.Camera;
+using Alensia.Core.Character;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine;
@@ -30,9 +30,7 @@ namespace Alensia.Core.Control
 
         public ViewSensitivity ViewSensitivity { get; }
 
-        public override bool Valid => base.Valid &&
-                                      Player != null &&
-                                      CameraManager.Mode is IPerspectiveCamera;
+        public override bool Valid => base.Valid && Player != null;
 
         private IHumanoid _player;
 
@@ -48,6 +46,9 @@ namespace Alensia.Core.Control
             ViewSensitivity = viewSensitivity;
         }
 
+        protected override bool Supports(ICameraMode camera) =>
+            camera is IFirstPersonCamera || camera is IThirdPersonCamera;
+
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
             base.Subscribe(disposables);
@@ -55,7 +56,6 @@ namespace Alensia.Core.Control
             Scroll.OnChange
                 .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IThirdPersonCamera)
-                .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Where(v => v > 0)
                 .Select(_ => (IZoomableCamera) CameraManager.Mode)
                 .Where(camera => Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum))
@@ -75,7 +75,7 @@ namespace Alensia.Core.Control
         protected virtual void OnPlayerChange(IHumanoid player)
         {
             if (player == null) return;
-            
+
             CameraManager.ToThirdPerson(player).Reset();
         }
 
@@ -88,6 +88,13 @@ namespace Alensia.Core.Control
             };
 
             base.OnRotate(delta, camera);
+        }
+
+        protected override void OnZoom(float input)
+        {
+            var camera = CameraManager.Mode as IZoomableCamera;
+
+            if (camera != null) OnZoom(input, camera);
         }
 
         protected override void OnZoom(float input, IZoomableCamera camera)

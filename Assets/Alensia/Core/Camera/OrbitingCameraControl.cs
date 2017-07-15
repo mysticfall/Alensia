@@ -20,10 +20,11 @@ namespace Alensia.Core.Camera
         {
         }
 
-        protected override ICollection<IBindingKey> PrepareBindings()
-        {
-            return new List<IBindingKey>(base.PrepareBindings()) {Zoom};
-        }
+        protected override bool Supports(ICameraMode camera) =>
+            base.Supports(camera) && camera is IOrbitingCamera;
+
+        protected override ICollection<IBindingKey> PrepareBindings() =>
+            new List<IBindingKey>(base.PrepareBindings()) {Zoom};
 
         protected override void RegisterDefaultBindings()
         {
@@ -48,13 +49,12 @@ namespace Alensia.Core.Camera
 
             Scroll.OnChange
                 .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IZoomableCamera)
                 .Select(v => v * -15)
                 .Subscribe(OnZoom)
                 .AddTo(disposables);
         }
 
-        protected void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode);
+        protected virtual void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode);
 
         protected virtual void OnZoom(float input, IZoomableCamera camera)
         {
