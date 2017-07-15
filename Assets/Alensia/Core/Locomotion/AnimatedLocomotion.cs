@@ -26,20 +26,19 @@ namespace Alensia.Core.Locomotion
 
         protected AnimatedLocomotion(
             Animator animator,
-            Transform transform) : this(new Settings(), animator, transform)
+            Transform transform) : this(null, animator, transform)
         {
         }
 
         [Inject]
         protected AnimatedLocomotion(
-            Settings settings,
+            [InjectOptional] Settings settings,
             Animator animator,
             Transform transform) : base(transform)
         {
-            Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(animator, "animator != null");
 
-            _settings = settings;
+            _settings = settings ?? new Settings();
 
             Animator = animator;
 

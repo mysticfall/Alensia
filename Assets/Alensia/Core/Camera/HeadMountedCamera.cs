@@ -99,19 +99,16 @@ namespace Alensia.Core.Camera
 
         private readonly Settings _settings;
 
-        public HeadMountedCamera(
-            UnityEngine.Camera camera) : this(new Settings(), camera)
+        public HeadMountedCamera(UnityEngine.Camera camera) : this(null, camera)
         {
         }
 
         [Inject]
         public HeadMountedCamera(
-            Settings settings,
+            [InjectOptional] Settings settings,
             UnityEngine.Camera camera) : base(camera)
         {
-            Assert.IsNotNull(settings, "settings != null");
-
-            _settings = settings;
+            _settings = settings ?? new Settings();
 
             OnDeactivate
                 .Where(_ => Head != null)
@@ -167,8 +164,7 @@ namespace Alensia.Core.Camera
                 Up = 60
             };
 
-            [Range(0.1f, 10f)]
-            public float LookAhead = 10f;
+            [Range(0.1f, 10f)] public float LookAhead = 10f;
 
             public Vector3 CameraOffset = new Vector3(0, 0, 0.03f);
 

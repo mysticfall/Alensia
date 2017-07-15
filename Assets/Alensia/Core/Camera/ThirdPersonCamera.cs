@@ -36,18 +36,16 @@ namespace Alensia.Core.Camera
 
         private readonly Settings _settings;
 
-        public ThirdPersonCamera(UnityEngine.Camera camera) : this(new Settings(), camera)
+        public ThirdPersonCamera(UnityEngine.Camera camera) : this(null, camera)
         {
         }
 
         [Inject]
         public ThirdPersonCamera(
-            Settings settings,
+            [InjectOptional] Settings settings,
             UnityEngine.Camera camera) : base(camera)
         {
-            Assert.IsNotNull(settings, "settings != null");
-
-            _settings = settings;
+            _settings = settings ?? new Settings();
         }
 
         public void Initialize(ITransformable target)

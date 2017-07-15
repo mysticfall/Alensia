@@ -30,14 +30,15 @@ namespace Alensia.Core.I18n
 
         private readonly IReactiveProperty<CultureInfo> _locale;
 
-        public LocaleService() : this(new Settings())
+        public LocaleService() : this(null)
         {
         }
 
         [Inject]
-        public LocaleService(Settings settings)
+        public LocaleService([InjectOptional] Settings settings)
         {
-            Assert.IsNotNull(settings, "settings != null");
+            settings = settings ?? new Settings();
+
             Assert.IsNotNull(settings.SupportedLocales, "settings.SupportedLocales != null");
 
             Assert.IsTrue(

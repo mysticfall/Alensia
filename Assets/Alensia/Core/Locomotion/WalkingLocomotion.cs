@@ -39,21 +39,20 @@ namespace Alensia.Core.Locomotion
             IGroundDetector groundDetector,
             Animator animator,
             Transform transform) :
-            this(new Settings(), groundDetector, animator, transform)
+            this(null, groundDetector, animator, transform)
         {
         }
 
         [Inject]
         public WalkingLocomotion(
-            Settings settings,
+            [InjectOptional] Settings settings,
             IGroundDetector groundDetector,
             Animator animator,
             Transform transform) : base(settings, animator, transform)
         {
-            Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(groundDetector, "groundDetector != null");
 
-            _settings = settings;
+            _settings = settings ?? new Settings();
             _pacing = new ReactiveProperty<Pacing>(Pacing.Walking());
 
             GroundDetector = groundDetector;
