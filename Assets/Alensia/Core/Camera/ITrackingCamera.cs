@@ -2,10 +2,10 @@
 
 namespace Alensia.Core.Camera
 {
-    public interface ITrackingCamera : ICameraMode
+    public interface ITrackingCamera<T> : ICameraMode where T : ITransformable
     {
-        ITransformable Target { get; }
+        T Target { get; }
 
-        void Initialize(ITransformable target);
+        void Initialize(T target);
     }
 }

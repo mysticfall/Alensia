@@ -1,7 +1,6 @@
 ﻿using System;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
-using Alensia.Core.Geom;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
@@ -18,7 +17,7 @@ namespace Alensia.Core.Camera
 
         public override bool Valid => base.Valid && Target != null;
 
-        public ITransformable Target { get; private set; }
+        public ICharacter Target { get; private set; }
 
         public override Vector3 Pivot
         {
@@ -48,7 +47,7 @@ namespace Alensia.Core.Camera
             _settings = settings ?? new Settings();
         }
 
-        public void Initialize(ITransformable target)
+        public void Initialize(ICharacter target)
         {
             Assert.IsNotNull(target, "target != null");
 

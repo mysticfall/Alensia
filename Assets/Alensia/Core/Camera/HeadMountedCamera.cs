@@ -61,7 +61,7 @@ namespace Alensia.Core.Camera
 
         public override RotationalConstraints RotationalConstraints => _settings.Rotation;
 
-        public ITransformable Target { get; private set; }
+        public ICharacter Target { get; private set; }
 
         public Transform Head { get; private set; }
 
@@ -116,7 +116,7 @@ namespace Alensia.Core.Camera
                 .AddTo(this);
         }
 
-        public void Initialize(ITransformable target)
+        public void Initialize(ICharacter target)
         {
             Assert.IsNotNull(target, "target != null");
 
