@@ -5,7 +5,6 @@ using Alensia.Core.Character;
 using Alensia.Core.Input;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Control
@@ -28,22 +27,17 @@ namespace Alensia.Core.Control
             }
         }
 
-        public ViewSensitivity ViewSensitivity { get; }
-
         public override bool Valid => base.Valid && Player != null;
 
         private IHumanoid _player;
 
         public PlayerCameraControl(
             [InjectOptional] IHumanoid player,
-            ViewSensitivity viewSensitivity,
+            ViewSensitivity sensitivity,
             ICameraManager cameraManager,
-            IInputManager inputManager) : base(cameraManager, inputManager)
+            IInputManager inputManager) : base(sensitivity,cameraManager, inputManager)
         {
-            Assert.IsNotNull(viewSensitivity, "viewSensitivity != null");
-
             Player = player;
-            ViewSensitivity = viewSensitivity;
         }
 
         protected override bool Supports(ICameraMode camera) =>
@@ -79,27 +73,11 @@ namespace Alensia.Core.Control
             CameraManager.ToThirdPerson(player).Reset();
         }
 
-        protected override void OnRotate(Vector2 input, IRotatableCamera camera)
-        {
-            var delta = new Vector2
-            {
-                x = input.x * ViewSensitivity.Horizontal,
-                y = input.y * ViewSensitivity.Vertical
-            };
-
-            base.OnRotate(delta, camera);
-        }
-
         protected override void OnZoom(float input)
         {
             var camera = CameraManager.Mode as IZoomableCamera;
 
             if (camera != null) OnZoom(input, camera);
-        }
-
-        protected override void OnZoom(float input, IZoomableCamera camera)
-        {
-            base.OnZoom(input * ViewSensitivity.Zoom, camera);
         }
 
         protected void SwitchToFirstPerson(IThirdPersonCamera camera)

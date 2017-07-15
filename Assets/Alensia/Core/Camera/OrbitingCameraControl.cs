@@ -15,8 +15,9 @@ namespace Alensia.Core.Camera
         public override bool Valid => base.Valid && Scroll != null;
 
         public OrbitingCameraControl(
+            ViewSensitivity sensitivity,
             ICameraManager cameraManager,
-            IInputManager inputManager) : base(cameraManager, inputManager)
+            IInputManager inputManager) : base(sensitivity, cameraManager, inputManager)
         {
         }
 
@@ -58,7 +59,7 @@ namespace Alensia.Core.Camera
 
         protected virtual void OnZoom(float input, IZoomableCamera camera)
         {
-            camera.Distance += input;
+            camera.Distance += input * Sensitivity.Zoom;
         }
 
         public new class Keys : RotatableCameraControl.Keys

@@ -24,15 +24,16 @@ namespace Alensia.Core.Camera
         public override bool Valid => base.Valid && X != null && Y != null;
 
         public RotatableCameraControl(
+            ViewSensitivity sensitivity,
             ICameraManager cameraManager,
-            IInputManager inputManager) : base(cameraManager, inputManager)
+            IInputManager inputManager) : base(sensitivity, cameraManager, inputManager)
         {
         }
 
         protected override bool Supports(ICameraMode camera) =>
             base.Supports(camera) && camera is IRotatableCamera;
 
-        protected override ICollection<IBindingKey> PrepareBindings() => 
+        protected override ICollection<IBindingKey> PrepareBindings() =>
             new List<IBindingKey> {Yaw, Pitch};
 
         protected override void RegisterDefaultBindings()
@@ -72,8 +73,8 @@ namespace Alensia.Core.Camera
 
         protected virtual void OnRotate(Vector2 input, IRotatableCamera camera)
         {
-            camera.Heading += input.x;
-            camera.Elevation += input.y;
+            camera.Heading += input.x * Sensitivity.Horizontal;
+            camera.Elevation += input.y * Sensitivity.Vertical;
         }
 
         public class Keys
