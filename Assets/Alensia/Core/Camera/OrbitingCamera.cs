@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class OrbitingCamera : RotatableCamera, IZoomableCamera, ILateTickable
+    public abstract class OrbitingCamera : RotatableCamera, IOrbitingCamera, ILateTickable
     {
         public abstract DistanceSettings DistanceSettings { get; }
 
