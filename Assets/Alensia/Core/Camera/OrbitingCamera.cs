@@ -1,4 +1,6 @@
-﻿using Alensia.Core.Geom;
+﻿using Alensia.Core.Common;
+using Alensia.Core.Geom;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -10,61 +12,58 @@ namespace Alensia.Core.Camera
 
         public override float Heading
         {
-            get { return _heading; }
+            get { return _heading.Value; }
             set
             {
-                var heading = Mathf.Clamp(
+                _heading.Value = Mathf.Clamp(
                     GeometryUtils.NormalizeAspectAngle(value),
                     -RotationalConstraints.Side,
                     RotationalConstraints.Side);
-
-                _heading = heading;
-
-                UpdatePosition(heading, Elevation, Distance);
             }
         }
 
         public override float Elevation
         {
-            get { return _elevation; }
+            get { return _elevation.Value; }
             set
             {
-                var elevation = Mathf.Clamp(
+                _elevation.Value = Mathf.Clamp(
                     GeometryUtils.NormalizeAspectAngle(value),
                     -RotationalConstraints.Down,
                     RotationalConstraints.Up);
-
-                _elevation = elevation;
-
-                UpdatePosition(Heading, elevation, Distance);
             }
         }
 
         public float Distance
         {
-            get { return _distance; }
+            get { return _distance.Value; }
             set
             {
-                var distance = Mathf.Clamp(
+                _distance.Value = Mathf.Clamp(
                     value,
                     DistanceSettings.Minimum,
                     DistanceSettings.Maximum);
-
-                _distance = distance;
-
-                UpdatePosition(Heading, Elevation, distance);
             }
         }
 
-        private float _heading;
+        private readonly IReactiveProperty<float> _heading;
 
-        private float _elevation;
+        private readonly IReactiveProperty<float> _elevation;
 
-        private float _distance;
+        private readonly IReactiveProperty<float> _distance;
 
         protected OrbitingCamera(
             UnityEngine.Camera camera) : base(camera)
         {
+            _heading = new ReactiveProperty<float>();
+            _elevation = new ReactiveProperty<float>();
+            _distance = new ReactiveProperty<float>();
+
+            Observable
+                .Zip(_heading, _elevation, _distance)
+                .Where(_ => Valid && Active)
+                .Subscribe(args => UpdatePosition(args[0], args[1], args[2]))
+                .AddTo(this);
         }
 
         public override void Reset()
@@ -95,7 +94,7 @@ namespace Alensia.Core.Camera
 
         public virtual void LateTick()
         {
-            if (Active) UpdatePosition(Heading, Elevation, Distance);
+            if (Valid && Active) UpdatePosition(Heading, Elevation, Distance);
         }
     }
 }

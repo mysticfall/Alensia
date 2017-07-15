@@ -13,35 +13,25 @@ namespace Alensia.Core.Camera
     {
         public override float Heading
         {
-            get { return _heading; }
-
+            get { return _heading.Value; }
             set
             {
-                var heading = Mathf.Clamp(
+                _heading.Value = Mathf.Clamp(
                     GeometryUtils.NormalizeAspectAngle(value),
                     -RotationalConstraints.Side,
                     RotationalConstraints.Side);
-
-                _heading = heading;
-
-                UpdatePosition(heading, Elevation);
             }
         }
 
         public override float Elevation
         {
-            get { return _elevation; }
-
+            get { return _elevation.Value; }
             set
             {
-                var elevation = Mathf.Clamp(
+                _elevation.Value = Mathf.Clamp(
                     GeometryUtils.NormalizeAspectAngle(value),
                     -RotationalConstraints.Down,
                     RotationalConstraints.Up);
-
-                _elevation = elevation;
-
-                UpdatePosition(Heading, elevation);
             }
         }
 
@@ -91,9 +81,9 @@ namespace Alensia.Core.Camera
             }
         }
 
-        private float _heading;
+        private readonly IReactiveProperty<float> _heading;
 
-        private float _elevation;
+        private readonly IReactiveProperty<float> _elevation;
 
         private Quaternion _initialRotation;
 
@@ -110,9 +100,18 @@ namespace Alensia.Core.Camera
         {
             _settings = settings ?? new Settings();
 
+            _heading = new ReactiveProperty<float>();
+            _elevation = new ReactiveProperty<float>();
+
             OnDeactivate
                 .Where(_ => Head != null)
                 .Subscribe(_ => Head.localRotation = _initialRotation)
+                .AddTo(this);
+
+            Observable
+                .Zip(_heading, _elevation)
+                .Where(_ => Valid && Active)
+                .Subscribe(args => UpdatePosition(args[0], args[1]))
                 .AddTo(this);
         }
 
@@ -151,7 +150,7 @@ namespace Alensia.Core.Camera
 
         public virtual void LateTick()
         {
-            if (Active) UpdatePosition(Heading, Elevation);
+            if (Valid && Active) UpdatePosition(Heading, Elevation);
         }
 
         [Serializable]
