@@ -7,7 +7,17 @@ namespace Alensia.Core.Common
         public bool Active
         {
             get { return _active.Value; }
-            set { _active.Value = value; }
+            set
+            {
+                if (Initialized)
+                {
+                    _active.Value = value;
+                }
+                else
+                {
+                    _lazyActivation = value;
+                }
+            }
         }
 
         public IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
@@ -16,6 +26,8 @@ namespace Alensia.Core.Common
 
         public IObservable<bool> OnActiveStateChange => _active;
 
+        private bool _lazyActivation;
+
         private readonly IReactiveProperty<bool> _active;
 
         protected BaseActivatable()
@@ -23,8 +35,15 @@ namespace Alensia.Core.Common
             _active = new ReactiveProperty<bool>();
         }
 
-        public void Activate() => _active.Value = true;
+        public override void Initialize()
+        {
+            base.Initialize();
 
-        public void Deactivate() => _active.Value = false;
+            if (_lazyActivation) Activate();
+        }
+
+        public virtual void Activate() => Active = true;
+
+        public virtual void Deactivate() => Active = false;
     }
 }
