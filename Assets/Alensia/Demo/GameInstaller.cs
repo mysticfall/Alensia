@@ -2,6 +2,7 @@ using Alensia.Core.Camera;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
 using Alensia.Core.Control;
+using Alensia.Core.Game;
 using Alensia.Core.I18n;
 using Alensia.Core.Input;
 using Alensia.Core.UI;
@@ -34,11 +35,17 @@ namespace Alensia.Demo
 
         public override void InstallBindings()
         {
+            InstallGame();
             InstallLocalization();
             InstallUI();
             InstallControls();
             InstallCameras();
             InstallReferences();
+        }
+
+        protected virtual void InstallGame()
+        {
+            Container.BindInterfacesAndSelfTo<Game>().AsSingle().NonLazy();
         }
 
         protected virtual void InstallLocalization()

@@ -1,5 +1,6 @@
 using System;
 using Alensia.Core.Control;
+using Alensia.Core.Game;
 using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Alensia.Demo
 {
     public class MainMenuHandler : UIHandler
     {
+        [Inject, NonSerialized] public IGame Game;
+
         [Inject, NonSerialized] public IPlayerController Controller;
 
         public Button ButtonResume;
@@ -33,6 +36,8 @@ namespace Alensia.Demo
 
         protected virtual void DisableControls()
         {
+            Game.Pause();
+
             Controller.DisablePlayerControl();
 
             Cursor.lockState = CursorLockMode.None;
@@ -45,6 +50,8 @@ namespace Alensia.Demo
             Cursor.visible = false;
 
             Controller.EnablePlayerControl();
+
+            Game.Resume();
         }
 
         protected virtual void Quit()
