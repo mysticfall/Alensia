@@ -782,7 +782,7 @@ MonoBehaviour:
       Down: 65
       Side: 85
     LookAhead: 10
-    CameraOffset: {x: 0, y: 0, z: 0.3}
+    CameraOffset: {x: 0, y: -0.18, z: 0}
     HeadAxisUp: 3
     HeadAxisFoward: 4
   ThirdPersonCamera:
