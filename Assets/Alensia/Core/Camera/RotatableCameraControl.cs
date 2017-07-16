@@ -9,10 +9,6 @@ namespace Alensia.Core.Camera
 {
     public class RotatableCameraControl : CameraControl
     {
-        public const string Id = "Camera";
-
-        public override string Name => Id;
-
         public IBindingKey<IAxisInput> Yaw => Keys.Yaw;
 
         public IBindingKey<IAxisInput> Pitch => Keys.Pitch;
@@ -30,8 +26,7 @@ namespace Alensia.Core.Camera
         {
         }
 
-        protected override bool Supports(ICameraMode camera) =>
-            base.Supports(camera) && camera is IRotatableCamera;
+        protected override bool Supports(ICameraMode camera) => camera is IRotatableCamera;
 
         protected override ICollection<IBindingKey> PrepareBindings() =>
             new List<IBindingKey> {Yaw, Pitch};
@@ -79,9 +74,9 @@ namespace Alensia.Core.Camera
 
         public class Keys
         {
-            public static IBindingKey<IAxisInput> Yaw = new BindingKey<IAxisInput>(Id + ".Yaw");
+            public static IBindingKey<IAxisInput> Yaw = new BindingKey<IAxisInput>(Category + ".Yaw");
 
-            public static IBindingKey<IAxisInput> Pitch = new BindingKey<IAxisInput>(Id + ".Pitch");
+            public static IBindingKey<IAxisInput> Pitch = new BindingKey<IAxisInput>(Category + ".Pitch");
         }
     }
 }

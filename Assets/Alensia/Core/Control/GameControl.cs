@@ -11,9 +11,7 @@ namespace Alensia.Core.Control
 {
     public class GameControl : Control
     {
-        public const string Id = "Game";
-
-        public override string Name => Id;
+        public const string Category = "General";
 
         public string MainMenu { get; set; } = "MainMenu";
 
@@ -88,7 +86,7 @@ namespace Alensia.Core.Control
         public static class Keys
         {
             public static IBindingKey<ITriggerInput> ShowMenu =
-                new BindingKey<ITriggerInput>(Id + ".ShowMenu");
+                new BindingKey<ITriggerInput>(Category + ".ShowMenu");
         }
     }
 }

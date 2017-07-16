@@ -14,10 +14,6 @@ namespace Alensia.Core.Control
 {
     public class PlayerMovementControl : LocomotionControl<IWalkingLocomotion>, IPlayerControl
     {
-        public const string Id = "Locomotion";
-
-        public override string Name => Id;
-
         public IHumanoid Player { get; set; }
 
         public override IWalkingLocomotion Locomotion => Player?.Locomotion;
@@ -54,10 +50,8 @@ namespace Alensia.Core.Control
             CameraManager = cameraManager;
         }
 
-        protected override ICollection<IBindingKey> PrepareBindings()
-        {
-            return new List<IBindingKey> {Horizontal, Vertical, HoldToRun};
-        }
+        protected override ICollection<IBindingKey> PrepareBindings() =>
+            new List<IBindingKey> {Horizontal, Vertical, HoldToRun};
 
         protected override void RegisterDefaultBindings()
         {
@@ -127,13 +121,13 @@ namespace Alensia.Core.Control
         public static class Keys
         {
             public static IBindingKey<IAxisInput> Horizontal =
-                new BindingKey<IAxisInput>(Id + ".Horizontal");
+                new BindingKey<IAxisInput>(Category + ".Horizontal");
 
             public static IBindingKey<IAxisInput> Vertical =
-                new BindingKey<IAxisInput>(Id + ".Vertical");
+                new BindingKey<IAxisInput>(Category + ".Vertical");
 
             public static IBindingKey<TriggerStateInput> HoldToRun =
-                new BindingKey<TriggerStateInput>(Id + ".HoldToRun");
+                new BindingKey<TriggerStateInput>(Category + ".HoldToRun");
         }
     }
 }

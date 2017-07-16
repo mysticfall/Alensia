@@ -11,10 +11,6 @@ namespace Alensia.Core.Control
     {
         public IReadOnlyList<IControl> Controls { get; }
 
-        private readonly IDictionary<string, IControl> _controls;
-
-        private bool _active;
-
         //TODO Change to IList later: https://github.com/modesttree/Zenject/issues/281
         public Controller(List<IControl> controls)
         {
@@ -22,15 +18,6 @@ namespace Alensia.Core.Control
             Assert.IsTrue(controls.Any(), "controls.Any()");
 
             Controls = controls.AsReadOnly();
-
-            _controls = new Dictionary<string, IControl>();
-
-            foreach (var control in Controls)
-            {
-                _controls.Add(control.Name, control);
-            }
-
-            OnActiveStateChange.Subscribe(ChangeControlStatus).AddTo(this);
 
             OnInitialize.Subscribe(_ => Activate()).AddTo(this);
             OnDispose.Subscribe(_ => Deactivate()).AddTo(this);
@@ -40,29 +27,23 @@ namespace Alensia.Core.Control
             Cursor.visible = false;
         }
 
-        public bool Contains(string key) => _controls.ContainsKey(key);
+        public T FindControl<T>() where T : IControl => FindControls<T>().FirstOrDefault();
 
-        public IControl this[string key] => _controls.ContainsKey(key) ? _controls[key] : null;
+        public IReadOnlyList<T> FindControls<T>() where T : IControl => Controls.OfType<T>().ToList();
 
-        public virtual void EnableControl(string name)
+        public void EnableControls<T>() where T : IControl
         {
-            var control = this[name];
-
-            if (control != null && !control.Active) control.Activate();
-        }
-
-        public virtual void DisableControl(string name)
-        {
-            var control = this[name];
-
-            if (control != null && control.Active) control.Deactivate();
-        }
-
-        private void ChangeControlStatus(bool active)
-        {
-            foreach (var control in Controls)
+            foreach (var control in FindControls<T>())
             {
-                control.Active = active;
+                control.Activate();
+            }
+        }
+
+        public void DisableControls<T>() where T : IControl
+        {
+            foreach (var control in FindControls<T>())
+            {
+                control.Deactivate();
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Alensia.Demo
 {
     public class GameInstaller : MonoInstaller
     {
-        public CameraControl.ViewSensitivity ViewSensitivity;
+        public ViewSensitivity ViewSensitivity;
 
         public HeadMountedCamera.Settings FirstPersonCamera;
 
@@ -79,7 +79,7 @@ namespace Alensia.Demo
 
         protected virtual void InstallControls()
         {
-            Container.Bind<CameraControl.ViewSensitivity>().FromInstance(ViewSensitivity);
+            Container.Bind<ViewSensitivity>().FromInstance(ViewSensitivity);
 
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
 

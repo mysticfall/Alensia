@@ -6,7 +6,7 @@ using UniRx;
 
 namespace Alensia.Core.Camera
 {
-    public class OrbitingCameraControl : RotatableCameraControl
+    public class ZoomableCameraControl : CameraControl
     {
         public IBindingKey<IAxisInput> Zoom => Keys.Zoom;
 
@@ -14,18 +14,16 @@ namespace Alensia.Core.Camera
 
         public override bool Valid => base.Valid && Scroll != null;
 
-        public OrbitingCameraControl(
+        public ZoomableCameraControl(
             ViewSensitivity sensitivity,
             ICameraManager cameraManager,
             IInputManager inputManager) : base(sensitivity, cameraManager, inputManager)
         {
         }
 
-        protected override bool Supports(ICameraMode camera) =>
-            base.Supports(camera) && camera is IOrbitingCamera;
+        protected override bool Supports(ICameraMode camera) => camera is IZoomableCamera;
 
-        protected override ICollection<IBindingKey> PrepareBindings() =>
-            new List<IBindingKey>(base.PrepareBindings()) {Zoom};
+        protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {Zoom};
 
         protected override void RegisterDefaultBindings()
         {
@@ -46,8 +44,6 @@ namespace Alensia.Core.Camera
 
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.Subscribe(disposables);
-
             Scroll.OnChange
                 .Where(_ => Valid)
                 .Select(v => v * -15)
@@ -62,9 +58,9 @@ namespace Alensia.Core.Camera
             camera.Distance += input * Sensitivity.Zoom;
         }
 
-        public new class Keys : RotatableCameraControl.Keys
+        public class Keys : RotatableCameraControl.Keys
         {
-            public static IBindingKey<IAxisInput> Zoom = new BindingKey<IAxisInput>(Id + ".Zoom");
+            public static IBindingKey<IAxisInput> Zoom = new BindingKey<IAxisInput>(Category + ".Zoom");
         }
     }
 }

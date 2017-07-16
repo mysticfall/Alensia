@@ -10,8 +10,6 @@ namespace Alensia.Core.Control
 {
     public abstract class Control : BaseActivatable, IControl
     {
-        public abstract string Name { get; }
-
         public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }
@@ -43,6 +41,8 @@ namespace Alensia.Core.Control
             Bindings = PrepareBindings().ToList().AsReadOnly();
 
             RegisterDefaultBindings();
+
+            Activate();
         }
 
         private void AfterDispose()

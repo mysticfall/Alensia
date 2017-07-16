@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
+using Alensia.Core.Common;
 using Alensia.Core.Input;
+using Alensia.Core.Input.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public class PlayerCameraControl : OrbitingCameraControl, IPlayerControl
+    public class PlayerCameraControl : AggregateControl, IPlayerControl, ICameraControl
     {
+        public ICameraManager CameraManager { get; }
+
+        public ViewSensitivity Sensitivity { get; }
+
         public IHumanoid Player
         {
             get { return _player; }
@@ -27,26 +34,59 @@ namespace Alensia.Core.Control
             }
         }
 
-        public override bool Valid => base.Valid && Player != null;
+        public IBindingKey<IAxisInput> Zoom => ZoomableCameraControl.Keys.Zoom;
+
+        protected IAxisInput Scroll { get; private set; }
+
+        public override bool Valid => Player != null && _cameraSupported;
 
         private IHumanoid _player;
+
+        private bool _cameraSupported;
 
         public PlayerCameraControl(
             [InjectOptional] IHumanoid player,
             ViewSensitivity sensitivity,
             ICameraManager cameraManager,
-            IInputManager inputManager) : base(sensitivity,cameraManager, inputManager)
+            IInputManager inputManager) : base(inputManager)
         {
+            Assert.IsNotNull(sensitivity, "sensitivity != null");
+            Assert.IsNotNull(cameraManager, "cameraManager != null");
+
             Player = player;
+            Sensitivity = sensitivity;
+            CameraManager = cameraManager;
+
+            CameraManager.OnCameraModeChange
+                .Select(Supports)
+                .Subscribe(v => _cameraSupported = v)
+                .AddTo(this);
         }
 
-        protected override bool Supports(ICameraMode camera) =>
+        protected bool Supports(ICameraMode camera) =>
             camera is IFirstPersonCamera || camera is IThirdPersonCamera;
+
+        protected override IEnumerable<IControl> CreateChildren()
+        {
+            return new List<IControl>
+            {
+                new RotatableCameraControl(Sensitivity, CameraManager, InputManager),
+                new ZoomableCameraControl(Sensitivity, CameraManager, InputManager)
+            };
+        }
+
+        protected override void OnBindingChange(IBindingKey key)
+        {
+            base.OnBindingChange(key);
+
+            if (Equals(key, Zoom))
+            {
+                Scroll = InputManager.Get(Zoom);
+            }
+        }
 
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
-            base.Subscribe(disposables);
-
             Scroll.OnChange
                 .Where(_ => Valid)
                 .Where(_ => CameraManager.Mode is IThirdPersonCamera)
@@ -71,13 +111,6 @@ namespace Alensia.Core.Control
             if (player == null) return;
 
             CameraManager.ToThirdPerson(player).Reset();
-        }
-
-        protected override void OnZoom(float input)
-        {
-            var camera = CameraManager.Mode as IZoomableCamera;
-
-            if (camera != null) OnZoom(input, camera);
         }
 
         protected void SwitchToFirstPerson(IThirdPersonCamera camera)
