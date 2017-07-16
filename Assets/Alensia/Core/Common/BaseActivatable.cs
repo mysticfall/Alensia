@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 
 namespace Alensia.Core.Common
 {
@@ -11,6 +12,12 @@ namespace Alensia.Core.Common
             {
                 if (Initialized)
                 {
+                    if (Disposed && value)
+                    {
+                        throw new InvalidOperationException(
+                            "Disposed object cannot be activated.");
+                    }
+
                     _active.Value = value;
                 }
                 else
@@ -20,11 +27,11 @@ namespace Alensia.Core.Common
             }
         }
 
-        public IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
+        public UniRx.IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
 
-        public IObservable<Unit> OnDeactivate => _active.Where(v => !v).AsUnitObservable();
+        public UniRx.IObservable<Unit> OnDeactivate => _active.Where(v => !v).AsUnitObservable();
 
-        public IObservable<bool> OnActiveStateChange => _active;
+        public UniRx.IObservable<bool> OnActiveStateChange => _active;
 
         private bool _lazyActivation;
 
@@ -35,15 +42,26 @@ namespace Alensia.Core.Common
             _active = new ReactiveProperty<bool>();
         }
 
-        public override void Initialize()
+        public void Activate() => Active = true;
+
+        public void Deactivate() => Active = false;
+
+        protected override void OnInitialized()
         {
-            base.Initialize();
+            base.OnInitialized();
+
+            OnActivate.Subscribe(_ => OnActivated()).AddTo(this);
+            OnDeactivate.Subscribe(_ => OnDeactivated()).AddTo(this);
 
             if (_lazyActivation) Activate();
         }
 
-        public virtual void Activate() => Active = true;
+        protected virtual void OnActivated()
+        {
+        }
 
-        public virtual void Deactivate() => Active = false;
+        protected virtual void OnDeactivated()
+        {
+        }
     }
 }

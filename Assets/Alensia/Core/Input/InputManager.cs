@@ -24,12 +24,10 @@ namespace Alensia.Core.Input
             _bindings = new List<IBindingKey>();
             _bindingMap = new Dictionary<IBindingKey, IInput>();
 
-            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
-
             _onBindingChange = new Subject<IBindingKey>();
         }
 
-        private void AfterDispose()
+        protected override void OnDisposed()
         {
             lock (this)
             {
@@ -40,6 +38,8 @@ namespace Alensia.Core.Input
                     Deregister(key);
                 }
             }
+
+            base.OnDisposed();
         }
 
         public bool Contains(IBindingKey key)

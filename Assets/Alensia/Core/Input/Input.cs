@@ -25,12 +25,12 @@ namespace Alensia.Core.Input
         protected Input()
         {
             _tick = new Subject<long>();
-
-            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
         }
 
-        private void AfterInitialize()
+        protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             _observable = Observe(OnTick);
             _value = _observable.ToReadOnlyReactiveProperty();
         }

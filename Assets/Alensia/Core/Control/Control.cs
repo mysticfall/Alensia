@@ -27,17 +27,13 @@ namespace Alensia.Core.Control
             InputManager = inputManager;
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
 
-            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
-            OnDispose.Subscribe(_ => AfterDispose()).AddTo(this);
-
-            OnActivate.Subscribe(_ => Subscribe(_disposables)).AddTo(this);
-            OnDeactivate.Subscribe(_ => _disposables.Clear()).AddTo(this);
-
             InputManager.OnBindingChange.Subscribe(ProcessBindingChange).AddTo(this);
         }
 
-        private void AfterInitialize()
+        protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             Bindings = PrepareBindings().ToList().AsReadOnly();
 
             RegisterDefaultBindings();
@@ -45,11 +41,27 @@ namespace Alensia.Core.Control
             Activate();
         }
 
-        private void AfterDispose()
+        protected override void OnDisposed()
         {
             if (Active) Deactivate();
 
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
+
+            base.OnDisposed();
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+
+            Subscribe(_disposables);
+        }
+
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+
+            _disposables.Clear();
         }
 
         protected abstract void Subscribe(ICollection<IDisposable> disposables);

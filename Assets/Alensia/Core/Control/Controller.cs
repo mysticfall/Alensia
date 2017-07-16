@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
-using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -19,12 +18,23 @@ namespace Alensia.Core.Control
 
             Controls = controls.AsReadOnly();
 
-            OnInitialize.Subscribe(_ => Activate()).AddTo(this);
-            OnDispose.Subscribe(_ => Deactivate()).AddTo(this);
-
             //TODO Find a better way to handle cursor mode & visibility.
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Activate();
+        } 
+
+        protected override void OnDisposed()
+        {
+            Deactivate();
+
+            base.OnDisposed();
         }
 
         public T FindControl<T>() where T : IControl => FindControls<T>().FirstOrDefault();

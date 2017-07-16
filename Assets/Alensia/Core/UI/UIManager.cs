@@ -47,15 +47,14 @@ namespace Alensia.Core.UI
 
             Context = new UIContext(translator, container);
 
-            OnInitialize.Subscribe(_ => AfterInitialize()).AddTo(this);
-            OnDispose.Subscribe(_ => _cursor?.Dispose()).AddTo(this);
-
             ScreenDefinitions = _settings.Screens?.ToDictionary(i => i.Name, i => i) ??
                                 new Dictionary<string, ScreenDefinition>();
         }
 
-        private void AfterInitialize()
+        protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             CreateInitialScreens();
 
             Context
@@ -65,8 +64,17 @@ namespace Alensia.Core.UI
                 .Where(c => CursorSet != null && CursorSet.Contains(c))
                 .Select(c => CursorSet[c])
                 .Subscribe(UpdateCursor)
-                .AddTo(this);            
+                .AddTo(this);
         }
+
+        protected override void OnDisposed()
+        {
+            _cursor?.Dispose();
+            _cursor = null;
+
+            base.OnDisposed();
+        }
+
 
         protected virtual void CreateInitialScreens()
         {

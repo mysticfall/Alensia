@@ -29,7 +29,7 @@ namespace Alensia.Core.Common
             Disposables = new CompositeDisposable();
         }
 
-        public virtual void Initialize()
+        public void Initialize()
         {
             lock (this)
             {
@@ -41,9 +41,11 @@ namespace Alensia.Core.Common
 
                 _initialized.Value = true;
             }
+
+            OnInitialized();
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
             lock (this)
             {
@@ -57,6 +59,16 @@ namespace Alensia.Core.Common
             }
 
             Disposables.Clear();
+
+            OnDisposed();
+        }
+
+        protected virtual void OnInitialized()
+        {
+        }
+
+        protected virtual void OnDisposed()
+        {
         }
     }
 

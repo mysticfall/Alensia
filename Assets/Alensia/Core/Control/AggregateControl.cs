@@ -18,34 +18,34 @@ namespace Alensia.Core.Control
 
         protected abstract IEnumerable<IControl> CreateChildren();
 
-        public override void Initialize()
+        protected override void OnInitialized()
         {
             _children = CreateChildren().ToList();
             _children.ForEach(c => c.Initialize());
 
-            base.Initialize();
+            base.OnInitialized();
         }
 
-        public override void Dispose()
+        protected override void OnDisposed()
         {
             _children.ForEach(c => c.Dispose());
             _children = Enumerable.Empty<IControl>().ToList();
 
-            base.Dispose();
+            base.OnDisposed();
         }
 
-        public override void Activate()
+        protected override void OnActivated()
         {
             _children.ForEach(c => c.Activate());
 
-            base.Activate();
+            base.OnActivated();
         }
 
-        public override void Deactivate()
+        protected override void OnDeactivated()
         {
             _children.ForEach(c => c.Deactivate());
 
-            base.Deactivate();
+            base.OnDeactivated();
         }
 
         protected override void RegisterDefaultBindings()
