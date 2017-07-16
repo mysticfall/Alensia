@@ -7,9 +7,9 @@ using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Control
+namespace Alensia.Core.Game
 {
-    public class GameControl : Control
+    public class GameControl : Control.Control
     {
         public const string Category = "General";
 
