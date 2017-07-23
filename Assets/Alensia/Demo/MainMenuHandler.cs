@@ -8,10 +8,6 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-#if UNITY_EDITOR
-
-#endif
-
 namespace Alensia.Demo
 {
     public class MainMenuHandler : UIHandler
