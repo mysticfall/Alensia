@@ -8,7 +8,6 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 #if UNITY_EDITOR
-using UnityEditor;
 
 #endif
 
@@ -33,7 +32,7 @@ namespace Alensia.Demo
             base.Initialize(context);
 
             ButtonResume.OnClick.Subscribe(_ => Close()).AddTo(this);
-            ButtonQuit.OnClick.Subscribe(_ => Quit()).AddTo(this);
+            ButtonQuit.OnClick.Subscribe(_ => Game.Quit()).AddTo(this);
 
             OnClose.Subscribe(_ => EnableControls());
 
@@ -69,17 +68,6 @@ namespace Alensia.Demo
             Controller.EnablePlayerControl();
 
             Game.Resume();
-        }
-
-        protected virtual void Quit()
-        {
-            Close();
-
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
         }
     }
 }

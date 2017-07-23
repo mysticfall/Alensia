@@ -3,6 +3,9 @@ using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 using Zenject;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Alensia.Core.Game
 {
@@ -51,6 +54,15 @@ namespace Alensia.Core.Game
         public void Pause() => _paused.Value = true;
 
         public void Resume() => _paused.Value = false;
+
+        public void Quit()
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 
     [Serializable]

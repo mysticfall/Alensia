@@ -19,5 +19,7 @@ namespace Alensia.Core.Game
         void Pause();
 
         void Resume();
+
+        void Quit();
     }
 }
