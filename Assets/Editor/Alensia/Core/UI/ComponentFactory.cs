@@ -9,6 +9,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Button", false, 10)]
         public static Button CreateButton(MenuCommand command) => CreateComponent(command, Button.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/Dropdown", false, 10)]
+        public static Dropdown CreateDropdown(MenuCommand command) => CreateComponent(command, Dropdown.CreateInstance);
+
         [MenuItem("GameObject/UI/Alensia/Label", false, 10)]
         public static Label CreateLabel(MenuCommand command) => CreateComponent(command, Label.CreateInstance);
 
