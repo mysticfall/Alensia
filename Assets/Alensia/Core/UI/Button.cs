@@ -21,8 +21,8 @@ namespace Alensia.Core.UI
             {
                 var peers = base.Peers;
 
-                peers.Add(PeerButton);
-                peers.Add(PeerImage);
+                if (PeerButton != null) peers.Add(PeerButton);
+                if (PeerImage != null) peers.Add(PeerImage);
 
                 return peers;
             }

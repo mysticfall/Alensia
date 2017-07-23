@@ -30,7 +30,7 @@ namespace Alensia.Core.UI
             {
                 var peers = base.Peers;
 
-                peers.Add(PeerText);
+                if (PeerText != null) peers.Add(PeerText);
 
                 return peers;
             }

@@ -37,7 +37,7 @@ namespace Alensia.Core.UI
             {
                 var peers = base.Peers;
 
-                peers.Add(PeerSlider);
+                if (PeerSlider != null) peers.Add(PeerSlider);
 
                 return peers;
             }

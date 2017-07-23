@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -50,8 +50,8 @@ namespace Alensia.Core.UI
             {
                 var peers = base.Peers;
 
-                peers.Add(PeerDropdown);
-                peers.Add(PeerImage);
+                if (PeerDropdown != null) peers.Add(PeerDropdown);
+                if (PeerImage != null) peers.Add(PeerImage);
 
                 return peers;
             }
