@@ -7,6 +7,7 @@ using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
 using Zenject;
+
 #if UNITY_EDITOR
 
 #endif
@@ -34,7 +35,7 @@ namespace Alensia.Demo
             ButtonResume.OnClick.Subscribe(_ => Close()).AddTo(this);
             ButtonQuit.OnClick.Subscribe(_ => Game.Quit()).AddTo(this);
 
-            OnClose.Subscribe(_ => EnableControls());
+            OnClose.Where(_ => Controller.Active).Subscribe(_ => EnableControls());
 
             LocaleService.OnLocaleChange
                 .Select(_ => LocaleService.SupportedLocales)
