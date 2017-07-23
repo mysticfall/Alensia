@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace Alensia.Core.UI
 {
+    [ExecuteInEditMode]
     public abstract class UIElement : UIBehaviour, IUIElement
     {
         public string Name => name;
@@ -30,7 +32,9 @@ namespace Alensia.Core.UI
         public UniRx.IObservable<bool> OnVisibilityChange =>
             OnShow.Select(_ => true).Merge(OnHide.Select(_ => false));
 
-        private bool _initialized;
+        protected virtual IList<Component> Peers => new List<Component>();
+
+        protected virtual HideFlags PeerFlags => HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 
         public virtual void Initialize(IUIContext context)
         {
@@ -38,26 +42,54 @@ namespace Alensia.Core.UI
 
             lock (this)
             {
-                if (_initialized)
+                if (Context != null)
                 {
                     throw new InvalidOperationException(
                         $"The component has already been initialized: '{Name}'.");
                 }
-
-                _initialized = true;
             }
 
             Context = context;
-
-            OnValidate();
         }
 
-        //TODO It seems that those 'magic methods' of MonoBehaviour confuse the hell out of the compiler, so it we remove this method, the player build fails.  
-#pragma warning disable 108,114
-        protected virtual void OnValidate()
-#pragma warning restore 108,114
+        protected virtual void InitializePeers()
         {
         }
+
+        protected virtual void ApplyHideFlags()
+        {
+            foreach (var peer in Peers)
+            {
+                peer.hideFlags = PeerFlags;
+            }
+        }
+
+        protected virtual void ValidateProperties()
+        {
+        }
+
+//TODO It seems that those 'magic methods' of MonoBehaviour confuse the hell out of the compiler, so it we remove this method, the player build fails.  
+#pragma warning disable 108,114
+        protected virtual void Awake()
+        {
+            InitializePeers();
+            ApplyHideFlags();
+        }
+
+        protected virtual void Reset()
+        {
+            InitializePeers();
+            ApplyHideFlags();
+        }
+
+        protected virtual void OnValidate()
+        {
+            if (Context != null) return;
+
+            ApplyHideFlags();
+            ValidateProperties();
+        }
+#pragma warning restore 108,114
 
         public void Show() => Visible = true;
 

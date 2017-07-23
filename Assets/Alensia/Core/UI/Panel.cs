@@ -1,21 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Alensia.Core.UI
 {
-    [RequireComponent(typeof(Image))]
     public class Panel : UIContainer
     {
-        protected Image PeerImage { get; private set; }
+        protected Image PeerImage => _peerImage;
 
-        protected override void OnValidate()
+        protected override IList<Component> Peers
         {
-            base.OnValidate();
+            get
+            {
+                var peers = base.Peers;
 
-            PeerImage = PeerImage ?? GetComponent<Image>();
+                peers.Add(PeerImage);
 
-            Assert.IsNotNull(PeerImage, "Missing Image component.");
+                return peers;
+            }
+        }
+
+        [SerializeField, HideInInspector] private Image _peerImage;
+
+        protected override void InitializePeers()
+        {
+            base.InitializePeers();
+
+            _peerImage = GetComponentInChildren<Image>();
         }
 
         public static Panel CreateInstance()

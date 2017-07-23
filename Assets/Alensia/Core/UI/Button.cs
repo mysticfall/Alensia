@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -6,20 +7,39 @@ using UEButton = UnityEngine.UI.Button;
 
 namespace Alensia.Core.UI
 {
-    [RequireComponent(typeof(UEButton), typeof(Image))]
     public class Button : Label
     {
         public IObservable<Unit> OnClick => PeerButton?.onClick?.AsObservable();
 
-        protected UEButton PeerButton { get; private set; }
+        protected UEButton PeerButton => _peerButton;
 
-        protected override void OnValidate()
+        protected Image PeerImage => _peerImage;
+
+        protected override IList<Component> Peers
         {
-            base.OnValidate();
+            get
+            {
+                var peers = base.Peers;
 
-            PeerButton = PeerButton ?? GetComponent<UEButton>();
+                peers.Add(PeerButton);
+                peers.Add(PeerImage);
 
-            Assert.IsNotNull(PeerButton, "Missing Button component.");
+                return peers;
+            }
+        }
+
+        protected override string DefaultText => "Button";
+
+        [SerializeField, HideInInspector] private UEButton _peerButton;
+
+        [SerializeField, HideInInspector] private Image _peerImage;
+
+        protected override void InitializePeers()
+        {
+            base.InitializePeers();
+
+            _peerButton = GetComponentInChildren<UEButton>();
+            _peerImage = GetComponentInChildren<Image>();
         }
 
         public new static Button CreateInstance()

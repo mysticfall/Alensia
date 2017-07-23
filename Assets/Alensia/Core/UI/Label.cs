@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Alensia.Core.I18n;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -5,37 +7,56 @@ using UnityEngine.UI;
 
 namespace Alensia.Core.UI
 {
-    [RequireComponent(typeof(Text))]
     public class Label : UIComponent
     {
-        public string Text
+        public TranslatableText Text
         {
             get { return _text.Value; }
-            set { _text.Value = value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _text.Value = value;
+            }
         }
 
-        public string TextKey
+        protected virtual string DefaultText => "Label";
+
+        protected Text PeerText => _peerText;
+
+        protected override IList<Component> Peers
         {
-            get { return _textKey.Value; }
-            set { _textKey.Value = value; }
+            get
+            {
+                var peers = base.Peers;
+
+                peers.Add(PeerText);
+
+                return peers;
+            }
         }
 
-        protected Text PeerText { get; private set; }
+        [SerializeField] private TranslatableTextReactiveProperty _text;
 
-        [SerializeField] private StringReactiveProperty _text =
-            new StringReactiveProperty("Label");
+        [SerializeField, HideInInspector] private Text _peerText;
 
-        [SerializeField] private StringReactiveProperty _textKey;
-
-        protected override void OnValidate()
+        public Label()
         {
-            base.OnValidate();
+            _text = new TranslatableTextReactiveProperty();
+        }
 
-            PeerText = PeerText ?? GetComponentInChildren<Text>();
+        protected override void InitializePeers()
+        {
+            base.InitializePeers();
 
-            Assert.IsNotNull(PeerText, "Missing Text component.");
+            _peerText = GetComponentInChildren<Text>();
+        }
 
-            PeerText.text = Text;
+        protected override void ValidateProperties()
+        {
+            base.ValidateProperties();
+
+            PeerText.text = Text.Text;
         }
 
         public override void Initialize(IUIContext context)
@@ -46,10 +67,20 @@ namespace Alensia.Core.UI
 
             localeService
                 .OnLocaleChange
-                .Select(_ => TextKey)
-                .Merge(_textKey)
-                .Select(key => key == null ? null : Context.Translator[key])
-                .Subscribe(text => PeerText.text = text);
+                .Select(_ => Text)
+                .Merge(_text)
+                .Select(text => text.Translate(Context.Translator))
+                .Subscribe(text => PeerText.text = text)
+                .AddTo(this);
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            _text.Value = new TranslatableText(DefaultText);
+
+            PeerText.text = DefaultText;
         }
 
         public static Label CreateInstance()

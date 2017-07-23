@@ -49,7 +49,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &114124297214373316
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1262756520461966}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Text: Button
 --- !u!114 &114488296357916368
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1766410977513442}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_FillOrigin: 0
 --- !u!114 &114628842922068366
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1766410977513442}
@@ -162,9 +162,12 @@ MonoBehaviour:
   _cursor:
     value: 
   _text:
-    value: Button
-  _textKey:
-    value: 
+    value:
+      _text: Button
+      _textKey: 
+  _peerText: {fileID: 114124297214373316}
+  _peerButton: {fileID: 114628842922068366}
+  _peerImage: {fileID: 114488296357916368}
 --- !u!222 &222440854348783930
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -209,8 +212,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -27.100006, y: 40.1}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}

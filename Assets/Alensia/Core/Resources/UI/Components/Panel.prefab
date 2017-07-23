@@ -42,9 +42,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cursor:
     value: 
+  _peerImage: {fileID: 114970555900841560}
 --- !u!114 &114970555900841560
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206442928998602}

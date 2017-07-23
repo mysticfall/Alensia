@@ -43,12 +43,13 @@ MonoBehaviour:
   _cursor:
     value: 
   _text:
-    value: Label
-  _textKey:
-    value: 
+    value:
+      _text: Label
+      _textKey: 
+  _peerText: {fileID: 114999132761552264}
 --- !u!114 &114999132761552264
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1523650833242346}
