@@ -63,11 +63,6 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
-        public Dropdown()
-        {
-            _items = new DropdownItemList();
-        }
-
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);

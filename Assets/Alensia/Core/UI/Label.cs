@@ -40,11 +40,6 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Text _peerText;
 
-        public Label()
-        {
-            _text = new TranslatableTextReactiveProperty();
-        }
-
         protected override void InitializePeers()
         {
             base.InitializePeers();
