@@ -42,6 +42,7 @@ namespace Alensia.Demo
                 .Subscribe(i => ChoiceLanguage.Items = i.ToList())
                 .AddTo(this);
 
+            ChoiceLanguage.Value = LocaleService.CurrentLocale.ToString();
             ChoiceLanguage.OnValueChange
                 .Select(k => new LanguageTag(k).ToCulture())
                 .Subscribe(l => LocaleService.CurrentLocale = l)
