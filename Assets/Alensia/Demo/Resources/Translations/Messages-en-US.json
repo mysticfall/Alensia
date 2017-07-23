@@ -2,6 +2,9 @@
     "windows": {
         "MainMenu": {
             "title": "Alensia Demo",
+            "labels": {
+                "language": "Language"
+            },
             "buttons": {
                 "resume": "Return to Game",
                 "quit": "Quit to Desktop"

@@ -2,6 +2,9 @@
     "windows": {
         "MainMenu": {
             "title": "알렌시아 데모",
+            "labels": {
+                "language": "언어"
+            },
             "buttons": {
                 "resume": "게임으로 돌아가기",
                 "quit": "바탕화면으로 나가기"

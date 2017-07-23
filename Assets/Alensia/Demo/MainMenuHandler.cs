@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using Alensia.Core.Control;
 using Alensia.Core.Game;
+using Alensia.Core.I18n;
 using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
@@ -18,6 +20,10 @@ namespace Alensia.Demo
 
         [Inject, NonSerialized] public IPlayerController Controller;
 
+        [Inject, NonSerialized] public ILocaleService LocaleService;
+
+        public Dropdown ChoiceLanguage;
+
         public Button ButtonResume;
 
         public Button ButtonQuit;
@@ -30,6 +36,17 @@ namespace Alensia.Demo
             ButtonQuit.OnClick.Subscribe(_ => Quit()).AddTo(this);
 
             OnClose.Subscribe(_ => EnableControls());
+
+            LocaleService.OnLocaleChange
+                .Select(_ => LocaleService.SupportedLocales)
+                .Select(l => l.Select(i => new DropdownItem(i.ToString(), i.NativeName)))
+                .Subscribe(i => ChoiceLanguage.Items = i.ToList())
+                .AddTo(this);
+
+            ChoiceLanguage.OnValueChange
+                .Select(k => new LanguageTag(k).ToCulture())
+                .Subscribe(l => LocaleService.CurrentLocale = l)
+                .AddTo(this);
 
             DisableControls();
         }

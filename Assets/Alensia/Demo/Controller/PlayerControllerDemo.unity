@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiItems:
   - Name: MainMenu
-    Item: {fileID: 1155203543620986, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+    Item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
     Enable: 0
     Order: 0
     Singleton: 1
