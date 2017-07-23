@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,45 +7,27 @@ namespace Alensia.Core.UI
     public static class ComponentFactory
     {
         [MenuItem("GameObject/UI/Alensia/Button", false, 10)]
-        public static Button CreateButton(MenuCommand command)
-        {
-            var button = Button.CreateInstance();
-
-            GameObjectUtility.SetParentAndAlign(button.gameObject, command.context as GameObject);
-
-            Undo.RegisterCreatedObjectUndo(button, "Create " + button.name);
-
-            Selection.activeObject = button;
-
-            return button;
-        }
+        public static Button CreateButton(MenuCommand command) => CreateComponent(command, Button.CreateInstance);
 
         [MenuItem("GameObject/UI/Alensia/Label", false, 10)]
-        public static Label CreateLabel(MenuCommand command)
-        {
-            var label = Label.CreateInstance();
-
-            GameObjectUtility.SetParentAndAlign(label.gameObject, command.context as GameObject);
-
-            Undo.RegisterCreatedObjectUndo(label, "Create " + label.name);
-
-            Selection.activeObject = label;
-
-            return label;
-        }
+        public static Label CreateLabel(MenuCommand command) => CreateComponent(command, Label.CreateInstance);
 
         [MenuItem("GameObject/UI/Alensia/Panel", false, 10)]
-        public static Panel CreatePanel(MenuCommand command)
+        public static Panel CreatePanel(MenuCommand command) => CreateComponent(command, Panel.CreateInstance);
+
+        private static T CreateComponent<T>(
+            MenuCommand command, Func<T> factory) where T : UIComponent
         {
-            var panel = Panel.CreateInstance();
+            var component = factory.Invoke();
 
-            GameObjectUtility.SetParentAndAlign(panel.gameObject, command.context as GameObject);
+            GameObjectUtility.SetParentAndAlign(
+                component.gameObject, command.context as GameObject);
 
-            Undo.RegisterCreatedObjectUndo(panel, "Create " + panel.name);
+            Undo.RegisterCreatedObjectUndo(component, "Create " + component.name);
 
-            Selection.activeObject = panel;
+            Selection.activeObject = component;
 
-            return panel;
+            return component;
         }
     }
 }
