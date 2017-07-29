@@ -19,6 +19,8 @@ namespace Alensia.Core.Character
 
         public abstract TLocomotion Locomotion { get; }
 
+        ILocomotion ILocomotive.Locomotion => Locomotion;
+
         protected Character(Animator animator, Transform transform)
         {
             Assert.IsNotNull(animator, "animator != null");

@@ -1,11 +1,11 @@
-using Alensia.Core.Character;
+using Alensia.Core.Character.Generic;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
 using UnityEngine;
 
 namespace Alensia.Tests.Character
 {
-    public class DummyCharacter : ICharacter
+    public class DummyCharacter : ICharacter<ILeggedLocomotion>
     {
         public string Name => Transform.name;
 
@@ -18,6 +18,8 @@ namespace Alensia.Tests.Character
         public GameObject GameObject => Transform.gameObject;
 
         public Transform Body { get; }
+
+        ILocomotion ILocomotive.Locomotion => Locomotion;
 
         public DummyCharacter()
         {
