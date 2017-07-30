@@ -33,7 +33,7 @@ namespace Alensia.Tests.Camera
 
             cam.WallAvoidanceSettings.AvoidWalls = false;
 
-            cam.Initialize(Character);
+            cam.Track(Character);
 
             return cam;
         }

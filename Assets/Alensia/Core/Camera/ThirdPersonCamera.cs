@@ -47,10 +47,8 @@ namespace Alensia.Core.Camera
             _settings = settings ?? new Settings();
         }
 
-        public void Initialize(ICharacter target)
+        public void Track(ICharacter target)
         {
-            Assert.IsNotNull(target, "target != null");
-
             Target = target;
             Distance = DistanceSettings.Default;
         }

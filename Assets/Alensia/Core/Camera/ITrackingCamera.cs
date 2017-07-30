@@ -6,6 +6,6 @@ namespace Alensia.Core.Camera
     {
         T Target { get; }
 
-        void Initialize(T target);
+        void Track(T target);
     }
 }

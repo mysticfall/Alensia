@@ -62,7 +62,7 @@ namespace Alensia.Core.Camera
 
             if (camera == null) return null;
 
-            camera.Initialize(target);
+            camera.Track(target);
 
             Mode = camera;
 
@@ -75,7 +75,7 @@ namespace Alensia.Core.Camera
 
             if (camera == null) return null;
 
-            camera.Initialize(target);
+            camera.Track(target);
 
             Mode = camera;
 

@@ -115,7 +115,7 @@ namespace Alensia.Core.Camera
                 .AddTo(this);
         }
 
-        public void Initialize(ICharacter target)
+        public void Track(ICharacter target)
         {
             Assert.IsNotNull(target, "target != null");
 

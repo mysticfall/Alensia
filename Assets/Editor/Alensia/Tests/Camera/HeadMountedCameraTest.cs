@@ -18,7 +18,7 @@ namespace Alensia.Tests.Camera
             cam.RotationalConstraints.Side = 120;
             cam.RotationalConstraints.Down = 60;
 
-            cam.Initialize(Character);
+            cam.Track(Character);
 
             return cam;
         }

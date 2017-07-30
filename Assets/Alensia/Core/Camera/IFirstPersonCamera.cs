@@ -1,9 +1,6 @@
-﻿using Alensia.Core.Character;
-
-namespace Alensia.Core.Camera
+﻿namespace Alensia.Core.Camera
 {
-    public interface IFirstPersonCamera : IPerspectiveCamera,
-        ITrackingCamera<ICharacter>, IRotatableCamera
+    public interface IFirstPersonCamera : IPerspectiveCamera, IRotatableCamera
     {
     }
 }

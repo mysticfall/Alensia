@@ -1,9 +1,6 @@
-﻿using Alensia.Core.Character;
-
-namespace Alensia.Core.Camera
+﻿namespace Alensia.Core.Camera
 {
-    public interface IThirdPersonCamera : IPerspectiveCamera, 
-        ITrackingCamera<ICharacter>, IRotatableCamera
+    public interface IThirdPersonCamera : IPerspectiveCamera, IRotatableCamera
     {
         WallAvoidanceSettings WallAvoidanceSettings { get; }
     }
