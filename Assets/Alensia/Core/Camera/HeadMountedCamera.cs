@@ -63,7 +63,7 @@ namespace Alensia.Core.Camera
                 var offset = Head.TransformDirection(CameraOffset) *
                              CameraOffset.magnitude;
 
-                return (humanoid?.Viewpoint ?? Head.position) + offset;
+                return (humanoid?.Vision?.Pivot ?? Head.position) + offset;
             }
         }
 

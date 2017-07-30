@@ -1,13 +1,16 @@
 using Alensia.Core.Character.Generic;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
+using Alensia.Core.Sensor;
 using UnityEngine;
 
 namespace Alensia.Tests.Character
 {
-    public class DummyCharacter : ICharacter<ILeggedLocomotion>
+    public class DummyCharacter : ICharacter<IBinocularVision, ILeggedLocomotion>
     {
         public string Name => Transform.name;
+
+        public IBinocularVision Vision => null;
 
         public ILeggedLocomotion Locomotion { get; }
 
@@ -18,6 +21,8 @@ namespace Alensia.Tests.Character
         public GameObject GameObject => Transform.gameObject;
 
         public Transform Body { get; }
+
+        IVision ISeeing.Vision => Vision;
 
         ILocomotion ILocomotive.Locomotion => Locomotion;
 

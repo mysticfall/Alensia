@@ -1,50 +1,34 @@
 ﻿using Alensia.Core.Locomotion;
+using Alensia.Core.Sensor;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public class Humanoid : Character<ILeggedLocomotion>, IHumanoid
+    public class Humanoid : Character<IBinocularVision, ILeggedLocomotion>, IHumanoid
     {
         public Transform Head { get; }
 
-        public Transform LeftEye { get; }
-
-        public Transform RightEye { get; }
-
-        public Vector3 Viewpoint
-        {
-            get
-            {
-                if (LeftEye && RightEye)
-                {
-                    return (LeftEye.position + RightEye.position) / 2;
-                }
-
-                return Head ? Head.position : Transform.position;
-            }
-        }
+        public override IBinocularVision Vision { get; }
 
         public override ILeggedLocomotion Locomotion { get; }
 
         public Humanoid(
-            ILeggedLocomotion locomotion,
+            [InjectOptional] IBinocularVision vision,
+            [InjectOptional] ILeggedLocomotion locomotion,
             Animator animator,
             Transform transform) : base(animator, transform)
         {
+            Assert.IsNotNull(vision, "vision != null");
             Assert.IsNotNull(locomotion, "locomotion != null");
 
             Head = GetBodyPart(HumanBodyBones.Head);
 
-            LeftEye = GetBodyPart(HumanBodyBones.LeftEye);
-            RightEye = GetBodyPart(HumanBodyBones.RightEye);
-
+            Vision = vision;
             Locomotion = locomotion;
         }
 
-        public Transform GetBodyPart(HumanBodyBones bone)
-        {
-            return Animator.GetBoneTransform(bone);
-        }
+        public Transform GetBodyPart(HumanBodyBones bone) => Animator.GetBoneTransform(bone);
     }
 }

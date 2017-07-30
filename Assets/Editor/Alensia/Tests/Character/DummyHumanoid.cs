@@ -7,12 +7,6 @@ namespace Alensia.Tests.Character
     {
         public Transform Head { get; }
 
-        public Transform LeftEye => null;
-
-        public Transform RightEye => null;
-
-        public Vector3 Viewpoint => Head.position;
-
         public DummyHumanoid()
         {
             var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);

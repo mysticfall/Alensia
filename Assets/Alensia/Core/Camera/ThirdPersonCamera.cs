@@ -2,7 +2,6 @@
 using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Camera
@@ -25,7 +24,7 @@ namespace Alensia.Core.Camera
             {
                 var humanoid = Target as IHumanoid;
 
-                return humanoid?.Viewpoint ?? Target.Transform.position;
+                return humanoid?.Vision?.Pivot ?? Target.Transform.position;
             }
         }
 
