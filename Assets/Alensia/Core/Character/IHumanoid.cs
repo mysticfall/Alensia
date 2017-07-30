@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Character
 {
-    public interface IHumanoid : ICharacter, IWalker
+    public interface IHumanoid : ICharacter
     {
         Transform Head { get; }
 
@@ -12,6 +12,8 @@ namespace Alensia.Core.Character
         Transform RightEye { get; }
 
         Vector3 Viewpoint { get; }
+
+        IWalkingLocomotion Locomotion { get; }
 
         Transform GetBodyPart(HumanBodyBones bone);
     }
