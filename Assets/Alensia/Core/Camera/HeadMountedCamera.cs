@@ -59,11 +59,10 @@ namespace Alensia.Core.Camera
         {
             get
             {
-                var humanoid = Target as IHumanoid;
                 var offset = Head.TransformDirection(CameraOffset) *
                              CameraOffset.magnitude;
 
-                return (humanoid?.Vision?.Pivot ?? Head.position) + offset;
+                return (Target?.Vision?.Pivot ?? Head.position) + offset;
             }
         }
 

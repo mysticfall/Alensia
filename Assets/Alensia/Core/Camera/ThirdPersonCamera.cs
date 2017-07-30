@@ -18,15 +18,7 @@ namespace Alensia.Core.Camera
 
         public ICharacter Target { get; private set; }
 
-        public override Vector3 Pivot
-        {
-            get
-            {
-                var humanoid = Target as IHumanoid;
-
-                return humanoid?.Vision?.Pivot ?? Target.Transform.position;
-            }
-        }
+        public override Vector3 Pivot => Target.Vision?.Pivot ?? Target.Transform.position;
 
         public override Vector3 AxisForward => Target.Transform.forward;
 
