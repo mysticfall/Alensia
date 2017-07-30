@@ -13,6 +13,8 @@ namespace Alensia.Core.Character
     {
         public virtual string Name => Transform.name;
 
+        public virtual Sex Sex { get; }
+
         public abstract Transform Head { get; }
 
         public abstract TVision Vision { get; }
@@ -29,11 +31,12 @@ namespace Alensia.Core.Character
 
         ILocomotion ILocomotive.Locomotion => Locomotion;
 
-        protected Character(Animator animator, Transform transform)
+        protected Character(Sex sex, Animator animator, Transform transform)
         {
             Assert.IsNotNull(animator, "animator != null");
             Assert.IsNotNull(transform, "transform != null");
 
+            Sex = sex;
             Animator = animator;
             Transform = transform;
         }

@@ -1,3 +1,4 @@
+using Alensia.Core.Character;
 using Alensia.Core.Character.Generic;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Physics;
@@ -9,6 +10,8 @@ namespace Alensia.Tests.Character
     public class DummyCharacter : ICharacter<IBinocularVision, ILeggedLocomotion>
     {
         public string Name => Transform.name;
+
+        public Sex Sex => Sex.Other;
 
         public IBinocularVision Vision => null;
 
