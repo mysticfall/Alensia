@@ -119,17 +119,7 @@ namespace Alensia.Core.Camera
             Assert.IsNotNull(target, "target != null");
 
             Target = target;
-
-            var character = target as IHumanoid;
-
-            if (character == null)
-            {
-                Head = Target.Transform;
-            }
-            else
-            {
-                Head = character.Head ?? Target.Transform;
-            }
+            Head = Target?.Head ?? Target?.Transform;
 
             _initialRotation = Head.localRotation;
         }

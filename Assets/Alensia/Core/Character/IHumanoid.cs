@@ -7,8 +7,6 @@ namespace Alensia.Core.Character
 {
     public interface IHumanoid : ICharacter<IBinocularVision, ILeggedLocomotion>
     {
-        Transform Head { get; }
-
         Transform GetBodyPart(HumanBodyBones bone);
     }
 }

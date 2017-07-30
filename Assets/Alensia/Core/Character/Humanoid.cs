@@ -8,7 +8,7 @@ namespace Alensia.Core.Character
 {
     public class Humanoid : Character<IBinocularVision, ILeggedLocomotion>, IHumanoid
     {
-        public Transform Head { get; }
+        public override Transform Head { get; }
 
         public override IBinocularVision Vision { get; }
 

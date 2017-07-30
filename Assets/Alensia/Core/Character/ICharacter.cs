@@ -4,11 +4,13 @@ using Alensia.Core.Locomotion;
 using Alensia.Core.Locomotion.Generic;
 using Alensia.Core.Sensor;
 using Alensia.Core.Sensor.Generic;
+using UnityEngine;
 
 namespace Alensia.Core.Character
 {
     public interface ICharacter : IEntity, IAnimatable, ISeeing, ILocomotive
     {
+        Transform Head { get; }
     }
 
     namespace Generic

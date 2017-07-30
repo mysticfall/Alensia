@@ -20,6 +20,8 @@ namespace Alensia.Tests.Character
 
         public GameObject GameObject => Transform.gameObject;
 
+        public virtual Transform Head => Body;
+
         public Transform Body { get; }
 
         IVision ISeeing.Vision => Vision;
@@ -38,12 +40,12 @@ namespace Alensia.Tests.Character
 
             Locomotion = new LeggedLocomotion(detector, Animator, Transform);
 
-            var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder).transform;
 
-            Body = body.transform;
+            body.parent = Transform;
+            body.localPosition = new Vector3(0, 0.5f, 0);
 
-            Body.parent = Transform;
-            Body.localPosition = new Vector3(0, 0.5f, 0);
+            Body = body;
         }
     }
 }

@@ -13,15 +13,17 @@ namespace Alensia.Core.Character
     {
         public virtual string Name => Transform.name;
 
+        public abstract Transform Head { get; }
+
+        public abstract TVision Vision { get; }
+
+        public abstract TLocomotion Locomotion { get; }
+
         public Animator Animator { get; }
 
         public Transform Transform { get; }
 
         public GameObject GameObject => Transform.gameObject;
-
-        public abstract TVision Vision { get; }
-
-        public abstract TLocomotion Locomotion { get; }
 
         IVision ISeeing.Vision => Vision;
 

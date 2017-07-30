@@ -5,7 +5,7 @@ namespace Alensia.Tests.Character
 {
     public class DummyHumanoid : DummyCharacter, IHumanoid
     {
-        public Transform Head { get; }
+        public override Transform Head { get; }
 
         public DummyHumanoid()
         {
