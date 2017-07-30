@@ -17,14 +17,14 @@ namespace Alensia.Core.Control
             Assert.IsTrue(controls.Any(), "controls.Any()");
 
             Controls = controls.AsReadOnly();
-
-            //TODO Find a better way to handle cursor mode & visibility.
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         protected override void OnInitialized()
         {
+            //TODO Find a better way to handle cursor mode & visibility.
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             base.OnInitialized();
 
             Activate();
