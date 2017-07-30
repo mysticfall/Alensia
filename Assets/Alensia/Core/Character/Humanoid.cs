@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
-    public class Humanoid : Character, IHumanoid
+    public class Humanoid : Character<ILeggedLocomotion>, IHumanoid
     {
         public Transform Head { get; }
 
@@ -25,7 +25,7 @@ namespace Alensia.Core.Character
             }
         }
 
-        public ILeggedLocomotion Locomotion { get; }
+        public override ILeggedLocomotion Locomotion { get; }
 
         public Humanoid(
             ILeggedLocomotion locomotion,

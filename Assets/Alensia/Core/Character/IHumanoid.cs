@@ -1,9 +1,10 @@
-﻿using Alensia.Core.Locomotion;
+﻿using Alensia.Core.Character.Generic;
+using Alensia.Core.Locomotion;
 using UnityEngine;
 
 namespace Alensia.Core.Character
 {
-    public interface IHumanoid : ICharacter
+    public interface IHumanoid : ICharacter<ILeggedLocomotion>
     {
         Transform Head { get; }
 
@@ -12,8 +13,6 @@ namespace Alensia.Core.Character
         Transform RightEye { get; }
 
         Vector3 Viewpoint { get; }
-
-        ILeggedLocomotion Locomotion { get; }
 
         Transform GetBodyPart(HumanBodyBones bone);
     }
