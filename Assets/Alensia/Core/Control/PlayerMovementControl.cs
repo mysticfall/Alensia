@@ -12,11 +12,11 @@ using Tuple = UniRx.Tuple;
 
 namespace Alensia.Core.Control
 {
-    public class PlayerMovementControl : LocomotionControl<IWalkingLocomotion>, IPlayerControl
+    public class PlayerMovementControl : LocomotionControl<ILeggedLocomotion>, IPlayerControl
     {
         public IHumanoid Player { get; set; }
 
-        public override IWalkingLocomotion Locomotion => Player?.Locomotion;
+        public override ILeggedLocomotion Locomotion => Player?.Locomotion;
 
         public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 

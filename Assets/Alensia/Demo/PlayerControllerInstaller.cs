@@ -11,7 +11,7 @@ namespace Alensia.Demo
 {
     public class PlayerControllerInstaller : MonoInstaller
     {
-        public WalkingLocomotion.Settings Locomotion;
+        public LeggedLocomotion.Settings Locomotion;
 
         public GroundDetectionSettings GroundDetection;
 
@@ -52,8 +52,8 @@ namespace Alensia.Demo
 
         protected virtual void InstallLocomotion()
         {
-            Container.Bind<WalkingLocomotion.Settings>().FromInstance(Locomotion);
-            Container.BindInterfacesAndSelfTo<WalkingLocomotion>().AsSingle();
+            Container.Bind<LeggedLocomotion.Settings>().FromInstance(Locomotion);
+            Container.BindInterfacesAndSelfTo<LeggedLocomotion>().AsSingle();
         }
 
         protected virtual void InstallCharacter()

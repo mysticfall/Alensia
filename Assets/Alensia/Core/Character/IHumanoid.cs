@@ -13,7 +13,7 @@ namespace Alensia.Core.Character
 
         Vector3 Viewpoint { get; }
 
-        IWalkingLocomotion Locomotion { get; }
+        ILeggedLocomotion Locomotion { get; }
 
         Transform GetBodyPart(HumanBodyBones bone);
     }

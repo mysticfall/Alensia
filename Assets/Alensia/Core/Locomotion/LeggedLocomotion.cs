@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public class WalkingLocomotion : AnimatedLocomotion, IWalkingLocomotion
+    public class LeggedLocomotion : AnimatedLocomotion, ILeggedLocomotion
     {
         public WalkSpeedSettings MaximumSpeed => _settings.MaximumSpeed;
 
@@ -35,7 +35,7 @@ namespace Alensia.Core.Locomotion
 
         private readonly Settings _settings;
 
-        public WalkingLocomotion(
+        public LeggedLocomotion(
             IGroundDetector groundDetector,
             Animator animator,
             Transform transform) :
@@ -44,7 +44,7 @@ namespace Alensia.Core.Locomotion
         }
 
         [Inject]
-        public WalkingLocomotion(
+        public LeggedLocomotion(
             [InjectOptional] Settings settings,
             IGroundDetector groundDetector,
             Animator animator,

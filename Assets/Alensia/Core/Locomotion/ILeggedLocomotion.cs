@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Locomotion
 {
-    public interface IWalkingLocomotion : ILocomotion
+    public interface ILeggedLocomotion : ILocomotion
     {
         WalkSpeedSettings MaximumSpeed { get; }
 

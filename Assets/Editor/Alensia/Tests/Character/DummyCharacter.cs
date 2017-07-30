@@ -9,7 +9,7 @@ namespace Alensia.Tests.Character
     {
         public string Name => Transform.name;
 
-        public IWalkingLocomotion Locomotion { get; }
+        public ILeggedLocomotion Locomotion { get; }
 
         public Animator Animator { get; }
 
@@ -29,7 +29,7 @@ namespace Alensia.Tests.Character
             var collider = root.AddComponent<BoxCollider>();
             var detector = new LineCastingGroundDetector(collider);
 
-            Locomotion = new WalkingLocomotion(detector, Animator, Transform);
+            Locomotion = new LeggedLocomotion(detector, Animator, Transform);
 
             var body = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 
