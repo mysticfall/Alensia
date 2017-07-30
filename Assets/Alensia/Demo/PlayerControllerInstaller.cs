@@ -59,7 +59,9 @@ namespace Alensia.Demo
         protected virtual void InstallCharacter()
         {
             Container.BindInterfacesAndSelfTo<HumanEyesight>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Humanoid>().AsSingle().WithArguments(Sex.Male);
+            Container.BindInterfacesAndSelfTo<Humanoid>()
+                .AsSingle()
+                .WithArguments(Sex.Male, Race.Human);
 
             Container
                 .Bind<ReferenceInitializer<IHumanoid>>()

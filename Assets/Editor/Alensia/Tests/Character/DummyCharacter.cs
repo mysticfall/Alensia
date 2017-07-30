@@ -11,6 +11,8 @@ namespace Alensia.Tests.Character
     {
         public string Name => Transform.name;
 
+        public Race Race => Race.Human;
+
         public Sex Sex => Sex.Other;
 
         public IBinocularVision Vision => null;

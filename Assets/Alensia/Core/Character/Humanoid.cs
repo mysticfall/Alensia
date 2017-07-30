@@ -15,11 +15,12 @@ namespace Alensia.Core.Character
         public override ILeggedLocomotion Locomotion { get; }
 
         public Humanoid(
+            [InjectOptional] Race race,
             [InjectOptional] Sex sex,
             [InjectOptional] IBinocularVision vision,
             [InjectOptional] ILeggedLocomotion locomotion,
             Animator animator,
-            Transform transform) : base(sex, animator, transform)
+            Transform transform) : base(race, sex, animator, transform)
         {
             Assert.IsNotNull(vision, "vision != null");
             Assert.IsNotNull(locomotion, "locomotion != null");

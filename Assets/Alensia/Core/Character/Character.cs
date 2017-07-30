@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Character.Generic;
+﻿using System.Linq;
+using Alensia.Core.Character.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Sensor;
@@ -12,6 +13,8 @@ namespace Alensia.Core.Character
         where TLocomotion : class, ILocomotion
     {
         public virtual string Name => Transform.name;
+
+        public virtual Race Race { get; }
 
         public virtual Sex Sex { get; }
 
@@ -31,11 +34,15 @@ namespace Alensia.Core.Character
 
         ILocomotion ILocomotive.Locomotion => Locomotion;
 
-        protected Character(Sex sex, Animator animator, Transform transform)
+        protected Character(Race race, Sex sex, Animator animator, Transform transform)
         {
+            Assert.IsNotNull(race, "race != null");
             Assert.IsNotNull(animator, "animator != null");
             Assert.IsNotNull(transform, "transform != null");
 
+            Assert.IsTrue(race.Sexes.Contains(sex), $"Unsupported sex: '{sex}'.");
+
+            Race = race;
             Sex = sex;
             Animator = animator;
             Transform = transform;
