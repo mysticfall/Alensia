@@ -16,5 +16,7 @@ namespace Alensia.Core.Character.Morph
         IObservable<Sex> OnSexChange { get; }
 
         IObservable<IMorph> OnMorph { get; }
+
+        IObservable<IEnumerable<IMorph>> OnMorphsChange { get; }
     }
 }
