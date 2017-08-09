@@ -55,6 +55,11 @@ namespace Alensia.Core.Character.Morph
             _race = new ReactiveProperty<Race>();
             _morph = new Subject<IMorph>();
             _morphListeners = new CompositeDisposable();
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
             OnSexChange.AsUnitObservable()
                 .Merge(OnRaceChange.AsUnitObservable())
