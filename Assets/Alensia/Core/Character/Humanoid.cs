@@ -17,8 +17,8 @@ namespace Alensia.Core.Character
         public Humanoid(
             [InjectOptional] Race race,
             [InjectOptional] Sex sex,
-            [InjectOptional] IBinocularVision vision,
-            [InjectOptional] ILeggedLocomotion locomotion,
+            IBinocularVision vision,
+            ILeggedLocomotion locomotion,
             Animator animator,
             Transform transform) : base(race, sex, animator, transform)
         {
