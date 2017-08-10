@@ -10,5 +10,15 @@ namespace Alensia.Core.UI
             .Select(c => c.GetComponent<IComponent>())
             .Where(c => c != null)
             .ToList();
+
+        public override void Initialize(IUIContext context)
+        {
+            base.Initialize(context);
+
+            foreach (var child in Children)
+            {
+                child.Initialize(Context);
+            }
+        }
     }
 }

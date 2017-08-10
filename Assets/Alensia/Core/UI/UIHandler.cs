@@ -21,8 +21,8 @@ namespace Alensia.Core.UI
         {
             base.Initialize(context);
 
-            GetComponentsInChildren<IUIElement>(true)
-                .Where(c => !ReferenceEquals(c, this))
+            GetComponents<IUIElement>()
+                .Where(c => !ReferenceEquals(c, this) && c.Context == null)
                 .ToList()
                 .ForEach(c => c.Initialize(context));
         }
