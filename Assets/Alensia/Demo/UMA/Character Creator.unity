@@ -248,7 +248,7 @@ Transform:
   - {fileID: 1248467733}
   - {fileID: 2126135814}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &125631333 stripped
 MonoBehaviour:
@@ -1027,7 +1027,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433544, guid: fe29e3c90ef88194184c6f3656db5ec5, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe29e3c90ef88194184c6f3656db5ec5, type: 2}
@@ -1451,6 +1451,7 @@ GameObject:
   - component: {fileID: 1337684456}
   - component: {fileID: 1337684453}
   - component: {fileID: 1337684457}
+  - component: {fileID: 1337684455}
   m_Layer: 0
   m_Name: CharacterPanel
   m_TagString: Untagged
@@ -1491,7 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1512,6 +1513,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1337684451}
+--- !u!114 &1337684455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1337684451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1337684456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1525,6 +1537,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cursor:
     value: 
+  _background:
+    _color:
+      value: {r: 1, g: 1, b: 1, a: 0.39215687}
+    _image:
+      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    _type:
+      value: 1
   _peerImage: {fileID: 1337684453}
 --- !u!114 &1337684457
 MonoBehaviour:
@@ -1926,8 +1945,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1694286579}
   - component: {fileID: 1694286581}
+  - component: {fileID: 1694286585}
   - component: {fileID: 1694286580}
   - component: {fileID: 1694286582}
+  - component: {fileID: 1694286584}
+  - component: {fileID: 1694286583}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -1988,7 +2010,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cursor:
     value: 
-  _peerImage: {fileID: 0}
+  _background:
+    _color:
+      value: {r: 1, g: 1, b: 1, a: 0}
+    _image:
+      value: {fileID: 0}
+    _type:
+      value: 1
+  _peerImage: {fileID: 1694286585}
 --- !u!114 &1694286582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,6 +2031,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1694286583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1694286578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!222 &1694286584
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1694286578}
+--- !u!114 &1694286585
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1694286578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &1760603115 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11464156, guid: fe29e3c90ef88194184c6f3656db5ec5,

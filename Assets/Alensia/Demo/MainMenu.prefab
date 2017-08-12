@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 114329593579225832}
   - component: {fileID: 114866607889829214}
   - component: {fileID: 114377508874946174}
+  - component: {fileID: 114819378515811128}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -709,6 +710,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cursor:
     value: 
+  _background:
+    _color:
+      value: {r: 1, g: 1, b: 1, a: 0.39215687}
+    _image:
+      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    _type:
+      value: 1
   _peerImage: {fileID: 114377508874946174}
 --- !u!114 &114377508874946174
 MonoBehaviour:
@@ -722,7 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.728}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1177,6 +1185,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3468b3db8d419c745b12124f6432696b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114819378515811128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380675176791754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114822049324978036
