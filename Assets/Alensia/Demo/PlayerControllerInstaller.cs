@@ -64,7 +64,7 @@ namespace Alensia.Demo
                 .WithArguments(Sex.Male, Race.Human);
 
             Container
-                .Bind<ReferenceInitializer<IHumanoid>>()
+                .BindInterfacesAndSelfTo<ReferenceInitializer<IHumanoid>>()
                 .AsSingle()
                 .WithArguments(PlayerController.PlayerAliasName)
                 .NonLazy();
