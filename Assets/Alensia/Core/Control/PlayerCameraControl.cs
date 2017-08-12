@@ -4,6 +4,7 @@ using Alensia.Core.Camera;
 using Alensia.Core.Character;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
+using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -31,6 +32,8 @@ namespace Alensia.Core.Control
         public IBindingKey<IAxisInput> Zoom => ZoomableCameraControl.Keys.Zoom;
 
         protected IAxisInput Scroll { get; private set; }
+
+        public override CursorState CursorState => CursorState.Hidden;
 
         public override bool Valid => base.Valid && Player != null;
 

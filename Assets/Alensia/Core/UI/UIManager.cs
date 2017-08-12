@@ -8,6 +8,7 @@ using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UECursor = UnityEngine.Cursor;
 using Zenject;
 
 namespace Alensia.Core.UI
@@ -21,6 +22,12 @@ namespace Alensia.Core.UI
         public IReadOnlyDictionary<string, ScreenDefinition> ScreenDefinitions { get; }
 
         public Transform ScreenRoot => _settings.ScreenRoot;
+
+        public CursorState CursorState
+        {
+            get { return CursorState.Current; }
+            set { value?.Apply(); }
+        }
 
         public ICursorSet CursorSet
         {

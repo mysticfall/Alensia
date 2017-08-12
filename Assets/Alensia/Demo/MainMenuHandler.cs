@@ -5,7 +5,6 @@ using Alensia.Core.Game;
 using Alensia.Core.I18n;
 using Alensia.Core.UI;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace Alensia.Demo
@@ -53,16 +52,10 @@ namespace Alensia.Demo
             Game.Pause();
 
             Controller.DisablePlayerControl();
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
         }
 
         protected virtual void EnableControls()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
             Controller.EnablePlayerControl();
 
             Game.Resume();

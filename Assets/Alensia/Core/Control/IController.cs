@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Common;
+using Alensia.Core.UI.Cursor;
 
 namespace Alensia.Core.Control
 {
     public interface IController : IActivatable
     {
+        CursorState DefaultCursorState { get; }
+
         IReadOnlyList<IControl> Controls { get; }
 
         T FindControl<T>() where T : IControl;

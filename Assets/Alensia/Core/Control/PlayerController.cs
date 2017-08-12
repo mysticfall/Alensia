@@ -37,6 +37,14 @@ namespace Alensia.Core.Control
             [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
             List<IControl> controls) : base(controls)
         {
+        }
+
+        [Inject]
+        public PlayerController(
+            [InjectOptional] Settings settings,
+            [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
+            List<IControl> controls) : base(settings, controls)
+        {
             Assert.IsNotNull(player, "player != null");
 
             _enabled = new ReactiveProperty<bool>(true);

@@ -5,6 +5,7 @@ using Alensia.Core.Camera;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.Locomotion;
+using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -35,6 +36,8 @@ namespace Alensia.Core.Control
         protected IAxisInput Y { get; private set; }
 
         protected TriggerStateInput Running { get; private set; }
+
+        public override CursorState CursorState => CursorState.Hidden;
 
         public override bool Valid => base.Valid &&
                                       X != null &&

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.Input;
+using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine.Assertions;
 
@@ -13,6 +14,8 @@ namespace Alensia.Core.Control
         public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }
+
+        public virtual CursorState CursorState => null;
 
         public virtual bool Valid => true;
 
