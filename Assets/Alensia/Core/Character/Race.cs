@@ -21,6 +21,8 @@ namespace Alensia.Core.Character
             var values = sexes?.ToList().AsReadOnly();
 
             Assert.IsNotNull(values, "sexes != null");
+
+            // ReSharper disable once AssignNullToNotNullAttribute
             Assert.IsTrue(values.Any(), "sexes.Any()");
 
             Name = name;
@@ -39,6 +41,6 @@ namespace Alensia.Core.Character
 
         public override int GetHashCode() => Name != null ? Name.GetHashCode() : 0;
 
-        public static Race Human => new Race("Human");
+        public static readonly Race Human = new Race("Human");
     }
 }
