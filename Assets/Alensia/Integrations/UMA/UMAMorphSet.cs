@@ -88,7 +88,7 @@ namespace Alensia.Integrations.UMA
         protected virtual void ApplyMorph(int dnaIndex, int valueIndex, float value)
         {
             Data.GetDna(dnaIndex).SetValue(valueIndex, value);
-            Data.ApplyDNA();
+            Avatar.ForceUpdate(true);
         }
 
         protected virtual void ChangeUmaRace(Race race, Sex sex)
