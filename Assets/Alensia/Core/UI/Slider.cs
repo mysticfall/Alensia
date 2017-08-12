@@ -27,7 +27,7 @@ namespace Alensia.Core.UI
             set { _maxValue.Value = value; }
         }
 
-        public IObservable<float> OnValueChange => PeerSlider.onValueChanged.AsObservable();
+        public IObservable<float> OnValueChange => _value;
 
         protected UESlider PeerSlider => _peerSlider;
 
@@ -58,6 +58,11 @@ namespace Alensia.Core.UI
             _minValue.Subscribe(v => PeerSlider.minValue = v).AddTo(this);
             _maxValue.Subscribe(v => PeerSlider.maxValue = v).AddTo(this);
             _value.Subscribe(v => PeerSlider.value = v).AddTo(this);
+
+            PeerSlider
+                .OnValueChangedAsObservable()
+                .Subscribe(v => Value = v)
+                .AddTo(this);
         }
 
         protected override void InitializePeers()
