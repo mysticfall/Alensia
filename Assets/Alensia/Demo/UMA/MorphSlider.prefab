@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114694573522458474}
   - component: {fileID: 114774203966920096}
   m_Layer: 0
-  m_Name: Label(Clone)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,8 +213,25 @@ MonoBehaviour:
     value: 
   _text:
     value:
-      _text: Label
+      _text: Name
       _textKey: 
+  _textStyle:
+    _font:
+      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    _fontSize:
+      value: 14
+    _fontStyle:
+      value: 0
+    _alignment:
+      value: 5
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 1
+    _color:
+      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114301930527760742}
 --- !u!114 &114175885014205746
 MonoBehaviour:
@@ -318,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Label
+  m_Text: Name
 --- !u!114 &114356721549551066
 MonoBehaviour:
   m_ObjectHideFlags: 1

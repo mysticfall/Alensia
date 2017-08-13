@@ -46,6 +46,23 @@ MonoBehaviour:
     value:
       _text: Label
       _textKey: 
+  _textStyle:
+    _font:
+      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    _fontSize:
+      value: 14
+    _fontStyle:
+      value: 0
+    _alignment:
+      value: 5
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 1
+    _color:
+      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114999132761552264}
 --- !u!114 &114999132761552264
 MonoBehaviour:
@@ -73,7 +90,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

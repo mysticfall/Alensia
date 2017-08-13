@@ -1,7 +1,8 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UniRx;
+ using Alensia.Core.UI.Property;
+ using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -29,6 +30,10 @@ namespace Alensia.Core.UI
                 PeerDropdown.value = index;
             }
         }
+
+        public TextStyle TextStyle => _textStyle;
+
+        public TextStyle ItemTextStyle => _itemTextStyle;
 
         public UniRx.IObservable<string> OnValueChange
         {
@@ -59,6 +64,10 @@ namespace Alensia.Core.UI
 
         [SerializeField] private DropdownItemList _items;
 
+        [SerializeField] private TextStyle _textStyle;
+
+        [SerializeField] private TextStyle _itemTextStyle;
+
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
         [SerializeField, HideInInspector] private Image _peerImage;
@@ -75,6 +84,13 @@ namespace Alensia.Core.UI
                 .Merge(OnItemsChange)
                 .Subscribe(UpdateItems)
                 .AddTo(this);
+
+            TextStyle.OnChange
+                .Subscribe(i => i.Update(PeerDropdown.captionText))
+                .AddTo(this);
+            ItemTextStyle.OnChange
+                .Subscribe(i => i.Update(PeerDropdown.itemText))
+                .AddTo(this);
         }
 
         protected override void InitializePeers()
@@ -90,6 +106,9 @@ namespace Alensia.Core.UI
             base.ValidateProperties();
 
             UpdateItems(_items.Value);
+
+            TextStyle.Update(PeerDropdown.captionText);
+            ItemTextStyle.Update(PeerDropdown.itemText);
         }
 
         private void UpdateItems(IEnumerable<DropdownItem> items)
@@ -98,6 +117,19 @@ namespace Alensia.Core.UI
 
             PeerDropdown.ClearOptions();
             PeerDropdown.AddOptions(options);
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            var source = CreateInstance();
+
+            TextStyle.Load(source.PeerDropdown.captionText);
+            TextStyle.Update(PeerDropdown.captionText);
+
+            ItemTextStyle.Load(source.PeerDropdown.itemText);
+            ItemTextStyle.Update(PeerDropdown.itemText);
         }
 
         public static Dropdown CreateInstance()

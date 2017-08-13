@@ -42,10 +42,7 @@ namespace Alensia.Core.UI
         {
             base.ValidateProperties();
 
-            if (PeerImage != null)
-            {
-                Background.Update(PeerImage);
-            }
+            Background.Update(PeerImage);
         }
 
         protected override void Reset()
@@ -55,11 +52,7 @@ namespace Alensia.Core.UI
             var source = CreateInstance();
 
             Background.Load(source.PeerImage);
-
-            if (PeerImage != null)
-            {
-                Background.Update(PeerImage);
-            }
+            Background.Update(PeerImage);
 
             DestroyImmediate(source.gameObject);
         }

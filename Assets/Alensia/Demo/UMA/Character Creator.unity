@@ -648,6 +648,51 @@ Prefab:
       propertyPath: _cursor.value
       value: pointer
       objectReference: {fileID: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _itemTextStyle._font.value
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _itemTextStyle._fontSize.value
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _itemTextStyle._alignment.value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _itemTextStyle._lineSpacing.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b472291d2d02f4b3688c1073583adbb5, type: 2}
   m_IsPrefabParent: 0
@@ -1542,7 +1587,7 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 5
     m_AlignByGeometry: 0
@@ -1575,6 +1620,14 @@ MonoBehaviour:
       value: 14
     _fontStyle:
       value: 0
+    _alignment:
+      value: 5
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 1
     _color:
       value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 1328764802}

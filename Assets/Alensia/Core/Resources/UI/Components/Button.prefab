@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -165,6 +165,23 @@ MonoBehaviour:
     value:
       _text: Button
       _textKey: 
+  _textStyle:
+    _font:
+      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    _fontSize:
+      value: 14
+    _fontStyle:
+      value: 0
+    _alignment:
+      value: 4
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 1
+    _color:
+      value: {r: 0, g: 0, b: 0, a: 0}
   _peerText: {fileID: 114124297214373316}
   _peerButton: {fileID: 114628842922068366}
   _peerImage: {fileID: 114488296357916368}

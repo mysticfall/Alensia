@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Alensia.Core.I18n;
+using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,6 +21,8 @@ namespace Alensia.Core.UI
             }
         }
 
+        public TextStyle TextStyle => _textStyle;
+
         protected virtual string DefaultText => "Label";
 
         protected Text PeerText => _peerText;
@@ -38,6 +41,8 @@ namespace Alensia.Core.UI
 
         [SerializeField] private TranslatableTextReactiveProperty _text;
 
+        [SerializeField] private TextStyle _textStyle;
+
         [SerializeField, HideInInspector] private Text _peerText;
 
         protected override void InitializePeers()
@@ -52,6 +57,8 @@ namespace Alensia.Core.UI
             base.ValidateProperties();
 
             PeerText.text = Text.Text;
+
+            TextStyle.Update(PeerText);
         }
 
         public override void Initialize(IUIContext context)
@@ -67,6 +74,8 @@ namespace Alensia.Core.UI
                 .Select(text => text.Translate(Context.Translator))
                 .Subscribe(text => PeerText.text = text)
                 .AddTo(this);
+
+            TextStyle.OnChange.Subscribe(i => i.Update(PeerText)).AddTo(this);
         }
 
         protected override void Reset()
@@ -76,6 +85,13 @@ namespace Alensia.Core.UI
             _text.Value = new TranslatableText(DefaultText);
 
             PeerText.text = DefaultText;
+
+            var source = CreateInstance();
+
+            TextStyle.Load(source.PeerText);
+            TextStyle.Update(PeerText);
+
+            DestroyImmediate(source.gameObject);
         }
 
         public static Label CreateInstance()

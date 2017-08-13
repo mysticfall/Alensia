@@ -252,18 +252,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 0}
+    m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0
   m_Text: Option A
 --- !u!114 &114241093444413758
 MonoBehaviour:
@@ -495,6 +495,40 @@ MonoBehaviour:
     value: 
   _items:
     value: []
+  _textStyle:
+    _font:
+      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    _fontSize:
+      value: 14
+    _fontStyle:
+      value: 0
+    _alignment:
+      value: 3
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 1
+    _color:
+      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  _itemTextStyle:
+    _font:
+      value: {fileID: 0}
+    _fontSize:
+      value: 0
+    _fontStyle:
+      value: 0
+    _alignment:
+      value: 0
+    _horizontalOverflow:
+      value: 0
+    _verticalOverflow:
+      value: 0
+    _lineSpacing:
+      value: 0
+    _color:
+      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerDropdown: {fileID: 114241093444413758}
   _peerImage: {fileID: 114946013102959140}
 --- !u!114 &114868206731091520
