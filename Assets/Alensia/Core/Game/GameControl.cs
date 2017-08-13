@@ -70,7 +70,7 @@ namespace Alensia.Core.Game
 
                 if (menu == null)
                 {
-                    screen.ShowUI<UIHandler>(MainMenu);
+                    screen.ShowUI<IUIHandler>(MainMenu);
                 }
                 else
                 {

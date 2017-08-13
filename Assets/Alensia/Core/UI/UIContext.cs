@@ -3,6 +3,7 @@ using Alensia.Core.I18n;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
+using UEObject = UnityEngine.Object;
 
 namespace Alensia.Core.UI
 {
@@ -32,7 +33,7 @@ namespace Alensia.Core.UI
 
             if (item.scene != parent.gameObject.scene)
             {
-                ui = DiContainer.InstantiatePrefabForComponent<TUI>(item, parent);
+                ui = UEObject.Instantiate(item, parent).GetComponent<TUI>();
             }
             else
             {

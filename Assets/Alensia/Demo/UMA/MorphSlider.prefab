@@ -74,8 +74,10 @@ GameObject:
   - component: {fileID: 224040125183065004}
   - component: {fileID: 222288033701038980}
   - component: {fileID: 114356721549551066}
+  - component: {fileID: 114360615742727808}
   - component: {fileID: 114440023511324566}
   - component: {fileID: 114384853026187584}
+  - component: {fileID: 114175885014205746}
   m_Layer: 0
   m_Name: MorphSlider
   m_TagString: Untagged
@@ -214,6 +216,17 @@ MonoBehaviour:
       _text: Label
       _textKey: 
   _peerText: {fileID: 114301930527760742}
+--- !u!114 &114175885014205746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1560796178021158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114208239621241304
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -317,8 +330,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46314efe0754080a96851a88f435161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114360615742727808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1560796178021158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebc6fb8e2db4811b198a10159423c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _cursor:
     value: 
+  _background:
+    _color:
+      value: {r: 1, g: 1, b: 1, a: 0.39215687}
+    _image:
+      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    _type:
+      value: 1
   _peerImage: {fileID: 114384853026187584}
 --- !u!114 &114384853026187584
 MonoBehaviour:
@@ -332,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

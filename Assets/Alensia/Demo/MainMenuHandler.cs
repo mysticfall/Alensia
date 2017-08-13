@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Alensia.Demo
 {
-    public class MainMenuHandler : UIHandler
+    public class MainMenuHandler : UIHandler<Panel>
     {
         [Inject, NonSerialized] public IGame Game;
 

@@ -6,7 +6,7 @@ using UniRx;
 
 namespace Alensia.Demo.UMA
 {
-    public class MorphSlider : Panel
+    public class MorphSlider : ComponentHandler<Panel>
     {
         public RangedMorph<float> Morph
         {
