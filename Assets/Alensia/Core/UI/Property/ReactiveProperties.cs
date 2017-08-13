@@ -3,7 +3,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Property
 {
     [Serializable]
     public class SpriteReactiveProperty : ReactiveProperty<Sprite>
@@ -18,25 +18,25 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
-    public class ImageTypeProperty : ReactiveProperty<Image.Type>
+    public class ImageTypeReactiveProperty : ReactiveProperty<Image.Type>
     {
-        public ImageTypeProperty()
+        public ImageTypeReactiveProperty()
         {
         }
 
-        public ImageTypeProperty(Image.Type type) : base(type)
+        public ImageTypeReactiveProperty(Image.Type type) : base(type)
         {
         }
     }
 
     [Serializable]
-    public class ColorProperty : ReactiveProperty<Color>
+    public class ColorReactiveProperty : ReactiveProperty<Color>
     {
-        public ColorProperty()
+        public ColorReactiveProperty()
         {
         }
 
-        public ColorProperty(Color color) : base(color)
+        public ColorReactiveProperty(Color color) : base(color)
         {
         }
     }

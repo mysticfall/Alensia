@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -8,7 +9,7 @@ namespace Alensia.Core.UI
 {
     public class Panel : UIContainer
     {
-        public ImageProperty Background => _background;
+        public ImageAndColor Background => _background;
 
         protected Image PeerImage => _peerImage;
 
@@ -24,7 +25,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        [SerializeField] private ImageProperty _background;
+        [SerializeField] private ImageAndColor _background;
 
         [SerializeField, HideInInspector] private Image _peerImage;
 

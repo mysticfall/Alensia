@@ -4,10 +4,10 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class ImageProperty : ICompositeProperty<ImageProperty, Image>
+    public class ImageAndColor : ICompositeProperty<ImageAndColor, Image>
     {
         public Color Color
         {
@@ -27,7 +27,7 @@ namespace Alensia.Core.UI
             set { _type.Value = value; }
         }
 
-        public UniRx.IObservable<ImageProperty> OnChange
+        public UniRx.IObservable<ImageAndColor> OnChange
         {
             get
             {
@@ -37,17 +37,17 @@ namespace Alensia.Core.UI
             }
         }
 
-        [SerializeField] private ColorProperty _color;
+        [SerializeField] private ColorReactiveProperty _color;
 
         [SerializeField] private SpriteReactiveProperty _image;
 
-        [SerializeField] private ImageTypeProperty _type;
+        [SerializeField] private ImageTypeReactiveProperty _type;
 
-        public ImageProperty()
+        public ImageAndColor()
         {
-            _color = new ColorProperty();
+            _color = new ColorReactiveProperty();
             _image = new SpriteReactiveProperty();
-            _type = new ImageTypeProperty();
+            _type = new ImageTypeReactiveProperty();
         }
 
         public void Load(Image value)
