@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Alensia.Demo
 {
-    public class PlayerControllerInstaller : MonoInstaller
+    public class CharacterInstaller : MonoInstaller
     {
         public LeggedLocomotion.Settings Locomotion;
 

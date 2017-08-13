@@ -2,11 +2,13 @@
 
 namespace Alensia.Demo.UMA
 {
-    public class UMADemoInstaller : GameInstaller
+    public class UMADemoInstaller : SceneInstaller
     {
-        protected override void InstallGame()
+        public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<UMADemo>().AsSingle().NonLazy();
+            base.InstallBindings();
+
+            Container.BindInterfacesAndSelfTo<UMADemoScene>().AsSingle().NonLazy();
         }
 
         protected override void InstallCameras()

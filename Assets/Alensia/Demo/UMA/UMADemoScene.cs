@@ -2,23 +2,21 @@
 using Alensia.Core.Character;
 using Alensia.Core.Common;
 using Alensia.Core.Control;
-using Alensia.Core.Game;
 using UniRx;
 using Zenject;
 
 namespace Alensia.Demo.UMA
 {
-    public class UMADemo : Game
+    public class UMADemoScene : BaseObject
     {
         public IPlayerController Controller { get; }
 
         public ICameraManager CamaraManager { get; }
 
-        public UMADemo(
+        public UMADemoScene(
             [Inject(Id = PlayerController.PlayerAliasName)] IReferenceAlias<IHumanoid> player,
             IPlayerController controller,
-            ICameraManager camaraManager,
-            [InjectOptional] Settings settings) : base(settings)
+            ICameraManager camaraManager)
         {
             Controller = controller;
             CamaraManager = camaraManager;

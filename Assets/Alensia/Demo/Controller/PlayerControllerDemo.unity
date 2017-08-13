@@ -748,6 +748,8 @@ MonoBehaviour:
   _parentNewObjectsUnderRoot: 0
   _contractNames: []
   _parentContractName: 
+  _parentContractNames: []
+  _autoRun: 1
 --- !u!4 &1506224612
 Transform:
   m_ObjectHideFlags: 0
@@ -797,15 +799,6 @@ MonoBehaviour:
     WallAvoidance:
       AvoidWalls: 1
       MinimumDistance: 0.1
-  Locale:
-    DefaultLocale:
-      _tag: en-US
-    SupportedLocales:
-    - _tag: en-US
-    - _tag: ko-KR
-  Translations:
-    BaseName: Messages
-    ResourcePath: Translations
   UI:
     CursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
     ScreenRoot: {fileID: 845667511}

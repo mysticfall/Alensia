@@ -7,7 +7,7 @@ using UMA.CharacterSystem;
 
 namespace Alensia.Demo.UMA
 {
-    public class UMACharacterInstaller : PlayerControllerInstaller
+    public class UMACharacterInstaller : CharacterInstaller
     {
         protected override void InstallCharacter()
         {
