@@ -12,7 +12,7 @@ using Zenject;
 
 namespace Alensia.Demo.UMA
 {
-    public class CharacterPanelHandler : UIHandler<Panel>
+    public class CharacterCustomizer : UIHandler<Panel>
     {
         [Inject(Id = PlayerController.PlayerAliasName), NonSerialized] public IReferenceAlias<IHumanoid> Alias;
 
