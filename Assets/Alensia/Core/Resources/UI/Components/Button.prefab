@@ -176,6 +176,8 @@ MonoBehaviour:
       _lineSpacing: 1
       _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114124297214373316}
+  _interactable:
+    value: 1
   _peerButton: {fileID: 114628842922068366}
   _peerImage: {fileID: 114488296357916368}
 --- !u!222 &222440854348783930
