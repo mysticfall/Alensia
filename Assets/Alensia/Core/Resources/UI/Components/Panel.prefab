@@ -43,12 +43,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0.39215687}
-    _image:
-      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerImage: {fileID: 114970555900841560}
 --- !u!114 &114970555900841560
 MonoBehaviour:

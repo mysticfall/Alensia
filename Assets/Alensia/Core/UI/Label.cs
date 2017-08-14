@@ -21,7 +21,16 @@ namespace Alensia.Core.UI
             }
         }
 
-        public TextStyle TextStyle => _textStyle;
+        public TextStyle TextStyle
+        {
+            get { return _textStyle.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _textStyle.Value = value;
+            }
+        }
 
         protected virtual string DefaultText => "Label";
 
@@ -41,7 +50,7 @@ namespace Alensia.Core.UI
 
         [SerializeField] private TranslatableTextReactiveProperty _text;
 
-        [SerializeField] private TextStyle _textStyle;
+        [SerializeField] private TextStyleReactiveProperty _textStyle;
 
         [SerializeField, HideInInspector] private Text _peerText;
 
@@ -75,7 +84,9 @@ namespace Alensia.Core.UI
                 .Subscribe(text => PeerText.text = text)
                 .AddTo(this);
 
-            TextStyle.OnChange.Subscribe(i => i.Update(PeerText)).AddTo(this);
+            _textStyle
+                .Subscribe(s => s.Update(PeerText))
+                .AddTo(this);
         }
 
         protected override void Reset()

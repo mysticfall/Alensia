@@ -216,22 +216,15 @@ MonoBehaviour:
       _text: Name
       _textKey: 
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 5
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 5
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114301930527760742}
 --- !u!114 &114175885014205746
 MonoBehaviour:
@@ -327,7 +320,7 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 5
     m_AlignByGeometry: 0
@@ -361,12 +354,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0.39215687}
-    _image:
-      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerImage: {fileID: 114384853026187584}
 --- !u!114 &114384853026187584
 MonoBehaviour:

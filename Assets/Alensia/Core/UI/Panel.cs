@@ -9,7 +9,16 @@ namespace Alensia.Core.UI
 {
     public class Panel : UIContainer
     {
-        public ImageAndColor Background => _background;
+        public ImageAndColor Background
+        {
+            get { return _background.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _background.Value = value;
+            }
+        }
 
         protected Image PeerImage => _peerImage;
 
@@ -25,7 +34,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        [SerializeField] private ImageAndColor _background;
+        [SerializeField] private ImageAndColorReactiveProperty _background;
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
@@ -35,7 +44,9 @@ namespace Alensia.Core.UI
 
             _peerImage = GetComponentInChildren<Image>();
 
-            Background.OnChange.Subscribe(i => i.Update(PeerImage)).AddTo(this);
+            _background
+                .Subscribe(b => b.Update(PeerImage))
+                .AddTo(this);
         }
 
         protected override void ValidateProperties()

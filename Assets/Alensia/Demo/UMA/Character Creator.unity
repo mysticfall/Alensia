@@ -1514,12 +1514,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0.39215687}
-    _image:
-      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerImage: {fileID: 1317750326}
 --- !u!222 &1317750328
 CanvasRenderer:
@@ -1539,7 +1537,7 @@ GameObject:
   - component: {fileID: 1328764803}
   - component: {fileID: 1328764802}
   m_Layer: 0
-  m_Name: Label(Clone)
+  m_Name: LabelSex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1614,22 +1612,15 @@ MonoBehaviour:
       _text: Sex
       _textKey: 
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 5
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 5
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 1328764802}
 --- !u!222 &1328764804
 CanvasRenderer:
@@ -1735,12 +1726,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0.39215687}
-    _image:
-      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerImage: {fileID: 1337684453}
 --- !u!1 &1410430650
 GameObject:
@@ -1805,7 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1813,7 +1802,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1834,12 +1823,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0}
-    _image:
-      value: {fileID: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _image: {fileID: 0}
+      _type: 0
   _peerImage: {fileID: 1410430653}
 --- !u!222 &1410430655
 CanvasRenderer:
@@ -2219,12 +2206,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0}
-    _image:
-      value: {fileID: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 0, g: 0, b: 0, a: 0}
+      _image: {fileID: 0}
+      _type: 0
   _peerImage: {fileID: 1694286585}
 --- !u!114 &1694286582
 MonoBehaviour:
@@ -2268,7 +2253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2276,7 +2261,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

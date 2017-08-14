@@ -9,123 +9,243 @@ namespace Alensia.Core.UI.Property
     [Serializable]
     public class TextStyle : ICompositeProperty<TextStyle, Text>
     {
-        public Font Font
+        public Font Font => _font;
+
+        public int FontSize => _fontSize;
+
+        public FontStyle FontStyle => _fontStyle;
+
+        public Color Color => _color;
+
+        public TextAnchor Alignment => _alignment;
+
+        public HorizontalWrapMode HorizontalOverflow => _horizontalOverflow;
+
+        public VerticalWrapMode VerticalOverflow => _verticalOverflow;
+
+        public float LineSpacing => _lineSpacing;
+
+        [SerializeField] private Font _font;
+
+        [SerializeField] private int _fontSize;
+
+        [SerializeField] private FontStyle _fontStyle;
+
+        [SerializeField] private TextAnchor _alignment;
+
+        [SerializeField] private HorizontalWrapMode _horizontalOverflow;
+
+        [SerializeField] private VerticalWrapMode _verticalOverflow;
+
+        [SerializeField] private float _lineSpacing;
+
+        [SerializeField] private Color _color;
+
+        public TextStyle(
+            Font font,
+            int fontSize,
+            FontStyle fontStyle,
+            TextAnchor alignment,
+            HorizontalWrapMode horizontalOverflow,
+            VerticalWrapMode verticalOverflow,
+            float lineSpacing,
+            Color color)
         {
-            get { return _font.Value; }
-            set { _font.Value = value; }
-        }
-
-        public int FontSize
-        {
-            get { return _fontSize.Value; }
-            set { _fontSize.Value = value; }
-        }
-
-        public FontStyle FontStyle
-        {
-            get { return _fontStyle.Value; }
-            set { _fontStyle.Value = value; }
-        }
-
-        public Color Color
-        {
-            get { return _color.Value; }
-            set { _color.Value = value; }
-        }
-
-        public TextAnchor Alignment
-        {
-            get { return _alignment.Value; }
-            set { _alignment.Value = value; }
-        }
-
-        public HorizontalWrapMode HorizontalOverflow
-        {
-            get { return _horizontalOverflow.Value; }
-            set { _horizontalOverflow.Value = value; }
-        }
-
-        public VerticalWrapMode VerticalOverflow
-        {
-            get { return _verticalOverflow.Value; }
-            set { _verticalOverflow.Value = value; }
-        }
-
-        public float LineSpacing
-        {
-            get { return _lineSpacing.Value; }
-            set { _lineSpacing.Value = value; }
-        }
-
-        public UniRx.IObservable<TextStyle> OnChange
-        {
-            get
-            {
-                return _font.Select(_ => this)
-                    .Merge(_fontSize.Select(_ => this))
-                    .Merge(_fontStyle.Select(_ => this))
-                    .Merge(_color.Select(_ => this))
-                    .Merge(_alignment.Select(_ => this))
-                    .Merge(_horizontalOverflow.Select(_ => this))
-                    .Merge(_verticalOverflow.Select(_ => this))
-                    .Merge(_lineSpacing.Select(_ => this));
-            }
-        }
-
-        [SerializeField] private FontReactiveProperty _font;
-
-        [SerializeField] private IntReactiveProperty _fontSize;
-
-        [SerializeField] private FontStyleReactiveProperty _fontStyle;
-
-        [SerializeField] private TextAnchorReactiveProperty _alignment;
-
-        [SerializeField] private HorizontalWrapModeReactiveProperty _horizontalOverflow;
-
-        [SerializeField] private VerticalWrapModeReactiveProperty _verticalOverflow;
-
-        [SerializeField] private FloatReactiveProperty _lineSpacing;
-
-        [SerializeField] private ColorReactiveProperty _color;
-
-        public TextStyle()
-        {
-            _font = new FontReactiveProperty();
-            _fontSize = new IntReactiveProperty();
-            _fontStyle = new FontStyleReactiveProperty();
-            _color = new ColorReactiveProperty();
-            _alignment = new TextAnchorReactiveProperty();
-            _horizontalOverflow = new HorizontalWrapModeReactiveProperty();
-            _verticalOverflow = new VerticalWrapModeReactiveProperty();
-            _lineSpacing = new FloatReactiveProperty();
+            _font = font;
+            _fontSize = fontSize;
+            _fontStyle = fontStyle;
+            _alignment = alignment;
+            _horizontalOverflow = horizontalOverflow;
+            _verticalOverflow = verticalOverflow;
+            _lineSpacing = lineSpacing;
+            _color = color;
         }
 
         public void Load(Text value)
         {
             Assert.IsNotNull(value);
 
-            _font.Value = value.font;
-            _fontSize.Value = value.fontSize;
-            _fontStyle.Value = value.fontStyle;
-            _color.Value = value.color;
-            _alignment.Value = value.alignment;
-            _horizontalOverflow.Value = value.horizontalOverflow;
-            _verticalOverflow.Value = value.verticalOverflow;
-            _lineSpacing.Value = value.lineSpacing;
+            _font = value.font;
+            _fontSize = value.fontSize;
+            _fontStyle = value.fontStyle;
+            _color = value.color;
+            _alignment = value.alignment;
+            _horizontalOverflow = value.horizontalOverflow;
+            _verticalOverflow = value.verticalOverflow;
+            _lineSpacing = value.lineSpacing;
         }
 
         public void Update(Text value)
         {
             Assert.IsNotNull(value);
 
-            value.font = _font.Value;
-            value.fontSize = _fontSize.Value;
-            value.fontStyle = _fontStyle.Value;
-            value.color = _color.Value;
-            value.alignment = _alignment.Value;
-            value.horizontalOverflow = _horizontalOverflow.Value;
-            value.verticalOverflow = _verticalOverflow.Value;
-            value.lineSpacing = _lineSpacing.Value;
+            value.font = _font;
+            value.fontSize = _fontSize;
+            value.fontStyle = _fontStyle;
+            value.color = _color;
+            value.alignment = _alignment;
+            value.horizontalOverflow = _horizontalOverflow;
+            value.verticalOverflow = _verticalOverflow;
+            value.lineSpacing = _lineSpacing;
+        }
+
+        public static TextStyle Default =>
+            new TextStyle(
+                new Font("Arial"),
+                14,
+                FontStyle.Normal,
+                TextAnchor.MiddleCenter,
+                HorizontalWrapMode.Wrap,
+                VerticalWrapMode.Truncate,
+                1f,
+                Color.black);
+
+        public TextStyle WithFont(Font font) =>
+            new TextStyle(
+                font,
+                FontSize,
+                FontStyle,
+                Alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithFontSize(int fontSize) =>
+            new TextStyle(
+                Font,
+                fontSize,
+                FontStyle,
+                Alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithFontStyle(FontStyle fontStyle) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                fontStyle,
+                Alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithAlignment(TextAnchor alignment) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                FontStyle,
+                alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithHorizontalOverflow(HorizontalWrapMode overflow) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                FontStyle,
+                Alignment,
+                overflow,
+                VerticalOverflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithVerticalOverflow(VerticalWrapMode overflow) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                FontStyle,
+                Alignment,
+                HorizontalOverflow,
+                overflow,
+                LineSpacing,
+                Color);
+
+        public TextStyle WithLineSpacing(float lineSpacing) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                FontStyle,
+                Alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                lineSpacing,
+                Color);
+
+        public TextStyle WithColor(Color color) =>
+            new TextStyle(
+                Font,
+                FontSize,
+                FontStyle,
+                Alignment,
+                HorizontalOverflow,
+                VerticalOverflow,
+                LineSpacing,
+                color);
+
+        protected bool Equals(TextStyle other)
+        {
+            return Equals(_font, other._font) &&
+                   _fontSize == other._fontSize &&
+                   _fontStyle == other._fontStyle &&
+                   _alignment == other._alignment &&
+                   _horizontalOverflow == other._horizontalOverflow &&
+                   _verticalOverflow == other._verticalOverflow &&
+                   _lineSpacing.Equals(other._lineSpacing) &&
+                   _color.Equals(other._color);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+
+            return obj.GetType() == typeof(TextStyle) && Equals((TextStyle) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Font != null ? Font.GetHashCode() : 0);
+
+                hashCode = (hashCode * 397) ^ FontSize;
+                hashCode = (hashCode * 397) ^ (int) FontStyle;
+                hashCode = (hashCode * 397) ^ (int) Alignment;
+                hashCode = (hashCode * 397) ^ (int) HorizontalOverflow;
+                hashCode = (hashCode * 397) ^ (int) VerticalOverflow;
+                hashCode = (hashCode * 397) ^ LineSpacing.GetHashCode();
+                hashCode = (hashCode * 397) ^ Color.GetHashCode();
+                
+                return hashCode;
+            }
+        }
+    }
+
+    [Serializable]
+    public class TextStyleReactiveProperty : ReactiveProperty<TextStyle>
+    {
+        public TextStyleReactiveProperty()
+        {
+        }
+
+        public TextStyleReactiveProperty(
+            TextStyle initialValue) : base(initialValue)
+        {
+        }
+
+        public TextStyleReactiveProperty(UniRx.IObservable<TextStyle> source) : base(source)
+        {
+        }
+
+        public TextStyleReactiveProperty(UniRx.IObservable<TextStyle> source,
+            TextStyle initialValue) : base(source, initialValue)
+        {
         }
     }
 }

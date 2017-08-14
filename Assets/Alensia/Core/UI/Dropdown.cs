@@ -1,8 +1,8 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
- using Alensia.Core.UI.Property;
- using UniRx;
+using Alensia.Core.UI.Property;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -31,9 +31,27 @@ namespace Alensia.Core.UI
             }
         }
 
-        public TextStyle TextStyle => _textStyle;
+        public TextStyle TextStyle
+        {
+            get { return _textStyle.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
 
-        public TextStyle ItemTextStyle => _itemTextStyle;
+                _textStyle.Value = value;
+            }
+        }
+
+        public TextStyle ItemTextStyle
+        {
+            get { return _itemTextStyle.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _itemTextStyle.Value = value;
+            }
+        }
 
         public UniRx.IObservable<string> OnValueChange
         {
@@ -64,9 +82,9 @@ namespace Alensia.Core.UI
 
         [SerializeField] private DropdownItemList _items;
 
-        [SerializeField] private TextStyle _textStyle;
+        [SerializeField] private TextStyleReactiveProperty _textStyle;
 
-        [SerializeField] private TextStyle _itemTextStyle;
+        [SerializeField] private TextStyleReactiveProperty _itemTextStyle;
 
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
@@ -85,10 +103,10 @@ namespace Alensia.Core.UI
                 .Subscribe(UpdateItems)
                 .AddTo(this);
 
-            TextStyle.OnChange
+            _textStyle
                 .Subscribe(i => i.Update(PeerDropdown.captionText))
                 .AddTo(this);
-            ItemTextStyle.OnChange
+            _itemTextStyle
                 .Subscribe(i => i.Update(PeerDropdown.itemText))
                 .AddTo(this);
         }

@@ -402,22 +402,15 @@ MonoBehaviour:
       _text: Language
       _textKey: windows.MainMenu.labels.language
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 5
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 5
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114529602938129140}
 --- !u!114 &114051819000332264
 MonoBehaviour:
@@ -690,7 +683,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -713,39 +706,25 @@ MonoBehaviour:
   _items:
     value: []
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 3
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 3
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _itemTextStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 3
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 0
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerDropdown: {fileID: 114525035802199994}
   _peerImage: {fileID: 114555484734527204}
 --- !u!114 &114329593579225832
@@ -762,12 +741,10 @@ MonoBehaviour:
   _cursor:
     value: 
   _background:
-    _color:
-      value: {r: 1, g: 1, b: 1, a: 0.39215687}
-    _image:
-      value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    _type:
-      value: 1
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerImage: {fileID: 114377508874946174}
 --- !u!114 &114377508874946174
 MonoBehaviour:
@@ -1156,22 +1133,15 @@ MonoBehaviour:
       _text: Alensia Demo
       _textKey: windows.MainMenu.title
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 18
-    _fontStyle:
-      value: 1
-    _alignment:
-      value: 4
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 16
+      _fontStyle: 1
+      _alignment: 4
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114909245899537894}
 --- !u!114 &114742590780008002
 MonoBehaviour:
@@ -1361,7 +1331,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -1449,22 +1419,15 @@ MonoBehaviour:
       _text: Return to Game
       _textKey: windows.MainMenu.buttons.resume
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 4
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 4
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114742590780008002}
   _peerButton: {fileID: 114133487399891274}
   _peerImage: {fileID: 114054500568444182}
@@ -1486,22 +1449,15 @@ MonoBehaviour:
       _text: Quit to Desktop
       _textKey: windows.MainMenu.buttons.quit
   _textStyle:
-    _font:
-      value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    _fontSize:
-      value: 14
-    _fontStyle:
-      value: 0
-    _alignment:
-      value: 4
-    _horizontalOverflow:
-      value: 0
-    _verticalOverflow:
-      value: 0
-    _lineSpacing:
-      value: 1
-    _color:
-      value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    value:
+      _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize: 14
+      _fontStyle: 0
+      _alignment: 4
+      _horizontalOverflow: 0
+      _verticalOverflow: 0
+      _lineSpacing: 1
+      _color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   _peerText: {fileID: 114556605941413300}
   _peerButton: {fileID: 114519925065443804}
   _peerImage: {fileID: 114838750678288576}
