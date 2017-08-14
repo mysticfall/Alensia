@@ -22,7 +22,7 @@ namespace Alensia.Core.UI
 
         protected Image PeerImage => _peerImage;
 
-        protected override IList<Component> Peers
+        protected override IList<Object> Peers
         {
             get
             {

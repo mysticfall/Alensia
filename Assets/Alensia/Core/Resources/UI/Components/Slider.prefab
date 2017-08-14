@@ -30,7 +30,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1722227561038174
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -79,7 +79,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1853041602611560
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -94,7 +94,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1960574421691078
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224300445401893024}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -204,6 +204,9 @@ MonoBehaviour:
   _maxValue:
     value: 1
   _peerSlider: {fileID: 114336242486882044}
+  _peerBackground: {fileID: 114851756785365310}
+  _peerFillArea: {fileID: 224072815847518624}
+  _peerHandleSlideArea: {fileID: 224810666619078502}
 --- !u!114 &114523642353803364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,7 +236,7 @@ MonoBehaviour:
   m_FillOrigin: 0
 --- !u!114 &114851756785365310
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960574421691078}
@@ -266,7 +269,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1230007058137870}
 --- !u!222 &222240441264697826
 CanvasRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960574421691078}
@@ -278,7 +281,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1785298447899342}
 --- !u!224 &224072815847518624
 RectTransform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853041602611560}
@@ -336,7 +339,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224772457028012660
 RectTransform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960574421691078}
@@ -354,7 +357,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224810666619078502
 RectTransform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722227561038174}

@@ -36,7 +36,7 @@ namespace Alensia.Core.UI
 
         protected Text PeerText => _peerText;
 
-        protected override IList<Component> Peers
+        protected override IList<Object> Peers
         {
             get
             {

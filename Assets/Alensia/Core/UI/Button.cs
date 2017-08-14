@@ -15,7 +15,7 @@ namespace Alensia.Core.UI
 
         protected Image PeerImage => _peerImage;
 
-        protected override IList<Component> Peers
+        protected override IList<Object> Peers
         {
             get
             {
@@ -24,6 +24,8 @@ namespace Alensia.Core.UI
                 if (PeerButton != null) peers.Add(PeerButton);
                 if (PeerImage != null) peers.Add(PeerImage);
 
+                if (PeerText != null) peers.Add(PeerText.gameObject);
+                
                 return peers;
             }
         }

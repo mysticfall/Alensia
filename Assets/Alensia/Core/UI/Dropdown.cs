@@ -6,6 +6,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 using UEDropdown = UnityEngine.UI.Dropdown;
 
 namespace Alensia.Core.UI
@@ -67,7 +68,13 @@ namespace Alensia.Core.UI
 
         protected Image PeerImage => _peerImage;
 
-        protected override IList<Component> Peers
+        protected Text PeerLabel => _peerLabel;
+
+        protected Image PeerArrow => _peerArrow;
+
+        protected ScrollRect PeerTemplate => _peerTemplate;
+
+        protected override IList<Object> Peers
         {
             get
             {
@@ -75,6 +82,10 @@ namespace Alensia.Core.UI
 
                 if (PeerDropdown != null) peers.Add(PeerDropdown);
                 if (PeerImage != null) peers.Add(PeerImage);
+
+                if (PeerLabel != null) peers.Add(PeerLabel.gameObject);
+                if (PeerArrow != null) peers.Add(PeerArrow.gameObject);
+                if (PeerTemplate != null) peers.Add(PeerTemplate.gameObject);
 
                 return peers;
             }
@@ -89,6 +100,12 @@ namespace Alensia.Core.UI
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
         [SerializeField, HideInInspector] private Image _peerImage;
+
+        [SerializeField, HideInInspector] private Text _peerLabel;
+
+        [SerializeField, HideInInspector] private Image _peerArrow;
+
+        [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
 
         public override void Initialize(IUIContext context)
         {
@@ -117,6 +134,9 @@ namespace Alensia.Core.UI
 
             _peerDropdown = GetComponent<UEDropdown>();
             _peerImage = GetComponentInChildren<Image>();
+            _peerLabel = Transform.Find("Label").GetComponentInChildren<Text>();
+            _peerArrow = Transform.Find("Arrow").GetComponent<Image>();
+            _peerTemplate = Transform.Find("Template").GetComponentInChildren<ScrollRect>();
         }
 
         protected override void ValidateProperties()

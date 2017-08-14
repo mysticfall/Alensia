@@ -686,7 +686,7 @@ Prefab:
     - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
         type: 2}
       propertyPath: m_FontData.m_Alignment
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114129565812075762, guid: b472291d2d02f4b3688c1073583adbb5,
         type: 2}

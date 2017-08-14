@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 using UESlider = UnityEngine.UI.Slider;
 
 namespace Alensia.Core.UI
@@ -31,13 +32,23 @@ namespace Alensia.Core.UI
 
         protected UESlider PeerSlider => _peerSlider;
 
-        protected override IList<Component> Peers
+        protected Image PeerBackground => _peerBackground;
+
+        protected Transform PeerFillArea => _peerFillArea;
+
+        protected Transform PeerHandleSlideArea => _peerHandleSlideArea;
+
+        protected override IList<Object> Peers
         {
             get
             {
                 var peers = base.Peers;
 
                 if (PeerSlider != null) peers.Add(PeerSlider);
+
+                if (PeerBackground != null) peers.Add(PeerBackground.gameObject);
+                if (PeerFillArea != null) peers.Add(PeerFillArea.gameObject);
+                if (PeerHandleSlideArea != null) peers.Add(PeerHandleSlideArea.gameObject);
 
                 return peers;
             }
@@ -50,6 +61,12 @@ namespace Alensia.Core.UI
         [SerializeField] private FloatReactiveProperty _maxValue;
 
         [SerializeField, HideInInspector] private UESlider _peerSlider;
+
+        [SerializeField, HideInInspector] private Image _peerBackground;
+
+        [SerializeField, HideInInspector] private Transform _peerFillArea;
+
+        [SerializeField, HideInInspector] private Transform _peerHandleSlideArea;
 
         public override void Initialize(IUIContext context)
         {
@@ -70,6 +87,10 @@ namespace Alensia.Core.UI
             base.InitializePeers();
 
             _peerSlider = GetComponentInChildren<UESlider>();
+
+            _peerBackground = Transform.Find("Background").GetComponent<Image>();
+            _peerFillArea = Transform.Find("Fill Area");
+            _peerHandleSlideArea = Transform.Find("Handle Slide Area");
         }
 
         protected override void ValidateProperties()

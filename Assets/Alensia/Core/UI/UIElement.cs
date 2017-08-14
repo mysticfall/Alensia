@@ -5,6 +5,7 @@ using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
+using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI
 {
@@ -32,7 +33,7 @@ namespace Alensia.Core.UI
         public UniRx.IObservable<bool> OnVisibilityChange =>
             OnShow.Select(_ => true).Merge(OnHide.Select(_ => false));
 
-        protected virtual IList<Component> Peers => new List<Component>();
+        protected virtual IList<Object> Peers => new List<Object>();
 
         protected virtual HideFlags PeerFlags => HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 
