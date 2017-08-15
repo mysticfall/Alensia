@@ -55,6 +55,8 @@ namespace Alensia.Core.UI
             ResetFromInstance(source);
 
             DestroyImmediate(source.gameObject);
+
+            ValidateProperties();
         }
 
         protected virtual void ResetFromInstance(UIComponent component)
