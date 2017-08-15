@@ -2,6 +2,7 @@
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Alensia.Core.I18n
 {
@@ -26,6 +27,14 @@ namespace Alensia.Core.I18n
         {
             _text = text;
             _textKey = textKey;
+        }
+
+        public TranslatableText(TranslatableText source)
+        {
+            Assert.IsNotNull(source);
+
+            _text = source.Text;
+            _textKey = source.TextKey;
         }
 
         public string Translate(ITranslator translator) =>

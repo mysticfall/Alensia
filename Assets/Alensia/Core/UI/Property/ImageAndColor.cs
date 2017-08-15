@@ -2,33 +2,48 @@
 using ModestTree;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
+using UEImage = UnityEngine.UI.Image;
 
 namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class ImageAndColor : ICompositeProperty<ImageAndColor, Image>
+    public class ImageAndColor : ICompositeProperty<ImageAndColor, UEImage>
     {
         public Color Color => _color;
 
         public Sprite Image => _image;
 
-        public Image.Type Type => _type;
+        public UEImage.Type Type => _type;
 
         [SerializeField] private Color _color;
 
         [SerializeField] private Sprite _image;
 
-        [SerializeField] private Image.Type _type;
+        [SerializeField] private UEImage.Type _type;
 
-        public ImageAndColor(Color color, Sprite image, Image.Type type)
+        public ImageAndColor()
+        {
+            _color = Color.white;
+            _type = UEImage.Type.Sliced;
+        }
+
+        public ImageAndColor(Color color, Sprite image, UEImage.Type type)
         {
             _color = color;
             _image = image;
             _type = type;
         }
 
-        public void Load(Image value)
+        public ImageAndColor(ImageAndColor source)
+        {
+            Assert.IsNotNull(source);
+
+            _color = source.Color;
+            _image = source.Image;
+            _type = source.Type;
+        }
+
+        public void Load(UEImage value)
         {
             Assert.IsNotNull(value);
 
@@ -37,7 +52,7 @@ namespace Alensia.Core.UI.Property
             _type = value.type;
         }
 
-        public void Update(Image value)
+        public void Update(UEImage value)
         {
             Assert.IsNotNull(value);
 
@@ -50,7 +65,7 @@ namespace Alensia.Core.UI.Property
 
         public ImageAndColor WithImage(Sprite image) => new ImageAndColor(Color, image, Type);
 
-        public ImageAndColor WithType(Image.Type type) => new ImageAndColor(Color, Image, type);
+        public ImageAndColor WithType(UEImage.Type type) => new ImageAndColor(Color, Image, type);
 
         protected bool Equals(ImageAndColor other)
         {

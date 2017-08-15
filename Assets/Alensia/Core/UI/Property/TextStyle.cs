@@ -41,6 +41,18 @@ namespace Alensia.Core.UI.Property
 
         [SerializeField] private Color _color;
 
+        public TextStyle()
+        {
+            _font = new Font("Arial");
+            _fontSize = 14;
+            _fontStyle = FontStyle.Normal;
+            _alignment = TextAnchor.MiddleCenter;
+            _horizontalOverflow = HorizontalWrapMode.Wrap;
+            _verticalOverflow = VerticalWrapMode.Truncate;
+            _lineSpacing = 1f;
+            _color = Color.black;
+        }
+
         public TextStyle(
             Font font,
             int fontSize,
@@ -59,6 +71,20 @@ namespace Alensia.Core.UI.Property
             _verticalOverflow = verticalOverflow;
             _lineSpacing = lineSpacing;
             _color = color;
+        }
+
+        public TextStyle(TextStyle source)
+        {
+            Assert.IsNotNull(source, "source != null");
+
+            _font = source.Font;
+            _fontSize = source.FontSize;
+            _fontStyle = source.FontStyle;
+            _alignment = source.Alignment;
+            _horizontalOverflow = source.HorizontalOverflow;
+            _verticalOverflow = source.VerticalOverflow;
+            _lineSpacing = source.LineSpacing;
+            _color = source.Color;
         }
 
         public void Load(Text value)
@@ -88,17 +114,6 @@ namespace Alensia.Core.UI.Property
             value.verticalOverflow = _verticalOverflow;
             value.lineSpacing = _lineSpacing;
         }
-
-        public static TextStyle Default =>
-            new TextStyle(
-                new Font("Arial"),
-                14,
-                FontStyle.Normal,
-                TextAnchor.MiddleCenter,
-                HorizontalWrapMode.Wrap,
-                VerticalWrapMode.Truncate,
-                1f,
-                Color.black);
 
         public TextStyle WithFont(Font font) =>
             new TextStyle(
@@ -221,7 +236,7 @@ namespace Alensia.Core.UI.Property
                 hashCode = (hashCode * 397) ^ (int) VerticalOverflow;
                 hashCode = (hashCode * 397) ^ LineSpacing.GetHashCode();
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
-                
+
                 return hashCode;
             }
         }
