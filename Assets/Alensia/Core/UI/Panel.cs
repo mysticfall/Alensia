@@ -43,6 +43,11 @@ namespace Alensia.Core.UI
             base.InitializePeers();
 
             _peerImage = GetComponentInChildren<Image>();
+        }
+
+        public override void Initialize(IUIContext context)
+        {
+            base.Initialize(context);
 
             _background
                 .Subscribe(b => b.Update(PeerImage))

@@ -53,23 +53,7 @@ namespace Alensia.Core.UI
         [SerializeField] private TextStyleReactiveProperty _textStyle;
 
         [SerializeField, HideInInspector] private Text _peerText;
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerText = GetComponentInChildren<Text>();
-        }
-
-        protected override void ValidateProperties()
-        {
-            base.ValidateProperties();
-
-            PeerText.text = Text.Text;
-
-            TextStyle.Update(PeerText);
-        }
-
+        
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
@@ -87,6 +71,22 @@ namespace Alensia.Core.UI
             _textStyle
                 .Subscribe(s => s.Update(PeerText))
                 .AddTo(this);
+        }
+
+        protected override void InitializePeers()
+        {
+            base.InitializePeers();
+
+            _peerText = GetComponentInChildren<Text>();
+        }
+
+        protected override void ValidateProperties()
+        {
+            base.ValidateProperties();
+
+            PeerText.text = Text.Text;
+
+            TextStyle.Update(PeerText);
         }
 
         protected override void Reset()

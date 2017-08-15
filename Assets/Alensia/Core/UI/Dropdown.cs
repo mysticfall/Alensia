@@ -149,14 +149,6 @@ namespace Alensia.Core.UI
             ItemTextStyle.Update(PeerDropdown.itemText);
         }
 
-        private void UpdateItems(IEnumerable<DropdownItem> items)
-        {
-            var options = items.Select(i => i.AsOptionData(Context)).ToList();
-
-            PeerDropdown.ClearOptions();
-            PeerDropdown.AddOptions(options);
-        }
-
         protected override void Reset()
         {
             base.Reset();
@@ -168,6 +160,14 @@ namespace Alensia.Core.UI
 
             ItemTextStyle.Load(source.PeerDropdown.itemText);
             ItemTextStyle.Update(PeerDropdown.itemText);
+        }
+
+        private void UpdateItems(IEnumerable<DropdownItem> items)
+        {
+            var options = items.Select(i => i.AsOptionData(Context)).ToList();
+
+            PeerDropdown.ClearOptions();
+            PeerDropdown.AddOptions(options);
         }
 
         public static Dropdown CreateInstance()
