@@ -25,7 +25,7 @@ namespace Alensia.Core.UI
         }
 
         public virtual TUI Instantiate<TDef, TUI>(TDef definition, Transform parent)
-            where TDef : UIDefinition where TUI : IUIElement
+            where TDef : IUIDefinition where TUI : IUIElement
         {
             TUI ui;
 

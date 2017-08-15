@@ -1320,16 +1320,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiItems:
-  - Name: CharacterCustomizer
-    Item: {fileID: 1410430650}
-    Enable: 1
-    Order: 0
-    Singleton: 1
-  - Name: MainMenu
-    Item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
-    Enable: 0
-    Order: 0
-    Singleton: 1
+  - _name: CharacterCustomizer
+    _item: {fileID: 1410430650}
+    _singleton: 1
+    _enable: 1
+    _order: 0
+  - _name: MainMenu
+    _item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+    _singleton: 1
+    _enable: 0
+    _order: 0
 --- !u!1 &1264758996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,10 +1941,10 @@ MonoBehaviour:
     CursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
     ScreenRoot: {fileID: 120248321}
     Screens:
-    - Name: Windows
-      Item: {fileID: 1248467732}
-      Enable: 1
-      Order: 0
+    - _name: Windows
+      _item: {fileID: 1248467732}
+      _enable: 1
+      _order: 0
 --- !u!1 &1529715889
 GameObject:
   m_ObjectHideFlags: 0

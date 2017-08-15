@@ -13,7 +13,7 @@ namespace Alensia.Core.UI
         IComponent ActiveComponent { get; set; }
 
         TUI Instantiate<TDef, TUI>(TDef definition, Transform parent)
-            where TDef : UIDefinition
+            where TDef : IUIDefinition
             where TUI : IUIElement;
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
+using Alensia.Core.UI.Cursor;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -25,7 +27,7 @@ namespace Alensia.Core.UI
 
         public IObservable<PointerEventData> OnPointerExit => this.OnPointerExitAsObservable();
 
-        [SerializeField] private StringReactiveProperty _cursor;
+        [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
 
         public override void Initialize(IUIContext context)
         {

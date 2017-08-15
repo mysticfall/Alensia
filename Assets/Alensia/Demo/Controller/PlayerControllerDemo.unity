@@ -749,7 +749,6 @@ MonoBehaviour:
   _contractNames: []
   _parentContractName: 
   _parentContractNames: []
-  _autoRun: 1
 --- !u!4 &1506224612
 Transform:
   m_ObjectHideFlags: 0
@@ -803,10 +802,10 @@ MonoBehaviour:
     CursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
     ScreenRoot: {fileID: 845667511}
     Screens:
-    - Name: Windows
-      Item: {fileID: 2090786174}
-      Enable: 1
-      Order: 0
+    - _name: Windows
+      _item: {fileID: 2090786174}
+      _enable: 1
+      _order: 0
 --- !u!1 &1576208025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,11 +1153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiItems:
-  - Name: MainMenu
-    Item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
-    Enable: 0
-    Order: 0
-    Singleton: 1
+  - _name: MainMenu
+    _item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+    _singleton: 1
+    _enable: 0
+    _order: 0
 --- !u!1 &2097863676
 GameObject:
   m_ObjectHideFlags: 0
