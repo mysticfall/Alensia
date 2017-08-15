@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224304428995615386}
-  - component: {fileID: 222686188736563106}
   - component: {fileID: 114648701114968838}
+  - component: {fileID: 222686188736563106}
   - component: {fileID: 114970555900841560}
   m_Layer: 0
   m_Name: Panel

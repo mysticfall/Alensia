@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224870900217154758}
-  - component: {fileID: 222874876344340990}
   - component: {fileID: 114098440955217480}
+  - component: {fileID: 222874876344340990}
   - component: {fileID: 114301930527760742}
   - component: {fileID: 114299232719100640}
   - component: {fileID: 114694573522458474}
@@ -198,6 +198,9 @@ MonoBehaviour:
   _maxValue:
     value: 1
   _peerSlider: {fileID: 114208239621241304}
+  _peerBackground: {fileID: 0}
+  _peerFillArea: {fileID: 0}
+  _peerHandleSlideArea: {fileID: 0}
 --- !u!114 &114098440955217480
 MonoBehaviour:
   m_ObjectHideFlags: 1

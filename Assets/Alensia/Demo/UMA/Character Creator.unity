@@ -1433,10 +1433,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1317750324}
-  - component: {fileID: 1317750328}
   - component: {fileID: 1317750327}
+  - component: {fileID: 1317750328}
   - component: {fileID: 1317750326}
-  - component: {fileID: 1317750325}
   m_Layer: 0
   m_Name: CameraPanel
   m_TagString: Untagged
@@ -1462,17 +1461,6 @@ RectTransform:
   m_AnchoredPosition: {x: -154, y: -156.3}
   m_SizeDelta: {x: 265.8, y: 260.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1317750325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1317750323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1317750326
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1533,8 +1521,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1328764801}
-  - component: {fileID: 1328764804}
   - component: {fileID: 1328764803}
+  - component: {fileID: 1328764804}
   - component: {fileID: 1328764802}
   m_Layer: 0
   m_Name: LabelSex
@@ -1636,8 +1624,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1337684452}
-  - component: {fileID: 1337684454}
   - component: {fileID: 1337684456}
+  - component: {fileID: 1337684454}
   - component: {fileID: 1337684453}
   - component: {fileID: 1337684455}
   m_Layer: 0
