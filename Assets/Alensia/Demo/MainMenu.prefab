@@ -1434,6 +1434,11 @@ MonoBehaviour:
   _peerText: {fileID: 114742590780008002}
   _interactable:
     value: 1
+  _background:
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerButton: {fileID: 114133487399891274}
   _peerImage: {fileID: 114054500568444182}
 --- !u!114 &114973880864894804
@@ -1466,6 +1471,11 @@ MonoBehaviour:
   _peerText: {fileID: 114556605941413300}
   _interactable:
     value: 1
+  _background:
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerButton: {fileID: 114519925065443804}
   _peerImage: {fileID: 114838750678288576}
 --- !u!222 &222025565099906800

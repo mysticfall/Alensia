@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -13,6 +14,17 @@ namespace Alensia.Core.UI
         {
             get { return _interactable.Value; }
             set { _interactable.Value = value; }
+        }
+
+        public ImageAndColor Background
+        {
+            get { return _background.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _background.Value = value;
+            }
         }
 
         public IObservable<Unit> OnClick => PeerButton?.onClick.AsObservable().Where(_ => Interactable);
@@ -40,6 +52,8 @@ namespace Alensia.Core.UI
 
         [SerializeField] private BoolReactiveProperty _interactable;
 
+        [SerializeField] private ImageAndColorReactiveProperty _background;
+
         [SerializeField, HideInInspector] private UEButton _peerButton;
 
         [SerializeField, HideInInspector] private Image _peerImage;
@@ -50,8 +64,6 @@ namespace Alensia.Core.UI
 
             _peerButton = GetComponentInChildren<UEButton>();
             _peerImage = GetComponentInChildren<Image>();
-
-            _interactable.Value = _peerButton.IsInteractable();
         }
 
         protected override void ValidateProperties()
@@ -59,6 +71,8 @@ namespace Alensia.Core.UI
             base.ValidateProperties();
 
             PeerButton.interactable = _interactable.Value;
+
+            Background.Update(PeerImage);
         }
 
         public override void Initialize(IUIContext context)
@@ -68,6 +82,26 @@ namespace Alensia.Core.UI
             _interactable
                 .Subscribe(v => PeerButton.interactable = v)
                 .AddTo(this);
+            _background
+                .Subscribe(b => b.Update(PeerImage))
+                .AddTo(this);
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            var source = CreateInstance();
+
+            Interactable = source.Interactable;
+
+            Background.Load(source.PeerImage);
+            Background.Update(PeerImage);
+
+            TextStyle.Load(source.PeerText);
+            TextStyle.Update(PeerText);
+
+            DestroyImmediate(source.gameObject);
         }
 
         public new static Button CreateInstance()

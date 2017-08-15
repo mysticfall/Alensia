@@ -178,6 +178,11 @@ MonoBehaviour:
   _peerText: {fileID: 114124297214373316}
   _interactable:
     value: 1
+  _background:
+    value:
+      _color: {r: 1, g: 1, b: 1, a: 1}
+      _image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type: 1
   _peerButton: {fileID: 114628842922068366}
   _peerImage: {fileID: 114488296357916368}
 --- !u!222 &222440854348783930
