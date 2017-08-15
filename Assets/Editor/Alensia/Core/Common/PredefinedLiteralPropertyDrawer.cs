@@ -49,14 +49,11 @@ namespace Alensia.Core.Common
 
             var attr = (PredefinedLiteralAttribute) attribute;
 
-            var nullIndex = -1;
             var customIndex = -1;
 
             if (attr.Optional)
             {
                 options.Add("(None)");
-
-                nullIndex = offset;
                 offset++;
             }
 
