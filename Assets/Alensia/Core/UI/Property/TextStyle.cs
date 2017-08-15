@@ -43,7 +43,6 @@ namespace Alensia.Core.UI.Property
 
         public TextStyle()
         {
-            _font = new Font("Arial");
             _fontSize = 14;
             _fontStyle = FontStyle.Normal;
             _alignment = TextAnchor.MiddleCenter;

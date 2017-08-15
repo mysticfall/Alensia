@@ -32,8 +32,6 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected virtual string DefaultText => "Label";
-
         protected Text PeerText => _peerText;
 
         protected override IList<Object> Peers
@@ -53,7 +51,7 @@ namespace Alensia.Core.UI
         [SerializeField] private TextStyleReactiveProperty _textStyle;
 
         [SerializeField, HideInInspector] private Text _peerText;
-        
+
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
@@ -89,21 +87,20 @@ namespace Alensia.Core.UI
             TextStyle.Update(PeerText);
         }
 
-        protected override void Reset()
+        protected override void ResetFromInstance(UIComponent component)
         {
-            base.Reset();
+            base.ResetFromInstance(component);
 
-            _text.Value = new TranslatableText(DefaultText);
+            var source = (Label) component;
 
-            PeerText.text = DefaultText;
+            _text.Value = new TranslatableText(source.Text);
 
-            var source = CreateInstance();
+            PeerText.text = source.Text.Text;
 
-            TextStyle.Load(source.PeerText);
-            TextStyle.Update(PeerText);
-
-            DestroyImmediate(source.gameObject);
+            TextStyle = new TextStyle(source.TextStyle);
         }
+
+        protected override UIComponent CreatePristineInstance() => CreateInstance();
 
         public static Label CreateInstance()
         {

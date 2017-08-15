@@ -48,8 +48,6 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected override string DefaultText => "Button";
-
         [SerializeField] private BoolReactiveProperty _interactable;
 
         [SerializeField] private ImageAndColorReactiveProperty _background;
@@ -87,22 +85,18 @@ namespace Alensia.Core.UI
             Background.Update(PeerImage);
         }
 
-        protected override void Reset()
+        protected override void ResetFromInstance(UIComponent component)
         {
-            base.Reset();
+            base.ResetFromInstance(component);
 
-            var source = CreateInstance();
+            var source = (Button) component;
 
             Interactable = source.Interactable;
 
-            Background.Load(source.PeerImage);
-            Background.Update(PeerImage);
-
-            TextStyle.Load(source.PeerText);
-            TextStyle.Update(PeerText);
-
-            DestroyImmediate(source.gameObject);
+            Background = new ImageAndColor(source.Background);
         }
+
+        protected override UIComponent CreatePristineInstance() => CreateInstance();
 
         public new static Button CreateInstance()
         {

@@ -102,14 +102,16 @@ namespace Alensia.Core.UI
             PeerSlider.value = Value;
         }
 
-        protected override void Reset()
+        protected override void ResetFromInstance(UIComponent component)
         {
-            base.Reset();
+            base.ResetFromInstance(component);
 
             MinValue = 0;
             MaxValue = 1;
             Value = 0;
         }
+
+        protected override UIComponent CreatePristineInstance() => CreateInstance();
 
         public static Slider CreateInstance()
         {

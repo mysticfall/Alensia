@@ -44,6 +44,23 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
+        protected override void Reset()
+        {
+            base.Reset();
+
+            var source = CreatePristineInstance();
+
+            ResetFromInstance(source);
+
+            DestroyImmediate(source.gameObject);
+        }
+
+        protected virtual void ResetFromInstance(UIComponent component)
+        {
+        }
+
+        protected abstract UIComponent CreatePristineInstance();
+
         private bool HasActiveChild()
         {
             var active = Context.ActiveComponent;

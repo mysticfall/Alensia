@@ -149,18 +149,17 @@ namespace Alensia.Core.UI
             ItemTextStyle.Update(PeerDropdown.itemText);
         }
 
-        protected override void Reset()
+        protected override void ResetFromInstance(UIComponent component)
         {
-            base.Reset();
+            base.ResetFromInstance(component);
 
-            var source = CreateInstance();
+            var source = (Dropdown) component;
 
-            TextStyle.Load(source.PeerDropdown.captionText);
-            TextStyle.Update(PeerDropdown.captionText);
-
-            ItemTextStyle.Load(source.PeerDropdown.itemText);
-            ItemTextStyle.Update(PeerDropdown.itemText);
+            TextStyle = new TextStyle(source.TextStyle);
+            ItemTextStyle = new TextStyle(source.ItemTextStyle);
         }
+
+        protected override UIComponent CreatePristineInstance() => CreateInstance();
 
         private void UpdateItems(IEnumerable<DropdownItem> items)
         {

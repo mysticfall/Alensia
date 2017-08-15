@@ -61,17 +61,16 @@ namespace Alensia.Core.UI
             Background.Update(PeerImage);
         }
 
-        protected override void Reset()
+        protected override void ResetFromInstance(UIComponent component)
         {
-            base.Reset();
+            base.ResetFromInstance(component);
 
-            var source = CreateInstance();
+            var source = (Panel) component;
 
-            Background.Load(source.PeerImage);
-            Background.Update(PeerImage);
-
-            DestroyImmediate(source.gameObject);
+            Background = new ImageAndColor(source.Background);
         }
+
+        protected override UIComponent CreatePristineInstance() => CreateInstance();
 
         public static Panel CreateInstance()
         {
