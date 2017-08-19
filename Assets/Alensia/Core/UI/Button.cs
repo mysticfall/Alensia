@@ -8,7 +8,7 @@ using UEButton = UnityEngine.UI.Button;
 
 namespace Alensia.Core.UI
 {
-    public class Button : Label, IControl
+    public class Button : Label, IInteractableComponent
     {
         public bool Interactable
         {

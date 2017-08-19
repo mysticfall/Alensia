@@ -1,6 +1,6 @@
 ﻿namespace Alensia.Core.UI
 {
-    public interface IControl : IComponent
+    public interface IInteractableComponent : IComponent
     {
         bool Interactable { get; set; }
     }
