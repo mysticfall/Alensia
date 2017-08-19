@@ -71,10 +71,10 @@ namespace Alensia.Demo.UMA
 
             foreach (var morph in list)
             {
-                var slider = Instantiate(
-                    MorphSliderPrefab, MorphListPanel.Transform).GetComponent<MorphSlider>();
+                var slider = Context.Instantiate<MorphSlider>(
+                    MorphSliderPrefab,
+                    MorphListPanel.Transform);
 
-                slider.Initialize(Context);
                 slider.Morph = (RangedMorph<float>) morph;
             }
         }

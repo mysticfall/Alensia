@@ -17,8 +17,6 @@ namespace Alensia.Core.UI
             {
                 Component.Initialize(context);
             }
-
-            Context.DiContainer.Inject(this);
         }
 
         protected override void InitializePeers()
