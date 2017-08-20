@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: EditorUIContext
   m_EditorClassIdentifier: 
   Locale:
-    _tag: ko-KR
+    _tag: en-US
   Resources:
     BaseName: Messages
     ResourcePath: Translations
