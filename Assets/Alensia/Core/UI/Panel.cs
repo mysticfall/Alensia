@@ -45,20 +45,20 @@ namespace Alensia.Core.UI
             _peerImage = GetComponentInChildren<Image>();
         }
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeProperties(IUIContext context)
         {
-            base.Initialize(context);
+            base.InitializeProperties(context);
 
             _background
-                .Subscribe(b => b.Update(PeerImage))
+                .Subscribe(v => UpdatePeer(PeerImage, v))
                 .AddTo(this);
         }
 
-        protected override void ValidateProperties()
+        protected override void UpdateEditor()
         {
-            base.ValidateProperties();
+            base.UpdateEditor();
 
-            Background.Update(PeerImage);
+            UpdatePeer(PeerImage, Background);
         }
 
         protected override void ResetFromInstance(UIComponent component)

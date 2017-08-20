@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.I18n;
 using Alensia.Core.UI.Cursor;
+using Alensia.Core.UI.Property;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static System.String;
 
 namespace Alensia.Core.UI
@@ -27,12 +31,45 @@ namespace Alensia.Core.UI
 
         public IObservable<PointerEventData> OnPointerExit => this.OnPointerExitAsObservable();
 
+        protected override bool InitializeInEditor => true;
+
         [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
+
+        private readonly CompositeDisposable _observers = new CompositeDisposable();
 
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
 
+            context.OnLocaleChange
+                .Subscribe(OnLocaleChanged)
+                .AddTo(_observers);
+
+            if (Application.isPlaying)
+            {
+                InitializeProperties(context);
+            }
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if (!Application.isPlaying)
+            {
+                _observers.Clear();
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _observers.Clear();
+        }
+
+        protected virtual void InitializeProperties(IUIContext context)
+        {
             OnPointerEnter
                 .Where(_ => !HasActiveChild())
                 .Subscribe(_ => Context.ActiveComponent = this)
@@ -56,7 +93,7 @@ namespace Alensia.Core.UI
 
             DestroyImmediate(source.gameObject);
 
-            ValidateProperties();
+            UpdateEditor();
         }
 
         protected virtual void ResetFromInstance(UIComponent component)
@@ -64,6 +101,22 @@ namespace Alensia.Core.UI
         }
 
         protected abstract UIComponent CreatePristineInstance();
+
+        protected virtual void OnLocaleChanged(CultureInfo locale)
+        {
+        }
+
+        protected virtual void UpdatePeer(Text peer, TranslatableText text)
+        {
+            var translator = Context?.Translator;
+            var value = translator == null ? text.Text : text.Translate(translator);
+
+            peer.text = value;
+        }
+
+        protected virtual void UpdatePeer(Text peer, TextStyle style) => style.Update(peer);
+
+        protected virtual void UpdatePeer(Image peer, ImageAndColor background) => background.Update(peer);
 
         private bool HasActiveChild()
         {

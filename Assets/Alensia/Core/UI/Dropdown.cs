@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Alensia.Core.UI.Property;
 using UniRx;
@@ -107,24 +108,19 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeProperties(IUIContext context)
         {
-            base.Initialize(context);
+            base.InitializeProperties(context);
 
-            var localeService = context.Translator.LocaleService;
-
-            localeService
-                .OnLocaleChange
-                .Select(_ => Items)
-                .Merge(OnItemsChange)
+            OnItemsChange
                 .Subscribe(UpdateItems)
                 .AddTo(this);
 
             _textStyle
-                .Subscribe(i => i.Update(PeerDropdown.captionText))
+                .Subscribe(v => UpdatePeer(PeerDropdown.captionText, v))
                 .AddTo(this);
             _itemTextStyle
-                .Subscribe(i => i.Update(PeerDropdown.itemText))
+                .Subscribe(v => UpdatePeer(PeerDropdown.itemText, v))
                 .AddTo(this);
         }
 
@@ -139,14 +135,24 @@ namespace Alensia.Core.UI
             _peerTemplate = Transform.Find("Template").GetComponentInChildren<ScrollRect>();
         }
 
-        protected override void ValidateProperties()
+        protected override void UpdateEditor()
         {
-            base.ValidateProperties();
+            base.UpdateEditor();
 
             UpdateItems(_items.Value);
 
-            TextStyle.Update(PeerDropdown.captionText);
-            ItemTextStyle.Update(PeerDropdown.itemText);
+            UpdatePeer(PeerDropdown.captionText, TextStyle);
+            UpdatePeer(PeerDropdown.itemText, ItemTextStyle);
+        }
+
+        protected override void OnLocaleChanged(CultureInfo locale)
+        {
+            base.OnLocaleChanged(locale);
+
+            UpdateItems(_items.Value);
+
+            UpdatePeer(PeerDropdown.captionText, TextStyle);
+            UpdatePeer(PeerDropdown.itemText, ItemTextStyle);
         }
 
         protected override void ResetFromInstance(UIComponent component)

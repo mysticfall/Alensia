@@ -56,9 +56,9 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeProperties(IUIContext context)
         {
-            base.Initialize(context);
+            base.InitializeProperties(context);
 
             _interactable
                 .Subscribe(v => PeerButton.interactable = v)
@@ -76,9 +76,9 @@ namespace Alensia.Core.UI
             _peerImage = GetComponentInChildren<Image>();
         }
 
-        protected override void ValidateProperties()
+        protected override void UpdateEditor()
         {
-            base.ValidateProperties();
+            base.UpdateEditor();
 
             PeerButton.interactable = _interactable.Value;
 

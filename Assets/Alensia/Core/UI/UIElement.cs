@@ -37,6 +37,8 @@ namespace Alensia.Core.UI
 
         protected virtual HideFlags PeerFlags => HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 
+        protected virtual bool InitializeInEditor => false;
+
         public virtual void Initialize(IUIContext context)
         {
             Assert.IsNotNull(context, "context != null");
@@ -53,7 +55,40 @@ namespace Alensia.Core.UI
             Context = context;
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            if (Context != null || Application.isPlaying || !InitializeInEditor) return;
+
+            var context = CreateEditorUIContext();
+
+            if (context != null)
+            {
+                Initialize(context);
+            }
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if (!Application.isPlaying)
+            {
+                Context = null;
+            }
+        }
+
+        protected virtual EditorUIContext CreateEditorUIContext()
+        {
+            return Resources.Load<EditorUIContext>("UI/EditorUIContext");
+        }
+
         protected virtual void InitializePeers()
+        {
+        }
+
+        protected virtual void UpdateEditor()
         {
         }
 
@@ -63,10 +98,6 @@ namespace Alensia.Core.UI
             {
                 peer.hideFlags = PeerFlags;
             }
-        }
-
-        protected virtual void ValidateProperties()
-        {
         }
 
 //TODO It seems that those 'magic methods' of MonoBehaviour confuse the hell out of the compiler, so it we remove this method, the player build fails.  
@@ -85,10 +116,8 @@ namespace Alensia.Core.UI
 
         protected virtual void OnValidate()
         {
-            if (Context != null) return;
-
+            UpdateEditor();
             ApplyHideFlags();
-            ValidateProperties();
         }
 #pragma warning restore 108,114
 

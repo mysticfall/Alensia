@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using Alensia.Core.I18n;
 using Alensia.Core.UI.Property;
 using UniRx;
@@ -52,22 +53,15 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Text _peerText;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeProperties(IUIContext context)
         {
-            base.Initialize(context);
+            base.InitializeProperties(context);
 
-            var localeService = context.Translator.LocaleService;
-
-            localeService
-                .OnLocaleChange
-                .Select(_ => Text)
-                .Merge(_text)
-                .Select(text => text.Translate(Context.Translator))
-                .Subscribe(text => PeerText.text = text)
+            _text
+                .Subscribe(v => UpdatePeer(PeerText, v))
                 .AddTo(this);
-
             _textStyle
-                .Subscribe(s => s.Update(PeerText))
+                .Subscribe(v => UpdatePeer(PeerText, v))
                 .AddTo(this);
         }
 
@@ -78,13 +72,19 @@ namespace Alensia.Core.UI
             _peerText = GetComponentInChildren<Text>();
         }
 
-        protected override void ValidateProperties()
+        protected override void UpdateEditor()
         {
-            base.ValidateProperties();
+            base.UpdateEditor();
 
-            PeerText.text = Text.Text;
+            UpdatePeer(PeerText, Text);
+            UpdatePeer(PeerText, TextStyle);
+        }
 
-            TextStyle.Update(PeerText);
+        protected override void OnLocaleChanged(CultureInfo locale)
+        {
+            base.OnLocaleChanged(locale);
+
+            UpdatePeer(PeerText, Text);
         }
 
         protected override void ResetFromInstance(UIComponent component)

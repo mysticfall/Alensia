@@ -15,6 +15,8 @@ namespace Alensia.Core.UI
         {
             base.Initialize(context);
 
+            if (!Application.isPlaying) return;
+
             foreach (var child in Children)
             {
                 child.Initialize(Context);

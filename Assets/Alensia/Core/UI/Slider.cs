@@ -68,9 +68,9 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Transform _peerHandleSlideArea;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeProperties(IUIContext context)
         {
-            base.Initialize(context);
+            base.InitializeProperties(context);
 
             _minValue.Subscribe(v => PeerSlider.minValue = v).AddTo(this);
             _maxValue.Subscribe(v => PeerSlider.maxValue = v).AddTo(this);
@@ -93,9 +93,9 @@ namespace Alensia.Core.UI
             _peerHandleSlideArea = Transform.Find("Handle Slide Area");
         }
 
-        protected override void ValidateProperties()
+        protected override void UpdateEditor()
         {
-            base.ValidateProperties();
+            base.UpdateEditor();
 
             PeerSlider.minValue = MinValue;
             PeerSlider.maxValue = MaxValue;
