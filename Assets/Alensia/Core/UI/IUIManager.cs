@@ -13,7 +13,7 @@ namespace Alensia.Core.UI
 
         CursorState CursorState { get; set; }
 
-        ICursorSet CursorSet { get; }
+        CursorSet CursorSet { get; }
 
         string DefaultCursor { get; set; }
 

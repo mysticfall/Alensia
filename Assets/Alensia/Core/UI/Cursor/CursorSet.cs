@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Alensia.Core.UI.Cursor
 {
-    public class CursorSet : ScriptableObject, ICursorSet, IEditorSettings
+    public class CursorSet : ScriptableObject, IDirectory<CursorDefinition>, IEditorSettings
     {
-        protected IDictionary<string, ICursorDefinition> CursorMap
+        protected IDictionary<string, CursorDefinition> CursorMap
         {
             get
             {
@@ -15,9 +15,9 @@ namespace Alensia.Core.UI.Cursor
                 {
                     if (_cursorMap != null) return _cursorMap;
 
-                    _cursorMap = new Dictionary<string, ICursorDefinition>();
+                    _cursorMap = new Dictionary<string, CursorDefinition>();
 
-                    foreach (var cursor in _cursors.Concat<ICursorDefinition>(_animatedCursors))
+                    foreach (var cursor in _cursors.Concat<CursorDefinition>(_animatedCursors))
                     {
                         _cursorMap.Add(cursor.Name, cursor);
                     }
@@ -31,11 +31,11 @@ namespace Alensia.Core.UI.Cursor
 
         [SerializeField] private AnimatedCursor[] _animatedCursors;
 
-        private IDictionary<string, ICursorDefinition> _cursorMap;
+        private IDictionary<string, CursorDefinition> _cursorMap;
 
         public bool Contains(string key) => CursorMap.ContainsKey(key);
 
-        public ICursorDefinition this[string key] => CursorMap[key];
+        public CursorDefinition this[string key] => CursorMap[key];
 
         private void OnEnable()
         {

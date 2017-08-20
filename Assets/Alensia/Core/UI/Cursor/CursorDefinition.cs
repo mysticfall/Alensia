@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.UI.Cursor
 {
-    public abstract class CursorDefinition : ICursorDefinition, IEditorSettings
+    public abstract class CursorDefinition : IEditorSettings
     {
         public string Name => _name;
 
@@ -15,11 +15,9 @@ namespace Alensia.Core.UI.Cursor
 
         public abstract IObservable<Texture2D> Create();
 
-        [SerializeField]
-        private string _name;
+        [SerializeField] private string _name;
 
-        [SerializeField]
-        private Vector2 _hotspot;
+        [SerializeField] private Vector2 _hotspot;
 
         protected CursorDefinition()
         {

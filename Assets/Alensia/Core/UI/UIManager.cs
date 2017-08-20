@@ -29,10 +29,10 @@ namespace Alensia.Core.UI
             set { value?.Apply(); }
         }
 
-        public ICursorSet CursorSet
+        public CursorSet CursorSet
         {
             get { return _settings.CursorSet; }
-            set { _settings.CursorSet = value as CursorSet; }
+            set { _settings.CursorSet = value; }
         }
 
         public string DefaultCursor { get; set; }
@@ -120,7 +120,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected virtual void UpdateCursor(ICursorDefinition cursor)
+        protected virtual void UpdateCursor(CursorDefinition cursor)
         {
             lock (this)
             {
