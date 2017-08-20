@@ -23,14 +23,23 @@ namespace Alensia.Demo
 
         public Button ButtonQuit;
 
+        private bool _playerControlEnabled;
+
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
 
-            ButtonResume.OnClick.Subscribe(_ => Close()).AddTo(this);
-            ButtonQuit.OnClick.Subscribe(_ => Game.Quit()).AddTo(this);
+            ButtonResume.OnClick
+                .Subscribe(_ => Close())
+                .AddTo(this);
 
-            OnClose.Where(_ => Controller.Active).Subscribe(_ => EnableControls());
+            ButtonQuit.OnClick
+                .Subscribe(_ => Game.Quit())
+                .AddTo(this);
+
+            OnClose
+                .Where(_ => Controller.Active)
+                .Subscribe(_ => ResumeGame(_playerControlEnabled));
 
             LocaleService.OnLocaleChange
                 .Select(_ => LocaleService.SupportedLocales)
@@ -44,19 +53,24 @@ namespace Alensia.Demo
                 .Subscribe(l => LocaleService.CurrentLocale = l)
                 .AddTo(this);
 
-            DisableControls();
+            _playerControlEnabled = Controller.PlayerControlEnabled;
+
+            PauseGame();
         }
 
-        protected virtual void DisableControls()
+        protected virtual void PauseGame()
         {
             Game.Pause();
 
             Controller.DisablePlayerControl();
         }
 
-        protected virtual void EnableControls()
+        protected virtual void ResumeGame(bool enableControls)
         {
-            Controller.EnablePlayerControl();
+            if (enableControls)
+            {
+                Controller.EnablePlayerControl();
+            }
 
             Game.Resume();
         }
