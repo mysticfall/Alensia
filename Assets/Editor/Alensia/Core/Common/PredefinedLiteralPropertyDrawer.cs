@@ -86,11 +86,11 @@ namespace Alensia.Core.Common
                 }
             }
 
-            BeginChangeCheck();
-
             var height = position.height;
 
             position.height = EditorGUIUtility.singleLineHeight;
+
+            BeginChangeCheck();
 
             var selected = Popup(position, label.text, index, options.ToArray());
 
@@ -117,7 +117,7 @@ namespace Alensia.Core.Common
 
             if (selected == customIndex)
             {
-                position.xMin += EditorGUIUtility.labelWidth;
+                position.xMin += EditorGUIUtility.labelWidth - indentLevel * 15f;
                 position.yMin += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
                 TextField(position, property.stringValue);
