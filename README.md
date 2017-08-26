@@ -37,7 +37,7 @@ be a better way for them to utilize their knowledge.
 
 ## Requirements
 
- * Unity _2017.1 Beta_ with _.NET 4.6_ API compatibility (Change in _Player Settings_).
+ * Unity _2017.1 with _.NET 4.6_ API compatibility (Change in _Player Settings_).
  * [Zenject](https://github.com/modesttree/Zenject) - Dependency injection framework for Unity.
  * [UniRx](https://github.com/neuecc/UniRx) - Reactive Extensions for Unity
  (Requires `ZEN_SIGNALS_ADD_UNIRX` scripting symbol).
@@ -50,33 +50,6 @@ provide suitable animations.
 
 It's in a very very very early stage of development. So don't even think about 
 actually using it for anything.
-
-Below list shows the features implemented by the project so far:
-
-### Camera API
-
- * Simple camera manager API.
- * Third person camera mode with orbiting and wall avoidance features.
- * Head mounted first person camera mode, which shows character's body when looking down.
-
-### Locomotion API
-
- * Generic locomotion API template.
- * Animation and transform based locomotion for humanoid characters.
-
-### Input API
-
- * Provides reactive API for input values, based on _UniRx_.
- * Basic input binding managements.
-
-### Control API
-
- * High level abstraction for action and input mappings (work in progress).
-
-### Physics API
-
- * Simple collision detector API.
- * Collision and ray cast based ground detector API.
 
 ## Plans
 
