@@ -98,6 +98,7 @@ namespace Alensia.Core.UI
 
         protected virtual void ResetFromInstance(UIComponent component)
         {
+            Cursor = component.Cursor;
         }
 
         protected abstract UIComponent CreatePristineInstance();
