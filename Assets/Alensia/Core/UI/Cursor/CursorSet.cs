@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Alensia.Core.UI.Cursor
 {
-    public class CursorSet : ScriptableObject, IDirectory<CursorDefinition>, IEditorSettings
+    public class CursorSet : ScriptableObject, INamed, IDirectory<CursorDefinition>, IEditorSettings
     {
+        public string Name => name;
+
         protected IDictionary<string, CursorDefinition> CursorMap
         {
             get
