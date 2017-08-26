@@ -1,14 +1,21 @@
 {
-    "windows": {
-        "MainMenu": {
-            "title": "Alensia Demo",
-            "labels": {
-                "language": "Language"
-            },
-            "buttons": {
-                "resume": "Return to Game",
-                "quit": "Quit to Desktop"
-            }
+    "MainMenu": {
+        "title": "Alensia Demo",
+        "labels": {
+            "language": "Language"
+        },
+        "buttons": {
+            "resume": "Return to Game",
+            "quit": "Quit to Desktop"
+        }
+    },
+    "UMA": {
+        "labels": {
+            "sex": "Sex"
+        },
+        "sex": {
+            "male": "Male",
+            "female": "Female"
         }
     }
 }

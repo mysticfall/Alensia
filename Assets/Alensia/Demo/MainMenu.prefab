@@ -388,7 +388,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Language
-      _textKey: windows.MainMenu.labels.language
+      _textKey: MainMenu.labels.language
   _textStyle:
     value:
       _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Alensia Demo
-      _textKey: windows.MainMenu.title
+      _textKey: MainMenu.title
   _textStyle:
     value:
       _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Return to Game
-      _textKey: windows.MainMenu.buttons.resume
+      _textKey: MainMenu.buttons.resume
   _textStyle:
     value:
       _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Quit to Desktop
-      _textKey: windows.MainMenu.buttons.quit
+      _textKey: MainMenu.buttons.quit
   _textStyle:
     value:
       _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}

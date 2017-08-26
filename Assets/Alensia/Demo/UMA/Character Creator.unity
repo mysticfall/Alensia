@@ -693,6 +693,16 @@ Prefab:
       propertyPath: m_FontData.m_LineSpacing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _items.value.Array.data[0]._label._textKey
+      value: UMA.sex.male
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
+        type: 2}
+      propertyPath: _items.value.Array.data[1]._label._textKey
+      value: UMA.sex.female
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b472291d2d02f4b3688c1073583adbb5, type: 2}
   m_IsPrefabParent: 0
@@ -1581,7 +1591,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sex
+  m_Text: UMA.labels.sex
 --- !u!114 &1328764803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,7 +1608,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Sex
-      _textKey: 
+      _textKey: UMA.labels.sex
   _textStyle:
     value:
       _font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
