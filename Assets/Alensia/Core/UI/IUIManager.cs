@@ -13,9 +13,9 @@ namespace Alensia.Core.UI
 
         CursorState CursorState { get; set; }
 
-        CursorSet CursorSet { get; }
-
         string DefaultCursor { get; set; }
+
+        UIStyle Style { get; set; }
 
         IScreen FindScreen(string name);
 

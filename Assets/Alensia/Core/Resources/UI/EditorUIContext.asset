@@ -16,3 +16,4 @@ MonoBehaviour:
   Resources:
     BaseName: Messages
     ResourcePath: Translations
+  _style: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}

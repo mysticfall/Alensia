@@ -21,7 +21,9 @@ namespace Alensia.Core.UI
 
         public IReadOnlyDictionary<string, ScreenDefinition> ScreenDefinitions { get; }
 
-        public Transform ScreenRoot => _settings.ScreenRoot;
+        public Transform ScreenRoot { get; }
+
+        public CursorSet CursorSet => Style?.CursorSet;
 
         public CursorState CursorState
         {
@@ -29,15 +31,20 @@ namespace Alensia.Core.UI
             set { value?.Apply(); }
         }
 
-        public CursorSet CursorSet
-        {
-            get { return _settings.CursorSet; }
-            set { _settings.CursorSet = value; }
-        }
-
         public string DefaultCursor { get; set; }
 
-        private readonly Settings _settings;
+        public UIStyle Style
+        {
+            get { return _style.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _style.Value = value;
+            }
+        }
+
+        private readonly IReactiveProperty<UIStyle> _style;
 
         private IDisposable _cursor;
 
@@ -50,12 +57,13 @@ namespace Alensia.Core.UI
             Assert.IsNotNull(translator, "translator != null");
             Assert.IsNotNull(container, "container != null");
 
-            _settings = settings;
+            _style = new UIStyleReactiveProperty(settings.Style);
 
-            Context = new UIContext(translator, container);
-
-            ScreenDefinitions = _settings.Screens?.ToDictionary(i => i.Name, i => i) ??
+            ScreenRoot = settings.ScreenRoot;
+            ScreenDefinitions = settings.Screens?.ToDictionary(i => i.Name, i => i) ??
                                 new Dictionary<string, ScreenDefinition>();
+
+            Context = new UIContext(_style, translator, container);
         }
 
         protected override void OnInitialized()
@@ -137,7 +145,7 @@ namespace Alensia.Core.UI
         [Serializable]
         public class Settings : IEditorSettings
         {
-            public CursorSet CursorSet;
+            public UIStyle Style;
 
             public Transform ScreenRoot;
 

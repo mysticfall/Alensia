@@ -55,6 +55,50 @@ namespace Alensia.Core.UI
             }
         }
 
+        public ImageAndColor Background
+        {
+            get { return _background.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _background.Value = value;
+            }
+        }
+
+        public ImageAndColor PopupBackground
+        {
+            get { return _popupBackground.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _popupBackground.Value = value;
+            }
+        }
+
+        public ImageAndColor ItemBackground
+        {
+            get { return _itemBackground.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _itemBackground.Value = value;
+            }
+        }
+
+        public ImageAndColor ArrowImage
+        {
+            get { return _arrowImage.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _arrowImage.Value = value;
+            }
+        }
+
         public UniRx.IObservable<string> OnValueChange
         {
             get { return PeerDropdown.onValueChanged.AsObservable().Select(i => Items[i].Key); }
@@ -63,6 +107,66 @@ namespace Alensia.Core.UI
         public UniRx.IObservable<IReadOnlyList<DropdownItem>> OnItemsChange
         {
             get { return _items.Select(i => (IReadOnlyList<DropdownItem>) i.ToList()); }
+        }
+
+        protected override TextStyle DefaultTextStyle
+        {
+            get
+            {
+                var value = Style?.TextStyles?["Dropdown.Text"];
+
+                return value == null ? base.DefaultTextStyle : value.Merge(base.DefaultTextStyle);
+            }
+        }
+
+        protected TextStyle DefaultItemTextStyle
+        {
+            get
+            {
+                var value = Style?.TextStyles?["Dropdown.ItemText"];
+
+                return value == null ? DefaultTextStyle : value.Merge(DefaultTextStyle);
+            }
+        }
+
+        protected override ImageAndColor DefaultBackground
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Dropdown.Background"];
+
+                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
+            }
+        }
+
+        protected ImageAndColor DefaultPopupBackground
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Dropdown.PopupBackground"];
+
+                return value == null ? DefaultBackground : value.Merge(DefaultBackground);
+            }
+        }
+
+        protected ImageAndColor DefaultItemBackground
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Dropdown.ItemBackground"];
+
+                return value == null ? DefaultPopupBackground : value.Merge(DefaultPopupBackground);
+            }
+        }
+
+        protected ImageAndColor DefaultArrowImage
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Dropdown.ArrowImage"];
+
+                return value == null ? DefaultBackground : value.Merge(DefaultBackground);
+            }
         }
 
         protected UEDropdown PeerDropdown => _peerDropdown;
@@ -74,6 +178,10 @@ namespace Alensia.Core.UI
         protected Image PeerArrow => _peerArrow;
 
         protected ScrollRect PeerTemplate => _peerTemplate;
+
+        protected Image PeerPopupImage => _peerPopupImage;
+
+        protected Image PeerItemImage => _peerItemImage;
 
         protected override IList<Object> Peers
         {
@@ -88,6 +196,9 @@ namespace Alensia.Core.UI
                 if (PeerArrow != null) peers.Add(PeerArrow.gameObject);
                 if (PeerTemplate != null) peers.Add(PeerTemplate.gameObject);
 
+                if (PeerPopupImage != null) peers.Add(PeerPopupImage.gameObject);
+                if (PeerItemImage != null) peers.Add(PeerItemImage.gameObject);
+
                 return peers;
             }
         }
@@ -98,6 +209,14 @@ namespace Alensia.Core.UI
 
         [SerializeField] private TextStyleReactiveProperty _itemTextStyle;
 
+        [SerializeField] private ImageAndColorReactiveProperty _background;
+
+        [SerializeField] private ImageAndColorReactiveProperty _popupBackground;
+
+        [SerializeField] private ImageAndColorReactiveProperty _itemBackground;
+
+        [SerializeField] private ImageAndColorReactiveProperty _arrowImage;
+
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
         [SerializeField, HideInInspector] private Image _peerImage;
@@ -105,6 +224,10 @@ namespace Alensia.Core.UI
         [SerializeField, HideInInspector] private Text _peerLabel;
 
         [SerializeField, HideInInspector] private Image _peerArrow;
+
+        [SerializeField, HideInInspector] private Image _peerPopupImage;
+
+        [SerializeField, HideInInspector] private Image _peerItemImage;
 
         [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
 
@@ -117,10 +240,23 @@ namespace Alensia.Core.UI
                 .AddTo(this);
 
             _textStyle
-                .Subscribe(v => UpdatePeer(PeerDropdown.captionText, v))
+                .Subscribe(v => v.Update(PeerDropdown.captionText, DefaultTextStyle))
                 .AddTo(this);
             _itemTextStyle
-                .Subscribe(v => UpdatePeer(PeerDropdown.itemText, v))
+                .Subscribe(v => v.Update(PeerDropdown.itemText, DefaultItemTextStyle))
+                .AddTo(this);
+
+            _background
+                .Subscribe(v => v.Update(PeerImage, DefaultBackground))
+                .AddTo(this);
+            _popupBackground
+                .Subscribe(v => v.Update(PeerPopupImage, DefaultPopupBackground))
+                .AddTo(this);
+            _itemBackground
+                .Subscribe(v => v.Update(PeerItemImage, DefaultItemBackground))
+                .AddTo(this);
+            _arrowImage
+                .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
                 .AddTo(this);
         }
 
@@ -132,22 +268,34 @@ namespace Alensia.Core.UI
             _peerImage = GetComponentInChildren<Image>();
             _peerLabel = Transform.Find("Label").GetComponentInChildren<Text>();
             _peerArrow = Transform.Find("Arrow").GetComponent<Image>();
-            _peerTemplate = Transform.Find("Template").GetComponentInChildren<ScrollRect>();
+
+            var template = Transform.Find("Template");
+
+            _peerTemplate = template.GetComponentInChildren<ScrollRect>();
+            _peerPopupImage = template.GetComponentInChildren<Image>();
+            _peerItemImage = template
+                .Find("Viewport/Content/Item/Item Background")
+                .GetComponentInChildren<Image>();
         }
 
-        protected override void UpdateEditor()
+        protected override void OnStyleChanged(UIStyle style)
         {
-            base.UpdateEditor();
+            base.OnStyleChanged(style);
 
-            UpdatePeer(PeerDropdown.captionText, TextStyle);
-            UpdatePeer(PeerDropdown.itemText, ItemTextStyle);
+            TextStyle.Update(PeerDropdown.captionText, DefaultTextStyle);
+            ItemTextStyle.Update(PeerDropdown.itemText, DefaultItemTextStyle);
+
+            Background.Update(PeerImage, DefaultBackground);
+            PopupBackground.Update(PeerPopupImage, DefaultPopupBackground);
+            ItemBackground.Update(PeerItemImage, DefaultItemBackground);
+            ArrowImage.Update(PeerArrow, DefaultArrowImage);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)
         {
             base.OnLocaleChanged(locale);
 
-            UpdateItems(_items.Value);
+            UpdateItems(Items);
         }
 
         protected override void ResetFromInstance(UIComponent component)
@@ -158,6 +306,11 @@ namespace Alensia.Core.UI
 
             TextStyle = new TextStyle(source.TextStyle);
             ItemTextStyle = new TextStyle(source.ItemTextStyle);
+
+            Background = new ImageAndColor(source.Background);
+            PopupBackground = new ImageAndColor(source.PopupBackground);
+            ItemBackground = new ImageAndColor(source.ItemBackground);
+            ArrowImage = new ImageAndColor(source.ArrowImage);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

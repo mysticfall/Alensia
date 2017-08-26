@@ -29,6 +29,26 @@ namespace Alensia.Core.UI
 
         public IObservable<Unit> OnClick => PeerButton?.onClick.AsObservable().Where(_ => Interactable);
 
+        protected override TextStyle DefaultTextStyle
+        {
+            get
+            {
+                var value = Style?.TextStyles?["Button.Text"];
+
+                return value == null ? base.DefaultTextStyle : value.Merge(base.DefaultTextStyle);
+            }
+        }
+
+        protected override ImageAndColor DefaultBackground
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Button.Background"];
+
+                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
+            }
+        }
+
         protected UEButton PeerButton => _peerButton;
 
         protected Image PeerImage => _peerImage;
@@ -64,7 +84,7 @@ namespace Alensia.Core.UI
                 .Subscribe(v => PeerButton.interactable = v)
                 .AddTo(this);
             _background
-                .Subscribe(b => b.Update(PeerImage))
+                .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
         }
 
@@ -81,8 +101,13 @@ namespace Alensia.Core.UI
             base.UpdateEditor();
 
             PeerButton.interactable = _interactable.Value;
+        }
 
-            Background.Update(PeerImage);
+        protected override void OnStyleChanged(UIStyle style)
+        {
+            base.OnStyleChanged(style);
+
+            Background.Update(PeerImage, DefaultBackground);
         }
 
         protected override void ResetFromInstance(UIComponent component)

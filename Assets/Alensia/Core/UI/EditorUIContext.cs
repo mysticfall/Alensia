@@ -10,17 +10,25 @@ namespace Alensia.Core.UI
     {
         public ResourceSettings Resources;
 
+        public UIStyle Style => _style;
+
         public CultureInfo Locale => _locale?.ToCulture();
 
         public ITranslator Translator { get; private set; }
 
         public IComponent ActiveComponent { get; set; }
 
+        public UniRx.IObservable<UIStyle> OnStyleChange => _styleProperty;
+
         public UniRx.IObservable<CultureInfo> OnLocaleChange => _localeProperty;
 
         public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponentProperty;
 
+        [SerializeField] private UIStyle _style;
+
         [SerializeField] private LanguageTag _locale = new LanguageTag("en-US");
+
+        private readonly IReactiveProperty<UIStyle> _styleProperty;
 
         private readonly IReactiveProperty<CultureInfo> _localeProperty;
 
@@ -28,6 +36,7 @@ namespace Alensia.Core.UI
 
         public EditorUIContext()
         {
+            _styleProperty = new ReactiveProperty<UIStyle>();
             _localeProperty = new ReactiveProperty<CultureInfo>();
             _activeComponentProperty = new ReactiveProperty<IComponent>();
         }
@@ -43,6 +52,7 @@ namespace Alensia.Core.UI
             Translator = CreateTranslator(new LocaleService(settings));
 
             _localeProperty.Value = Locale;
+            _styleProperty.Value = Style;
         }
 
         protected virtual ITranslator CreateTranslator(ILocaleService localeService)

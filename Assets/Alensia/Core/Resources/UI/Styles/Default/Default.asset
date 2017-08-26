@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3326bda088743838d330058f989505e, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 0}
+  _cursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
+  _imagesAndColors:
+  - _name: Button.Background
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0.134, g: 0.134, b: 0.134, a: 1}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 1
+  - _name: Dropdown.Background
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 1
+  - _name: Panel.Background
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 1
+  - _name: Dropdown.PopupBackground
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 0
+        _value: 1
+  - _name: Dropdown.ItemBackground
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 0}
+      _type:
+        _hasValue: 1
+        _value: 0
+  - _name: Dropdown.ArrowImage
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 0
+  _textStyles:
+  - _name: Button.Text
+    _value:
+      _font:
+        _hasValue: 0
+        _value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize:
+        _hasValue: 0
+        _value: 14
+      _fontStyle:
+        _hasValue: 0
+        _value: 0
+      _alignment:
+        _hasValue: 1
+        _value: 4
+      _horizontalOverflow:
+        _hasValue: 0
+        _value: 0
+      _verticalOverflow:
+        _hasValue: 0
+        _value: 0
+      _lineSpacing:
+        _hasValue: 0
+        _value: 1
+      _color:
+        _hasValue: 0
+        _value: {r: 1, g: 1, b: 1, a: 1}
+  - _name: Label.Text
+    _value:
+      _font:
+        _hasValue: 0
+        _value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize:
+        _hasValue: 0
+        _value: 14
+      _fontStyle:
+        _hasValue: 0
+        _value: 0
+      _alignment:
+        _hasValue: 1
+        _value: 5
+      _horizontalOverflow:
+        _hasValue: 0
+        _value: 0
+      _verticalOverflow:
+        _hasValue: 0
+        _value: 0
+      _lineSpacing:
+        _hasValue: 0
+        _value: 1
+      _color:
+        _hasValue: 0
+        _value: {r: 1, g: 1, b: 1, a: 1}
+  - _name: Text
+    _value:
+      _font:
+        _hasValue: 1
+        _value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize:
+        _hasValue: 1
+        _value: 14
+      _fontStyle:
+        _hasValue: 1
+        _value: 0
+      _alignment:
+        _hasValue: 1
+        _value: 3
+      _horizontalOverflow:
+        _hasValue: 1
+        _value: 0
+      _verticalOverflow:
+        _hasValue: 1
+        _value: 0
+      _lineSpacing:
+        _hasValue: 1
+        _value: 1
+      _color:
+        _hasValue: 1
+        _value: {r: 1, g: 1, b: 1, a: 1}

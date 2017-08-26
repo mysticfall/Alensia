@@ -7,11 +7,15 @@ namespace Alensia.Core.UI
 {
     public interface IUIContext
     {
+        UIStyle Style { get; }
+
         CultureInfo Locale { get; }
 
         ITranslator Translator { get; }
 
         IComponent ActiveComponent { get; set; }
+
+        IObservable<UIStyle> OnStyleChange { get; }
 
         IObservable<CultureInfo> OnLocaleChange { get; }
 

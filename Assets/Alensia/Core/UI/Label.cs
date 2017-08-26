@@ -33,6 +33,26 @@ namespace Alensia.Core.UI
             }
         }
 
+        protected override TextStyle DefaultTextStyle
+        {
+            get
+            {
+                var value = Style?.TextStyles?["Label.Text"];
+
+                return value == null ? base.DefaultTextStyle : value.Merge(base.DefaultTextStyle);
+            }
+        }
+
+        protected override ImageAndColor DefaultBackground
+        {
+            get
+            {
+                var value = Style?.ImagesAndColors?["Label.Background"];
+
+                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
+            }
+        }
+
         protected Text PeerText => _peerText;
 
         protected override IList<Object> Peers
@@ -61,7 +81,7 @@ namespace Alensia.Core.UI
                 .Subscribe(v => UpdatePeer(PeerText, v))
                 .AddTo(this);
             _textStyle
-                .Subscribe(v => UpdatePeer(PeerText, v))
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
                 .AddTo(this);
         }
 
@@ -72,11 +92,11 @@ namespace Alensia.Core.UI
             _peerText = GetComponentInChildren<Text>();
         }
 
-        protected override void UpdateEditor()
+        protected override void OnStyleChanged(UIStyle style)
         {
-            base.UpdateEditor();
+            base.OnStyleChanged(style);
 
-            UpdatePeer(PeerText, TextStyle);
+            TextStyle.Update(PeerText, DefaultTextStyle);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)

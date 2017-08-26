@@ -27,11 +27,23 @@ namespace Alensia.Core.UI
             set { _cursor.Value = value?.Trim(); }
         }
 
+        public UIStyle Style
+        {
+            get { return _style.Value ?? Context?.Style; }
+            set { _style.Value = value; }
+        }
+
         public IObservable<PointerEventData> OnPointerEnter => this.OnPointerEnterAsObservable();
 
         public IObservable<PointerEventData> OnPointerExit => this.OnPointerExitAsObservable();
 
         protected override bool InitializeInEditor => true;
+
+        protected virtual TextStyle DefaultTextStyle => Style?.TextStyles?["Text"];
+
+        protected virtual ImageAndColor DefaultBackground => Style?.ImagesAndColors?["Background"];
+
+        [SerializeField] private UIStyleReactiveProperty _style;
 
         [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
 
@@ -40,6 +52,10 @@ namespace Alensia.Core.UI
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
+
+            context.OnStyleChange
+                .Subscribe(OnStyleChanged)
+                .AddTo(_observers);
 
             context.OnLocaleChange
                 .Subscribe(OnLocaleChanged)
@@ -99,6 +115,7 @@ namespace Alensia.Core.UI
         protected virtual void ResetFromInstance(UIComponent component)
         {
             Cursor = component.Cursor;
+            Style = component.Style;
         }
 
         protected abstract UIComponent CreatePristineInstance();
@@ -108,6 +125,11 @@ namespace Alensia.Core.UI
             base.UpdateEditor();
 
             OnLocaleChanged(Context?.Locale);
+            OnStyleChanged(Style);
+        }
+
+        protected virtual void OnStyleChanged(UIStyle style)
+        {
         }
 
         protected virtual void OnLocaleChanged(CultureInfo locale)
@@ -121,10 +143,6 @@ namespace Alensia.Core.UI
 
             peer.text = value;
         }
-
-        protected virtual void UpdatePeer(Text peer, TextStyle style) => style.Update(peer);
-
-        protected virtual void UpdatePeer(Image peer, ImageAndColor background) => background.Update(peer);
 
         private bool HasActiveChild()
         {

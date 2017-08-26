@@ -9,5 +9,7 @@ namespace Alensia.Core.UI
         IEnumerable<IComponent> Ancestors { get; }
 
         string Cursor { get; set; }
+
+        UIStyle Style { get; set; }
     }
 }

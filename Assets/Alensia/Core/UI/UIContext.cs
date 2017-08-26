@@ -11,6 +11,8 @@ namespace Alensia.Core.UI
 {
     public class UIContext : IUIContext
     {
+        public UIStyle Style => _style.Value;
+
         public CultureInfo Locale => Translator?.LocaleService?.CurrentLocale;
 
         public ITranslator Translator { get; }
@@ -21,22 +23,31 @@ namespace Alensia.Core.UI
             set { _activeComponent.Value = value; }
         }
 
+        public UniRx.IObservable<UIStyle> OnStyleChange => _style;
+
         public UniRx.IObservable<CultureInfo> OnLocaleChange => Translator.LocaleService.OnLocaleChange;
 
         public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponent;
 
         protected DiContainer DiContainer { get; }
 
+        private readonly IReadOnlyReactiveProperty<UIStyle> _style;
+
         private readonly IReactiveProperty<IComponent> _activeComponent;
 
-        public UIContext(ITranslator translator, DiContainer container)
+        public UIContext(
+            IReadOnlyReactiveProperty<UIStyle> style,
+            ITranslator translator,
+            DiContainer container)
         {
+            Assert.IsNotNull(style, "style != null");
             Assert.IsNotNull(translator, "translator != null");
             Assert.IsNotNull(container, "container != null");
 
             Translator = translator;
             DiContainer = container;
 
+            _style = style;
             _activeComponent = new ReactiveProperty<IComponent>();
         }
 
