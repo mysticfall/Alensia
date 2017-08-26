@@ -8,39 +8,41 @@ namespace Alensia.Core.UI
 {
     public class EditorUIContext : ScriptableObject, IUIContext
     {
-        public LanguageTag Locale = new LanguageTag("en-US");
-
         public ResourceSettings Resources;
+
+        public CultureInfo Locale => _locale?.ToCulture();
 
         public ITranslator Translator { get; private set; }
 
         public IComponent ActiveComponent { get; set; }
 
-        public UniRx.IObservable<CultureInfo> OnLocaleChange => _locale;
+        public UniRx.IObservable<CultureInfo> OnLocaleChange => _localeProperty;
 
-        public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponent;
+        public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponentProperty;
 
-        private readonly IReactiveProperty<CultureInfo> _locale;
+        [SerializeField] private LanguageTag _locale = new LanguageTag("en-US");
 
-        private readonly IReactiveProperty<IComponent> _activeComponent;
+        private readonly IReactiveProperty<CultureInfo> _localeProperty;
+
+        private readonly IReactiveProperty<IComponent> _activeComponentProperty;
 
         public EditorUIContext()
         {
-            _locale = new ReactiveProperty<CultureInfo>();
-            _activeComponent = new ReactiveProperty<IComponent>();
+            _localeProperty = new ReactiveProperty<CultureInfo>();
+            _activeComponentProperty = new ReactiveProperty<IComponent>();
         }
 
         private void OnValidate()
         {
             var settings = new LocaleService.Settings
             {
-                DefaultLocale = Locale,
-                SupportedLocales = new[] {Locale}
+                DefaultLocale = _locale,
+                SupportedLocales = new[] {_locale}
             };
 
             Translator = CreateTranslator(new LocaleService(settings));
 
-            _locale.Value = Locale.ToCulture();
+            _localeProperty.Value = Locale;
         }
 
         protected virtual ITranslator CreateTranslator(ILocaleService localeService)

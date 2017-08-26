@@ -11,6 +11,8 @@ namespace Alensia.Core.UI
 {
     public class UIContext : IUIContext
     {
+        public CultureInfo Locale => Translator?.LocaleService?.CurrentLocale;
+
         public ITranslator Translator { get; }
 
         public IComponent ActiveComponent

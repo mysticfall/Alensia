@@ -7,6 +7,8 @@ namespace Alensia.Core.UI
 {
     public interface IUIContext
     {
+        CultureInfo Locale { get; }
+
         ITranslator Translator { get; }
 
         IComponent ActiveComponent { get; set; }
