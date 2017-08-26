@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine.EventSystems;
 
-namespace Alensia.Core.UI
+namespace Alensia.Core.UI.Event
 {
     public interface IPointerPresenceAware
     {
