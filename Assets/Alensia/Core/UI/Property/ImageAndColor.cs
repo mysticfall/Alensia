@@ -1,7 +1,8 @@
 ﻿using System;
-using ModestTree;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UEColor = UnityEngine.Color;
 using UEImage = UnityEngine.UI.Image;
 
 namespace Alensia.Core.UI.Property
@@ -9,25 +10,27 @@ namespace Alensia.Core.UI.Property
     [Serializable]
     public class ImageAndColor : ICompositeProperty<ImageAndColor, UEImage>
     {
-        public Color Color => _color;
+        public UnsettableColor Color => _color;
 
-        public Sprite Image => _image;
+        public UnsettableSprite Image => _image;
 
-        public UEImage.Type Type => _type;
+        public UnsettableImageType Type => _type;
 
-        [SerializeField] private Color _color;
+        [SerializeField] private UnsettableColor _color;
 
-        [SerializeField] private Sprite _image;
+        [SerializeField] private UnsettableSprite _image;
 
-        [SerializeField] private UEImage.Type _type;
+        [SerializeField] private UnsettableImageType _type;
 
         public ImageAndColor()
         {
-            _color = Color.white;
-            _type = UEImage.Type.Sliced;
+            _color = new UnsettableColor();
+            _image = new UnsettableSprite();
+            _type = new UnsettableImageType();
         }
 
-        public ImageAndColor(Color color, Sprite image, UEImage.Type type)
+        public ImageAndColor(
+            UnsettableColor color, UnsettableSprite image, UnsettableImageType type)
         {
             _color = color;
             _image = image;
@@ -43,29 +46,32 @@ namespace Alensia.Core.UI.Property
             _type = source.Type;
         }
 
-        public void Load(UEImage value)
-        {
-            Assert.IsNotNull(value);
+        public void Update(UEImage source) => Update(source, null);
 
-            _color = value.color;
-            _image = value.sprite;
-            _type = value.type;
+        public void Update(UEImage source, ImageAndColor defaultValue)
+        {
+            Assert.IsNotNull(source, "value != null");
+
+            source.color = _color.OrDefault(defaultValue?.Color);
+            source.sprite = _image.OrDefault(defaultValue?.Image);
+            source.type = _type.OrDefault(defaultValue?.Type);
         }
 
-        public void Update(UEImage value)
+        public ImageAndColor Merge(ImageAndColor other)
         {
-            Assert.IsNotNull(value);
-
-            value.color = _color;
-            value.sprite = _image;
-            value.type = _type;
+            return other == null
+                ? this
+                : new ImageAndColor(
+                    Color.HasValue ? Color : other.Color,
+                    Image.HasValue ? Image : other.Image,
+                    Type.HasValue ? Type : other.Type);
         }
 
-        public ImageAndColor WithColor(Color color) => new ImageAndColor(color, Image, Type);
+        public ImageAndColor WithColor(UnsettableColor color) => new ImageAndColor(color, Image, Type);
 
-        public ImageAndColor WithImage(Sprite image) => new ImageAndColor(Color, image, Type);
+        public ImageAndColor WithImage(UnsettableSprite image) => new ImageAndColor(Color, image, Type);
 
-        public ImageAndColor WithType(UEImage.Type type) => new ImageAndColor(Color, Image, type);
+        public ImageAndColor WithType(UnsettableImageType type) => new ImageAndColor(Color, Image, type);
 
         protected bool Equals(ImageAndColor other)
         {
@@ -87,7 +93,7 @@ namespace Alensia.Core.UI.Property
                 var hashCode = Color.GetHashCode();
 
                 hashCode = (hashCode * 397) ^ (Image != null ? Image.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int) Type;
+                hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
 
                 return hashCode;
             }

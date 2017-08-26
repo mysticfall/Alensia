@@ -2,11 +2,11 @@
 
 namespace Alensia.Core.UI.Property
 {
-    public interface ICompositeProperty<TProp, in TValue> : IEditorSettings 
-        where TProp : ICompositeProperty<TProp, TValue>
+    public interface ICompositeProperty<in TProp, in TSource> : IEditorSettings
+        where TProp : ICompositeProperty<TProp, TSource>
     {
-        void Load(TValue value);
+        void Update(TSource source);
 
-        void Update(TValue value);
+        void Update(TSource source, TProp defaultValue);
     }
 }

@@ -9,58 +9,58 @@ namespace Alensia.Core.UI.Property
     [Serializable]
     public class TextStyle : ICompositeProperty<TextStyle, Text>
     {
-        public Font Font => _font;
+        public UnsettableFont Font => _font;
 
-        public int FontSize => _fontSize;
+        public UnsettableInt FontSize => _fontSize;
 
-        public FontStyle FontStyle => _fontStyle;
+        public UnsettableFontStyle FontStyle => _fontStyle;
 
-        public Color Color => _color;
+        public UnsettableColor Color => _color;
 
-        public TextAnchor Alignment => _alignment;
+        public UnsettableTextAnchor Alignment => _alignment;
 
-        public HorizontalWrapMode HorizontalOverflow => _horizontalOverflow;
+        public UnsettableHorizontalWrapMode HorizontalOverflow => _horizontalOverflow;
 
-        public VerticalWrapMode VerticalOverflow => _verticalOverflow;
+        public UnsettableVerticalWrapMode VerticalOverflow => _verticalOverflow;
 
-        public float LineSpacing => _lineSpacing;
+        public UnsettableFloat LineSpacing => _lineSpacing;
 
-        [SerializeField] private Font _font;
+        [SerializeField] private UnsettableFont _font;
 
-        [SerializeField] private int _fontSize;
+        [SerializeField] private UnsettableInt _fontSize;
 
-        [SerializeField] private FontStyle _fontStyle;
+        [SerializeField] private UnsettableFontStyle _fontStyle;
 
-        [SerializeField] private TextAnchor _alignment;
+        [SerializeField] private UnsettableTextAnchor _alignment;
 
-        [SerializeField] private HorizontalWrapMode _horizontalOverflow;
+        [SerializeField] private UnsettableHorizontalWrapMode _horizontalOverflow;
 
-        [SerializeField] private VerticalWrapMode _verticalOverflow;
+        [SerializeField] private UnsettableVerticalWrapMode _verticalOverflow;
 
-        [SerializeField] private float _lineSpacing;
+        [SerializeField] private UnsettableFloat _lineSpacing;
 
-        [SerializeField] private Color _color;
+        [SerializeField] private UnsettableColor _color;
 
         public TextStyle()
         {
-            _fontSize = 14;
-            _fontStyle = FontStyle.Normal;
-            _alignment = TextAnchor.MiddleCenter;
-            _horizontalOverflow = HorizontalWrapMode.Wrap;
-            _verticalOverflow = VerticalWrapMode.Truncate;
-            _lineSpacing = 1f;
-            _color = Color.black;
+            _fontSize = new UnsettableInt();
+            _fontStyle = new UnsettableFontStyle();
+            _alignment = new UnsettableTextAnchor();
+            _horizontalOverflow = new UnsettableHorizontalWrapMode();
+            _verticalOverflow = new UnsettableVerticalWrapMode();
+            _lineSpacing = new UnsettableFloat();
+            _color = new UnsettableColor();
         }
 
         public TextStyle(
-            Font font,
-            int fontSize,
-            FontStyle fontStyle,
-            TextAnchor alignment,
-            HorizontalWrapMode horizontalOverflow,
-            VerticalWrapMode verticalOverflow,
-            float lineSpacing,
-            Color color)
+            UnsettableFont font,
+            UnsettableInt fontSize,
+            UnsettableFontStyle fontStyle,
+            UnsettableTextAnchor alignment,
+            UnsettableHorizontalWrapMode horizontalOverflow,
+            UnsettableVerticalWrapMode verticalOverflow,
+            UnsettableFloat lineSpacing,
+            UnsettableColor color)
         {
             _font = font;
             _fontSize = fontSize;
@@ -86,35 +86,38 @@ namespace Alensia.Core.UI.Property
             _color = source.Color;
         }
 
-        public void Load(Text value)
-        {
-            Assert.IsNotNull(value);
+        public void Update(Text source) => Update(source, null);
 
-            _font = value.font;
-            _fontSize = value.fontSize;
-            _fontStyle = value.fontStyle;
-            _color = value.color;
-            _alignment = value.alignment;
-            _horizontalOverflow = value.horizontalOverflow;
-            _verticalOverflow = value.verticalOverflow;
-            _lineSpacing = value.lineSpacing;
+        public void Update(Text source, TextStyle defaultValue)
+        {
+            Assert.IsNotNull(source);
+
+            source.font = _font.OrDefault(defaultValue?.Font);
+            source.fontSize = _fontSize.OrDefault(defaultValue?.FontSize);
+            source.fontStyle = _fontStyle.OrDefault(defaultValue?.FontStyle);
+            source.color = _color.OrDefault(defaultValue?.Color);
+            source.alignment = _alignment.OrDefault(defaultValue?.Alignment);
+            source.horizontalOverflow = _horizontalOverflow.OrDefault(defaultValue?.HorizontalOverflow);
+            source.verticalOverflow = _verticalOverflow.OrDefault(defaultValue?.VerticalOverflow);
+            source.lineSpacing = _lineSpacing.OrDefault(defaultValue?.LineSpacing);
         }
 
-        public void Update(Text value)
+        public TextStyle Merge(TextStyle other)
         {
-            Assert.IsNotNull(value);
-
-            value.font = _font;
-            value.fontSize = _fontSize;
-            value.fontStyle = _fontStyle;
-            value.color = _color;
-            value.alignment = _alignment;
-            value.horizontalOverflow = _horizontalOverflow;
-            value.verticalOverflow = _verticalOverflow;
-            value.lineSpacing = _lineSpacing;
+            return other == null
+                ? this
+                : new TextStyle(
+                    Font.HasValue ? Font : other.Font,
+                    FontSize.HasValue ? FontSize : other.FontSize,
+                    FontStyle.HasValue ? FontStyle : other.FontStyle,
+                    Alignment.HasValue ? Alignment : other.Alignment,
+                    HorizontalOverflow.HasValue ? HorizontalOverflow : other.HorizontalOverflow,
+                    VerticalOverflow.HasValue ? VerticalOverflow : other.VerticalOverflow,
+                    LineSpacing.HasValue ? LineSpacing : other.LineSpacing,
+                    Color.HasValue ? Color : other.Color);
         }
 
-        public TextStyle WithFont(Font font) =>
+        public TextStyle WithFont(UnsettableFont font) =>
             new TextStyle(
                 font,
                 FontSize,
@@ -125,7 +128,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithFontSize(int fontSize) =>
+        public TextStyle WithFontSize(UnsettableInt fontSize) =>
             new TextStyle(
                 Font,
                 fontSize,
@@ -136,7 +139,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithFontStyle(FontStyle fontStyle) =>
+        public TextStyle WithFontStyle(UnsettableFontStyle fontStyle) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -147,7 +150,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithAlignment(TextAnchor alignment) =>
+        public TextStyle WithAlignment(UnsettableTextAnchor alignment) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -158,7 +161,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithHorizontalOverflow(HorizontalWrapMode overflow) =>
+        public TextStyle WithHorizontalOverflow(UnsettableHorizontalWrapMode overflow) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -169,7 +172,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithVerticalOverflow(VerticalWrapMode overflow) =>
+        public TextStyle WithVerticalOverflow(UnsettableVerticalWrapMode overflow) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -180,7 +183,7 @@ namespace Alensia.Core.UI.Property
                 LineSpacing,
                 Color);
 
-        public TextStyle WithLineSpacing(float lineSpacing) =>
+        public TextStyle WithLineSpacing(UnsettableFloat lineSpacing) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -191,7 +194,7 @@ namespace Alensia.Core.UI.Property
                 lineSpacing,
                 Color);
 
-        public TextStyle WithColor(Color color) =>
+        public TextStyle WithColor(UnsettableColor color) =>
             new TextStyle(
                 Font,
                 FontSize,
@@ -226,14 +229,14 @@ namespace Alensia.Core.UI.Property
         {
             unchecked
             {
-                var hashCode = (Font != null ? Font.GetHashCode() : 0);
+                var hashCode = Font != null ? Font.GetHashCode() : 0;
 
-                hashCode = (hashCode * 397) ^ FontSize;
-                hashCode = (hashCode * 397) ^ (int) FontStyle;
-                hashCode = (hashCode * 397) ^ (int) Alignment;
-                hashCode = (hashCode * 397) ^ (int) HorizontalOverflow;
-                hashCode = (hashCode * 397) ^ (int) VerticalOverflow;
-                hashCode = (hashCode * 397) ^ LineSpacing.GetHashCode();
+                hashCode = (hashCode * 397) ^ (FontSize != null ? FontSize.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (FontStyle != null ? FontStyle.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Alignment != null ? Alignment.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (HorizontalOverflow != null ? HorizontalOverflow.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (VerticalOverflow != null ? VerticalOverflow.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LineSpacing != null ? LineSpacing.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
 
                 return hashCode;
