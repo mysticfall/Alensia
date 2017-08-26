@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using static UnityEditor.EditorGUI;
 
 namespace Alensia.Core.I18n
 {
@@ -11,42 +12,42 @@ namespace Alensia.Core.I18n
             var text = property.FindPropertyRelative("_text");
             var textKey = property.FindPropertyRelative("_textKey");
 
-            EditorGUI.BeginProperty(position, label, text);
+            BeginProperty(position, label, text);
 
             var xMin = position.xMin;
 
             position.height = EditorGUIUtility.singleLineHeight;
 
-            EditorGUI.BeginChangeCheck();
+            BeginChangeCheck();
 
-            var textValue = EditorGUI.TextField(position, label, text.stringValue);
+            var textValue = TextField(position, label, text.stringValue);
 
-            if (EditorGUI.EndChangeCheck())
+            if (EndChangeCheck())
             {
                 text.stringValue = textValue;
             }
 
-            EditorGUI.EndProperty();
+            EndProperty();
 
             position.xMin = xMin;
             position.yMin += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
 
-            EditorGUI.BeginProperty(position, label, textKey);
+            BeginProperty(position, label, textKey);
 
             position.height = EditorGUIUtility.singleLineHeight;
 
-            EditorGUI.BeginChangeCheck();
+            BeginChangeCheck();
 
-            var textKeyValue = EditorGUI.TextField(
+            var textKeyValue = TextField(
                 position, $"{property.displayName} (I18n Key)", textKey.stringValue);
 
-            if (EditorGUI.EndChangeCheck())
+            if (EndChangeCheck())
             {
                 textKey.stringValue = textKeyValue;
             }
 
-            EditorGUI.EndProperty();
+            EndProperty();
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
