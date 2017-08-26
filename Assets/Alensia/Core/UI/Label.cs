@@ -76,7 +76,6 @@ namespace Alensia.Core.UI
         {
             base.UpdateEditor();
 
-            UpdatePeer(PeerText, Text);
             UpdatePeer(PeerText, TextStyle);
         }
 

@@ -103,6 +103,13 @@ namespace Alensia.Core.UI
 
         protected abstract UIComponent CreatePristineInstance();
 
+        protected override void UpdateEditor()
+        {
+            base.UpdateEditor();
+
+            OnLocaleChanged(Context?.Locale);
+        }
+
         protected virtual void OnLocaleChanged(CultureInfo locale)
         {
         }

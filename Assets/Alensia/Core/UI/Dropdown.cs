@@ -139,8 +139,6 @@ namespace Alensia.Core.UI
         {
             base.UpdateEditor();
 
-            UpdateItems(_items.Value);
-
             UpdatePeer(PeerDropdown.captionText, TextStyle);
             UpdatePeer(PeerDropdown.itemText, ItemTextStyle);
         }
@@ -150,9 +148,6 @@ namespace Alensia.Core.UI
             base.OnLocaleChanged(locale);
 
             UpdateItems(_items.Value);
-
-            UpdatePeer(PeerDropdown.captionText, TextStyle);
-            UpdatePeer(PeerDropdown.itemText, ItemTextStyle);
         }
 
         protected override void ResetFromInstance(UIComponent component)
