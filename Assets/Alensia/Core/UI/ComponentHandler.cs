@@ -3,11 +3,13 @@
 namespace Alensia.Core.UI
 {
     public abstract class ComponentHandler<T> : UIElement, IComponentHandler<T>
-        where T : IComponent
+        where T : class, IComponent
     {
-        public T Component { get; private set; }
+        public T Component => _component ?? (_component = GetComponent<T>());
 
         IComponent IComponentHandler.Component => Component;
+
+        private T _component;
 
         public override void Initialize(IUIContext context)
         {
@@ -17,13 +19,6 @@ namespace Alensia.Core.UI
             {
                 Component.Initialize(context);
             }
-        }
-
-        protected override void InitializePeers()
-        {
-            Component = GetComponent<T>();
-
-            base.InitializePeers();
         }
     }
 }

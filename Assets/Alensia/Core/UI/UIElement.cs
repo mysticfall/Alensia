@@ -84,10 +84,6 @@ namespace Alensia.Core.UI
             return Resources.Load<EditorUIContext>("UI/EditorUIContext");
         }
 
-        protected virtual void InitializePeers()
-        {
-        }
-
         protected virtual void UpdateEditor()
         {
         }
@@ -104,13 +100,11 @@ namespace Alensia.Core.UI
 #pragma warning disable 108,114
         protected virtual void Awake()
         {
-            InitializePeers();
             ApplyHideFlags();
         }
 
         protected virtual void Reset()
         {
-            InitializePeers();
             ApplyHideFlags();
         }
 

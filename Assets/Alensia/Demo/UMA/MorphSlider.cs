@@ -34,13 +34,6 @@ namespace Alensia.Demo.UMA
         {
             base.Initialize(context);
 
-            UpdateMorph();
-        }
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
             Label = GetComponentInChildren<Label>();
             Slider = GetComponentInChildren<Slider>();
 
@@ -48,6 +41,8 @@ namespace Alensia.Demo.UMA
                 .Where(_ => Morph != null)
                 .Subscribe(v => Morph.Value = v)
                 .AddTo(this);
+
+            UpdateMorph();
         }
 
         protected virtual void UpdateMorph()

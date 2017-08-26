@@ -30,13 +30,17 @@ namespace Alensia.Core.UI
 
         public IObservable<float> OnValueChange => _value;
 
-        protected UESlider PeerSlider => _peerSlider;
+        protected UESlider PeerSlider =>
+            _peerSlider ?? (_peerSlider = GetComponentInChildren<UESlider>());
 
-        protected Image PeerBackground => _peerBackground;
+        protected Image PeerBackground =>
+            _peerBackground ?? (_peerBackground = Transform.Find("Background").GetComponent<Image>());
 
-        protected Transform PeerFillArea => _peerFillArea;
+        protected Transform PeerFillArea =>
+            _peerFillArea ?? (_peerFillArea = Transform.Find("Fill Area"));
 
-        protected Transform PeerHandleSlideArea => _peerHandleSlideArea;
+        protected Transform PeerHandleSlideArea =>
+            _peerHandleSlideArea ?? (_peerHandleSlideArea = Transform.Find("Handle Slide Area"));
 
         protected override IList<Object> Peers
         {
@@ -80,17 +84,6 @@ namespace Alensia.Core.UI
                 .OnValueChangedAsObservable()
                 .Subscribe(v => Value = v)
                 .AddTo(this);
-        }
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerSlider = GetComponentInChildren<UESlider>();
-
-            _peerBackground = Transform.Find("Background").GetComponent<Image>();
-            _peerFillArea = Transform.Find("Fill Area");
-            _peerHandleSlideArea = Transform.Find("Handle Slide Area");
         }
 
         protected override void UpdateEditor()

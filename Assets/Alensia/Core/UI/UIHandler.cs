@@ -4,7 +4,7 @@ using UniRx.Triggers;
 namespace Alensia.Core.UI
 {
     public abstract class UIHandler<T> : ComponentHandler<T>, IUIHandler
-        where T : IComponent
+        where T : class, IComponent
     {
         public bool Closed
         {

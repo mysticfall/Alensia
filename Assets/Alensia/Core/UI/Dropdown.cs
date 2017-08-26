@@ -169,19 +169,29 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected UEDropdown PeerDropdown => _peerDropdown;
+        protected UEDropdown PeerDropdown => _peerDropdown ?? (_peerDropdown = GetComponent<UEDropdown>());
 
-        protected Image PeerImage => _peerImage;
+        protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
 
-        protected Text PeerLabel => _peerLabel;
+        protected Text PeerLabel => _peerLabel ?? (_peerLabel = Transform.Find("Label").GetComponentInChildren<Text>());
 
-        protected Image PeerArrow => _peerArrow;
+        protected Image PeerArrow => _peerArrow ?? (_peerArrow = Transform.Find("Arrow").GetComponent<Image>());
 
-        protected ScrollRect PeerTemplate => _peerTemplate;
+        protected ScrollRect PeerTemplate => _peerTemplate ??
+                                             (_peerTemplate = Transform
+                                                 .Find("Template")
+                                                 .GetComponentInChildren<ScrollRect>());
 
-        protected Image PeerPopupImage => _peerPopupImage;
+        protected Image PeerPopupImage => _peerPopupImage ??
+                                          (_peerPopupImage = Transform
+                                              .Find("Template")
+                                              .GetComponentInChildren<Image>());
 
-        protected Image PeerItemImage => _peerItemImage;
+        protected Image PeerItemImage => _peerItemImage ??
+                                         (_peerItemImage = Transform
+                                             .Find("Template")
+                                             .Find("Viewport/Content/Item/Item Background")
+                                             .GetComponentInChildren<Image>());
 
         protected override IList<Object> Peers
         {
@@ -258,24 +268,6 @@ namespace Alensia.Core.UI
             _arrowImage
                 .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
                 .AddTo(this);
-        }
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerDropdown = GetComponent<UEDropdown>();
-            _peerImage = GetComponentInChildren<Image>();
-            _peerLabel = Transform.Find("Label").GetComponentInChildren<Text>();
-            _peerArrow = Transform.Find("Arrow").GetComponent<Image>();
-
-            var template = Transform.Find("Template");
-
-            _peerTemplate = template.GetComponentInChildren<ScrollRect>();
-            _peerPopupImage = template.GetComponentInChildren<Image>();
-            _peerItemImage = template
-                .Find("Viewport/Content/Item/Item Background")
-                .GetComponentInChildren<Image>();
         }
 
         protected override void OnStyleChanged(UIStyle style)

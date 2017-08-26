@@ -49,9 +49,9 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected UEButton PeerButton => _peerButton;
+        protected UEButton PeerButton => _peerButton ?? (_peerButton = GetComponentInChildren<UEButton>());
 
-        protected Image PeerImage => _peerImage;
+        protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
 
         protected override IList<Object> Peers
         {
@@ -86,14 +86,6 @@ namespace Alensia.Core.UI
             _background
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
-        }
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerButton = GetComponentInChildren<UEButton>();
-            _peerImage = GetComponentInChildren<Image>();
         }
 
         protected override void UpdateEditor()

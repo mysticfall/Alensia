@@ -36,7 +36,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected Image PeerImage => _peerImage;
+        protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
 
         protected override IList<Object> Peers
         {
@@ -55,13 +55,6 @@ namespace Alensia.Core.UI
         [SerializeField] private ImageAndColorReactiveProperty _background;
 
         [SerializeField, HideInInspector] private Image _peerImage;
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerImage = GetComponentInChildren<Image>();
-        }
 
         protected override void InitializeProperties(IUIContext context)
         {

@@ -53,7 +53,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected Text PeerText => _peerText;
+        protected Text PeerText => _peerText ?? (_peerText = GetComponentInChildren<Text>());
 
         protected override IList<Object> Peers
         {
@@ -83,13 +83,6 @@ namespace Alensia.Core.UI
             _textStyle
                 .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
                 .AddTo(this);
-        }
-
-        protected override void InitializePeers()
-        {
-            base.InitializePeers();
-
-            _peerText = GetComponentInChildren<Text>();
         }
 
         protected override void OnStyleChanged(UIStyle style)
