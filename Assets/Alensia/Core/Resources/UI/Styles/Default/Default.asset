@@ -25,6 +25,17 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 1
+  - _name: Dropdown.ArrowImage
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 0
   - _name: Dropdown.Background
     _value:
       _color:
@@ -35,28 +46,6 @@ MonoBehaviour:
         _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
       _type:
         _hasValue: 1
-        _value: 1
-  - _name: Panel.Background
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 1
-        _value: 1
-  - _name: Dropdown.PopupBackground
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 0
         _value: 1
   - _name: Dropdown.ItemBackground
     _value:
@@ -69,17 +58,28 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 0
-  - _name: Dropdown.ArrowImage
+  - _name: Dropdown.PopupBackground
     _value:
       _color:
         _hasValue: 1
         _value: {r: 0, g: 0, b: 0, a: 0.9019608}
       _image:
         _hasValue: 1
-        _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 0
+        _value: 1
+  - _name: Panel.Background
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       _type:
         _hasValue: 1
-        _value: 0
+        _value: 1
   _textStyles:
   - _name: Button.Text
     _value:
