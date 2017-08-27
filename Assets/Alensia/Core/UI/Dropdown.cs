@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Alensia.Core.UI.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using UEDropdown = UnityEngine.UI.Dropdown;
 
 namespace Alensia.Core.UI
 {
-    public class Dropdown : UIComponent, IInputComponent<string>
+    public class Dropdown : UIComponent, IInputComponent<string>, IPointerSelectionAware
     {
         public bool Interactable
         {
             get { return _interactable.Value; }
             set { _interactable.Value = value; }
         }
+
+        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+
+        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
 
         public IReadOnlyList<DropdownItem> Items
         {
@@ -114,6 +121,18 @@ namespace Alensia.Core.UI
         {
             get { return _items.Select(i => (IReadOnlyList<DropdownItem>) i.ToList()); }
         }
+
+        public UniRx.IObservable<bool> OnInteractableStateChange => _interactable;
+
+        public UniRx.IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
+
+        public UniRx.IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
+
+        public UniRx.IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+
+        public UniRx.IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+
+        public UniRx.IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
 
         protected override TextStyle DefaultTextStyle
         {
@@ -249,12 +268,29 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
 
+        private EventTracker<Dropdown> _interactionTracker;
+
+        private EventTracker<Dropdown> _highlightTracker;
+
+        private List<EventTracker<Dropdown>> _trackers;
+
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
+            _interactionTracker = new PointerSelectionTracker<Dropdown>(this);
+            _highlightTracker = new PointerPresenceTracker<Dropdown>(this);
+
+            _trackers = new List<EventTracker<Dropdown>> {_interactionTracker, _highlightTracker};
+
+            _trackers.ForEach(t => t.Initialize());
+
             _interactable
-                .Subscribe(v => PeerDropdown.interactable = v)
+                .Subscribe(v =>
+                {
+                    PeerDropdown.interactable = v;
+                    _trackers.ForEach(t => t.Active = v);
+                })
                 .AddTo(this);
 
             OnItemsChange
@@ -280,6 +316,14 @@ namespace Alensia.Core.UI
             _arrowImage
                 .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
                 .AddTo(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _trackers?.ForEach(t => t.Dispose());
+            _trackers = null;
         }
 
         protected override void OnStyleChanged(UIStyle style)

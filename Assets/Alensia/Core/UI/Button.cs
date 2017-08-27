@@ -1,20 +1,27 @@
 using System.Collections.Generic;
+using Alensia.Core.UI.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UEButton = UnityEngine.UI.Button;
 
 namespace Alensia.Core.UI
 {
-    public class Button : Label, IInteractableComponent
+    public class Button : Label, IInteractableComponent, IPointerSelectionAware
     {
         public bool Interactable
         {
             get { return _interactable.Value; }
             set { _interactable.Value = value; }
         }
+
+        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+
+        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
 
         public ImageAndColor Background
         {
@@ -27,7 +34,17 @@ namespace Alensia.Core.UI
             }
         }
 
-        public IObservable<Unit> OnClick => PeerButton?.onClick.AsObservable().Where(_ => Interactable);
+        public IObservable<bool> OnInteractableStateChange => _interactable;
+
+        public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
+
+        public IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
+
+        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+
+        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+
+        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
 
         protected override TextStyle DefaultTextStyle
         {
@@ -76,16 +93,42 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
+        private EventTracker<Button> _interactionTracker;
+
+        private EventTracker<Button> _highlightTracker;
+
+        private List<EventTracker<Button>> _trackers;
+
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
+            _interactionTracker = new PointerSelectionTracker<Button>(this);
+            _highlightTracker = new PointerPresenceTracker<Button>(this);
+
+            _trackers = new List<EventTracker<Button>> {_interactionTracker, _highlightTracker};
+
+            _trackers.ForEach(t => t.Initialize());
+
             _interactable
-                .Subscribe(v => PeerButton.interactable = v)
+                .Subscribe(v =>
+                {
+                    PeerButton.interactable = v;
+                    _trackers.ForEach(t => t.Active = v);
+                })
                 .AddTo(this);
+
             _background
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _trackers?.ForEach(t => t.Dispose());
+            _trackers = null;
         }
 
         protected override void UpdateEditor()

@@ -21,7 +21,7 @@ namespace Alensia.Core.UI.Event
                 .Select(_ => true)
                 .Merge(Component.OnPointerUpAsObservable().Select(_ => false))
                 .DistinctUntilChanged()
-                .Subscribe(v => Active = v);
+                .Subscribe(ChangeState);
         }
 
         protected override void OnDeactivated()

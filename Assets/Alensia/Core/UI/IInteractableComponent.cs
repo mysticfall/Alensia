@@ -1,7 +1,9 @@
-﻿namespace Alensia.Core.UI
+﻿using Alensia.Core.UI.Event;
+using UniRx;
+
+namespace Alensia.Core.UI
 {
-    public interface IInteractableComponent : IComponent
+    public interface IInteractableComponent : IComponent, IHighlightable, IInteractable
     {
-        bool Interactable { get; set; }
     }
 }

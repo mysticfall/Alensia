@@ -2,7 +2,7 @@
 
 namespace Alensia.Core.UI
 {
-    public interface IInputComponent<T> : IComponent
+    public interface IInputComponent<T> : IInteractableComponent
     {
         T Value { get; set; }
 

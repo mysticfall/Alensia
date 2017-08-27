@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Alensia.Core.UI.Event;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -15,6 +16,10 @@ namespace Alensia.Core.UI
             get { return _interactable.Value; }
             set { _interactable.Value = value; }
         }
+
+        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+
+        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
 
         public float Value
         {
@@ -35,6 +40,12 @@ namespace Alensia.Core.UI
         }
 
         public IObservable<float> OnValueChange => _value;
+
+        public IObservable<bool> OnInteractableStateChange => _interactable;
+
+        public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
+
+        public IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
 
         protected UESlider PeerSlider =>
             _peerSlider ?? (_peerSlider = GetComponentInChildren<UESlider>());
@@ -85,12 +96,29 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerHandle;
 
+        private EventTracker<Image> _interactionTracker;
+
+        private EventTracker<Image> _highlightTracker;
+
+        private List<EventTracker<Image>> _trackers;
+
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
+            _interactionTracker = new PointerSelectionTracker<Image>(PeerHandle);
+            _highlightTracker = new PointerPresenceTracker<Image>(PeerHandle);
+
+            _trackers = new List<EventTracker<Image>> {_interactionTracker, _highlightTracker};
+
+            _trackers.ForEach(t => t.Initialize());
+
             _interactable
-                .Subscribe(v => PeerSlider.interactable = v)
+                .Subscribe(v =>
+                {
+                    PeerSlider.interactable = v;
+                    _trackers.ForEach(t => t.Active = v);
+                })
                 .AddTo(this);
             
             _minValue.Subscribe(v => PeerSlider.minValue = v).AddTo(this);
@@ -101,6 +129,14 @@ namespace Alensia.Core.UI
                 .OnValueChangedAsObservable()
                 .Subscribe(v => Value = v)
                 .AddTo(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _trackers?.ForEach(t => t.Dispose());
+            _trackers = null;
         }
 
         protected override void UpdateEditor()

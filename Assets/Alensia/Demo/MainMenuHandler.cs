@@ -29,11 +29,11 @@ namespace Alensia.Demo
         {
             base.Initialize(context);
 
-            ButtonResume.OnClick
+            ButtonResume.OnPointerSelect
                 .Subscribe(_ => Close())
                 .AddTo(this);
 
-            ButtonQuit.OnClick
+            ButtonQuit.OnPointerSelect
                 .Subscribe(_ => Game.Quit())
                 .AddTo(this);
 
