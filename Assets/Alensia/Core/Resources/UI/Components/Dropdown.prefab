@@ -531,6 +531,8 @@ MonoBehaviour:
     value: {fileID: 0}
   _cursor:
     value: pointer
+  _interactable:
+    value: 1
   _items:
     value: []
   _textStyle:
@@ -633,8 +635,8 @@ MonoBehaviour:
   _peerImage: {fileID: 114946013102959140}
   _peerLabel: {fileID: 114994990512614928}
   _peerArrow: {fileID: 114868206731091520}
-  _peerPopupImage: {fileID: 0}
-  _peerItemImage: {fileID: 0}
+  _peerPopupImage: {fileID: 114953385841565126}
+  _peerItemImage: {fileID: 114282754919810828}
   _peerTemplate: {fileID: 114939712467297548}
 --- !u!114 &114868206731091520
 MonoBehaviour:

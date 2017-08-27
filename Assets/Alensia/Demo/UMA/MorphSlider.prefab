@@ -193,6 +193,8 @@ MonoBehaviour:
     value: {fileID: 0}
   _cursor:
     value: 
+  _interactable:
+    value: 1
   _value:
     value: 0
   _minValue:
@@ -203,6 +205,7 @@ MonoBehaviour:
   _peerBackground: {fileID: 114464100019263160}
   _peerFillArea: {fileID: 224665763770730788}
   _peerHandleSlideArea: {fileID: 224891377212030650}
+  _peerHandle: {fileID: 0}
 --- !u!114 &114098440955217480
 MonoBehaviour:
   m_ObjectHideFlags: 1

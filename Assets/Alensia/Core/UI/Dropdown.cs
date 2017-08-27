@@ -14,6 +14,12 @@ namespace Alensia.Core.UI
 {
     public class Dropdown : UIComponent, IInputComponent<string>
     {
+        public bool Interactable
+        {
+            get { return _interactable.Value; }
+            set { _interactable.Value = value; }
+        }
+
         public IReadOnlyList<DropdownItem> Items
         {
             get { return _items.Value; }
@@ -213,6 +219,8 @@ namespace Alensia.Core.UI
             }
         }
 
+        [SerializeField] private BoolReactiveProperty _interactable;
+
         [SerializeField] private DropdownItemList _items;
 
         [SerializeField] private TextStyleReactiveProperty _textStyle;
@@ -244,6 +252,10 @@ namespace Alensia.Core.UI
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
+
+            _interactable
+                .Subscribe(v => PeerDropdown.interactable = v)
+                .AddTo(this);
 
             OnItemsChange
                 .Subscribe(UpdateItems)

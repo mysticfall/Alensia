@@ -195,8 +195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c51fa5c01c4a7b8d01ad0b20877904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _style:
+    value: {fileID: 0}
   _cursor:
     value: 
+  _interactable:
+    value: 1
   _value:
     value: 0
   _minValue:
@@ -207,6 +211,7 @@ MonoBehaviour:
   _peerBackground: {fileID: 114851756785365310}
   _peerFillArea: {fileID: 224072815847518624}
   _peerHandleSlideArea: {fileID: 224810666619078502}
+  _peerHandle: {fileID: 0}
 --- !u!114 &114523642353803364
 MonoBehaviour:
   m_ObjectHideFlags: 1

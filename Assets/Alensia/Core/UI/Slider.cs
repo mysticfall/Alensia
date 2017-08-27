@@ -10,6 +10,12 @@ namespace Alensia.Core.UI
     [RequireComponent(typeof(UESlider))]
     public class Slider : UIComponent, IInputComponent<float>
     {
+        public bool Interactable
+        {
+            get { return _interactable.Value; }
+            set { _interactable.Value = value; }
+        }
+
         public float Value
         {
             get { return _value.Value; }
@@ -58,6 +64,8 @@ namespace Alensia.Core.UI
             }
         }
 
+        [SerializeField] private BoolReactiveProperty _interactable;
+
         [SerializeField] private FloatReactiveProperty _value;
 
         [SerializeField] private FloatReactiveProperty _minValue;
@@ -76,6 +84,10 @@ namespace Alensia.Core.UI
         {
             base.InitializeProperties(context);
 
+            _interactable
+                .Subscribe(v => PeerSlider.interactable = v)
+                .AddTo(this);
+            
             _minValue.Subscribe(v => PeerSlider.minValue = v).AddTo(this);
             _maxValue.Subscribe(v => PeerSlider.maxValue = v).AddTo(this);
             _value.Subscribe(v => PeerSlider.value = v).AddTo(this);
