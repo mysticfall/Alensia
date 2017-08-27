@@ -62,14 +62,14 @@ namespace Alensia.Core.UI.Property
             UnsettableFloat lineSpacing,
             UnsettableColor color)
         {
-            _font = font;
-            _fontSize = fontSize;
-            _fontStyle = fontStyle;
-            _alignment = alignment;
-            _horizontalOverflow = horizontalOverflow;
-            _verticalOverflow = verticalOverflow;
-            _lineSpacing = lineSpacing;
-            _color = color;
+            _font = font ?? new UnsettableFont();
+            _fontSize = fontSize ?? new UnsettableInt();
+            _fontStyle = fontStyle ?? new UnsettableFontStyle();
+            _alignment = alignment ?? new UnsettableTextAnchor();
+            _horizontalOverflow = horizontalOverflow ?? new UnsettableHorizontalWrapMode();
+            _verticalOverflow = verticalOverflow ?? new UnsettableVerticalWrapMode();
+            _lineSpacing = lineSpacing ?? new UnsettableFloat();
+            _color = color ?? new UnsettableColor();
         }
 
         public TextStyle(TextStyle source)

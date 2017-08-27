@@ -32,9 +32,9 @@ namespace Alensia.Core.UI.Property
         public ImageAndColor(
             UnsettableColor color, UnsettableSprite image, UnsettableImageType type)
         {
-            _color = color;
-            _image = image;
-            _type = type;
+            _color = color ?? new UnsettableColor();
+            _image = image ?? new UnsettableSprite();
+            _type = type ?? new UnsettableImageType();
         }
 
         public ImageAndColor(ImageAndColor source)
