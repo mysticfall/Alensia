@@ -15,18 +15,9 @@ using UEDropdown = UnityEngine.UI.Dropdown;
 
 namespace Alensia.Core.UI
 {
-    public class Dropdown : UIComponent, IInputComponent<string>, IPointerSelectionAware
+    public class Dropdown : InteractableComponent<UEDropdown, UEDropdown>,
+        IInputComponent<string>, IPointerSelectionAware
     {
-        public bool Interactable
-        {
-            get { return _interactable.Value; }
-            set { _interactable.Value = value; }
-        }
-
-        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
-
-        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
-
         public IReadOnlyList<DropdownItem> Items
         {
             get { return _items.Value; }
@@ -122,12 +113,6 @@ namespace Alensia.Core.UI
             get { return _items.Select(i => (IReadOnlyList<DropdownItem>) i.ToList()); }
         }
 
-        public UniRx.IObservable<bool> OnInteractableStateChange => _interactable;
-
-        public UniRx.IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
-
-        public UniRx.IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
-
         public UniRx.IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
         public UniRx.IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
@@ -218,6 +203,10 @@ namespace Alensia.Core.UI
                                              .Find("Viewport/Content/Item/Item Background")
                                              .GetComponentInChildren<Image>());
 
+        protected override UEDropdown PeerSelectable => PeerDropdown;
+
+        protected override UEDropdown PeerHotspot => PeerDropdown;
+
         protected override IList<Object> Peers
         {
             get
@@ -237,8 +226,6 @@ namespace Alensia.Core.UI
                 return peers;
             }
         }
-
-        [SerializeField] private BoolReactiveProperty _interactable;
 
         [SerializeField] private DropdownItemList _items;
 
@@ -268,30 +255,9 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
 
-        private EventTracker<Dropdown> _interactionTracker;
-
-        private EventTracker<Dropdown> _highlightTracker;
-
-        private List<EventTracker<Dropdown>> _trackers;
-
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
-
-            _interactionTracker = new PointerSelectionTracker<Dropdown>(this);
-            _highlightTracker = new PointerPresenceTracker<Dropdown>(this);
-
-            _trackers = new List<EventTracker<Dropdown>> {_interactionTracker, _highlightTracker};
-
-            _trackers.ForEach(t => t.Initialize());
-
-            _interactable
-                .Subscribe(v =>
-                {
-                    PeerDropdown.interactable = v;
-                    _trackers.ForEach(t => t.Active = v);
-                })
-                .AddTo(this);
 
             OnItemsChange
                 .Subscribe(UpdateItems)
@@ -316,14 +282,6 @@ namespace Alensia.Core.UI
             _arrowImage
                 .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
                 .AddTo(this);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _trackers?.ForEach(t => t.Dispose());
-            _trackers = null;
         }
 
         protected override void OnStyleChanged(UIStyle style)

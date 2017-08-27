@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Globalization;
+using Alensia.Core.I18n;
 using Alensia.Core.UI.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
@@ -11,17 +13,29 @@ using UEButton = UnityEngine.UI.Button;
 
 namespace Alensia.Core.UI
 {
-    public class Button : Label, IInteractableComponent, IPointerSelectionAware
+    public class Button : InteractableComponent<UEButton, UEButton>, IPointerSelectionAware
     {
-        public bool Interactable
+        public TranslatableText Text
         {
-            get { return _interactable.Value; }
-            set { _interactable.Value = value; }
+            get { return _text.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _text.Value = value;
+            }
         }
 
-        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+        public TextStyle TextStyle
+        {
+            get { return _textStyle.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
 
-        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
+                _textStyle.Value = value;
+            }
+        }
 
         public ImageAndColor Background
         {
@@ -33,12 +47,6 @@ namespace Alensia.Core.UI
                 _background.Value = value;
             }
         }
-
-        public IObservable<bool> OnInteractableStateChange => _interactable;
-
-        public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
-
-        public IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
 
         public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
@@ -68,7 +76,13 @@ namespace Alensia.Core.UI
 
         protected UEButton PeerButton => _peerButton ?? (_peerButton = GetComponentInChildren<UEButton>());
 
+        protected Text PeerText => _peerText ?? (_peerText = GetComponentInChildren<Text>());
+
         protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
+
+        protected override UEButton PeerSelectable => PeerButton;
+
+        protected override UEButton PeerHotspot => PeerButton;
 
         protected override IList<Object> Peers
         {
@@ -77,15 +91,16 @@ namespace Alensia.Core.UI
                 var peers = base.Peers;
 
                 if (PeerButton != null) peers.Add(PeerButton);
-                if (PeerImage != null) peers.Add(PeerImage);
-
                 if (PeerText != null) peers.Add(PeerText.gameObject);
+                if (PeerImage != null) peers.Add(PeerImage);
 
                 return peers;
             }
         }
 
-        [SerializeField] private BoolReactiveProperty _interactable;
+        [SerializeField] private TranslatableTextReactiveProperty _text;
+
+        [SerializeField] private TextStyleReactiveProperty _textStyle;
 
         [SerializeField] private ImageAndColorReactiveProperty _background;
 
@@ -93,29 +108,17 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
-        private EventTracker<Button> _interactionTracker;
-
-        private EventTracker<Button> _highlightTracker;
-
-        private List<EventTracker<Button>> _trackers;
+        [SerializeField, HideInInspector] private Text _peerText;
 
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
-            _interactionTracker = new PointerSelectionTracker<Button>(this);
-            _highlightTracker = new PointerPresenceTracker<Button>(this);
-
-            _trackers = new List<EventTracker<Button>> {_interactionTracker, _highlightTracker};
-
-            _trackers.ForEach(t => t.Initialize());
-
-            _interactable
-                .Subscribe(v =>
-                {
-                    PeerButton.interactable = v;
-                    _trackers.ForEach(t => t.Active = v);
-                })
+            _text
+                .Subscribe(v => UpdatePeer(PeerText, v))
+                .AddTo(this);
+            _textStyle
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
                 .AddTo(this);
 
             _background
@@ -123,25 +126,18 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void OnDestroy()
+        protected override void OnLocaleChanged(CultureInfo locale)
         {
-            base.OnDestroy();
+            base.OnLocaleChanged(locale);
 
-            _trackers?.ForEach(t => t.Dispose());
-            _trackers = null;
-        }
-
-        protected override void UpdateEditor()
-        {
-            base.UpdateEditor();
-
-            PeerButton.interactable = _interactable.Value;
+            UpdatePeer(PeerText, Text);
         }
 
         protected override void OnStyleChanged(UIStyle style)
         {
             base.OnStyleChanged(style);
 
+            TextStyle.Update(PeerText, DefaultTextStyle);
             Background.Update(PeerImage, DefaultBackground);
         }
 
@@ -151,14 +147,17 @@ namespace Alensia.Core.UI
 
             var source = (Button) component;
 
-            Interactable = source.Interactable;
+            _text.Value = new TranslatableText(source.Text);
 
+            PeerText.text = source.Text.Text;
+
+            TextStyle = new TextStyle(source.TextStyle);
             Background = new ImageAndColor(source.Background);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
 
-        public new static Button CreateInstance()
+        public static Button CreateInstance()
         {
             var prefab = Resources.Load<GameObject>("UI/Components/Button");
 
