@@ -34,6 +34,8 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private StyleItemLookup<TextStyleItem, TextStyle> _textStyleLookup;
 
+        internal EditorUIContext EditorUIContext;
+
         private void OnEnable()
         {
             _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
@@ -46,6 +48,8 @@ namespace Alensia.Core.UI
                 _imagesAndColors, _parent?._imagesAndColorsLookup);
             _textStyleLookup = new StyleItemLookup<TextStyleItem, TextStyle>(
                 _textStyles, _parent?._textStyleLookup);
+
+            EditorUIContext?.RefreshStyle();
         }
     }
 

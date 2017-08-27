@@ -41,6 +41,14 @@ namespace Alensia.Core.UI
             _activeComponentProperty = new ReactiveProperty<IComponent>();
         }
 
+        internal void RefreshStyle()
+        {
+            var style = Style;
+
+            _styleProperty.Value = null;
+            _styleProperty.Value = style;
+        }
+
         private void OnValidate()
         {
             var settings = new LocaleService.Settings
@@ -53,6 +61,11 @@ namespace Alensia.Core.UI
 
             _localeProperty.Value = Locale;
             _styleProperty.Value = Style;
+
+            if (Style != null)
+            {
+                Style.EditorUIContext = this;
+            }
         }
 
         protected virtual ITranslator CreateTranslator(ILocaleService localeService)
