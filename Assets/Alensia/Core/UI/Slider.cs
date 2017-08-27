@@ -48,6 +48,9 @@ namespace Alensia.Core.UI
         protected Transform PeerHandleSlideArea =>
             _peerHandleSlideArea ?? (_peerHandleSlideArea = Transform.Find("Handle Slide Area"));
 
+        protected Image PeerHandle =>
+            _peerHandle ?? (_peerHandle = PeerHandleSlideArea.Find("Handle").GetComponent<Image>());
+
         protected override IList<Object> Peers
         {
             get
@@ -79,6 +82,8 @@ namespace Alensia.Core.UI
         [SerializeField, HideInInspector] private Transform _peerFillArea;
 
         [SerializeField, HideInInspector] private Transform _peerHandleSlideArea;
+
+        [SerializeField, HideInInspector] private Image _peerHandle;
 
         protected override void InitializeProperties(IUIContext context)
         {
