@@ -40,7 +40,25 @@ namespace Alensia.Core.UI
 
             BeginChangeCheck();
 
+            PropertyField(serializedObject.FindProperty("_imageAndColorSets"), true);
+
+            if (EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+
+            BeginChangeCheck();
+
             PropertyField(serializedObject.FindProperty("_textStyles"), true);
+
+            if (EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+
+            BeginChangeCheck();
+
+            PropertyField(serializedObject.FindProperty("_textStyleSets"), true);
 
             if (EndChangeCheck())
             {

@@ -37,7 +37,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public TextStyle TextStyle
+        public TextStyleSet TextStyle
         {
             get { return _textStyle.Value; }
             set
@@ -48,7 +48,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public TextStyle ItemTextStyle
+        public TextStyleSet ItemTextStyle
         {
             get { return _itemTextStyle.Value; }
             set
@@ -59,7 +59,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColor Background
+        public ImageAndColorSet Background
         {
             get { return _background.Value; }
             set
@@ -70,7 +70,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColor PopupBackground
+        public ImageAndColorSet PopupBackground
         {
             get { return _popupBackground.Value; }
             set
@@ -81,7 +81,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColor ItemBackground
+        public ImageAndColorSet ItemBackground
         {
             get { return _itemBackground.Value; }
             set
@@ -92,7 +92,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColor ArrowImage
+        public ImageAndColorSet ArrowImage
         {
             get { return _arrowImage.Value; }
             set
@@ -123,61 +123,73 @@ namespace Alensia.Core.UI
         {
             get
             {
-                var value = Style?.TextStyles?["Dropdown.Text"];
+                var value = DefaultTextStyleSet;
 
-                return value == null ? base.DefaultTextStyle : value.Merge(base.DefaultTextStyle);
+                return value?.ValueFor(this)?.Merge(base.DefaultTextStyle) ?? base.DefaultTextStyle;
             }
         }
+
+        protected TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Dropdown.Text"];
 
         protected TextStyle DefaultItemTextStyle
         {
             get
             {
-                var value = Style?.TextStyles?["Dropdown.ItemText"];
+                var value = DefaultItemTextStyleSet;
 
-                return value == null ? DefaultTextStyle : value.Merge(DefaultTextStyle);
+                return value?.ValueFor(this)?.Merge(DefaultTextStyle) ?? DefaultTextStyle;
             }
         }
+
+        protected TextStyleSet DefaultItemTextStyleSet => Style?.TextStyleSets?["Dropdown.ItemText"];
 
         protected override ImageAndColor DefaultBackground
         {
             get
             {
-                var value = Style?.ImagesAndColors?["Dropdown.Background"];
+                var value = DefaultBackgroundSet;
 
-                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
+                return value?.ValueFor(this)?.Merge(base.DefaultBackground) ?? base.DefaultBackground;
             }
         }
+
+        protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Dropdown.Background"];
 
         protected ImageAndColor DefaultPopupBackground
         {
             get
             {
-                var value = Style?.ImagesAndColors?["Dropdown.PopupBackground"];
+                var value = DefaultPopupBackgroundSet;
 
-                return value == null ? DefaultBackground : value.Merge(DefaultBackground);
+                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
             }
         }
+
+        protected ImageAndColorSet DefaultPopupBackgroundSet => Style?.ImageAndColorSets?["Dropdown.PopupBackground"];
 
         protected ImageAndColor DefaultItemBackground
         {
             get
             {
-                var value = Style?.ImagesAndColors?["Dropdown.ItemBackground"];
+                var value = DefaultItemBackgroundSet;
 
-                return value == null ? DefaultPopupBackground : value.Merge(DefaultPopupBackground);
+                return value?.ValueFor(this)?.Merge(DefaultPopupBackground) ?? DefaultPopupBackground;
             }
         }
+
+        protected ImageAndColorSet DefaultItemBackgroundSet => Style?.ImageAndColorSets?["Dropdown.ItemBackground"];
 
         protected ImageAndColor DefaultArrowImage
         {
             get
             {
-                var value = Style?.ImagesAndColors?["Dropdown.ArrowImage"];
+                var value = DefaultArrowImageSet;
 
-                return value == null ? DefaultBackground : value.Merge(DefaultBackground);
+                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
             }
         }
+
+        protected ImageAndColorSet DefaultArrowImageSet => Style?.ImageAndColorSets?["Dropdown.ArrowImage"];
 
         protected UEDropdown PeerDropdown => _peerDropdown ?? (_peerDropdown = GetComponent<UEDropdown>());
 
@@ -199,8 +211,7 @@ namespace Alensia.Core.UI
 
         protected Image PeerItemImage => _peerItemImage ??
                                          (_peerItemImage = Transform
-                                             .Find("Template")
-                                             .Find("Viewport/Content/Item/Item Background")
+                                             .Find("Template/Viewport/Content/Item/Item Background")
                                              .GetComponentInChildren<Image>());
 
         protected override UEDropdown PeerSelectable => PeerDropdown;
@@ -229,17 +240,17 @@ namespace Alensia.Core.UI
 
         [SerializeField] private DropdownItemList _items;
 
-        [SerializeField] private TextStyleReactiveProperty _textStyle;
+        [SerializeField] private TextStyleSetReactiveProperty _textStyle;
 
-        [SerializeField] private TextStyleReactiveProperty _itemTextStyle;
+        [SerializeField] private TextStyleSetReactiveProperty _itemTextStyle;
 
-        [SerializeField] private ImageAndColorReactiveProperty _background;
+        [SerializeField] private ImageAndColorSetReactiveProperty _background;
 
-        [SerializeField] private ImageAndColorReactiveProperty _popupBackground;
+        [SerializeField] private ImageAndColorSetReactiveProperty _popupBackground;
 
-        [SerializeField] private ImageAndColorReactiveProperty _itemBackground;
+        [SerializeField] private ImageAndColorSetReactiveProperty _itemBackground;
 
-        [SerializeField] private ImageAndColorReactiveProperty _arrowImage;
+        [SerializeField] private ImageAndColorSetReactiveProperty _arrowImage;
 
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
@@ -264,22 +275,28 @@ namespace Alensia.Core.UI
                 .AddTo(this);
 
             _textStyle
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerDropdown.captionText, DefaultTextStyle))
                 .AddTo(this);
             _itemTextStyle
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerDropdown.itemText, DefaultItemTextStyle))
                 .AddTo(this);
 
             _background
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
             _popupBackground
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerPopupImage, DefaultPopupBackground))
                 .AddTo(this);
             _itemBackground
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerItemImage, DefaultItemBackground))
                 .AddTo(this);
             _arrowImage
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
                 .AddTo(this);
         }
@@ -288,13 +305,13 @@ namespace Alensia.Core.UI
         {
             base.OnStyleChanged(style);
 
-            TextStyle.Update(PeerDropdown.captionText, DefaultTextStyle);
-            ItemTextStyle.Update(PeerDropdown.itemText, DefaultItemTextStyle);
+            TextStyle.ValueFor(this).Update(PeerDropdown.captionText, DefaultTextStyle);
+            ItemTextStyle.ValueFor(this).Update(PeerDropdown.itemText, DefaultItemTextStyle);
 
-            Background.Update(PeerImage, DefaultBackground);
-            PopupBackground.Update(PeerPopupImage, DefaultPopupBackground);
-            ItemBackground.Update(PeerItemImage, DefaultItemBackground);
-            ArrowImage.Update(PeerArrow, DefaultArrowImage);
+            Background.ValueFor(this).Update(PeerImage, DefaultBackground);
+            PopupBackground.ValueFor(this).Update(PeerPopupImage, DefaultPopupBackground);
+            ItemBackground.ValueFor(this).Update(PeerItemImage, DefaultItemBackground);
+            ArrowImage.ValueFor(this).Update(PeerArrow, DefaultArrowImage);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)
@@ -310,13 +327,13 @@ namespace Alensia.Core.UI
 
             var source = (Dropdown) component;
 
-            TextStyle = new TextStyle(source.TextStyle);
-            ItemTextStyle = new TextStyle(source.ItemTextStyle);
+            TextStyle = new TextStyleSet(source.TextStyle);
+            ItemTextStyle = new TextStyleSet(source.ItemTextStyle);
 
-            Background = new ImageAndColor(source.Background);
-            PopupBackground = new ImageAndColor(source.PopupBackground);
-            ItemBackground = new ImageAndColor(source.ItemBackground);
-            ArrowImage = new ImageAndColor(source.ArrowImage);
+            Background = new ImageAndColorSet(source.Background);
+            PopupBackground = new ImageAndColorSet(source.PopupBackground);
+            ItemBackground = new ImageAndColorSet(source.ItemBackground);
+            ArrowImage = new ImageAndColorSet(source.ArrowImage);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

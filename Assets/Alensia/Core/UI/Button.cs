@@ -26,7 +26,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public TextStyle TextStyle
+        public TextStyleSet TextStyle
         {
             get { return _textStyle.Value; }
             set
@@ -37,7 +37,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColor Background
+        public ImageAndColorSet Background
         {
             get { return _background.Value; }
             set
@@ -58,21 +58,25 @@ namespace Alensia.Core.UI
         {
             get
             {
-                var value = Style?.TextStyles?["Button.Text"];
+                var value = DefaultTextStyleSet;
 
-                return value == null ? base.DefaultTextStyle : value.Merge(base.DefaultTextStyle);
+                return value?.ValueFor(this)?.Merge(base.DefaultTextStyle) ?? base.DefaultTextStyle;
             }
         }
+
+        protected TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Button.Text"];
 
         protected override ImageAndColor DefaultBackground
         {
             get
             {
-                var value = Style?.ImagesAndColors?["Button.Background"];
+                var value = DefaultBackgroundSet;
 
-                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
+                return value?.ValueFor(this)?.Merge(base.DefaultBackground) ?? base.DefaultBackground;
             }
         }
+
+        protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Button.Background"];
 
         protected UEButton PeerButton => _peerButton ?? (_peerButton = GetComponentInChildren<UEButton>());
 
@@ -100,9 +104,9 @@ namespace Alensia.Core.UI
 
         [SerializeField] private TranslatableTextReactiveProperty _text;
 
-        [SerializeField] private TextStyleReactiveProperty _textStyle;
+        [SerializeField] private TextStyleSetReactiveProperty _textStyle;
 
-        [SerializeField] private ImageAndColorReactiveProperty _background;
+        [SerializeField] private ImageAndColorSetReactiveProperty _background;
 
         [SerializeField, HideInInspector] private UEButton _peerButton;
 
@@ -118,10 +122,12 @@ namespace Alensia.Core.UI
                 .Subscribe(v => UpdatePeer(PeerText, v))
                 .AddTo(this);
             _textStyle
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
                 .AddTo(this);
 
             _background
+                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
         }
@@ -137,8 +143,8 @@ namespace Alensia.Core.UI
         {
             base.OnStyleChanged(style);
 
-            TextStyle.Update(PeerText, DefaultTextStyle);
-            Background.Update(PeerImage, DefaultBackground);
+            TextStyle.ValueFor(this).Update(PeerText, DefaultTextStyle);
+            Background.ValueFor(this).Update(PeerImage, DefaultBackground);
         }
 
         protected override void ResetFromInstance(UIComponent component)
@@ -151,8 +157,8 @@ namespace Alensia.Core.UI
 
             PeerText.text = source.Text.Text;
 
-            TextStyle = new TextStyle(source.TextStyle);
-            Background = new ImageAndColor(source.Background);
+            TextStyle = new TextStyleSet(source.TextStyle);
+            Background = new ImageAndColorSet(source.Background);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

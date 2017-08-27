@@ -163,15 +163,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -192,7 +192,7 @@ MonoBehaviour:
   _style:
     value: {fileID: 0}
   _cursor:
-    value: 
+    value: pointer
   _interactable:
     value: 1
   _value:
@@ -201,11 +201,136 @@ MonoBehaviour:
     value: 0
   _maxValue:
     value: 1
+  _background:
+    value:
+      _normal:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+  _fillImage:
+    value:
+      _normal:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+  _handleImage:
+    value:
+      _normal:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
   _peerSlider: {fileID: 114208239621241304}
   _peerBackground: {fileID: 114464100019263160}
-  _peerFillArea: {fileID: 224665763770730788}
-  _peerHandleSlideArea: {fileID: 224891377212030650}
-  _peerHandle: {fileID: 0}
+  _peerFill: {fileID: 114066179236706394}
+  _peerHandle: {fileID: 114860373400450884}
 --- !u!114 &114098440955217480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -453,15 +578,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -502,14 +627,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

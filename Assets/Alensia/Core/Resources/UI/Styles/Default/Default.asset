@@ -14,40 +14,7 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _cursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
   _imagesAndColors:
-  - _name: Button.Background
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0.134, g: 0.134, b: 0.134, a: 1}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 1
-        _value: 1
-  - _name: Dropdown.ArrowImage
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 1
-        _value: 0
-  - _name: Dropdown.Background
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 1
-        _value: 1
-  - _name: Dropdown.ItemBackground
+  - _name: Background
     _value:
       _color:
         _hasValue: 1
@@ -58,55 +25,355 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 0
-  - _name: Dropdown.PopupBackground
-    _value:
-      _color:
-        _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
-      _image:
-        _hasValue: 1
-        _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-      _type:
-        _hasValue: 0
-        _value: 1
   - _name: Panel.Background
     _value:
       _color:
         _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.9019608}
+        _value: {r: 0, g: 0, b: 0, a: 0.946}
       _image:
         _hasValue: 1
         _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       _type:
         _hasValue: 1
         _value: 1
-  _textStyles:
-  - _name: Button.Text
+  _imageAndColorSets:
+  - _name: Button.Background
     _value:
-      _font:
-        _hasValue: 0
-        _value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-      _fontSize:
-        _hasValue: 0
-        _value: 14
-      _fontStyle:
-        _hasValue: 0
-        _value: 0
-      _alignment:
-        _hasValue: 1
-        _value: 4
-      _horizontalOverflow:
-        _hasValue: 0
-        _value: 0
-      _verticalOverflow:
-        _hasValue: 0
-        _value: 0
-      _lineSpacing:
-        _hasValue: 0
-        _value: 1
-      _color:
-        _hasValue: 0
-        _value: {r: 1, g: 1, b: 1, a: 1}
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 1
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.08088237, g: 0.08088237, b: 0.08088237, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Dropdown.ArrowImage
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Dropdown.Background
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 1
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Dropdown.ItemBackground
+    _value:
+      _normal:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Dropdown.PopupBackground
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 1
+      _disabled:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Slider.Background
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.44852942, g: 0.44852942, b: 0.44852942, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 1
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Slider.FillImage
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 1
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 0}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  - _name: Slider.HandleImage
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 1
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+  _textStyles:
   - _name: Label.Text
     _value:
       _font:
@@ -158,4 +425,311 @@ MonoBehaviour:
         _value: 1
       _color:
         _hasValue: 1
-        _value: {r: 1, g: 1, b: 1, a: 1}
+        _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+  _textStyleSets:
+  - _name: Button.Text
+    _value:
+      _normal:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 1
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+      _disabled:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 0.828}
+      _highlighted:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0.90344834, g: 1, b: 0, a: 1}
+      _active:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 1
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 1}
+  - _name: Dropdown.ItemText
+    _value:
+      _normal:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 1
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+      _disabled:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 0.828}
+      _highlighted:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 0
+          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+      _active:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 0
+          _value: {r: 0, g: 0, b: 0, a: 1}
+  - _name: Dropdown.Text
+    _value:
+      _normal:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 1
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+      _disabled:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 0
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 0.828}
+      _highlighted:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 0
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 4
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0.90344834, g: 1, b: 0, a: 1}
+      _active:
+        _font:
+          _hasValue: 0
+          _value: {fileID: 0}
+        _fontSize:
+          _hasValue: 0
+          _value: 0
+        _fontStyle:
+          _hasValue: 1
+          _value: 1
+        _alignment:
+          _hasValue: 0
+          _value: 0
+        _horizontalOverflow:
+          _hasValue: 0
+          _value: 0
+        _verticalOverflow:
+          _hasValue: 0
+          _value: 0
+        _lineSpacing:
+          _hasValue: 0
+          _value: 0
+        _color:
+          _hasValue: 1
+          _value: {r: 0, g: 0, b: 0, a: 1}

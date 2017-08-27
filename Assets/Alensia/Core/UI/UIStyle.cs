@@ -20,7 +20,11 @@ namespace Alensia.Core.UI
 
         public IDirectory<ImageAndColor> ImagesAndColors => _imagesAndColorsLookup;
 
+        public IDirectory<ImageAndColorSet> ImageAndColorSets => _imageAndColorSetLookup;
+
         public IDirectory<TextStyle> TextStyles => _textStyleLookup;
+
+        public IDirectory<TextStyleSet> TextStyleSets => _textStyleSetLookup;
 
         [SerializeField] private UIStyle _parent;
 
@@ -28,26 +32,39 @@ namespace Alensia.Core.UI
 
         [SerializeField] private ImageAndColorItem[] _imagesAndColors;
 
+        [SerializeField] private ImageAndColorSetItem[] _imageAndColorSets;
+
         [SerializeField] private TextStyleItem[] _textStyles;
+
+        [SerializeField] private TextStyleSetItem[] _textStyleSets;
 
         [NonSerialized] private StyleItemLookup<ImageAndColorItem, ImageAndColor> _imagesAndColorsLookup;
 
+        [NonSerialized] private StyleItemLookup<ImageAndColorSetItem, ImageAndColorSet> _imageAndColorSetLookup;
+
         [NonSerialized] private StyleItemLookup<TextStyleItem, TextStyle> _textStyleLookup;
+
+        [NonSerialized] private StyleItemLookup<TextStyleSetItem, TextStyleSet> _textStyleSetLookup;
 
         internal EditorUIContext EditorUIContext;
 
-        private void OnEnable()
-        {
-            _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
-            _textStyles = _textStyles?.OrderBy(i => i.Name).ToArray();
-        }
-
         private void OnValidate()
         {
+            _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
+            _imageAndColorSets = _imageAndColorSets?.OrderBy(i => i.Name).ToArray();
+
+            _textStyles = _textStyles?.OrderBy(i => i.Name).ToArray();
+            _textStyleSets = _textStyleSets?.OrderBy(i => i.Name).ToArray();
+
             _imagesAndColorsLookup = new StyleItemLookup<ImageAndColorItem, ImageAndColor>(
                 _imagesAndColors, _parent?._imagesAndColorsLookup);
+            _imageAndColorSetLookup = new StyleItemLookup<ImageAndColorSetItem, ImageAndColorSet>(
+                _imageAndColorSets, _parent?._imageAndColorSetLookup);
+
             _textStyleLookup = new StyleItemLookup<TextStyleItem, TextStyle>(
                 _textStyles, _parent?._textStyleLookup);
+            _textStyleSetLookup = new StyleItemLookup<TextStyleSetItem, TextStyleSet>(
+                _textStyleSets, _parent?._textStyleSetLookup);
 
             EditorUIContext?.RefreshStyle();
         }
@@ -125,9 +142,25 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
+    internal class TextStyleSetItem : UIStyleItem<TextStyleSet>
+    {
+        internal TextStyleSetItem(string name, TextStyleSet value) : base(name, value)
+        {
+        }
+    }
+
+    [Serializable]
     internal class ImageAndColorItem : UIStyleItem<ImageAndColor>
     {
         internal ImageAndColorItem(string name, ImageAndColor value) : base(name, value)
+        {
+        }
+    }
+
+    [Serializable]
+    internal class ImageAndColorSetItem : UIStyleItem<ImageAndColorSet>
+    {
+        internal ImageAndColorSetItem(string name, ImageAndColorSet value) : base(name, value)
         {
         }
     }

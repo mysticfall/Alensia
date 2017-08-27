@@ -43,6 +43,8 @@ namespace Alensia.Core.UI
         {
             base.InitializeProperties(context);
 
+            PeerSelectable.transition = Selectable.Transition.None;
+
             _interactionTracker = CreateInterationTracker();
             _highlightTracker = CreateHighlightTracker();
 
@@ -57,6 +59,14 @@ namespace Alensia.Core.UI
                     _trackers.ForEach(t => t.Active = v);
                 })
                 .AddTo(this);
+
+            OnHighlightedStateChange
+                .Merge(OnInteractableStateChange)
+                .Merge(OnInteractingStateChange)
+                .Select(_ => Style)
+                .Where(v => v != null)
+                .Subscribe(_ => OnStyleChanged(Style))
+                .AddTo(this);
         }
 
         protected override void UpdateEditor()
@@ -64,6 +74,7 @@ namespace Alensia.Core.UI
             base.UpdateEditor();
 
             PeerSelectable.interactable = _interactable.Value;
+            PeerSelectable.transition = Selectable.Transition.None;
         }
 
         protected override void OnDestroy()
