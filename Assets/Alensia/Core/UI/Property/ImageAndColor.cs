@@ -8,7 +8,7 @@ using UEImage = UnityEngine.UI.Image;
 namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class ImageAndColor : ICompositeProperty<ImageAndColor, UEImage>
+    public class ImageAndColor : ICompositeProperty<ImageAndColor, UEImage>, IMergeableProperty<ImageAndColor>
     {
         public UnsettableColor Color => _color;
 

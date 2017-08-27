@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class TextStyle : ICompositeProperty<TextStyle, Text>
+    public class TextStyle : ICompositeProperty<TextStyle, Text>, IMergeableProperty<TextStyle>
     {
         public UnsettableFont Font => _font;
 
