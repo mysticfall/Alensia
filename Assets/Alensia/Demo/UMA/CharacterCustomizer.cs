@@ -26,7 +26,7 @@ namespace Alensia.Demo.UMA
 
         public Dropdown SexMenu;
 
-        public Panel MorphListPanel;
+        public Transform MorphListPanel;
 
         public GameObject MorphSliderPrefab;
 
@@ -63,7 +63,7 @@ namespace Alensia.Demo.UMA
 
         protected virtual void LoadMorphs(IEnumerable<IMorph> morphs)
         {
-            var children = MorphListPanel.Children.Reverse();
+            var children = MorphListPanel.gameObject.GetComponentsInChildren<MorphSlider>();
 
             children.ToList().ForEach(c => Destroy(c.GameObject));
 
@@ -73,7 +73,7 @@ namespace Alensia.Demo.UMA
             {
                 var slider = Context.Instantiate<MorphSlider>(
                     MorphSliderPrefab,
-                    MorphListPanel.Transform);
+                    MorphListPanel);
 
                 slider.Morph = (RangedMorph<float>) morph;
             }

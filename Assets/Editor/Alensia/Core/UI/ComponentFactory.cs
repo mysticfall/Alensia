@@ -21,6 +21,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Slider", false, 10)]
         public static Slider CreateSlider(MenuCommand command) => CreateComponent(command, Slider.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/Scroll Panel", false, 10)]
+        public static ScrollPanel CreateScrollPanel(MenuCommand command) => CreateComponent(command, ScrollPanel.CreateInstance);
+
         private static T CreateComponent<T>(
             MenuCommand command, Func<T> factory) where T : UIComponent
         {
