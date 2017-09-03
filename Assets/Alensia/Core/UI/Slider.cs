@@ -75,27 +75,11 @@ namespace Alensia.Core.UI
 
         protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Slider.Background"];
 
-        protected ImageAndColor DefaultFillImage
-        {
-            get
-            {
-                var value = DefaultFillImageSet;
-
-                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
-            }
-        }
+        protected ImageAndColor DefaultFillImage => DefaultFillImageSet?.ValueFor(this);
 
         protected ImageAndColorSet DefaultFillImageSet => Style?.ImageAndColorSets?["Slider.FillImage"];
 
-        protected ImageAndColor DefaultHandleImage
-        {
-            get
-            {
-                var value = DefaultHandleImageSet;
-
-                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
-            }
-        }
+        protected ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
 
         protected ImageAndColorSet DefaultHandleImageSet => Style?.ImageAndColorSets?["Slider.HandleImage"];
 

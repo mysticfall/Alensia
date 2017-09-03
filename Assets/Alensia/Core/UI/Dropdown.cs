@@ -137,7 +137,7 @@ namespace Alensia.Core.UI
             {
                 var value = DefaultItemTextStyleSet;
 
-                return value?.ValueFor(this)?.Merge(DefaultTextStyle) ?? DefaultTextStyle;
+                return value?.ValueFor(this)?.Merge(base.DefaultTextStyle) ?? base.DefaultTextStyle;
             }
         }
 
@@ -161,7 +161,7 @@ namespace Alensia.Core.UI
             {
                 var value = DefaultPopupBackgroundSet;
 
-                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
+                return value?.ValueFor(this)?.Merge(base.DefaultBackground) ?? base.DefaultBackground;
             }
         }
 
@@ -173,21 +173,13 @@ namespace Alensia.Core.UI
             {
                 var value = DefaultItemBackgroundSet;
 
-                return value?.ValueFor(this)?.Merge(DefaultPopupBackground) ?? DefaultPopupBackground;
+                return value?.ValueFor(this)?.Merge(base.DefaultBackground) ?? base.DefaultBackground;
             }
         }
 
         protected ImageAndColorSet DefaultItemBackgroundSet => Style?.ImageAndColorSets?["Dropdown.ItemBackground"];
 
-        protected ImageAndColor DefaultArrowImage
-        {
-            get
-            {
-                var value = DefaultArrowImageSet;
-
-                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
-            }
-        }
+        protected ImageAndColor DefaultArrowImage => DefaultArrowImageSet?.ValueFor(this);
 
         protected ImageAndColorSet DefaultArrowImageSet => Style?.ImageAndColorSets?["Dropdown.ArrowImage"];
 

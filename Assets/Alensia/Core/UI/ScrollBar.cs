@@ -44,15 +44,7 @@ namespace Alensia.Core.UI
         protected ImageAndColorSet DefaultBackgroundSet =>
             Style?.ImageAndColorSets?["ScrollPanel.SlidingArea"];
 
-        protected ImageAndColor DefaultHandleImage
-        {
-            get
-            {
-                var value = DefaultHandleImageSet;
-
-                return value?.ValueFor(this)?.Merge(DefaultBackground) ?? DefaultBackground;
-            }
-        }
+        protected ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
 
         protected ImageAndColorSet DefaultHandleImageSet => Style?.ImageAndColorSets?["ScrollPanel.HandleImage"];
 
