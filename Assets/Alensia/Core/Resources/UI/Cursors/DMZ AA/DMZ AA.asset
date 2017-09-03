@@ -15,6 +15,9 @@ MonoBehaviour:
   - _name: default
     _hotspot: {x: 8, y: 3}
     _image: {fileID: 2800000, guid: 9d97089c66baa4f7ab0865a62f5e7cb8, type: 3}
+  - _name: grab
+    _hotspot: {x: 12, y: 4}
+    _image: {fileID: 2800000, guid: 7fee621ed337547bda06155fa2c498fc, type: 3}
   - _name: pointer
     _hotspot: {x: 12, y: 4}
     _image: {fileID: 2800000, guid: 802845644194d4878ab0ecfa249f2a44, type: 3}

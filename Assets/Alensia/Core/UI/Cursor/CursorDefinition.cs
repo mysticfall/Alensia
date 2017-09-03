@@ -15,7 +15,7 @@ namespace Alensia.Core.UI.Cursor
 
         public abstract IObservable<Texture2D> Create();
 
-        [SerializeField] private string _name;
+        [SerializeField, PredefinedLiteral(typeof(CursorNames))] private string _name;
 
         [SerializeField] private Vector2 _hotspot;
 
