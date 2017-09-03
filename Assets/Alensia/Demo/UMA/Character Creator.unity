@@ -588,8 +588,7 @@ Prefab:
         type: 2}
       propertyPath: _style.value
       value: 
-      objectReference: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114801976046766018, guid: b472291d2d02f4b3688c1073583adbb5,
         type: 2}
       propertyPath: _textStyle.value._font._hasValue
@@ -1128,7 +1127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1252,7 +1251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.946}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1506,7 +1505,7 @@ MonoBehaviour:
       AvoidWalls: 1
       MinimumDistance: 0.1
   UI:
-    Style: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
+    Style: {fileID: 11400000, guid: f031c9c4caf1b4e5b812be6ed66e8a96, type: 2}
     ScreenRoot: {fileID: 120248321}
     Screens:
     - _name: Windows

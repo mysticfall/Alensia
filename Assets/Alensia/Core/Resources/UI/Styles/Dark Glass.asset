@@ -126,7 +126,7 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 1}
+          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -741,7 +741,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0, g: 0, b: 0, a: 1}
       _disabled:
         _font:
           _hasValue: 0
