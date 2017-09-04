@@ -283,6 +283,10 @@ namespace Alensia.Core.UI
             TextStyle.ValueFor(this).Update(PeerDropdown.captionText, DefaultTextStyle);
             Background.ValueFor(this).Update(PeerImage, DefaultBackground);
             ArrowImage.ValueFor(this).Update(PeerArrow, DefaultArrowImage);
+
+            PeerScrollPanel.Background = PopupBackground.Merge(DefaultPopupBackground);
+            PeerToggle.Checkbox = ItemBackground.Merge(DefaultItemBackgroundSet);
+            PeerToggle.TextStyle = ItemTextStyle.Merge(DefaultItemTextStyleSet);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)
