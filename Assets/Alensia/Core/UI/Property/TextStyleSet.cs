@@ -63,13 +63,14 @@ namespace Alensia.Core.UI.Property
                     Active.Merge(other.Active));
         }
 
-        public TextStyle ValueFor(IInteractableComponent component)
-        {
-            Assert.IsNotNull(component, "component != null");
+        public TextStyle ValueFor(IInteractableComponent component) =>
+            ValueFor(!component.Interactable, component.Highlighted, component.Interacting);
 
-            if (!component.Interactable) return Disabled.Merge(Normal);
-            if (component.Interacting) return Active.Merge(Highlighted).Merge(Normal);
-            if (component.Highlighted) return Highlighted.Merge(Normal);
+        public TextStyle ValueFor(bool disabled, bool highlighted, bool active)
+        {
+            if (disabled) return Disabled.Merge(Normal);
+            if (active) return Active.Merge(Highlighted).Merge(Normal);
+            if (highlighted) return Highlighted.Merge(Normal);
 
             return Normal;
         }
