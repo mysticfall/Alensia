@@ -29,7 +29,7 @@ MonoBehaviour:
     _value:
       _color:
         _hasValue: 1
-        _value: {r: 1, g: 1, b: 1, a: 0.39215687}
+        _value: {r: 1, g: 1, b: 1, a: 0.9019608}
       _image:
         _hasValue: 1
         _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
           _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 0}
         _image:
           _hasValue: 1
-          _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 0}
         _type:
           _hasValue: 1
           _value: 1
@@ -751,7 +751,7 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _fontStyle:
-          _hasValue: 0
+          _hasValue: 1
           _value: 1
         _alignment:
           _hasValue: 0
