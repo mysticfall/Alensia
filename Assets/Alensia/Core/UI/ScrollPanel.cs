@@ -229,7 +229,7 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
-    public class ScrollbarVisibilityReactiveProperty : ReactiveProperty<ScrollbarVisibility>
+    internal class ScrollbarVisibilityReactiveProperty : ReactiveProperty<ScrollbarVisibility>
     {
     }
 }
