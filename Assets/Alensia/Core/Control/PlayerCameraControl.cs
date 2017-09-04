@@ -35,7 +35,7 @@ namespace Alensia.Core.Control
 
         public override CursorState CursorState => CursorState.Hidden;
 
-        public override bool Valid => base.Valid && Player != null;
+        public override bool Valid => base.Valid && Player != null && CameraManager.Mode is IPerspectiveCamera;
 
         private IHumanoid _player;
 

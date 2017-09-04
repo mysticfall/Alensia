@@ -42,7 +42,8 @@ namespace Alensia.Core.Control
         public override bool Valid => base.Valid &&
                                       X != null &&
                                       Y != null &&
-                                      Running != null;
+                                      Running != null &&
+                                      Locomotion.Active;
 
         public PlayerMovementControl(
             ICameraManager cameraManager,
