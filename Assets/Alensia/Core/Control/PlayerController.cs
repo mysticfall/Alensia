@@ -53,21 +53,18 @@ namespace Alensia.Core.Control
             PlayerAlias.OnChange.Subscribe(OnPlayerChange).AddTo(this);
         }
 
-        public virtual void EnablePlayerControl()
+        protected override void OnInitialized()
         {
-            foreach (var control in PlayerControls)
-            {
-                control.Activate();
-            }
+            base.OnInitialized();
+
+            OnPlayerControlStateChange
+                .Subscribe(v => PlayerControls.ToList().ForEach(c => c.Active = v))
+                .AddTo(this);
         }
 
-        public virtual void DisablePlayerControl()
-        {
-            foreach (var control in PlayerControls)
-            {
-                control.Deactivate();
-            }
-        }
+        public void EnablePlayerControl() => PlayerControlEnabled = true;
+
+        public void DisablePlayerControl() => PlayerControlEnabled = false;
 
         protected virtual void OnPlayerChange(IHumanoid player)
         {
