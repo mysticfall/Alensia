@@ -2,7 +2,8 @@
     "MainMenu": {
         "title": "Alensia Demo",
         "labels": {
-            "language": "Language"
+            "language": "Language",
+            "style": "Style"
         },
         "buttons": {
             "resume": "Return to Game",

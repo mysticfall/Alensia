@@ -15,13 +15,19 @@ namespace Alensia.Demo
 
         [Inject, NonSerialized] public IPlayerController Controller;
 
+        [Inject, NonSerialized] public IUIManager UIManager;
+
         [Inject, NonSerialized] public ILocaleService LocaleService;
 
         public Dropdown ChoiceLanguage;
 
+        public Dropdown ChoiceStyle;
+
         public Button ButtonResume;
 
         public Button ButtonQuit;
+
+        public UIStyle[] Styles;
 
         private bool _playerControlEnabled;
 
@@ -51,6 +57,13 @@ namespace Alensia.Demo
             ChoiceLanguage.OnValueChange
                 .Select(k => new LanguageTag(k).ToCulture())
                 .Subscribe(l => LocaleService.CurrentLocale = l)
+                .AddTo(this);
+
+            ChoiceStyle.Items = Styles.Select(s => new DropdownItem(s.Name, s.Name)).ToList();
+            ChoiceStyle.Value = UIManager.Style.Name;
+            ChoiceStyle.OnValueChange
+                .Select(v => Styles.ToList().Find(s => s.Name == v))
+                .Subscribe(s => UIManager.Style = s)
                 .AddTo(this);
 
             _playerControlEnabled = Controller.PlayerControlEnabled;

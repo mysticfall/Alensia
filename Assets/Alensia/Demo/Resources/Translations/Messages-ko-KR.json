@@ -2,7 +2,8 @@
     "MainMenu": {
         "title": "알렌시아 데모",
         "labels": {
-            "language": "언어"
+            "language": "언어",
+            "style": "스타일"
         },
         "buttons": {
             "resume": "게임으로 돌아가기",
