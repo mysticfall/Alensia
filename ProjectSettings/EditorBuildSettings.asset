@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Alensia/Demo/Controller/PlayerControllerDemo.unity
     guid: f833ad5411b9146379b685ba8e8e8d67
+  - enabled: 0
+    path: Assets/Alensia/Demo/UMA/Character Creator.unity
+    guid: 01967bf4426c34d2bb696d41834f4769
