@@ -189,20 +189,10 @@ namespace Alensia.Core.UI
 
         protected Image PeerArrow => _peerArrow ?? (_peerArrow = Transform.Find("Arrow").GetComponent<Image>());
 
-        protected ScrollRect PeerTemplate => _peerTemplate ??
-                                             (_peerTemplate = Transform
-                                                 .Find("Template")
-                                                 .GetComponentInChildren<ScrollRect>());
+        protected ScrollPanel PeerScrollPanel =>
+            _peerScrollPanel ?? (_peerScrollPanel = GetComponentInChildren<ScrollPanel>(true));
 
-        protected Image PeerPopupImage => _peerPopupImage ??
-                                          (_peerPopupImage = Transform
-                                              .Find("Template")
-                                              .GetComponentInChildren<Image>());
-
-        protected Image PeerItemImage => _peerItemImage ??
-                                         (_peerItemImage = Transform
-                                             .Find("Template/Viewport/Content/Item/Item Background")
-                                             .GetComponentInChildren<Image>());
+        protected Toggle PeerToggle => _peerToggle ?? (_peerToggle = GetComponentInChildren<Toggle>(true));
 
         protected override UEDropdown PeerSelectable => PeerDropdown;
 
@@ -219,10 +209,7 @@ namespace Alensia.Core.UI
 
                 if (PeerLabel != null) peers.Add(PeerLabel.gameObject);
                 if (PeerArrow != null) peers.Add(PeerArrow.gameObject);
-                if (PeerTemplate != null) peers.Add(PeerTemplate.gameObject);
-
-                if (PeerPopupImage != null) peers.Add(PeerPopupImage.gameObject);
-                if (PeerItemImage != null) peers.Add(PeerItemImage.gameObject);
+                if (PeerScrollPanel != null) peers.Add(PeerScrollPanel.gameObject);
 
                 return peers;
             }
@@ -250,11 +237,9 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerArrow;
 
-        [SerializeField, HideInInspector] private Image _peerPopupImage;
+        [SerializeField, HideInInspector] private ScrollPanel _peerScrollPanel;
 
-        [SerializeField, HideInInspector] private Image _peerItemImage;
-
-        [SerializeField, HideInInspector] private ScrollRect _peerTemplate;
+        [SerializeField, HideInInspector] private Toggle _peerToggle;
 
         protected override void InitializeProperties(IUIContext context)
         {
@@ -269,8 +254,8 @@ namespace Alensia.Core.UI
                 .Subscribe(v => v.Update(PeerDropdown.captionText, DefaultTextStyle))
                 .AddTo(this);
             _itemTextStyle
-                .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerDropdown.itemText, DefaultItemTextStyle))
+                .Select(v => v.Merge(DefaultItemTextStyleSet))
+                .Subscribe(v => PeerToggle.TextStyle = v)
                 .AddTo(this);
 
             _background
@@ -278,11 +263,12 @@ namespace Alensia.Core.UI
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
             _popupBackground
-                .Subscribe(v => v.Update(PeerPopupImage, DefaultPopupBackground))
+                .Select(v => v.Merge(DefaultPopupBackground))
+                .Subscribe(v => PeerScrollPanel.Background = v)
                 .AddTo(this);
             _itemBackground
-                .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerItemImage, DefaultItemBackground))
+                .Select(v => v.Merge(DefaultItemBackgroundSet))
+                .Subscribe(v => PeerToggle.Checkbox = v)
                 .AddTo(this);
             _arrowImage
                 .Select(v => v.ValueFor(this))
@@ -295,13 +281,8 @@ namespace Alensia.Core.UI
             base.OnStyleChanged(style);
 
             TextStyle.ValueFor(this).Update(PeerDropdown.captionText, DefaultTextStyle);
-            ItemTextStyle.ValueFor(this).Update(PeerDropdown.itemText, DefaultItemTextStyle);
-
             Background.ValueFor(this).Update(PeerImage, DefaultBackground);
-            ItemBackground.ValueFor(this).Update(PeerItemImage, DefaultItemBackground);
             ArrowImage.ValueFor(this).Update(PeerArrow, DefaultArrowImage);
-
-            PopupBackground.Update(PeerPopupImage, DefaultPopupBackground);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)
