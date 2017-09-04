@@ -88,17 +88,18 @@ namespace Alensia.Core.UI
             {
                 var value = DefaultTextStyleSet;
 
-                return value?.ValueFor(this)?.Merge(base.DefaultTextStyle) ?? base.DefaultTextStyle;
+                return value?.ValueFor(!Interactable, Highlighted, Value)?.Merge(base.DefaultTextStyle) ??
+                       base.DefaultTextStyle;
             }
         }
 
         protected TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Toggle.Text"];
 
-        protected ImageAndColor DefaultCheckmark => DefaultCheckmarkSet?.ValueFor(this);
+        protected ImageAndColor DefaultCheckmark => DefaultCheckmarkSet?.ValueFor(!Interactable, Highlighted, Value);
 
         protected ImageAndColorSet DefaultCheckmarkSet => Style?.ImageAndColorSets?["Toggle.Checkmark"];
 
-        protected ImageAndColor DefaultCheckbox => DefaultCheckboxSet?.ValueFor(this);
+        protected ImageAndColor DefaultCheckbox => DefaultCheckboxSet?.ValueFor(!Interactable, Highlighted, Value);
 
         protected ImageAndColorSet DefaultCheckboxSet => Style?.ImageAndColorSets?["Toggle.Checkbox"];
 
@@ -159,20 +160,26 @@ namespace Alensia.Core.UI
                 .Subscribe(v => UpdatePeer(PeerText, v))
                 .AddTo(this);
             _textStyle
-                .Select(v => v.ValueFor(this))
+                .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
                 .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
                 .AddTo(this);
 
             _checkmark
-                .Select(v => v.ValueFor(this))
+                .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
                 .Subscribe(v => v.Update(PeerCheckmark, DefaultCheckmark))
                 .AddTo(this);
             _checkbox
-                .Select(v => v.ValueFor(this))
+                .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
                 .Subscribe(v => v.Update(PeerCheckbox, DefaultCheckbox))
                 .AddTo(this);
             _toggleGroup
                 .Subscribe(v => PeerToggle.group = v)
+                .AddTo(this);
+
+            OnValueChange
+                .Select(_ => Style)
+                .Where(v => v != null)
+                .Subscribe(_ => OnStyleChanged(Style))
                 .AddTo(this);
         }
 
@@ -187,9 +194,9 @@ namespace Alensia.Core.UI
         {
             base.OnStyleChanged(style);
 
-            TextStyle.ValueFor(this).Update(PeerText, DefaultTextStyle);
-            Checkmark.ValueFor(this).Update(PeerCheckmark, DefaultCheckmark);
-            Checkbox.ValueFor(this).Update(PeerCheckbox, DefaultCheckbox);
+            TextStyle.ValueFor(!Interactable, Highlighted, Value).Update(PeerText, DefaultTextStyle);
+            Checkmark.ValueFor(!Interactable, Highlighted, Value).Update(PeerCheckmark, DefaultCheckmark);
+            Checkbox.ValueFor(!Interactable, Highlighted, Value).Update(PeerCheckbox, DefaultCheckbox);
         }
 
         protected override void ResetFromInstance(UIComponent component)
