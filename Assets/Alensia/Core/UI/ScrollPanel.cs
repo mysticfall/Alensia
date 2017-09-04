@@ -26,9 +26,9 @@ namespace Alensia.Core.UI
                 {
                     if (_horizontalScrollBar == null)
                     {
-                        var peer = Transform.Find("Scrollbar Horizontal").gameObject;
+                        var peer = Transform.Find("Scrollbar Horizontal")?.gameObject;
 
-                        _horizontalScrollBar = peer.GetComponent<ScrollBar>();
+                        _horizontalScrollBar = peer?.GetComponent<ScrollBar>();
                     }
                 }
 
@@ -44,9 +44,9 @@ namespace Alensia.Core.UI
                 {
                     if (_verticalScrollBar == null)
                     {
-                        var peer = Transform.Find("Scrollbar Vertical").gameObject;
+                        var peer = Transform.Find("Scrollbar Vertical")?.gameObject;
 
-                        _verticalScrollBar = peer.GetComponent<ScrollBar>();
+                        _verticalScrollBar = peer?.GetComponent<ScrollBar>();
                     }
                 }
 
@@ -127,8 +127,8 @@ namespace Alensia.Core.UI
 
             if (!Application.isPlaying) return;
 
-            HorizontalScrollBar.Initialize(Context);
-            VerticalScrollBar.Initialize(Context);
+            HorizontalScrollBar?.Initialize(Context);
+            VerticalScrollBar?.Initialize(Context);
         }
 
         protected override void InitializeProperties(IUIContext context)
