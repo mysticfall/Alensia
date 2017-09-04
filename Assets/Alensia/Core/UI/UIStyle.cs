@@ -50,6 +50,15 @@ namespace Alensia.Core.UI
 
         private void OnValidate()
         {
+            UpdateItems();
+
+            EditorUIContext?.RefreshStyle();
+        }
+
+        private void OnEnable() => UpdateItems();
+
+        private void UpdateItems()
+        {
             _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
             _imageAndColorSets = _imageAndColorSets?.OrderBy(i => i.Name).ToArray();
 
@@ -65,8 +74,6 @@ namespace Alensia.Core.UI
                 _textStyles, _parent?._textStyleLookup);
             _textStyleSetLookup = new StyleItemLookup<TextStyleSetItem, TextStyleSet>(
                 _textStyleSets, _parent?._textStyleSetLookup);
-
-            EditorUIContext?.RefreshStyle();
         }
     }
 
