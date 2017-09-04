@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Alensia.Core.I18n;
 using Alensia.Core.UI.Event;
@@ -9,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 using UEToggle = UnityEngine.UI.Toggle;
 
 namespace Alensia.Core.UI
@@ -72,13 +74,13 @@ namespace Alensia.Core.UI
             set { _toggleGroup.Value = value; }
         }
 
-        public IObservable<bool> OnValueChange => PeerToggle.OnValueChangedAsObservable();
+        public UniRx.IObservable<bool> OnValueChange => PeerToggle.OnValueChangedAsObservable();
 
-        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+        public UniRx.IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
-        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+        public UniRx.IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
 
-        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
+        public UniRx.IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
 
         protected override TextStyle DefaultTextStyle
         {
@@ -104,10 +106,10 @@ namespace Alensia.Core.UI
 
         protected Text PeerText => _peerText ?? (_peerText = GetComponentInChildren<Text>());
 
-        protected Image PeerCheckbox => _peerCheckbox ?? (_peerCheckbox = PeerBackground.GetComponent<Image>());
+        protected Image PeerCheckbox => _peerCheckbox ?? (_peerCheckbox = PeerToggle.image);
 
         protected Image PeerCheckmark =>
-            _peerCheckmark ?? (_peerCheckmark = PeerBackground.Find("Checkmark").GetComponent<Image>());
+            _peerCheckmark ?? (_peerCheckmark = PeerToggle.graphic.GetComponent<Image>());
 
         protected Transform PeerBackground => _peerBackground ?? (_peerBackground = Transform.Find("Background"));
 
@@ -218,6 +220,7 @@ namespace Alensia.Core.UI
             return Instantiate(prefab).GetComponent<Toggle>();
         }
 
+        [Serializable]
         internal class ToggleGroupReactiveProperty : ReactiveProperty<ToggleGroup>
         {
         }
