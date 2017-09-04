@@ -799,7 +799,7 @@ MonoBehaviour:
       AvoidWalls: 1
       MinimumDistance: 0.1
   UI:
-    CursorSet: {fileID: 11400000, guid: be9c323fcf8cd4bcc8517e6d1d1efe34, type: 2}
+    Style: {fileID: 11400000, guid: f031c9c4caf1b4e5b812be6ed66e8a96, type: 2}
     ScreenRoot: {fileID: 845667511}
     Screens:
     - _name: Windows
