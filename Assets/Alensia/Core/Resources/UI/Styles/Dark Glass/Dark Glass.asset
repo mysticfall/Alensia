@@ -29,10 +29,10 @@ MonoBehaviour:
     _value:
       _color:
         _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.946}
+        _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
       _image:
         _hasValue: 1
-        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+        _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
       _type:
         _hasValue: 1
         _value: 1
@@ -40,10 +40,10 @@ MonoBehaviour:
     _value:
       _color:
         _hasValue: 1
-        _value: {r: 0, g: 0, b: 0, a: 0.946}
+        _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 0.903}
       _image:
         _hasValue: 1
-        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+        _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
       _type:
         _hasValue: 1
         _value: 1
@@ -53,10 +53,10 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
           _value: 1
@@ -73,20 +73,20 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -95,17 +95,17 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 1, g: 1, b: 1, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: a2e8a16d929334cee9789ab6c191548d, type: 3}
         _type:
           _hasValue: 1
           _value: 0
       _disabled:
         _color:
-          _hasValue: 0
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+          _hasValue: 1
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -114,8 +114,8 @@ MonoBehaviour:
           _value: 1
       _highlighted:
         _color:
-          _hasValue: 0
-          _value: {r: 1, g: 1, b: 1, a: 1}
+          _hasValue: 1
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -137,10 +137,10 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
           _value: 1
@@ -157,20 +157,20 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -198,7 +198,7 @@ MonoBehaviour:
           _value: 1
       _highlighted:
         _color:
-          _hasValue: 1
+          _hasValue: 0
           _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 0
@@ -208,11 +208,11 @@ MonoBehaviour:
           _value: 1
       _active:
         _color:
-          _hasValue: 0
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -221,17 +221,17 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
           _value: 1
       _disabled:
         _color:
           _hasValue: 1
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -241,20 +241,20 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
@@ -305,7 +305,7 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
@@ -389,17 +389,17 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
-          _value: 0
+          _value: 1
       _disabled:
         _color:
           _hasValue: 1
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -409,20 +409,20 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 1, g: 1, b: 1, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -431,17 +431,17 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
           _value: 1
       _disabled:
         _color:
           _hasValue: 1
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -451,7 +451,7 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 1, g: 1, b: 1, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -473,7 +473,7 @@ MonoBehaviour:
       _normal:
         _color:
           _hasValue: 1
-          _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
@@ -483,7 +483,7 @@ MonoBehaviour:
       _disabled:
         _color:
           _hasValue: 1
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -493,7 +493,7 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 1, g: 1, b: 1, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -503,7 +503,7 @@ MonoBehaviour:
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.2, g: 0.2, b: 0.2, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -562,7 +562,7 @@ MonoBehaviour:
         _value: 1
       _color:
         _hasValue: 1
-        _value: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+        _value: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
   _textStyleSets:
   - _name: Button.Text
     _value:
@@ -589,8 +589,8 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _color:
-          _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 1}
+          _hasValue: 0
+          _value: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
       _disabled:
         _font:
           _hasValue: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 0.828}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
       _highlighted:
         _font:
           _hasValue: 0
@@ -640,7 +640,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
       _active:
         _font:
           _hasValue: 0
@@ -665,7 +665,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   - _name: Dropdown.ItemText
     _value:
       _normal:
@@ -691,7 +691,7 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _color:
-          _hasValue: 1
+          _hasValue: 0
           _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
       _disabled:
         _font:
@@ -717,7 +717,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 0.828}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
       _highlighted:
         _font:
           _hasValue: 0
@@ -742,7 +742,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
       _active:
         _font:
           _hasValue: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 1}
+          _value: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   - _name: Dropdown.Text
     _value:
       _normal:
@@ -793,7 +793,7 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _color:
-          _hasValue: 1
+          _hasValue: 0
           _value: {r: 0, g: 0, b: 0, a: 1}
       _disabled:
         _font:
@@ -819,7 +819,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 0.828}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
       _highlighted:
         _font:
           _hasValue: 0
@@ -844,7 +844,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.90344834, g: 1, b: 0, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
       _active:
         _font:
           _hasValue: 0
@@ -869,7 +869,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0, g: 0, b: 0, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   - _name: Toggle.Text
     _value:
       _normal:
@@ -921,7 +921,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 0.827451}
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
       _highlighted:
         _font:
           _hasValue: 0
@@ -945,7 +945,7 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _color:
-          _hasValue: 1
+          _hasValue: 0
           _value: {r: 0.90344834, g: 1, b: 0, a: 1}
       _active:
         _font:
@@ -970,5 +970,5 @@ MonoBehaviour:
           _hasValue: 0
           _value: 0
         _color:
-          _hasValue: 1
+          _hasValue: 0
           _value: {r: 1, g: 1, b: 1, a: 1}
