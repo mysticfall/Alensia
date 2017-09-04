@@ -25,6 +25,17 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 0
+  - _name: Dropdown.PopupBackground
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 1, g: 1, b: 1, a: 0.39215687}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      _type:
+        _hasValue: 1
+        _value: 1
   - _name: Panel.Background
     _value:
       _color:
@@ -198,48 +209,6 @@ MonoBehaviour:
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.9019608, g: 1, b: 0, a: 1}
-        _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-        _type:
-          _hasValue: 0
-          _value: 1
-  - _name: Dropdown.PopupBackground
-    _value:
-      _normal:
-        _color:
-          _hasValue: 1
-          _value: {r: 1, g: 1, b: 1, a: 1}
-        _image:
-          _hasValue: 1
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-        _type:
-          _hasValue: 1
-          _value: 1
-      _disabled:
-        _color:
-          _hasValue: 0
-          _value: {r: 0.741, g: 0.741, b: 0.741, a: 1}
-        _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-        _type:
-          _hasValue: 0
-          _value: 1
-      _highlighted:
-        _color:
-          _hasValue: 0
-          _value: {r: 1, g: 1, b: 1, a: 1}
-        _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-        _type:
-          _hasValue: 0
-          _value: 1
-      _active:
-        _color:
-          _hasValue: 0
           _value: {r: 0.9019608, g: 1, b: 0, a: 1}
         _image:
           _hasValue: 0

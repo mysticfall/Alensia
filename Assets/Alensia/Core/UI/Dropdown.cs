@@ -70,7 +70,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public ImageAndColorSet PopupBackground
+        public ImageAndColor PopupBackground
         {
             get { return _popupBackground.Value; }
             set
@@ -159,13 +159,11 @@ namespace Alensia.Core.UI
         {
             get
             {
-                var value = DefaultPopupBackgroundSet;
+                var value = Style?.ImagesAndColors?["Dropdown.PopupBackground"];
 
-                return value?.ValueFor(this)?.Merge(base.DefaultBackground) ?? base.DefaultBackground;
+                return value == null ? base.DefaultBackground : value.Merge(base.DefaultBackground);
             }
         }
-
-        protected ImageAndColorSet DefaultPopupBackgroundSet => Style?.ImageAndColorSets?["Dropdown.PopupBackground"];
 
         protected ImageAndColor DefaultItemBackground
         {
@@ -238,11 +236,11 @@ namespace Alensia.Core.UI
 
         [SerializeField] private ImageAndColorSetReactiveProperty _background;
 
-        [SerializeField] private ImageAndColorSetReactiveProperty _popupBackground;
-
         [SerializeField] private ImageAndColorSetReactiveProperty _itemBackground;
 
         [SerializeField] private ImageAndColorSetReactiveProperty _arrowImage;
+
+        [SerializeField] private ImageAndColorReactiveProperty _popupBackground;
 
         [SerializeField, HideInInspector] private UEDropdown _peerDropdown;
 
@@ -280,7 +278,6 @@ namespace Alensia.Core.UI
                 .Subscribe(v => v.Update(PeerImage, DefaultBackground))
                 .AddTo(this);
             _popupBackground
-                .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerPopupImage, DefaultPopupBackground))
                 .AddTo(this);
             _itemBackground
@@ -301,9 +298,10 @@ namespace Alensia.Core.UI
             ItemTextStyle.ValueFor(this).Update(PeerDropdown.itemText, DefaultItemTextStyle);
 
             Background.ValueFor(this).Update(PeerImage, DefaultBackground);
-            PopupBackground.ValueFor(this).Update(PeerPopupImage, DefaultPopupBackground);
             ItemBackground.ValueFor(this).Update(PeerItemImage, DefaultItemBackground);
             ArrowImage.ValueFor(this).Update(PeerArrow, DefaultArrowImage);
+
+            PopupBackground.Update(PeerPopupImage, DefaultPopupBackground);
         }
 
         protected override void OnLocaleChanged(CultureInfo locale)
@@ -323,9 +321,10 @@ namespace Alensia.Core.UI
             ItemTextStyle = new TextStyleSet(source.ItemTextStyle);
 
             Background = new ImageAndColorSet(source.Background);
-            PopupBackground = new ImageAndColorSet(source.PopupBackground);
             ItemBackground = new ImageAndColorSet(source.ItemBackground);
             ArrowImage = new ImageAndColorSet(source.ArrowImage);
+
+            PopupBackground = new ImageAndColor(source.PopupBackground);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
