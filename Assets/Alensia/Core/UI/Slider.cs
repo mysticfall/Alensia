@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Alensia.Core.UI.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UESlider = UnityEngine.UI.Slider;
 
 namespace Alensia.Core.UI
 {
-    public class Slider : InteractableComponent<UESlider, Image>, IInputComponent<float>
+    public class Slider : InteractableComponent<UESlider, UESlider>, IInputComponent<float>
     {
         public float Value
         {
@@ -103,7 +104,7 @@ namespace Alensia.Core.UI
 
         protected override UESlider PeerSelectable => PeerSlider;
 
-        protected override Image PeerHotspot => PeerHandle;
+        protected override UESlider PeerHotspot => PeerSlider;
 
         protected override IList<Object> Peers
         {
@@ -195,6 +196,8 @@ namespace Alensia.Core.UI
             FillImage.ValueFor(this).Update(PeerFill, DefaultFillImage);
             HandleImage.ValueFor(this).Update(PeerHandle, DefaultHandleImage);
         }
+
+        protected override EventTracker<UESlider> CreateInterationTracker() => new PointerDragTracker<UESlider>(PeerHotspot);
 
         protected override void ResetFromInstance(UIComponent component)
         {
