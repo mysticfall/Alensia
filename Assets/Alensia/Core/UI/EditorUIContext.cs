@@ -16,13 +16,13 @@ namespace Alensia.Core.UI
 
         public ITranslator Translator { get; private set; }
 
-        public IComponent ActiveComponent { get; set; }
+        public IInteractableComponent ActiveComponent { get; set; }
 
         public UniRx.IObservable<UIStyle> OnStyleChange => _styleProperty;
 
         public UniRx.IObservable<CultureInfo> OnLocaleChange => _localeProperty;
 
-        public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponentProperty;
+        public UniRx.IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponentProperty;
 
         [SerializeField] private UIStyle _style;
 
@@ -32,13 +32,13 @@ namespace Alensia.Core.UI
 
         private readonly IReactiveProperty<CultureInfo> _localeProperty;
 
-        private readonly IReactiveProperty<IComponent> _activeComponentProperty;
+        private readonly IReactiveProperty<IInteractableComponent> _activeComponentProperty;
 
         public EditorUIContext()
         {
             _styleProperty = new ReactiveProperty<UIStyle>();
             _localeProperty = new ReactiveProperty<CultureInfo>();
-            _activeComponentProperty = new ReactiveProperty<IComponent>();
+            _activeComponentProperty = new ReactiveProperty<IInteractableComponent>();
         }
 
         internal void RefreshStyle()

@@ -4,5 +4,6 @@ namespace Alensia.Core.UI
 {
     public interface IInteractableComponent : IComponent, IHighlightable, IInteractable
     {
+        string Cursor { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Alensia.Core.UI
 
         public ITranslator Translator { get; }
 
-        public IComponent ActiveComponent
+        public IInteractableComponent ActiveComponent
         {
             get { return _activeComponent.Value; }
             set { _activeComponent.Value = value; }
@@ -27,13 +27,13 @@ namespace Alensia.Core.UI
 
         public UniRx.IObservable<CultureInfo> OnLocaleChange => Translator.LocaleService.OnLocaleChange;
 
-        public UniRx.IObservable<IComponent> OnActiveComponentChange => _activeComponent;
+        public UniRx.IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponent;
 
         protected DiContainer DiContainer { get; }
 
         private readonly IReadOnlyReactiveProperty<UIStyle> _style;
 
-        private readonly IReactiveProperty<IComponent> _activeComponent;
+        private readonly IReactiveProperty<IInteractableComponent> _activeComponent;
 
         public UIContext(
             IReadOnlyReactiveProperty<UIStyle> style,
@@ -48,7 +48,7 @@ namespace Alensia.Core.UI
             DiContainer = container;
 
             _style = style;
-            _activeComponent = new ReactiveProperty<IComponent>();
+            _activeComponent = new ReactiveProperty<IInteractableComponent>();
         }
 
         public virtual TUI Instantiate<TUI>(GameObject item, Transform parent)

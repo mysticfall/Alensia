@@ -13,13 +13,13 @@ namespace Alensia.Core.UI
 
         ITranslator Translator { get; }
 
-        IComponent ActiveComponent { get; set; }
+        IInteractableComponent ActiveComponent { get; set; }
 
         IObservable<UIStyle> OnStyleChange { get; }
 
         IObservable<CultureInfo> OnLocaleChange { get; }
 
-        IObservable<IComponent> OnActiveComponentChange { get; }
+        IObservable<IInteractableComponent> OnActiveComponentChange { get; }
 
         TUI Instantiate<TDef, TUI>(TDef definition, Transform parent)
             where TDef : IUIDefinition

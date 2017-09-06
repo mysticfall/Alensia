@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Alensia.Core.Common;
+using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Event;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static System.String;
 
 namespace Alensia.Core.UI
 {
@@ -21,6 +25,12 @@ namespace Alensia.Core.UI
 
         public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
 
+        public string Cursor
+        {
+            get { return IsNullOrWhiteSpace(_cursor.Value) ? FirstActiveAncestor?.Cursor : _cursor.Value; }
+            set { _cursor.Value = value?.Trim(); }
+        }
+
         public IObservable<bool> OnInteractableStateChange => _interactable;
 
         public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
@@ -32,6 +42,8 @@ namespace Alensia.Core.UI
         protected abstract THotspot PeerHotspot { get; }
 
         [SerializeField] private BoolReactiveProperty _interactable;
+
+        [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
 
         private EventTracker<THotspot> _interactionTracker;
 
@@ -60,12 +72,28 @@ namespace Alensia.Core.UI
                 })
                 .AddTo(this);
 
-            OnHighlightedStateChange
+            var onStateChange = OnHighlightedStateChange
                 .Merge(OnInteractableStateChange)
-                .Merge(OnInteractingStateChange)
+                .Merge(OnInteractingStateChange);
+
+            onStateChange
                 .Select(_ => Style)
                 .Where(v => v != null)
                 .Subscribe(_ => OnStyleChanged(Style))
+                .AddTo(this);
+
+            onStateChange
+                .Where(_ => (Interacting || Highlighted) && !HasActiveChild())
+                .Where(_ => Context.ActiveComponent == null || !Context.ActiveComponent.Interacting)
+                .Subscribe(_ => Context.ActiveComponent = this)
+                .AddTo(this);
+
+            onStateChange
+                .AsUnitObservable()
+                .Merge(OnHide)
+                .Where(_ => ReferenceEquals(Context.ActiveComponent, this))
+                .Where(_ => !Interacting && !Highlighted)
+                .Subscribe(_ => Context.ActiveComponent = FirstActiveAncestor)
                 .AddTo(this);
         }
 
@@ -83,8 +111,13 @@ namespace Alensia.Core.UI
 
             _trackers?.ForEach(t => t.Dispose());
             _trackers = null;
+
+            if (Context != null && ReferenceEquals(Context.ActiveComponent, this))
+            {
+                Context.ActiveComponent = FirstActiveAncestor;
+            }
         }
-        
+
         protected override void ResetFromInstance(UIComponent component)
         {
             base.ResetFromInstance(component);
@@ -92,12 +125,23 @@ namespace Alensia.Core.UI
             var source = (IInteractableComponent) component;
 
             Interactable = source.Interactable;
+            Cursor = source.Cursor;
         }
 
         protected virtual EventTracker<THotspot> CreateInterationTracker() =>
             new PointerSelectionTracker<THotspot>(PeerHotspot);
 
-        protected virtual EventTracker<THotspot> CreateHighlightTracker()=>
+        protected virtual EventTracker<THotspot> CreateHighlightTracker() =>
             new PointerPresenceTracker<THotspot>(PeerHotspot);
+
+        private bool HasActiveChild()
+        {
+            var active = Context.ActiveComponent;
+
+            return active?.Ancestors.FirstOrDefault(c => ReferenceEquals(c, this)) != null;
+        }
+
+        private IInteractableComponent FirstActiveAncestor =>
+            Ancestors.FirstOrDefault(a => a is IInteractableComponent && a.Visible) as IInteractableComponent;
     }
 }

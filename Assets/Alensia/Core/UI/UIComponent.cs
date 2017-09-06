@@ -1,17 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using Alensia.Core.Common;
 using Alensia.Core.I18n;
-using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Property;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static System.String;
 
 namespace Alensia.Core.UI
 {
@@ -21,21 +15,11 @@ namespace Alensia.Core.UI
 
         public IEnumerable<IComponent> Ancestors => new AncestorEnumerable(this);
 
-        public string Cursor
-        {
-            get { return IsNullOrWhiteSpace(_cursor.Value) ? Parent?.Cursor : _cursor.Value; }
-            set { _cursor.Value = value?.Trim(); }
-        }
-
         public UIStyle Style
         {
             get { return _style.Value ?? Context?.Style; }
             set { _style.Value = value; }
         }
-
-        public IObservable<PointerEventData> OnPointerEnter => this.OnPointerEnterAsObservable();
-
-        public IObservable<PointerEventData> OnPointerExit => this.OnPointerExitAsObservable();
 
         protected override bool InitializeInEditor => true;
 
@@ -44,8 +28,6 @@ namespace Alensia.Core.UI
         protected virtual ImageAndColor DefaultBackground => Style?.ImagesAndColors?["Background"];
 
         [SerializeField] private UIStyleReactiveProperty _style;
-
-        [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
 
         private readonly CompositeDisposable _observers = new CompositeDisposable();
 
@@ -86,17 +68,6 @@ namespace Alensia.Core.UI
 
         protected virtual void InitializeProperties(IUIContext context)
         {
-            OnPointerEnter
-                .Where(_ => !HasActiveChild())
-                .Subscribe(_ => Context.ActiveComponent = this)
-                .AddTo(this);
-
-            OnPointerExit
-                .AsUnitObservable()
-                .Merge(OnHide)
-                .Where(_ => ReferenceEquals(Context.ActiveComponent, this))
-                .Subscribe(_ => Context.ActiveComponent = FirstActiveAncestor)
-                .AddTo(this);
         }
 
         protected override void Reset()
@@ -114,7 +85,6 @@ namespace Alensia.Core.UI
 
         protected virtual void ResetFromInstance(UIComponent component)
         {
-            Cursor = component.Cursor;
         }
 
         protected abstract UIComponent CreatePristineInstance();
@@ -142,15 +112,6 @@ namespace Alensia.Core.UI
 
             peer.text = value;
         }
-
-        private bool HasActiveChild()
-        {
-            var active = Context.ActiveComponent;
-
-            return active?.Ancestors.FirstOrDefault(c => ReferenceEquals(c, this)) != null;
-        }
-
-        private IComponent FirstActiveAncestor => Ancestors.FirstOrDefault(a => a.Visible);
     }
 
     internal class AncestorEnumerable : IEnumerable<IComponent>
