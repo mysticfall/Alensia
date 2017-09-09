@@ -112,6 +112,48 @@ MonoBehaviour:
         _type:
           _hasValue: 0
           _value: 1
+  - _name: DragButton.Background
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 1
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
   - _name: Dropdown.ArrowImage
     _value:
       _normal:
@@ -498,7 +540,7 @@ MonoBehaviour:
           _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
         _type:
           _hasValue: 1
           _value: 0
