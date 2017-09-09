@@ -129,9 +129,9 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Dropdown.Text"];
+        protected virtual TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Dropdown.Text"];
 
-        protected TextStyle DefaultItemTextStyle
+        protected virtual TextStyle DefaultItemTextStyle
         {
             get
             {
@@ -141,7 +141,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected TextStyleSet DefaultItemTextStyleSet => Style?.TextStyleSets?["Dropdown.ItemText"];
+        protected virtual TextStyleSet DefaultItemTextStyleSet => Style?.TextStyleSets?["Dropdown.ItemText"];
 
         protected override ImageAndColor DefaultBackground
         {
@@ -153,9 +153,9 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Dropdown.Background"];
+        protected virtual ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Dropdown.Background"];
 
-        protected ImageAndColor DefaultPopupBackground
+        protected virtual ImageAndColor DefaultPopupBackground
         {
             get
             {
@@ -165,7 +165,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColor DefaultItemBackground
+        protected virtual ImageAndColor DefaultItemBackground
         {
             get
             {
@@ -175,11 +175,12 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColorSet DefaultItemBackgroundSet => Style?.ImageAndColorSets?["Dropdown.ItemBackground"];
+        protected virtual ImageAndColorSet DefaultItemBackgroundSet =>
+            Style?.ImageAndColorSets?["Dropdown.ItemBackground"];
 
-        protected ImageAndColor DefaultArrowImage => DefaultArrowImageSet?.ValueFor(this);
+        protected virtual ImageAndColor DefaultArrowImage => DefaultArrowImageSet?.ValueFor(this);
 
-        protected ImageAndColorSet DefaultArrowImageSet => Style?.ImageAndColorSets?["Dropdown.ArrowImage"];
+        protected virtual ImageAndColorSet DefaultArrowImageSet => Style?.ImageAndColorSets?["Dropdown.ArrowImage"];
 
         protected UEDropdown PeerDropdown => _peerDropdown ?? (_peerDropdown = GetComponent<UEDropdown>());
 

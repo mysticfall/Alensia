@@ -41,12 +41,13 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColorSet DefaultBackgroundSet =>
+        protected virtual ImageAndColorSet DefaultBackgroundSet =>
             Style?.ImageAndColorSets?["ScrollPanel.SlidingArea"];
 
-        protected ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
+        protected virtual ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
 
-        protected ImageAndColorSet DefaultHandleImageSet => Style?.ImageAndColorSets?["ScrollPanel.HandleImage"];
+        protected virtual ImageAndColorSet DefaultHandleImageSet =>
+            Style?.ImageAndColorSets?["ScrollPanel.HandleImage"];
 
         protected Scrollbar Peer => _peer ?? (_peer = GetComponent<Scrollbar>());
 

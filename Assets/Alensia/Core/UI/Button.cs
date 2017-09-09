@@ -64,7 +64,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Button.Text"];
+        protected virtual TextStyleSet DefaultTextStyleSet => Style?.TextStyleSets?["Button.Text"];
 
         protected override ImageAndColor DefaultBackground
         {
@@ -76,7 +76,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Button.Background"];
+        protected virtual ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Button.Background"];
 
         protected UEButton PeerButton => _peerButton ?? (_peerButton = GetComponentInChildren<UEButton>());
 

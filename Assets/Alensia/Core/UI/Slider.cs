@@ -74,15 +74,15 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Slider.Background"];
+        protected virtual ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Slider.Background"];
 
-        protected ImageAndColor DefaultFillImage => DefaultFillImageSet?.ValueFor(this);
+        protected virtual ImageAndColor DefaultFillImage => DefaultFillImageSet?.ValueFor(this);
 
-        protected ImageAndColorSet DefaultFillImageSet => Style?.ImageAndColorSets?["Slider.FillImage"];
+        protected virtual ImageAndColorSet DefaultFillImageSet => Style?.ImageAndColorSets?["Slider.FillImage"];
 
-        protected ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
+        protected virtual ImageAndColor DefaultHandleImage => DefaultHandleImageSet?.ValueFor(this);
 
-        protected ImageAndColorSet DefaultHandleImageSet => Style?.ImageAndColorSets?["Slider.HandleImage"];
+        protected virtual ImageAndColorSet DefaultHandleImageSet => Style?.ImageAndColorSets?["Slider.HandleImage"];
 
         protected UESlider PeerSlider =>
             _peerSlider ?? (_peerSlider = GetComponentInChildren<UESlider>());
