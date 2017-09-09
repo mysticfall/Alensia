@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Alensia.Core.UI.Event
 {
-    public class PointerDragTracker<T> : EventTracker<T> where T : UIBehaviour
+    public class PointerDragTracker<T> : PointerSelectionTracker<T> where T : UIBehaviour
     {
         private IDisposable _listener;
 
