@@ -36,6 +36,28 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 1
+  - _name: Header.Background
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
+      _type:
+        _hasValue: 1
+        _value: 1
+  - _name: Header.Icon
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
+      _image:
+        _hasValue: 1
+        _value: {fileID: 0}
+      _type:
+        _hasValue: 1
+        _value: 0
   - _name: Panel.Background
     _value:
       _color:
@@ -511,6 +533,32 @@ MonoBehaviour:
           _hasValue: 0
           _value: 1
   _textStyles:
+  - _name: Header.Text
+    _value:
+      _font:
+        _hasValue: 1
+        _value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      _fontSize:
+        _hasValue: 1
+        _value: 14
+      _fontStyle:
+        _hasValue: 1
+        _value: 1
+      _alignment:
+        _hasValue: 1
+        _value: 3
+      _horizontalOverflow:
+        _hasValue: 1
+        _value: 0
+      _verticalOverflow:
+        _hasValue: 1
+        _value: 0
+      _lineSpacing:
+        _hasValue: 1
+        _value: 1
+      _color:
+        _hasValue: 1
+        _value: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
   - _name: Label.Text
     _value:
       _font:
