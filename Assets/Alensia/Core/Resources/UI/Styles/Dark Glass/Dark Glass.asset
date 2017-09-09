@@ -94,18 +94,18 @@ MonoBehaviour:
           _value: 1
       _highlighted:
         _color:
-          _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _hasValue: 0
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
@@ -137,7 +137,7 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
         _image:
           _hasValue: 0
           _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -221,17 +221,17 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
@@ -304,18 +304,18 @@ MonoBehaviour:
           _value: 1
       _highlighted:
         _color:
-          _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _hasValue: 0
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
@@ -472,18 +472,18 @@ MonoBehaviour:
           _value: 1
       _highlighted:
         _color:
-          _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _hasValue: 0
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
+          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
         _image:
           _hasValue: 1
           _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
@@ -515,10 +515,10 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -527,8 +527,8 @@ MonoBehaviour:
           _hasValue: 1
           _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
-          _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _hasValue: 1
+          _value: {fileID: 21300000, guid: 7d690b2a654494a478dcf17a970cd03f, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -540,7 +540,7 @@ MonoBehaviour:
           _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
         _image:
           _hasValue: 1
-          _value: {fileID: 21300000, guid: 3418a58180f2a44aeadfb44e2ef2de68, type: 3}
+          _value: {fileID: 21300000, guid: a2e8a16d929334cee9789ab6c191548d, type: 3}
         _type:
           _hasValue: 1
           _value: 0
@@ -557,20 +557,20 @@ MonoBehaviour:
       _highlighted:
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.2, g: 0.2, b: 0.2, a: 1}
         _image:
           _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: a2e8a16d929334cee9789ab6c191548d, type: 3}
         _type:
           _hasValue: 0
           _value: 1
       _active:
         _color:
           _hasValue: 1
-          _value: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
         _image:
           _hasValue: 0
-          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+          _value: {fileID: 21300000, guid: a2e8a16d929334cee9789ab6c191548d, type: 3}
         _type:
           _hasValue: 0
           _value: 1
@@ -730,7 +730,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
       _active:
         _font:
           _hasValue: 0
@@ -832,7 +832,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.6784314, g: 0.8235294, b: 0.3764706, a: 1}
       _active:
         _font:
           _hasValue: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   - _name: Dropdown.Text
     _value:
       _normal:
@@ -934,7 +934,7 @@ MonoBehaviour:
           _value: 0
         _color:
           _hasValue: 1
-          _value: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+          _value: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
       _active:
         _font:
           _hasValue: 0
