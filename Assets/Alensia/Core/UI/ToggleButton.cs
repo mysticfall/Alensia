@@ -11,11 +11,10 @@ using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
-using UEToggle = UnityEngine.UI.Toggle;
 
 namespace Alensia.Core.UI
 {
-    public class Toggle : InteractableComponent<UEToggle, UEToggle>,
+    public class ToggleButton : InteractableComponent<Toggle, Toggle>,
         IInputComponent<bool>, IPointerSelectionAware
     {
         public bool Value
@@ -103,7 +102,7 @@ namespace Alensia.Core.UI
 
         protected ImageAndColorSet DefaultCheckboxSet => Style?.ImageAndColorSets?["Toggle.Checkbox"];
 
-        protected UEToggle PeerToggle => _peerToggle ?? (_peerToggle = GetComponentInChildren<UEToggle>());
+        protected Toggle PeerToggle => _peerToggle ?? (_peerToggle = GetComponentInChildren<Toggle>());
 
         protected Text PeerText => _peerText ?? (_peerText = GetComponentInChildren<Text>());
 
@@ -114,9 +113,9 @@ namespace Alensia.Core.UI
 
         protected Transform PeerBackground => _peerBackground ?? (_peerBackground = Transform.Find("Background"));
 
-        protected override UEToggle PeerSelectable => PeerToggle;
+        protected override Toggle PeerSelectable => PeerToggle;
 
-        protected override UEToggle PeerHotspot => PeerToggle;
+        protected override Toggle PeerHotspot => PeerToggle;
 
         protected override IList<Object> Peers
         {
@@ -142,7 +141,7 @@ namespace Alensia.Core.UI
 
         [SerializeField] private ToggleGroupReactiveProperty _toggleGroup;
 
-        [SerializeField, HideInInspector] private UEToggle _peerToggle;
+        [SerializeField, HideInInspector] private Toggle _peerToggle;
 
         [SerializeField, HideInInspector] private Image _peerCheckbox;
 
@@ -203,7 +202,7 @@ namespace Alensia.Core.UI
         {
             base.ResetFromInstance(component);
 
-            var source = (Toggle) component;
+            var source = (ToggleButton) component;
 
             _text.Value = new TranslatableText(source.Text);
 
@@ -218,13 +217,13 @@ namespace Alensia.Core.UI
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
 
-        public static Toggle CreateInstance()
+        public static ToggleButton CreateInstance()
         {
-            var prefab = Resources.Load<GameObject>("UI/Components/Toggle");
+            var prefab = Resources.Load<GameObject>("UI/Components/ToggleButton");
 
             Assert.IsNotNull(prefab, "prefab != null");
 
-            return Instantiate(prefab).GetComponent<Toggle>();
+            return Instantiate(prefab).GetComponent<ToggleButton>();
         }
 
         [Serializable]

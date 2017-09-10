@@ -193,7 +193,7 @@ namespace Alensia.Core.UI
         protected ScrollPanel PeerScrollPanel =>
             _peerScrollPanel ?? (_peerScrollPanel = GetComponentInChildren<ScrollPanel>(true));
 
-        protected Toggle PeerToggle => _peerToggle ?? (_peerToggle = GetComponentInChildren<Toggle>(true));
+        protected ToggleButton PeerToggle => _peerToggle ?? (_peerToggle = GetComponentInChildren<ToggleButton>(true));
 
         protected override UEDropdown PeerSelectable => PeerDropdown;
 
@@ -240,7 +240,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private ScrollPanel _peerScrollPanel;
 
-        [SerializeField, HideInInspector] private Toggle _peerToggle;
+        [SerializeField, HideInInspector] private ToggleButton _peerToggle;
 
         protected override void InitializeProperties(IUIContext context)
         {

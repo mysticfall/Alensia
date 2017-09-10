@@ -22,7 +22,7 @@ namespace Alensia.Core.UI.Peer
         protected override DropdownItem CreateItem(DropdownItem itemTemplate)
         {
             var item = base.CreateItem(itemTemplate);
-            var toggle = item.GetComponent<Toggle>();
+            var toggle = item.GetComponent<ToggleButton>();
 
             toggle.Initialize(Context);
 
