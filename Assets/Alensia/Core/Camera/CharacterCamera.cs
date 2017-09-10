@@ -20,7 +20,10 @@ namespace Alensia.Core.Camera
 
         public Vector3 CameraOffset { get; set; }
 
-        public override Vector3 Pivot => BodyPart.position + AxisUp * CameraOffset.y;
+        public override Vector3 Pivot => BodyPart.position +
+                                         AxisUp * CameraOffset.y +
+                                         AxisRight * CameraOffset.x +
+                                         AxisForward * CameraOffset.z;
 
         public override Vector3 AxisForward => Target.Transform.forward * -1;
 
