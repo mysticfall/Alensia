@@ -1,5 +1,8 @@
 ﻿using System;
 using Alensia.Core.Camera;
+using Alensia.Core.Character;
+using Alensia.Core.Common;
+using Alensia.Core.Control;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Event;
 using UniRx;
@@ -11,13 +14,17 @@ namespace Alensia.Demo.UMA
 {
     public class CameraControl : UIHandler<Panel>
     {
+        [Inject(Id = PlayerController.PlayerAliasName), NonSerialized] public IReferenceAlias<IHumanoid> Alias;
+
         [Inject, NonSerialized] public ICameraManager CameraManager;
 
         public CharacterCamera Camera { get; private set; }
 
+        public Animator Animator { get; private set; }
+
         public float InitialZoom { get; private set; }
 
-        [Range(0.1f, 1f)] public float Sensitivity = 0.7f;
+        [Range(0.1f, 1f)] public float Sensitivity = 0.5f;
 
         public DragButton RotateButton;
 
@@ -26,6 +33,8 @@ namespace Alensia.Demo.UMA
         public Button ResetButton;
 
         public Slider ZoomSlider;
+
+        public ToggleButton AnimationToggle;
 
         private bool _dragFinished;
 
@@ -72,6 +81,23 @@ namespace Alensia.Demo.UMA
             ZoomSlider
                 .OnValueChange
                 .Subscribe(ZoomCamera)
+                .AddTo(this);
+
+            Alias.OnChange
+                .Select(v => v?.Animator)
+                .Subscribe(v =>
+                {
+                    AnimationToggle.enabled = v != null;
+                    AnimationToggle.Value = v != null && v.enabled;
+
+                    Animator = v;
+                })
+                .AddTo(this);
+
+            AnimationToggle.enabled = false;
+            AnimationToggle.OnValueChange
+                .Where(_ => Animator != null)
+                .Subscribe(v => Animator.enabled = v)
                 .AddTo(this);
         }
 

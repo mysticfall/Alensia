@@ -13,7 +13,8 @@
     "UMA": {
         "labels": {
             "sex": "성별",
-            "zoom": "확대"
+            "zoom": "확대",
+            "animation": "애니메이션 재생"
         },
         "headers": {
             "morphs": "캐릭터 변형",

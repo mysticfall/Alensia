@@ -13,7 +13,8 @@
     "UMA": {
         "labels": {
             "sex": "Sex",
-            "zoom": "Zoom"
+            "zoom": "Zoom",
+            "animation": "Play animation"
         },
         "headers": {
             "morphs": "Character Morphs",
