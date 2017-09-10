@@ -12,7 +12,15 @@
     },
     "UMA": {
         "labels": {
-            "sex": "성별"
+            "sex": "성별",
+            "zoom": "확대"
+        },
+        "headers": {
+            "morphs": "캐릭터 변형",
+            "camera": "카메라 조정"
+        },
+        "buttons": {
+            "reset": "초기화"
         },
         "sex": {
             "male": "남성",

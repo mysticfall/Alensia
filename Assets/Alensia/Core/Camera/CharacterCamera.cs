@@ -18,7 +18,9 @@ namespace Alensia.Core.Camera
 
         public Transform BodyPart { get; private set; }
 
-        public override Vector3 Pivot => BodyPart.position;
+        public Vector3 CameraOffset { get; set; }
+
+        public override Vector3 Pivot => BodyPart.position + AxisUp * CameraOffset.y;
 
         public override Vector3 AxisForward => Target.Transform.forward * -1;
 
@@ -36,6 +38,8 @@ namespace Alensia.Core.Camera
             UnityEngine.Camera camera) : base(camera)
         {
             _settings = settings ?? new Settings();
+
+            CameraOffset = _settings.CameraOffset;
         }
 
         public virtual void Track(IHumanoid target)
@@ -57,7 +61,13 @@ namespace Alensia.Core.Camera
                 Up = 80
             };
 
-            public DistanceSettings Distance = new DistanceSettings();
+            public DistanceSettings Distance = new DistanceSettings
+            {
+                Minimum = 0.2f,
+                Maximum = 2f
+            };
+
+            public Vector3 CameraOffset;
         }
     }
 }

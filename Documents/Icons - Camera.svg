@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="49.070873mm"
+   height="32.516972mm"
+   viewBox="0 0 49.070873 32.516972"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Icon - Arrows.svg">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect4041"
+       is_visible="true"
+       bendpath="m 22.129564,27.372561 c 3.282253,1.030739 6.693192,1.256619 10.341162,0"
+       prop_scale="1"
+       scale_y_rel="false"
+       vertical="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect4024"
+       is_visible="true"
+       bendpath="M 22.790495,11.114075 H 39.048981"
+       prop_scale="1"
+       scale_y_rel="false"
+       vertical="false" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect4022"
+       is_visible="true"
+       bendpath="M 22.899231,11.114075 H 38.940244"
+       prop_scale="1"
+       scale_y_rel="false"
+       vertical="false" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path836"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path833"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.1390424"
+     inkscape:cx="83.956213"
+     inkscape:cy="70.714122"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.6735483,-2.9848318)">
+    <g
+       id="g3905"
+       transform="translate(-3.5630453)">
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect836"
+         width="16.258486"
+         height="16.258486"
+         x="22.790495"
+         y="2.984832"
+         ry="0"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-ydpi="96.83316" />
+      <path
+         inkscape:connector-curvature="0"
+         id="rect840"
+         d="m 25.718855,8.5341309 -2.819624,2.5799441 2.819624,2.579944 z m 10.401765,0 v 5.1598881 l 2.819624,-2.579944 z M 25.852062,10.137419 v 1.953311 h 10.135352 v -1.953311 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.14482452;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    </g>
+    <g
+       id="g3948"
+       transform="translate(-6.3545359)"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/move.png"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-ydpi="96.83316">
+      <rect
+         transform="rotate(90)"
+         inkscape:export-ydpi="96.83316"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+         ry="0"
+         y="-58.098957"
+         x="2.9848318"
+         height="16.258486"
+         width="16.258486"
+         id="rect3907"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <path
+         transform="matrix(0.26458333,0,0,0.26458333,0.74835467,0.21616068)"
+         id="path3909"
+         d="m 186.0332,10.875 -9.75,10.65625 h 19.50196 z m -3.6914,11.160156 v 15.462891 h -15.46094 v 7.382812 h 15.46094 v 15.460938 h 7.38281 V 44.880859 H 205.1875 V 37.498047 H 189.72461 V 22.035156 Z m -15.96485,9.402344 -10.65625,9.751953 10.65625,9.75 z m 39.3125,0 v 19.501953 l 10.65821,-9.75 z m -29.40625,29.408203 9.75,10.65625 9.75196,-10.65625 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.54736829;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect3929"
+       width="16.258486"
+       height="16.258486"
+       x="22.790495"
+       y="2.984832"
+       ry="0"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-ydpi="96.83316" />
+    <g
+       id="g900"
+       transform="translate(0,-16.258486)">
+      <g
+         inkscape:export-ydpi="96.83316"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/move-up-down.png"
+         transform="rotate(90,12.777602,9.2304254)"
+         id="g3954">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect3950"
+           width="16.258486"
+           height="16.258486"
+           x="22.790495"
+           y="2.984832"
+           ry="0"
+           inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+           inkscape:export-xdpi="96.83316"
+           inkscape:export-ydpi="96.83316" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3952"
+           d="m 25.718855,8.5341309 -2.819624,2.5799441 2.819624,2.579944 z m 10.401765,0 v 5.1598881 l 2.819624,-2.579944 z M 25.852062,10.137419 v 1.953311 h 10.135352 v -1.953311 z"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.14482452;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      </g>
+    </g>
+    <g
+       id="g937">
+      <g
+         id="g4102">
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.23479389;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect4060"
+           width="7.667202"
+           height="4.0458183"
+           x="39.296646"
+           y="26.937153" />
+        <path
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.08691823;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           d="m 49.284656,27.086961 -1.643311,1.039195 v 0.120627 1.426556 0.120628 l 1.643311,1.039196 v -1.159822 -1.426556 z"
+           id="rect4062"
+           inkscape:connector-curvature="0" />
+        <circle
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="path4068"
+           cx="43.300323"
+           cy="25.525524"
+           r="2.0018377" />
+        <circle
+           r="1.70683"
+           cy="26.469028"
+           cx="39.296646"
+           id="circle4070"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.22559209px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      </g>
+      <rect
+         inkscape:export-ydpi="96.83316"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+         ry="0"
+         y="-51.744423"
+         x="19.243319"
+         height="16.258486"
+         width="16.258486"
+         id="rect4078"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         transform="rotate(90)" />
+    </g>
+    <rect
+       inkscape:export-ydpi="96.83316"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+       ry="0"
+       y="-74.83931"
+       x="16.883257"
+       height="16.258486"
+       width="16.258486"
+       id="rect867"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       transform="rotate(90)" />
+    <g
+       id="g1002"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/move-up-down.png"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-ydpi="96.83316">
+      <rect
+         transform="rotate(90)"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect902"
+         width="16.258486"
+         height="16.258486"
+         x="19.243319"
+         y="-19.023195"
+         ry="0"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-ydpi="96.83316" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path904"
+         d="M 9.8701471,22.171678 7.2902035,19.352054 4.7102602,22.171678 Z m 0,10.401765 H 4.7102602 l 2.5799433,2.819624 z M 8.266859,22.304885 H 6.3135493 V 32.440237 H 8.266859 Z"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.14482452;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <g
+         transform="matrix(0.69490726,0,0,0.69490726,-17.006213,8.4340245)"
+         id="g929">
+        <rect
+           y="26.937153"
+           x="39.296646"
+           height="4.0458183"
+           width="7.667202"
+           id="rect921"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.23479389;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path923"
+           d="m 49.284656,27.086961 -1.643311,1.039195 v 0.120627 1.426556 0.120628 l 1.643311,1.039196 v -1.159822 -1.426556 z"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.08691823;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+        <circle
+           r="2.0018377"
+           cy="25.525524"
+           cx="43.300323"
+           id="circle925"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <circle
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.22559209px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="circle927"
+           cx="39.296646"
+           cy="26.469028"
+           r="1.70683" />
+      </g>
+    </g>
+    <g
+       id="g993"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/rotate.png"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-ydpi="96.83316">
+      <rect
+         transform="rotate(90)"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect4048"
+         width="16.258486"
+         height="16.258486"
+         x="19.243319"
+         y="-35.485935"
+         ry="0"
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
+         inkscape:export-xdpi="96.83316"
+         inkscape:export-ydpi="96.83316" />
+      <g
+         transform="translate(0,-0.73294501)"
+         id="g983">
+        <path
+           inkscape:connector-curvature="0"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.14624962;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           d="m 23.790089,29.207672 -4.103626,0.668176 1.931665,3.833357 0.750859,-1.555977 c 3.205552,0.908683 6.667677,0.97581 9.889835,0.0021 l 0.749824,1.55391 1.931665,-3.833357 -4.103108,-0.668176 0.563274,1.167887 c -2.627232,0.743492 -5.481687,0.686207 -8.16746,-0.01292 z"
+           id="rect4026" />
+        <g
+           transform="matrix(0.69490726,0,0,0.69490726,-2.8714642,5.9896751)"
+           id="g975">
+          <rect
+             y="26.937153"
+             x="39.296646"
+             height="4.0458183"
+             width="7.667202"
+             id="rect967"
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.23479389;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+          <path
+             inkscape:connector-curvature="0"
+             id="path969"
+             d="m 49.284656,27.086961 -1.643311,1.039195 v 0.120627 1.426556 0.120628 l 1.643311,1.039196 v -1.159822 -1.426556 z"
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.08691823;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+          <circle
+             r="2.0018377"
+             cy="25.525524"
+             cx="43.300323"
+             id="circle971"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+          <circle
+             style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.22559209px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             id="circle973"
+             cx="39.296646"
+             cy="26.469028"
+             r="1.70683" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

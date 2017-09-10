@@ -12,7 +12,15 @@
     },
     "UMA": {
         "labels": {
-            "sex": "Sex"
+            "sex": "Sex",
+            "zoom": "Zoom"
+        },
+        "headers": {
+            "morphs": "Character Morphs",
+            "camera": "Camera Control"
+        },
+        "buttons": {
+            "reset": "Reset"
         },
         "sex": {
             "male": "Male",
