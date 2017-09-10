@@ -64,7 +64,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1991654346297466
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -81,7 +81,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &114109766579409790
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991654346297466}
@@ -227,7 +227,7 @@ MonoBehaviour:
   _interactable:
     value: 1
   _cursor:
-    value: 
+    value: pointer
   _text:
     value:
       _text: Toggle
@@ -426,7 +426,7 @@ MonoBehaviour:
   _peerText: {fileID: 114569796638197312}
 --- !u!222 &222045505965544164
 CanvasRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991654346297466}

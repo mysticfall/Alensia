@@ -125,7 +125,7 @@ namespace Alensia.Core.UI
 
                 if (PeerToggle != null) peers.Add(PeerToggle);
                 if (PeerText != null) peers.Add(PeerText.gameObject);
-                if (PeerBackground != null) peers.Add(PeerBackground);
+                if (PeerBackground != null) peers.Add(PeerBackground.gameObject);
 
                 return peers;
             }
