@@ -12,6 +12,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Button", false, 10)]
         public static Button CreateButton(MenuCommand command) => CreateComponent(command, Button.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/Image Button", false, 10)]
+        public static ImageButton CreateImageButton(MenuCommand command) => CreateComponent(command, ImageButton.CreateInstance);
+
         [MenuItem("GameObject/UI/Alensia/Drag Button", false, 10)]
         public static DragButton CreateDragButton(MenuCommand command) => CreateComponent(command, DragButton.CreateInstance);
 

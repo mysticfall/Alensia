@@ -280,6 +280,48 @@ MonoBehaviour:
         _type:
           _hasValue: 0
           _value: 1
+  - _name: ImageButton.Background
+    _value:
+      _normal:
+        _color:
+          _hasValue: 1
+          _value: {r: 1, g: 1, b: 1, a: 1}
+        _image:
+          _hasValue: 1
+          _value: {fileID: 0}
+        _type:
+          _hasValue: 0
+          _value: 0
+      _disabled:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _highlighted:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
+      _active:
+        _color:
+          _hasValue: 1
+          _value: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+        _image:
+          _hasValue: 0
+          _value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+        _type:
+          _hasValue: 0
+          _value: 1
   - _name: ScrollPanel.HandleImage
     _value:
       _normal:
