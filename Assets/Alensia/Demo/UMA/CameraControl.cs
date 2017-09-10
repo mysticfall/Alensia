@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
@@ -35,6 +36,8 @@ namespace Alensia.Demo.UMA
         public Slider ZoomSlider;
 
         public ToggleButton AnimationToggle;
+
+        public Panel FocusControlPanel;
 
         private bool _dragFinished;
 
@@ -99,6 +102,16 @@ namespace Alensia.Demo.UMA
                 .Where(_ => Animator != null)
                 .Subscribe(v => Animator.enabled = v)
                 .AddTo(this);
+
+            var focusButtons = FocusControlPanel.Children.Cast<Button>();
+
+            foreach (var button in focusButtons)
+            {
+                button.OnPointerSelect
+                    .Select(v => v.selectedObject.GetComponent<FocusTarget>())
+                    .Subscribe(FocusCamera)
+                    .AddTo(this);
+            }
         }
 
         private void MoveCamera(Vector2 delta)
@@ -121,6 +134,15 @@ namespace Alensia.Demo.UMA
             var min = Camera.DistanceSettings.Minimum;
 
             Camera.Distance = (ZoomSlider.MaxValue - zoom) * (max - min) + min;
+        }
+
+        private void FocusCamera(FocusTarget target)
+        {
+            ResetCamera();
+
+            ZoomSlider.Value = target.Zoom;
+
+            Camera.Focus(target.Target);
         }
 
         private void ResetCamera()

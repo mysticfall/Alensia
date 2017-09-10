@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="Icon - Arrows.svg">
+   sodipodi:docname="Icons - Camera.svg">
   <defs
      id="defs2">
     <inkscape:path-effect
@@ -81,9 +81,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.1390424"
-     inkscape:cx="83.956213"
-     inkscape:cy="70.714122"
+     inkscape:zoom="17.757105"
+     inkscape:cx="117.89025"
+     inkscape:cy="-55.026118"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -102,7 +102,11 @@
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:snap-global="false" />
+     inkscape:snap-global="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -111,7 +115,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -363,5 +367,38 @@
         </g>
       </g>
     </g>
+    <circle
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.12959181px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="path1587"
+       cx="11.98736"
+       cy="41.991974"
+       r="2.0229094" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.61656797;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1589"
+       width="6.9116082"
+       height="6.5785189"
+       x="8.5315561"
+       y="43.886417"
+       ry="2.6647167" />
+    <rect
+       ry="0"
+       y="48.353676"
+       x="9.922307"
+       height="6.5785189"
+       width="4.1301069"
+       id="rect1591"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.24964046;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    <circle
+       r="2.0229094"
+       cy="42.076263"
+       cx="22.017622"
+       id="circle1593"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.12959181px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.06682372;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="M 115.93164 161.80664 L 115.93164 181.01953 L 127.19141 181.01953 L 127.19141 161.80664 L 115.93164 161.80664 z M 106.92188 161.83398 L 106.92188 177.86523 L 115.08789 177.78125 L 115.08789 161.83594 L 106.92188 161.83398 z M 115.04297 178.39844 C 112.90681 178.40044 108.58789 178.43164 108.58789 178.43164 L 104.25195 180.90039 C 101.13428 181.485 98.408203 182.00962 98.408203 183.88281 L 98.408203 184.6875 C 98.408203 186.93318 99.853613 186.4265 99.921875 186.4082 C 103.34854 186.4082 105.07123 186.3131 106.19141 186.16797 C 106.75782 184.80651 110.28343 184.08545 113.00977 183.57422 L 115.10352 182.23047 L 115.04297 178.39844 z M 117.59766 181.61328 L 113.26367 184.2793 C 110.146 184.86391 107.41797 185.38853 107.41797 187.26172 L 107.41797 188.06641 C 107.41797 190.31208 108.86338 189.80541 108.93164 189.78711 C 119.10842 189.78711 114.81227 188.99294 121.5918 188.31836 L 128.06641 188.28125 L 128.07031 187.91992 L 128.08984 186.54492 C 128.08984 185.51686 127.87134 183.06903 127.14648 181.61328 L 117.59766 181.61328 z M 121.77734 188.61914 L 121.74609 189.82812 L 128.05469 189.82812 L 128.06445 188.61914 L 121.77734 188.61914 z "
+       transform="matrix(0.26458333,0,0,0.26458333,2.6735483,2.9848318)"
+       id="rect1595" />
   </g>
 </svg>

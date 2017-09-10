@@ -50,9 +50,16 @@ namespace Alensia.Core.Camera
             Target = target;
             Distance = DistanceSettings.Default;
 
-            BodyPart = Target?.GetBodyPart(HumanBodyBones.Chest);
+            if (target != null)
+            {
+                Focus(HumanBodyBones.Chest);
+            }
         }
 
+        public virtual void Focus(HumanBodyBones focus)
+        {
+            BodyPart = Target?.GetBodyPart(focus);
+        }
 
         [Serializable]
         public class Settings : IEditorSettings
