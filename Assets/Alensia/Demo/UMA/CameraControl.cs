@@ -39,8 +39,6 @@ namespace Alensia.Demo.UMA
 
         public Panel FocusControlPanel;
 
-        private bool _dragFinished;
-
         public override void Initialize(IUIContext context)
         {
             base.Initialize(context);
@@ -53,14 +51,12 @@ namespace Alensia.Demo.UMA
             {
                 var events = button.OnDrag.Select(v => v.position);
 
-                Observable.Zip(events, events.Skip(1))
-                    .Select(v => v[1] - v[0])
-                    .Select(v => Normalize(v, direction))
+                Observable
+                    .Zip(events, events.Skip(1))
+                    .TakeUntil(button.OnDragEnd)
+                    .RepeatSafe()
+                    .Select(i => Normalize(i[1] - i[0], direction))
                     .Subscribe(MoveCamera)
-                    .AddTo(this);
-
-                button.OnDragEnd
-                    .Subscribe(_ => _dragFinished = true)
                     .AddTo(this);
             };
 
@@ -116,12 +112,6 @@ namespace Alensia.Demo.UMA
 
         private void MoveCamera(Vector2 delta)
         {
-            if (_dragFinished)
-            {
-                _dragFinished = false;
-                return;
-            }
-
             var offset = new Vector3(0, delta.y * 0.02f * Sensitivity, 0);
 
             Camera.Heading += delta.x * Sensitivity;
