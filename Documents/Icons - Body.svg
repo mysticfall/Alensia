@@ -91,7 +91,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.2196382"
-     inkscape:cx="-44.67057"
+     inkscape:cx="-132.74799"
      inkscape:cy="5.4455292"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -125,7 +125,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -161,8 +161,8 @@
     <g
        id="g5660"
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/body.png"
-       inkscape:export-xdpi="96.83316"
-       inkscape:export-ydpi="96.83316">
+       inkscape:export-xdpi="99.984711"
+       inkscape:export-ydpi="99.984711">
       <rect
          transform="rotate(90)"
          style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
@@ -185,8 +185,8 @@
     <g
        id="g5636"
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/face.png"
-       inkscape:export-xdpi="96.83316"
-       inkscape:export-ydpi="96.83316">
+       inkscape:export-xdpi="99.984711"
+       inkscape:export-ydpi="99.984711">
       <rect
          transform="rotate(90)"
          inkscape:export-ydpi="96.83316"
@@ -209,8 +209,8 @@
        id="g5645"
        transform="translate(-3.7672997)"
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/feet.png"
-       inkscape:export-xdpi="96.83316"
-       inkscape:export-ydpi="96.83316">
+       inkscape:export-xdpi="99.984718"
+       inkscape:export-ydpi="99.984718">
       <rect
          style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
          id="rect836"
@@ -266,8 +266,8 @@
     <g
        id="g5649"
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Demo/UMA/Icons/chest.png"
-       inkscape:export-xdpi="96.83316"
-       inkscape:export-ydpi="96.83316">
+       inkscape:export-xdpi="99.984711"
+       inkscape:export-ydpi="99.984711">
       <rect
          transform="rotate(90)"
          inkscape:export-ydpi="96.83316"

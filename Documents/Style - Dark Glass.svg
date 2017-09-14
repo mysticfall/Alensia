@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="60.803814mm"
-   height="21.795828mm"
-   viewBox="0 0 60.803814 21.795828"
+   width="73.750145mm"
+   height="16.787653mm"
+   viewBox="0 0 73.750145 16.787653"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="112.80432"
-     inkscape:cy="52.68823"
+     inkscape:cx="80.136088"
+     inkscape:cy="33.759694"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,14 +57,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-0.74835467,-0.21616068)">
+     transform="translate(-3.6634531,-2.7202485)">
     <rect
        inkscape:export-ydpi="96.83316"
        inkscape:export-xdpi="96.83316"
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Outline.png"
        ry="1.5"
        y="2.9848318"
-       x="22.790495"
+       x="22.739143"
        height="16.258486"
        width="16.258486"
        id="rect836"
@@ -75,37 +75,62 @@
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Filled.png"
        ry="1.5"
        y="2.9848318"
-       x="41.917534"
+       x="41.814835"
        height="16.258486"
        width="16.258486"
        id="rect840"
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     <g
-       id="g867"
-       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Checkmark.png"
-       inkscape:export-xdpi="96.83316"
-       inkscape:export-ydpi="96.83316"
-       transform="translate(0,-21.731083)">
+       id="g833">
       <rect
-         style="opacity:1;fill:none;fill-opacity:0.90196078;stroke:none;stroke-width:0.26699999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-         id="rect851"
-         width="8.1997871"
-         height="8.1997871"
-         x="7.6928024"
-         y="28.745264"
-         ry="0.75650835"
-         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Checkmark.png"
+         inkscape:export-ydpi="96.83316"
          inkscape:export-xdpi="96.83316"
-         inkscape:export-ydpi="96.83316" />
-      <path
+         inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Filled.png"
+         ry="1.5"
+         y="2.9848318"
+         x="3.6634531"
+         height="16.258486"
+         width="16.258486"
+         id="rect22"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <g
+         transform="translate(0,-21.731083)"
          inkscape:export-ydpi="96.83316"
          inkscape:export-xdpi="96.83316"
          inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Checkmark.png"
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="rect846"
-         d="m 13.343304,31.907149 -1.55061,2.077263 -1.550608,-2.077263"
-         style="opacity:1;fill:none;fill-opacity:0.90196078;stroke:#ffffff;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+         id="g867">
+        <rect
+           inkscape:export-ydpi="96.83316"
+           inkscape:export-xdpi="96.83316"
+           inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Checkmark.png"
+           ry="0.75650835"
+           y="28.745264"
+           x="7.6928024"
+           height="8.1997871"
+           width="8.1997871"
+           id="rect851"
+           style="opacity:1;fill:none;fill-opacity:0.90196078;stroke:none;stroke-width:0.26699999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:0.90196078;stroke:#ffffff;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           d="m 13.343304,31.907149 -1.55061,2.077263 -1.550608,-2.077263"
+           id="rect846"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccc"
+           inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Checkmark.png"
+           inkscape:export-xdpi="96.83316"
+           inkscape:export-ydpi="96.83316" />
+      </g>
     </g>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect20"
+       width="16.258486"
+       height="16.258486"
+       x="60.890526"
+       y="2.9848318"
+       ry="1.5"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Border.png"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-ydpi="96.83316" />
   </g>
 </svg>
