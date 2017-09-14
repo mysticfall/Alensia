@@ -48,6 +48,23 @@ namespace Alensia.Core.UI
             }
         }
 
+        public ImageAndColorSet Icon
+        {
+            get { return _icon.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _icon.Value = value;
+            }
+        }
+
+        public Vector2 IconSize
+        {
+            get { return _iconSize.Value; }
+            set { _iconSize.Value = value; }
+        }
+
         public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
         public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
@@ -76,13 +93,25 @@ namespace Alensia.Core.UI
             }
         }
 
+        protected virtual ImageAndColor DefaultIcon => DefaultIconSet?.ValueFor(this);
+
+        protected virtual ImageAndColorSet DefaultIconSet => Style?.ImageAndColorSets?["Button.Icon"];
+
         protected virtual ImageAndColorSet DefaultBackgroundSet => Style?.ImageAndColorSets?["Button.Background"];
 
         protected UEButton PeerButton => _peerButton ?? (_peerButton = GetComponentInChildren<UEButton>());
 
         protected Text PeerText => _peerText ?? (_peerText = GetComponentInChildren<Text>());
 
-        protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
+        protected Image PeerBackground => _peerBackground ?? (_peerBackground = GetComponent<Image>());
+
+        protected Image PeerIcon => _peerIcon ?? (_peerIcon = Transform.Find("Icon")?.GetComponent<Image>());
+
+        protected HorizontalLayoutGroup LayoutGroup =>
+            _layoutGroup ?? (_layoutGroup = GetComponent<HorizontalLayoutGroup>());
+
+        protected LayoutElement IconLayout =>
+            _iconLayout ?? (_iconLayout = PeerIcon?.GetComponent<LayoutElement>());
 
         protected override UEButton PeerSelectable => PeerButton;
 
@@ -96,7 +125,10 @@ namespace Alensia.Core.UI
 
                 if (PeerButton != null) peers.Add(PeerButton);
                 if (PeerText != null) peers.Add(PeerText.gameObject);
-                if (PeerImage != null) peers.Add(PeerImage);
+                if (PeerBackground != null) peers.Add(PeerBackground);
+                if (PeerIcon != null) peers.Add(PeerIcon.gameObject);
+
+                if (LayoutGroup != null) peers.Add(LayoutGroup);
 
                 return peers;
             }
@@ -108,18 +140,28 @@ namespace Alensia.Core.UI
 
         [SerializeField] private ImageAndColorSetReactiveProperty _background;
 
+        [SerializeField] private ImageAndColorSetReactiveProperty _icon;
+
+        [SerializeField] private Vector2ReactiveProperty _iconSize;
+
         [SerializeField, HideInInspector] private UEButton _peerButton;
 
-        [SerializeField, HideInInspector] private Image _peerImage;
+        [SerializeField, HideInInspector] private Image _peerBackground;
+
+        [SerializeField, HideInInspector] private Image _peerIcon;
 
         [SerializeField, HideInInspector] private Text _peerText;
+
+        [SerializeField, HideInInspector] private HorizontalLayoutGroup _layoutGroup;
+
+        [SerializeField, HideInInspector] private LayoutElement _iconLayout;
 
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
             _text
-                .Subscribe(v => UpdatePeer(PeerText, v))
+                .Subscribe(UpdateText)
                 .AddTo(this);
             _textStyle
                 .Select(v => v.ValueFor(this))
@@ -128,7 +170,18 @@ namespace Alensia.Core.UI
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerImage, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .AddTo(this);
+            _icon
+                .Select(v => v.ValueFor(this))
+                .Subscribe(UpdateIcon)
+                .AddTo(this);
+            _iconSize
+                .Subscribe(v =>
+                {
+                    IconLayout.preferredWidth = v.x;
+                    IconLayout.preferredHeight = v.y;
+                })
                 .AddTo(this);
         }
 
@@ -136,7 +189,18 @@ namespace Alensia.Core.UI
         {
             base.OnLocaleChanged(locale);
 
-            UpdatePeer(PeerText, Text);
+            UpdateText(Text);
+        }
+
+        protected override void UpdateEditor()
+        {
+            base.UpdateEditor();
+
+            UpdateText(Text);
+            UpdateIcon(Icon.ValueFor(this));
+
+            IconLayout.preferredWidth = IconSize.x;
+            IconLayout.preferredHeight = IconSize.y;
         }
 
         protected override void OnStyleChanged(UIStyle style)
@@ -144,7 +208,29 @@ namespace Alensia.Core.UI
             base.OnStyleChanged(style);
 
             TextStyle.ValueFor(this).Update(PeerText, DefaultTextStyle);
-            Background.ValueFor(this).Update(PeerImage, DefaultBackground);
+            Background.ValueFor(this).Update(PeerBackground, DefaultBackground);
+
+            UpdateIcon(Icon.ValueFor(this));
+        }
+
+        private void UpdateText(TranslatableText text)
+        {
+            if (PeerText == null) return;
+
+            UpdatePeer(PeerText, text);
+
+            var empty = string.IsNullOrEmpty(text.Text) && string.IsNullOrEmpty(text.TextKey);
+
+            PeerText.gameObject.SetActive(!empty);
+        }
+
+        private void UpdateIcon(ImageAndColor icon)
+        {
+            if (PeerIcon == null) return;
+
+            icon.Update(PeerIcon, DefaultIcon);
+
+            PeerIcon.gameObject.SetActive(icon.Image.HasValue);
         }
 
         protected override void ResetFromInstance(UIComponent component)
@@ -158,7 +244,10 @@ namespace Alensia.Core.UI
             PeerText.text = source.Text.Text;
 
             TextStyle = new TextStyleSet(source.TextStyle);
+
             Background = new ImageAndColorSet(source.Background);
+            Icon = new ImageAndColorSet(source.Icon);
+            IconSize = new Vector2(source.IconSize.x, source.IconSize.y);
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

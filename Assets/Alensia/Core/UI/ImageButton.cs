@@ -6,9 +6,17 @@ namespace Alensia.Core.UI
 {
     public class ImageButton : Button
     {
+        protected override TextStyleSet DefaultTextStyleSet =>
+            Style?.TextStyleSets?["ImageButton.Text"]?.Merge(base.DefaultTextStyleSet) ??
+            base.DefaultTextStyleSet;
+
         protected override ImageAndColorSet DefaultBackgroundSet =>
             Style?.ImageAndColorSets?["ImageButton.Background"]?.Merge(base.DefaultBackgroundSet) ??
             base.DefaultBackgroundSet;
+
+        protected override ImageAndColorSet DefaultIconSet =>
+            Style?.ImageAndColorSets?["ImageButton.Icon"]?.Merge(base.DefaultIconSet) ??
+            base.DefaultIconSet;
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
 

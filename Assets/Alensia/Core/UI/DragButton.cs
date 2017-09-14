@@ -18,9 +18,17 @@ namespace Alensia.Core.UI
 
         public IObservable<PointerEventData> OnDragEnd => this.OnEndDragAsObservable();
 
+        protected override TextStyleSet DefaultTextStyleSet =>
+            Style?.TextStyleSets?["DragButton.Text"]?.Merge(base.DefaultTextStyleSet) ??
+            base.DefaultTextStyleSet;
+
         protected override ImageAndColorSet DefaultBackgroundSet =>
             Style?.ImageAndColorSets?["DragButton.Background"]?.Merge(base.DefaultBackgroundSet) ??
             base.DefaultBackgroundSet;
+
+        protected override ImageAndColorSet DefaultIconSet =>
+            Style?.ImageAndColorSets?["DragButton.Icon"]?.Merge(base.DefaultIconSet) ??
+            base.DefaultIconSet;
 
         protected override void InitializeProperties(IUIContext context)
         {

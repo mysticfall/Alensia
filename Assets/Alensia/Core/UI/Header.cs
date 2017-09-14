@@ -107,15 +107,15 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerIcon;
 
+        [SerializeField, HideInInspector] private HorizontalLayoutGroup _layoutGroup;
+
+        [SerializeField, HideInInspector] private HorizontalLayoutGroup _controlLayoutGroup;
+
+        [SerializeField, HideInInspector] private LayoutElement _iconLayout;
+
+        [SerializeField, HideInInspector] private LayoutElement _controlLayout;
+
         private Transform _controlPanel;
-
-        private HorizontalLayoutGroup _layoutGroup;
-
-        private HorizontalLayoutGroup _controlLayoutGroup;
-
-        private LayoutElement _iconLayout;
-
-        private LayoutElement _controlLayout;
 
         public override void Initialize(IUIContext context)
         {
@@ -169,7 +169,7 @@ namespace Alensia.Core.UI
 
         private void UpdateIcon(ImageAndColor icon)
         {
-            Icon.Update(PeerIcon, DefaultIcon);
+            icon.Update(PeerIcon, DefaultIcon);
 
             var hasIcon = icon.Image.HasValue;
 
