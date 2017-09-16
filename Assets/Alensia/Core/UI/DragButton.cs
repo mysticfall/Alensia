@@ -12,11 +12,11 @@ namespace Alensia.Core.UI
 {
     public class DragButton : Button, IPointerDragAware
     {
-        public IObservable<PointerEventData> OnDragBegin => this.OnBeginDragAsObservable();
+        public IObservable<PointerEventData> OnDragBegin => this.OnBeginDragAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnDrag => this.OnDragAsObservable();
+        public IObservable<PointerEventData> OnDrag => this.OnDragAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnDragEnd => this.OnEndDragAsObservable();
+        public IObservable<PointerEventData> OnDragEnd => this.OnEndDragAsObservable().Where(_ => Interactable);
 
         protected override TextStyleSet DefaultTextStyleSet =>
             Style?.TextStyleSets?["DragButton.Text"]?.Merge(base.DefaultTextStyleSet) ??

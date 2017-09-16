@@ -65,11 +65,11 @@ namespace Alensia.Core.UI
             set { _iconSize.Value = value; }
         }
 
-        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
+        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable().Where(_ => Interactable);
 
         protected override TextStyle DefaultTextStyle
         {
