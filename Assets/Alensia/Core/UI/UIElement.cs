@@ -22,6 +22,8 @@ namespace Alensia.Core.UI
             set { enabled = value; }
         }
 
+        public RectTransform RectTransform => _rectTransform ?? (_rectTransform = GetComponent<RectTransform>());
+
         public Transform Transform => transform;
 
         public GameObject GameObject => gameObject;
@@ -38,6 +40,8 @@ namespace Alensia.Core.UI
         protected virtual HideFlags PeerFlags => HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 
         protected virtual bool InitializeInEditor => false;
+
+        private RectTransform _rectTransform;
 
         public virtual void Initialize(IUIContext context)
         {
