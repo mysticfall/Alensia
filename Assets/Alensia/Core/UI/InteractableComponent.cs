@@ -25,11 +25,9 @@ namespace Alensia.Core.UI
 
         public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
 
-        public string Cursor
-        {
-            get { return IsNullOrWhiteSpace(_cursor.Value) ? FirstActiveAncestor?.Cursor : _cursor.Value; }
-            set { _cursor.Value = value?.Trim(); }
-        }
+        public string Cursor => IsNullOrWhiteSpace(_cursor.Value) ? FirstActiveAncestor?.Cursor : _cursor.Value;
+
+        public IObservable<string> OnCursorChange => _cursor;
 
         public IObservable<bool> OnInteractableStateChange => _interactable;
 
@@ -125,7 +123,7 @@ namespace Alensia.Core.UI
             var source = (IInteractableComponent) component;
 
             Interactable = source.Interactable;
-            Cursor = source.Cursor;
+            _cursor.Value = source.Cursor;
         }
 
         protected virtual EventTracker<THotspot> CreateInterationTracker() =>

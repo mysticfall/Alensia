@@ -72,10 +72,15 @@ namespace Alensia.Core.UI
 
             CreateInitialScreens();
 
-            Context
+            var activeComponents = Context
                 .ObserveEveryValueChanged(ctx => ctx.ActiveComponent)
-                .Where(_ => Initialized)
-                .Select(c => c?.Cursor ?? CursorNames.Default)
+                .Where(_ => Initialized);
+
+            activeComponents
+                .Where(c => c != null)
+                .SelectMany(c => c.OnCursorChange)
+                .Select(c => c ?? CursorNames.Default)
+                .Merge(activeComponents.Where(c => c == null).Select(_ => CursorNames.Default))
                 .Where(c => CursorSet != null && CursorSet.Contains(c))
                 .Select(c => CursorSet[c])
                 .Subscribe(UpdateCursor)
