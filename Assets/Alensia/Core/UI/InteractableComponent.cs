@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Alensia.Core.Common;
+﻿using Alensia.Core.Common;
 using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Event;
 using UniRx;
@@ -21,19 +19,20 @@ namespace Alensia.Core.UI
             set { _interactable.Value = value; }
         }
 
-        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+        public bool Interacting => _tracker != null && _tracker.Interacting;
 
-        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
+        public bool Highlighted => _tracker != null && _tracker.Highlighted;
 
-        public string Cursor => IsNullOrWhiteSpace(_cursor.Value) ? FirstActiveAncestor?.Cursor : _cursor.Value;
+        public string Cursor =>
+            IsNullOrWhiteSpace(_cursor.Value) ? this.FindFirstActiveAncestor()?.Cursor : _cursor.Value;
 
         public IObservable<string> OnCursorChange => _cursor;
 
         public IObservable<bool> OnInteractableStateChange => _interactable;
 
-        public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
+        public IObservable<bool> OnInteractingStateChange => _tracker?.OnInteractingStateChange;
 
-        public IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
+        public IObservable<bool> OnHighlightedStateChange => _tracker?.OnHighlightedStateChange;
 
         protected abstract TSelectable PeerSelectable { get; }
 
@@ -43,11 +42,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, PredefinedLiteral(typeof(CursorNames))] private StringReactiveProperty _cursor;
 
-        private EventTracker<THotspot> _interactionTracker;
-
-        private EventTracker<THotspot> _highlightTracker;
-
-        private List<EventTracker<THotspot>> _trackers;
+        private InteractionHandler<THotspot> _tracker;
 
         protected override void InitializeProperties(IUIContext context)
         {
@@ -55,43 +50,15 @@ namespace Alensia.Core.UI
 
             PeerSelectable.transition = Selectable.Transition.None;
 
-            _interactionTracker = CreateInterationTracker();
-            _highlightTracker = CreateHighlightTracker();
+            _tracker = new InteractionHandler<THotspot>(this, CreateHighlightTracker(), CreateInterationTracker());
+            _tracker.Initialize();
 
-            _trackers = new List<EventTracker<THotspot>> {_interactionTracker, _highlightTracker};
+            _interactable.Subscribe(v => _tracker.Interactable = v).AddTo(this);
 
-            _trackers.ForEach(t => t.Initialize());
-
-            _interactable
-                .Subscribe(v =>
-                {
-                    PeerSelectable.interactable = v;
-                    _trackers.ForEach(t => t.Active = v);
-                })
-                .AddTo(this);
-
-            var onStateChange = OnHighlightedStateChange
-                .Merge(OnInteractableStateChange)
-                .Merge(OnInteractingStateChange);
-
-            onStateChange
+            _tracker.OnStateChange
                 .Select(_ => Style)
                 .Where(v => v != null)
                 .Subscribe(_ => OnStyleChanged(Style))
-                .AddTo(this);
-
-            onStateChange
-                .Where(_ => (Interacting || Highlighted) && !HasActiveChild())
-                .Where(_ => Context.ActiveComponent == null || !Context.ActiveComponent.Interacting)
-                .Subscribe(_ => Context.ActiveComponent = this)
-                .AddTo(this);
-
-            onStateChange
-                .AsUnitObservable()
-                .Merge(OnHide)
-                .Where(_ => ReferenceEquals(Context.ActiveComponent, this))
-                .Where(_ => !Interacting && !Highlighted)
-                .Subscribe(_ => Context.ActiveComponent = FirstActiveAncestor)
                 .AddTo(this);
         }
 
@@ -107,13 +74,8 @@ namespace Alensia.Core.UI
         {
             base.OnDestroy();
 
-            _trackers?.ForEach(t => t.Dispose());
-            _trackers = null;
-
-            if (Context != null && ReferenceEquals(Context.ActiveComponent, this))
-            {
-                Context.ActiveComponent = FirstActiveAncestor;
-            }
+            _tracker?.Dispose();
+            _tracker = null;
         }
 
         protected override void ResetFromInstance(UIComponent component)
@@ -131,15 +93,5 @@ namespace Alensia.Core.UI
 
         protected virtual EventTracker<THotspot> CreateHighlightTracker() =>
             new PointerPresenceTracker<THotspot>(PeerHotspot);
-
-        private bool HasActiveChild()
-        {
-            var active = Context.ActiveComponent;
-
-            return active?.Ancestors.FirstOrDefault(c => ReferenceEquals(c, this)) != null;
-        }
-
-        private IInteractableComponent FirstActiveAncestor =>
-            Ancestors.FirstOrDefault(a => a is IInteractableComponent && a.Visible) as IInteractableComponent;
     }
 }

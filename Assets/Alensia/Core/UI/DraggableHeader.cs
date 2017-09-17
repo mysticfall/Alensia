@@ -17,19 +17,20 @@ namespace Alensia.Core.UI
             set { _interactable.Value = value; }
         }
 
-        public bool Interacting => _interactionTracker != null && _interactionTracker.State;
+        public bool Interacting => _tracker != null && _tracker.Interacting;
 
-        public bool Highlighted => _highlightTracker != null && _highlightTracker.State;
+        public bool Highlighted => _tracker != null && _tracker.Highlighted;
 
-        public string Cursor => _cursor.Value;
+        public string Cursor =>
+            string.IsNullOrWhiteSpace(_cursor.Value) ? this.FindFirstActiveAncestor()?.Cursor : _cursor.Value;
 
         public IObservable<string> OnCursorChange => _cursor;
 
         public IObservable<bool> OnInteractableStateChange => _interactable;
 
-        public IObservable<bool> OnInteractingStateChange => _interactionTracker?.OnStateChange;
+        public IObservable<bool> OnInteractingStateChange => _tracker?.OnInteractingStateChange;
 
-        public IObservable<bool> OnHighlightedStateChange => _highlightTracker?.OnStateChange;
+        public IObservable<bool> OnHighlightedStateChange => _tracker?.OnHighlightedStateChange;
 
         public IObservable<PointerEventData> OnDragBegin => this.OnBeginDragAsObservable().Where(_ => Interactable);
 
@@ -41,30 +42,28 @@ namespace Alensia.Core.UI
 
         [SerializeField] private BoolReactiveProperty _interactable;
 
-        private PointerPresenceTracker<DraggableHeader> _highlightTracker;
-
-        private PointerDragTracker<DraggableHeader> _interactionTracker;
+        private InteractionHandler<DraggableHeader> _tracker;
 
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
-            _highlightTracker = new PointerPresenceTracker<DraggableHeader>(this);
-            _highlightTracker.Initialize();
+            _tracker = new InteractionHandler<DraggableHeader>(
+                this,
+                new PointerPresenceTracker<DraggableHeader>(this),
+                new PointerDragTracker<DraggableHeader>(this));
 
-            _interactionTracker = new PointerDragTracker<DraggableHeader>(this);
-            _interactionTracker.Initialize();
+            _tracker.Initialize();
+
+            _interactable.Subscribe(v => _tracker.Interactable = v).AddTo(this);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            _highlightTracker?.Dispose();
-            _highlightTracker = null;
-
-            _interactionTracker?.Dispose();
-            _interactionTracker = null;
+            _tracker?.Dispose();
+            _tracker = null;
         }
 
         protected override void ResetFromInstance(UIComponent component)
@@ -75,7 +74,6 @@ namespace Alensia.Core.UI
 
             _cursor.Value = source.Cursor;
             Interactable = source.Interactable;
-
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
