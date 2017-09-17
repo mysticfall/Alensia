@@ -21,6 +21,30 @@ MonoBehaviour:
   - _name: pointer
     _hotspot: {x: 12, y: 4}
     _image: {fileID: 2800000, guid: 802845644194d4878ab0ecfa249f2a44, type: 3}
+  - _name: n-resize
+    _hotspot: {x: 17, y: 7}
+    _image: {fileID: 2800000, guid: 47927a1b29d3e4d57a16d2d8aeefed60, type: 3}
+  - _name: ne-resize
+    _hotspot: {x: 26, y: 4}
+    _image: {fileID: 2800000, guid: 062b5945c0d66440fadadb3f8a309689, type: 3}
+  - _name: e-resize
+    _hotspot: {x: 25, y: 16}
+    _image: {fileID: 2800000, guid: 2090b671f783d4eba91267cccef699ce, type: 3}
+  - _name: se-resize
+    _hotspot: {x: 28, y: 28}
+    _image: {fileID: 2800000, guid: b69c348b2d3d54e819f43704349cb0ab, type: 3}
+  - _name: s-resize
+    _hotspot: {x: 17, y: 24}
+    _image: {fileID: 2800000, guid: 232d58fd3643545dd907dc857e83624c, type: 3}
+  - _name: sw-resize
+    _hotspot: {x: 5, y: 27}
+    _image: {fileID: 2800000, guid: a91ad0dd7ac84489b9c889766ae96638, type: 3}
+  - _name: w-resize
+    _hotspot: {x: 8, y: 17}
+    _image: {fileID: 2800000, guid: eb2bc77a7e9024eccbccc0904edd6951, type: 3}
+  - _name: nw-resize
+    _hotspot: {x: 5, y: 4}
+    _image: {fileID: 2800000, guid: 396189a1806a7430f879536952937960, type: 3}
   _animatedCursors:
   - _name: progress
     _hotspot: {x: 7, y: 3}
