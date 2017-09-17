@@ -10,8 +10,17 @@ namespace Alensia.Core.UI
 {
     public class Window : Panel, IWindow
     {
-        public override IList<IComponent> Children =>
-            base.Children.Where(c => c.Transform.parent == ContentPanel).ToList();
+        public bool Movable
+        {
+            get { return _movable.Value; }
+            set { _movable.Value = value; }
+        }
+
+        public bool Resizable
+        {
+            get { return _resizable.Value; }
+            set { _resizable.Value = value; }
+        }
 
         public DraggableHeader Header =>
             _header ?? (_header = Transform.Find("Header").GetComponent<DraggableHeader>());
@@ -19,6 +28,9 @@ namespace Alensia.Core.UI
         public Transform ContentPanel => _content ?? (_content = Transform.Find("Content"));
 
         public Transform ButtonPanel => _buttons ?? (_buttons = Transform.Find("Buttons"));
+
+        public override IList<IComponent> Children =>
+            base.Children.Where(c => c.Transform.parent == ContentPanel).ToList();
 
         protected VerticalLayoutGroup LayoutGroup =>
             _layoutGroup ?? (_layoutGroup = GetComponent<VerticalLayoutGroup>());
@@ -34,6 +46,10 @@ namespace Alensia.Core.UI
                 return peers;
             }
         }
+
+        [SerializeField] private BoolReactiveProperty _movable;
+
+        [SerializeField] private BoolReactiveProperty _resizable;
 
         [SerializeField, HideInInspector] private DraggableHeader _header;
 
@@ -74,12 +90,36 @@ namespace Alensia.Core.UI
             _resizer.Activate();
         }
 
+        protected override void InitializeProperties(IUIContext context)
+        {
+            base.InitializeProperties(context);
+
+            _movable
+                .Where(_ => Header != null)
+                .Subscribe(v => Header.Interactable = v)
+                .AddTo(this);
+            _resizable
+                .Where(_ => _resizer != null)
+                .Subscribe(v => _resizer.Active = v)
+                .AddTo(this);
+        }
+
         protected override void OnDestroy()
         {
             _resizer?.Dispose();
             _resizer = null;
 
             base.OnDestroy();
+        }
+
+        protected override void ResetFromInstance(UIComponent component)
+        {
+            base.ResetFromInstance(component);
+
+            var source = (Window) component;
+
+            Movable = source.Movable;
+            Resizable = source.Resizable;
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

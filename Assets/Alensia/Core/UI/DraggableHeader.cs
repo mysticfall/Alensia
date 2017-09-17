@@ -21,10 +21,12 @@ namespace Alensia.Core.UI
 
         public bool Highlighted => _tracker != null && _tracker.Highlighted;
 
-        public string Cursor =>
-            string.IsNullOrWhiteSpace(_cursor.Value) ? this.FindFirstActiveAncestor()?.Cursor : _cursor.Value;
+        public string Cursor => !Interactable || string.IsNullOrWhiteSpace(_cursor.Value)
+            ? this.FindFirstActiveAncestor()?.Cursor
+            : _cursor.Value;
 
-        public IObservable<string> OnCursorChange => _cursor;
+        public IObservable<string> OnCursorChange =>
+            _cursor.Merge(OnInteractableStateChange.Select(_ => Cursor)).DistinctUntilChanged();
 
         public IObservable<bool> OnInteractableStateChange => _interactable;
 
