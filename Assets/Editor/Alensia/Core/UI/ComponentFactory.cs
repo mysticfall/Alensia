@@ -36,6 +36,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Header", false, 10)]
         public static Header CreateHeader(MenuCommand command) => CreateComponent(command, Header.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/DraggableHeader", false, 10)]
+        public static DraggableHeader CreateDraggableHeader(MenuCommand command) => CreateComponent(command, DraggableHeader.CreateInstance);
+
         private static T CreateComponent<T>(
             MenuCommand command, Func<T> factory) where T : UIComponent
         {
