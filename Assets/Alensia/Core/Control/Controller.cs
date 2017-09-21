@@ -16,17 +16,16 @@ namespace Alensia.Core.Control
 
         private readonly Settings _settings;
 
-        public Controller(List<IControl> controls) : this(null, controls)
+        public Controller(IList<IControl> controls) : this(null, controls)
         {
         }
 
-        //TODO Change to IList later: https://github.com/modesttree/Zenject/issues/281
-        public Controller(Settings settings, List<IControl> controls)
+        public Controller(Settings settings, IList<IControl> controls)
         {
             Assert.IsNotNull(controls, "controls != null");
             Assert.IsTrue(controls.Any(), "controls.Any()");
 
-            Controls = controls.AsReadOnly();
+            Controls = controls.ToList().AsReadOnly();
 
             _settings = settings ?? new Settings();
         }

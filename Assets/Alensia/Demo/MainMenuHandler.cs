@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Alensia.Core.Control;
 using Alensia.Core.Game;
@@ -11,13 +10,17 @@ namespace Alensia.Demo
 {
     public class MainMenuHandler : UIHandler<Panel>
     {
-        [Inject, NonSerialized] public IGame Game;
+        [Inject]
+        public IGame Game { get; }
 
-        [Inject, NonSerialized] public IPlayerController Controller;
+        [Inject]
+        public IPlayerController Controller { get; }
 
-        [Inject, NonSerialized] public IUIManager UIManager;
+        [Inject]
+        public IUIManager UIManager { get; }
 
-        [Inject, NonSerialized] public ILocaleService LocaleService;
+        [Inject]
+        public ILocaleService LocaleService { get; }
 
         public Dropdown ChoiceLanguage;
 

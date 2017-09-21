@@ -14,11 +14,11 @@ namespace Alensia.Demo.UMA
 {
     public class CharacterCustomizer : UIHandler<Panel>
     {
-        [Inject(Id = PlayerController.PlayerAliasName), NonSerialized] public IReferenceAlias<IHumanoid> Alias;
+        [Inject(Id = PlayerController.PlayerAliasName)] public IReferenceAlias<IHumanoid> Alias { get; }
 
-        [Inject, NonSerialized] public IPlayerController Controller;
+        [Inject] public IPlayerController Controller { get; }
 
-        [Inject, NonSerialized] public IRaceRepository RaceRepository;
+        [Inject] public IRaceRepository RaceRepository { get; }
 
         public IMorphable Player => Alias?.Reference as IMorphable;
 

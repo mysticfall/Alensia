@@ -35,7 +35,7 @@ namespace Alensia.Core.Control
 
         public PlayerController(
             [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
-            List<IControl> controls) : base(controls)
+            IList<IControl> controls) : base(controls)
         {
         }
 
@@ -43,7 +43,7 @@ namespace Alensia.Core.Control
         public PlayerController(
             [InjectOptional] Settings settings,
             [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
-            List<IControl> controls) : base(settings, controls)
+            IList<IControl> controls) : base(settings, controls)
         {
             Assert.IsNotNull(player, "player != null");
 

@@ -26,12 +26,12 @@ namespace Alensia.Core.Camera
 
         private readonly IReactiveProperty<ICameraMode> _mode;
 
-        public CameraManager(List<ICameraMode> modes)
+        public CameraManager(IList<ICameraMode> modes)
         {
             Assert.IsNotNull(modes, "modes != null");
             Assert.IsTrue(modes.Any(), "modes.Any()");
 
-            AvailableModes = modes.AsReadOnly();
+            AvailableModes = modes.ToList().AsReadOnly();
 
             _mode = new ReactiveProperty<ICameraMode>();
 

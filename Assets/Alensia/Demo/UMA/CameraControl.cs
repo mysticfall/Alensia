@@ -15,9 +15,9 @@ namespace Alensia.Demo.UMA
 {
     public class CameraControl : UIHandler<Panel>
     {
-        [Inject(Id = PlayerController.PlayerAliasName), NonSerialized] public IReferenceAlias<IHumanoid> Alias;
+        [Inject(Id = PlayerController.PlayerAliasName)] public IReferenceAlias<IHumanoid> Alias { get; }
 
-        [Inject, NonSerialized] public ICameraManager CameraManager;
+        [Inject] public ICameraManager CameraManager { get; }
 
         public CharacterCamera Camera { get; private set; }
 
