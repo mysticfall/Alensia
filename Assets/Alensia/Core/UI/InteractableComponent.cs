@@ -5,7 +5,6 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static System.String;
 
 namespace Alensia.Core.UI
 {
@@ -23,8 +22,7 @@ namespace Alensia.Core.UI
 
         public bool Highlighted => _tracker != null && _tracker.Highlighted;
 
-        public string Cursor =>
-            IsNullOrWhiteSpace(_cursor.Value) ? this.FindFirstActiveAncestor()?.Cursor : _cursor.Value;
+        public string Cursor => _cursor.Value;
 
         public IObservable<string> OnCursorChange => _cursor;
 

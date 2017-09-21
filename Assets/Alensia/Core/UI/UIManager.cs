@@ -8,8 +8,8 @@ using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UECursor = UnityEngine.Cursor;
 using Zenject;
+using UECursor = UnityEngine.Cursor;
 
 namespace Alensia.Core.UI
 {
@@ -72,13 +72,18 @@ namespace Alensia.Core.UI
 
             CreateInitialScreens();
 
-            var activeComponents = Context
-                .ObserveEveryValueChanged(ctx => ctx.ActiveComponent)
+            var activeComponents = Context.OnActiveComponentChange
                 .Where(_ => Initialized);
 
-            activeComponents
+            var whenNull = activeComponents
+                .Where(c => c == null)
+                .Select(c => (string) null);
+
+            var whenNotNull = activeComponents
                 .Where(c => c != null)
-                .SelectMany(c => c.OnCursorChange)
+                .SelectMany(c => c.OnCursorChange);
+
+            whenNotNull.Merge(whenNull)
                 .Select(c => c ?? CursorNames.Default)
                 .Merge(activeComponents.Where(c => c == null).Select(_ => CursorNames.Default))
                 .Where(c => CursorSet != null && CursorSet.Contains(c))
@@ -142,7 +147,7 @@ namespace Alensia.Core.UI
                 {
                     //TODO Can't use CursorMode.Auto, because it doesn't work on Linux yet.
                     //(See: https://forum.unity3d.com/threads/cursor-setcursor-does-not-work-in-editor.476617/)
-                    UnityEngine.Cursor.SetCursor(image, pos, CursorMode.ForceSoftware);
+                    UECursor.SetCursor(image, pos, CursorMode.ForceSoftware);
                 });
             }
         }
