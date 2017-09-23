@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Alensia.Core.Common;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -99,6 +100,10 @@ namespace Alensia.Core.UI
                 peer.hideFlags = PeerFlags;
             }
         }
+
+        protected T FindPeer<T>(string path) where T : class => Transform.FindComponent<T>(path);
+
+        protected T FindPeerInChildren<T>(string path) where T : class => Transform.FindComponentInChildren<T>(path);
 
 //TODO It seems that those 'magic methods' of MonoBehaviour confuse the hell out of the compiler, so it we remove this method, the player build fails.  
 #pragma warning disable 108,114

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Alensia.Core.Common;
 using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
@@ -51,8 +52,7 @@ namespace Alensia.Core.UI
 
         protected Scrollbar Peer => _peer ?? (_peer = GetComponent<Scrollbar>());
 
-        protected Transform PeerSlideArea =>
-            _peerSlideArea ?? (_peerSlideArea = Transform.Find("Sliding Area"));
+        protected Transform PeerSlideArea => _peerSlideArea ?? (_peerSlideArea = Transform.Find("Sliding Area"));
 
         protected Image PeerBackground => _peerBackground ?? (_peerBackground = GetComponent<Image>());
 
@@ -62,7 +62,7 @@ namespace Alensia.Core.UI
             {
                 if (_peerHandle != null) return _peerHandle;
 
-                _peerHandle = PeerSlideArea.Find("Handle").GetComponent<Image>();
+                _peerHandle = PeerSlideArea.FindComponent<Image>("Handle");
 
                 return _peerHandle;
             }

@@ -18,6 +18,12 @@ namespace Alensia.Core.Common
                 .Where(c => c != null);
         }
 
+        public static T FindComponent<T>(this Transform parent, string path) where T : class =>
+            parent.Find(path)?.GetComponent<T>();
+
+        public static T FindComponentInChildren<T>(this Transform parent, string path) where T : class =>
+            parent.Find(path)?.GetComponentInChildren<T>();
+
         private class ChildEnumerable : IEnumerable<Transform>
         {
             private readonly Transform _parent;

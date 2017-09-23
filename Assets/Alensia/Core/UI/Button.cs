@@ -105,7 +105,7 @@ namespace Alensia.Core.UI
 
         protected Image PeerBackground => _peerBackground ?? (_peerBackground = GetComponent<Image>());
 
-        protected Image PeerIcon => _peerIcon ?? (_peerIcon = Transform.Find("Icon")?.GetComponent<Image>());
+        protected Image PeerIcon => _peerIcon ?? (_peerIcon = FindPeer<Image>("Icon"));
 
         protected HorizontalLayoutGroup LayoutGroup =>
             _layoutGroup ?? (_layoutGroup = GetComponent<HorizontalLayoutGroup>());

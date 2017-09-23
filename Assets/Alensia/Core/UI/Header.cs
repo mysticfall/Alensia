@@ -63,7 +63,8 @@ namespace Alensia.Core.UI
 
         protected virtual ImageAndColor DefaultIcon => Style?.ImagesAndColors?["Header.Icon"];
 
-        protected HorizontalLayoutGroup LayoutGroup => _layoutGroup ?? (_layoutGroup = GetComponent<HorizontalLayoutGroup>());
+        protected HorizontalLayoutGroup LayoutGroup =>
+            _layoutGroup ?? (_layoutGroup = GetComponent<HorizontalLayoutGroup>());
 
         protected LayoutElement ControlLayout =>
             _controlLayout ?? (_controlLayout = ControlPanel.GetComponent<LayoutElement>());
@@ -73,11 +74,9 @@ namespace Alensia.Core.UI
 
         protected LayoutElement IconLayout => _iconLayout ?? (_iconLayout = PeerIcon.GetComponent<LayoutElement>());
 
-        protected Image PeerBackground =>
-            _peerBackground ?? (_peerBackground = Transform.Find("Background").GetComponent<Image>());
+        protected Image PeerBackground => _peerBackground ?? (_peerBackground = FindPeer<Image>("Background"));
 
-        protected Image PeerIcon =>
-            _peerIcon ?? (_peerIcon = Transform.Find("Icon").GetComponent<Image>());
+        protected Image PeerIcon => _peerIcon ?? (_peerIcon = FindPeer<Image>("Icon"));
 
         protected override IList<Object> Peers
         {

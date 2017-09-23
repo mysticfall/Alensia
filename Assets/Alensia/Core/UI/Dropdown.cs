@@ -186,9 +186,9 @@ namespace Alensia.Core.UI
 
         protected Image PeerImage => _peerImage ?? (_peerImage = GetComponentInChildren<Image>());
 
-        protected Text PeerLabel => _peerLabel ?? (_peerLabel = Transform.Find("Label").GetComponentInChildren<Text>());
+        protected Text PeerLabel => _peerLabel ?? (_peerLabel = FindPeerInChildren<Text>("Label"));
 
-        protected Image PeerArrow => _peerArrow ?? (_peerArrow = Transform.Find("Arrow").GetComponent<Image>());
+        protected Image PeerArrow => _peerArrow ?? (_peerArrow = FindPeer<Image>("Arrow"));
 
         protected ScrollPanel PeerScrollPanel =>
             _peerScrollPanel ?? (_peerScrollPanel = GetComponentInChildren<ScrollPanel>(true));

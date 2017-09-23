@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Alensia.Core.Common;
 using Alensia.Core.UI.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
@@ -87,20 +88,17 @@ namespace Alensia.Core.UI
         protected UESlider PeerSlider =>
             _peerSlider ?? (_peerSlider = GetComponentInChildren<UESlider>());
 
-        protected Image PeerBackground =>
-            _peerBackground ?? (_peerBackground = Transform.Find("Background").GetComponent<Image>());
+        protected Image PeerBackground => _peerBackground ?? (_peerBackground = FindPeer<Image>("Background"));
 
         protected Transform PeerFillArea =>
             _peerFillArea ?? (_peerFillArea = Transform.Find("Fill Area"));
 
-        protected Image PeerFill =>
-            _peerFill ?? (_peerFill = PeerFillArea.Find("Fill").GetComponent<Image>());
+        protected Image PeerFill => _peerFill ?? (_peerFill = PeerFillArea.FindComponent<Image>("Fill"));
 
         protected Transform PeerHandleSlideArea =>
             _peerHandleSlideArea ?? (_peerHandleSlideArea = Transform.Find("Handle Slide Area"));
 
-        protected Image PeerHandle =>
-            _peerHandle ?? (_peerHandle = PeerHandleSlideArea.Find("Handle").GetComponent<Image>());
+        protected Image PeerHandle => _peerHandle ?? (_peerHandle = PeerHandleSlideArea.FindComponent<Image>("Handle"));
 
         protected override UESlider PeerSelectable => PeerSlider;
 
@@ -197,7 +195,8 @@ namespace Alensia.Core.UI
             HandleImage.ValueFor(this).Update(PeerHandle, DefaultHandleImage);
         }
 
-        protected override EventTracker<UESlider> CreateInterationTracker() => new PointerDragTracker<UESlider>(PeerHotspot);
+        protected override EventTracker<UESlider> CreateInterationTracker() =>
+            new PointerDragTracker<UESlider>(PeerHotspot);
 
         protected override void ResetFromInstance(UIComponent component)
         {
