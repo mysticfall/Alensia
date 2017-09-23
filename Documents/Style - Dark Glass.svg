@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="73.750145mm"
+   width="92.270996mm"
    height="16.787653mm"
-   viewBox="0 0 73.750145 16.787653"
+   viewBox="0 0 92.270996 16.787653"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="80.136088"
-     inkscape:cy="33.759694"
+     inkscape:cx="204.93013"
+     inkscape:cy="51.426468"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -132,5 +132,16 @@
        inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Border.png"
        inkscape:export-xdpi="96.83316"
        inkscape:export-ydpi="96.83316" />
+    <rect
+       inkscape:export-ydpi="96.83316"
+       inkscape:export-xdpi="96.83316"
+       inkscape:export-filename="/home/fender/workspace/Alensia/Assets/Alensia/Core/Resources/UI/Styles/Dark Glass/Input Background.png"
+       ry="1.5"
+       y="2.9848318"
+       x="79.411377"
+       height="16.258486"
+       width="16.258486"
+       id="rect820"
+       style="opacity:1;fill:#323232;fill-opacity:1;stroke:#add260;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
   </g>
 </svg>

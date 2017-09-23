@@ -21,6 +21,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Toggle Button", false, 10)]
         public static ToggleButton CreateToggleButton(MenuCommand command) => CreateComponent(command, ToggleButton.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/Input Text", false, 10)]
+        public static InputText CreateInputText(MenuCommand command) => CreateComponent(command, InputText.CreateInstance);
+
         [MenuItem("GameObject/UI/Alensia/Dropdown", false, 10)]
         public static Dropdown CreateDropdown(MenuCommand command) => CreateComponent(command, Dropdown.CreateInstance);
 
