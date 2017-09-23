@@ -4,6 +4,7 @@ using System.Linq;
 using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI.Resize
@@ -34,58 +35,73 @@ namespace Alensia.Core.UI.Resize
         {
             base.OnInitialized();
 
-            var parent = new GameObject("ResizeHandles");
-
-            _handleParent = parent.transform;
-            _handleParent.SetParent(Target.Transform);
+            _handleParent = CreateHandleParent(Target.Transform);
 
             var handles = new List<ResizeHandle>(8);
 
             switch (Directions)
             {
                 case ResizeDirections.All:
-                    handles.Add(CreateHandle<ResizeHandleTop>());
-                    handles.Add(CreateHandle<ResizeHandleTopRight>());
-                    handles.Add(CreateHandle<ResizeHandleRight>());
-                    handles.Add(CreateHandle<ResizeHandleBottomRight>());
-                    handles.Add(CreateHandle<ResizeHandleBottom>());
-                    handles.Add(CreateHandle<ResizeHandleBottomLeft>());
-                    handles.Add(CreateHandle<ResizeHandleLeft>());
-                    handles.Add(CreateHandle<ResizeHandleTopLeft>());
+                    handles.Add(CreateHandle<ResizeHandleTop>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleTopRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottomRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottom>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottomLeft>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleLeft>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleTopLeft>(HandleParent));
 
                     break;
                 case ResizeDirections.CornersOnly:
-                    handles.Add(CreateHandle<ResizeHandleTopRight>());
-                    handles.Add(CreateHandle<ResizeHandleBottomRight>());
-                    handles.Add(CreateHandle<ResizeHandleBottomLeft>());
-                    handles.Add(CreateHandle<ResizeHandleTopLeft>());
+                    handles.Add(CreateHandle<ResizeHandleTopRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottomRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottomLeft>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleTopLeft>(HandleParent));
 
                     break;
                 case ResizeDirections.EdgesOnly:
-                    handles.Add(CreateHandle<ResizeHandleTop>());
-                    handles.Add(CreateHandle<ResizeHandleRight>());
-                    handles.Add(CreateHandle<ResizeHandleBottom>());
-                    handles.Add(CreateHandle<ResizeHandleLeft>());
+                    handles.Add(CreateHandle<ResizeHandleTop>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleRight>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleBottom>(HandleParent));
+                    handles.Add(CreateHandle<ResizeHandleLeft>(HandleParent));
 
                     break;
                 case ResizeDirections.BottomRightOnly:
-                    handles.Add(CreateHandle<ResizeHandleBottomRight>());
+                    handles.Add(CreateHandle<ResizeHandleBottomRight>(HandleParent));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            handles.ForEach(h => h.transform.SetParent(HandleParent));
-
             Handles = handles;
         }
 
-        protected virtual T CreateHandle<T>() where T : ResizeHandle
+        protected virtual Transform CreateHandleParent(Transform parent)
+        {
+            var handles = new GameObject("ResizeHandles", typeof(RectTransform), typeof(LayoutElement));
+
+            handles.transform.SetParent(parent);
+
+            handles.GetComponent<LayoutElement>().ignoreLayout = true;
+
+            var rectTransform = handles.GetComponent<RectTransform>();
+
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = new Vector2(1, 1);
+
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+
+            return handles.transform;
+        }
+
+        protected virtual T CreateHandle<T>(Transform parent) where T : ResizeHandle
         {
             var go = new GameObject(typeof(T).Name, typeof(T));
 
             var handle = go.GetComponent<T>();
 
+            handle.Transform.SetParent(parent);
             handle.Target = Target;
             handle.Interactable = false;
 
