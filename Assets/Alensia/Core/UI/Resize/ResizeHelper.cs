@@ -14,7 +14,11 @@ namespace Alensia.Core.UI.Resize
 
         public readonly ResizeDirections Directions;
 
+        public Transform HandleParent => _handleParent;
+
         public ICollection<ResizeHandle> Handles { get; private set; }
+
+        private Transform _handleParent;
 
         public ResizeHelper(IComponent target, ResizeDirections directions = ResizeDirections.All)
         {
@@ -29,6 +33,11 @@ namespace Alensia.Core.UI.Resize
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            var parent = new GameObject("ResizeHandles");
+
+            _handleParent = parent.transform;
+            _handleParent.SetParent(Target.Transform);
 
             var handles = new List<ResizeHandle>(8);
 
@@ -66,13 +75,14 @@ namespace Alensia.Core.UI.Resize
                     throw new ArgumentOutOfRangeException();
             }
 
+            handles.ForEach(h => h.transform.SetParent(HandleParent));
+
             Handles = handles;
         }
 
         protected virtual T CreateHandle<T>() where T : ResizeHandle
         {
             var go = new GameObject(typeof(T).Name, typeof(T));
-            go.transform.SetParent(Target.Transform);
 
             var handle = go.GetComponent<T>();
 
@@ -112,6 +122,10 @@ namespace Alensia.Core.UI.Resize
             {
                 Object.Destroy(handle);
             }
+
+            Object.Destroy(HandleParent);
+
+            _handleParent = null;
 
             Handles = Enumerable.Empty<ResizeHandle>().ToList();
         }
