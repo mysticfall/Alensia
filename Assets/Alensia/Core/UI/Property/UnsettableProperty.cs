@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -164,6 +165,28 @@ namespace Alensia.Core.UI.Property
         }
 
         public UnsettableVerticalWrapMode(VerticalWrapMode value) : base(value)
+        {
+        }
+    }
+
+    [Serializable]
+    public class UnsettableColorReactiveProperty : ReactiveProperty<UnsettableColor>
+    {
+        public UnsettableColorReactiveProperty()
+        {
+        }
+
+        public UnsettableColorReactiveProperty(UnsettableColor initialValue) : base(initialValue)
+        {
+        }
+
+        public UnsettableColorReactiveProperty(UniRx.IObservable<UnsettableColor> source) : base(source)
+        {
+        }
+
+        public UnsettableColorReactiveProperty(
+            UniRx.IObservable<UnsettableColor> source,
+            UnsettableColor initialValue) : base(source, initialValue)
         {
         }
     }
