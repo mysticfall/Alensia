@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using Alensia.Core.UI.Resize;
 using UniRx;
 using UnityEngine;
@@ -29,8 +30,7 @@ namespace Alensia.Core.UI
 
         public Transform ButtonPanel => _buttons ?? (_buttons = Transform.Find("Buttons"));
 
-        public override IList<IComponent> Children =>
-            base.Children.Where(c => c.Transform.parent == ContentPanel).ToList();
+        public override IList<IComponent> Children => ContentPanel.GetChildren<IComponent>().ToList();
 
         protected VerticalLayoutGroup LayoutGroup =>
             _layoutGroup ?? (_layoutGroup = GetComponent<VerticalLayoutGroup>());
@@ -74,15 +74,10 @@ namespace Alensia.Core.UI
                 .Subscribe(v => RectTransform.anchoredPosition = v)
                 .AddTo(this);
 
-            if (ButtonPanel != null)
-            {
-                var buttons = ButtonPanel.GetComponents<IComponent>();
-
-                foreach (var button in buttons)
-                {
-                    button.Initialize(context);
-                }
-            }
+            ButtonPanel?
+                .GetChildren<IComponent>()
+                .ToList()
+                .ForEach(c => c.Initialize(Context));
 
             _resizer = new ResizeHelper(this);
 
