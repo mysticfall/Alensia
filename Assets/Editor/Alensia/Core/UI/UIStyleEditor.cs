@@ -31,6 +31,24 @@ namespace Alensia.Core.UI
 
             BeginChangeCheck();
 
+            PropertyField(serializedObject.FindProperty("_colors"), true);
+
+            if (EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+
+            BeginChangeCheck();
+
+            PropertyField(serializedObject.FindProperty("_colorSets"), true);
+
+            if (EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+
+            BeginChangeCheck();
+
             PropertyField(serializedObject.FindProperty("_imagesAndColors"), true);
 
             if (EndChangeCheck())

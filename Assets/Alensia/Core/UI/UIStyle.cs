@@ -18,6 +18,10 @@ namespace Alensia.Core.UI
 
         public CursorSet CursorSet => _cursorSet;
 
+        public IDirectory<UnsettableColor> Colors => _colorsLookup;
+
+        public IDirectory<ColorSet> ColorSets => _colorSetLookup;
+
         public IDirectory<ImageAndColor> ImagesAndColors => _imagesAndColorsLookup;
 
         public IDirectory<ImageAndColorSet> ImageAndColorSets => _imageAndColorSetLookup;
@@ -30,6 +34,10 @@ namespace Alensia.Core.UI
 
         [SerializeField] private CursorSet _cursorSet;
 
+        [SerializeField] private ColorItem[] _colors;
+
+        [SerializeField] private ColorSetItem[] _colorSets;
+
         [SerializeField] private ImageAndColorItem[] _imagesAndColors;
 
         [SerializeField] private ImageAndColorSetItem[] _imageAndColorSets;
@@ -37,6 +45,10 @@ namespace Alensia.Core.UI
         [SerializeField] private TextStyleItem[] _textStyles;
 
         [SerializeField] private TextStyleSetItem[] _textStyleSets;
+
+        [NonSerialized] private StyleItemLookup<ColorItem, UnsettableColor> _colorsLookup;
+
+        [NonSerialized] private StyleItemLookup<ColorSetItem, ColorSet> _colorSetLookup;
 
         [NonSerialized] private StyleItemLookup<ImageAndColorItem, ImageAndColor> _imagesAndColorsLookup;
 
@@ -59,11 +71,17 @@ namespace Alensia.Core.UI
 
         private void UpdateItems()
         {
+            _colors = _colors?.OrderBy(i => i.Name).ToArray();
+            _colorSets = _colorSets?.OrderBy(i => i.Name).ToArray();
+
             _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
             _imageAndColorSets = _imageAndColorSets?.OrderBy(i => i.Name).ToArray();
 
             _textStyles = _textStyles?.OrderBy(i => i.Name).ToArray();
             _textStyleSets = _textStyleSets?.OrderBy(i => i.Name).ToArray();
+
+            _colorsLookup = new StyleItemLookup<ColorItem, UnsettableColor>(_colors, _parent?._colorsLookup);
+            _colorSetLookup = new StyleItemLookup<ColorSetItem, ColorSet>(_colorSets, _parent?._colorSetLookup);
 
             _imagesAndColorsLookup = new StyleItemLookup<ImageAndColorItem, ImageAndColor>(
                 _imagesAndColors, _parent?._imagesAndColorsLookup);
@@ -168,6 +186,22 @@ namespace Alensia.Core.UI
     internal class ImageAndColorSetItem : UIStyleItem<ImageAndColorSet>
     {
         internal ImageAndColorSetItem(string name, ImageAndColorSet value) : base(name, value)
+        {
+        }
+    }
+
+    [Serializable]
+    internal class ColorItem : UIStyleItem<UnsettableColor>
+    {
+        internal ColorItem(string name, UnsettableColor value) : base(name, value)
+        {
+        }
+    }
+
+    [Serializable]
+    internal class ColorSetItem : UIStyleItem<ColorSet>
+    {
+        internal ColorSetItem(string name, ColorSet value) : base(name, value)
         {
         }
     }
