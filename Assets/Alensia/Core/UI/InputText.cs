@@ -205,6 +205,11 @@ namespace Alensia.Core.UI
         {
             base.InitializeProperties(context);
 
+            PeerInput
+                .OnValueChangedAsObservable()
+                .Subscribe(v => Value = v)
+                .AddTo(this);
+
             _value
                 .Subscribe(v => PeerInput.text = v)
                 .AddTo(this);
@@ -259,6 +264,8 @@ namespace Alensia.Core.UI
         protected override void UpdateEditor()
         {
             base.UpdateEditor();
+
+            PeerInput.text = Value;
 
             UpdatePlaceholder(PlaceholderText);
         }
