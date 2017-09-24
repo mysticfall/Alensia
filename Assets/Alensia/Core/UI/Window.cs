@@ -80,24 +80,25 @@ namespace Alensia.Core.UI
                 .GetChildren<IComponent>()
                 .ToList()
                 .ForEach(c => c.Initialize(Context));
-
-            _resizer = new ResizeHelper(this);
-
-            _resizer.Initialize();
-            _resizer.Activate();
         }
 
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
 
-            _movable
-                .Where(_ => Header != null)
-                .Subscribe(v => Header.Interactable = v)
-                .AddTo(this);
+            _resizer = new ResizeHelper(this);
+
+            _resizer.Initialize();
+            _resizer.Activate();
+
             _resizable
                 .Where(_ => _resizer != null)
                 .Subscribe(v => _resizer.Active = v)
+                .AddTo(this);
+
+            _movable
+                .Where(_ => Header != null)
+                .Subscribe(v => Header.Interactable = v)
                 .AddTo(this);
         }
 
