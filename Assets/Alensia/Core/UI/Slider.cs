@@ -146,6 +146,15 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private Transform _peerHandleSlideArea;
 
+        public override void Initialize(IUIContext context)
+        {
+            base.Initialize(context);
+
+            _value
+                .Subscribe(v => PeerSlider.value = v)
+                .AddTo(this);
+        }
+
         protected override void InitializeProperties(IUIContext context)
         {
             base.InitializeProperties(context);
@@ -160,9 +169,6 @@ namespace Alensia.Core.UI
                 .AddTo(this);
             _maxValue
                 .Subscribe(v => PeerSlider.maxValue = v)
-                .AddTo(this);
-            _value
-                .Subscribe(v => PeerSlider.value = v)
                 .AddTo(this);
 
             _background
