@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI
 {
@@ -114,7 +116,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private LayoutElement _controlLayout;
 
-        private Transform _controlPanel;
+        [NonSerialized] private Transform _controlPanel;
 
         public override void Initialize(IUIContext context)
         {

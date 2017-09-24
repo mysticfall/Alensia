@@ -119,7 +119,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerMaskImage;
 
-        private Transform _content;
+        [NonSerialized] private Transform _content;
 
         public override void Initialize(IUIContext context)
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.UI.Event;
@@ -6,6 +7,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 using UESlider = UnityEngine.UI.Slider;
 
 namespace Alensia.Core.UI
@@ -63,7 +65,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public IObservable<float> OnValueChange => _value;
+        public UniRx.IObservable<float> OnValueChange => _value;
 
         protected override ImageAndColor DefaultBackground
         {
@@ -140,9 +142,9 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerHandle;
 
-        private Transform _peerFillArea;
+        [NonSerialized] private Transform _peerFillArea;
 
-        private Transform _peerHandleSlideArea;
+        [NonSerialized] private Transform _peerHandleSlideArea;
 
         protected override void InitializeProperties(IUIContext context)
         {

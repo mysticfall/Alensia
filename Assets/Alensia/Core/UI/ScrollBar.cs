@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.UI.Property;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI
 {
@@ -96,7 +98,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerHandle;
 
-        private Transform _peerSlideArea;
+        [NonSerialized] private Transform _peerSlideArea;
 
         protected override void InitializeProperties(IUIContext context)
         {

@@ -149,7 +149,7 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Text _peerText;
 
-        private Transform _peerBackground;
+        [NonSerialized] private Transform _peerBackground;
 
         protected override void InitializeProperties(IUIContext context)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.UI.Resize;
@@ -6,6 +7,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI
 {
@@ -55,11 +57,11 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private VerticalLayoutGroup _layoutGroup;
 
+        [NonSerialized] private Transform _content;
+
+        [NonSerialized] private Transform _buttons;
+
         private ResizeHelper _resizer;
-
-        private Transform _content;
-
-        private Transform _buttons;
 
         public override void Initialize(IUIContext context)
         {
