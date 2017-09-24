@@ -45,6 +45,9 @@ namespace Alensia.Core.UI
         [MenuItem("GameObject/UI/Alensia/Window", false, 10)]
         public static Window CreateWindow(MenuCommand command) => CreateComponent(command, Window.CreateInstance);
 
+        [MenuItem("GameObject/UI/Alensia/Color Chooser", false, 10)]
+        public static ColorChooser CreateColorChooser(MenuCommand command) => CreateComponent(command, ColorChooser.CreateInstance);
+
         private static T CreateComponent<T>(
             MenuCommand command, Func<T> factory) where T : UIComponent
         {
