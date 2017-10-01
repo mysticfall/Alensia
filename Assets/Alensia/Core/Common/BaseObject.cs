@@ -11,14 +11,15 @@ namespace Alensia.Core.Common
 
         public bool Disposed => _disposed.Value;
 
-        public UniRx.IObservable<Unit> OnInitialize => _initialized.Where(v => v).AsUnitObservable();
+        public IObservable<Unit> OnInitialize => _initialized.Where(v => v).AsUnitObservable();
 
-        public UniRx.IObservable<Unit> OnDispose => _disposed.Where(v => v).AsUnitObservable();
+        public IObservable<Unit> OnDispose => _disposed.Where(v => v).AsUnitObservable();
 
         private readonly IReactiveProperty<bool> _initialized;
 
         private readonly IReactiveProperty<bool> _disposed;
 
+        // ReSharper disable once CollectionNeverQueried.Global
         internal readonly ICollection<IDisposable> Disposables;
 
         protected BaseObject()

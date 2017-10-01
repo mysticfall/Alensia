@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using Zenject;
 
 namespace Alensia.Core.Common

@@ -256,11 +256,11 @@ namespace Alensia.Core.UI.Property
         {
         }
 
-        public TextStyleReactiveProperty(UniRx.IObservable<TextStyle> source) : base(source)
+        public TextStyleReactiveProperty(IObservable<TextStyle> source) : base(source)
         {
         }
 
-        public TextStyleReactiveProperty(UniRx.IObservable<TextStyle> source,
+        public TextStyleReactiveProperty(IObservable<TextStyle> source,
             TextStyle initialValue) : base(source, initialValue)
         {
         }

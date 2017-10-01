@@ -27,11 +27,11 @@ namespace Alensia.Core.Common
             }
         }
 
-        public UniRx.IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
+        public IObservable<Unit> OnActivate => _active.Where(v => v).AsUnitObservable();
 
-        public UniRx.IObservable<Unit> OnDeactivate => _active.Where(v => !v).AsUnitObservable();
+        public IObservable<Unit> OnDeactivate => _active.Where(v => !v).AsUnitObservable();
 
-        public UniRx.IObservable<bool> OnActiveStateChange => _active;
+        public IObservable<bool> OnActiveStateChange => _active;
 
         private bool _lazyActivation;
 

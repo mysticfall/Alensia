@@ -13,7 +13,7 @@ namespace Alensia.Core.Input
         {
             T Value { get; }
 
-            UniRx.IObservable<T> OnChange { get; }
+            IObservable<T> OnChange { get; }
         }
     }
 }

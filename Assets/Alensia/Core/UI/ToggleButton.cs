@@ -73,13 +73,13 @@ namespace Alensia.Core.UI
             set { _toggleGroup.Value = value; }
         }
 
-        public UniRx.IObservable<bool> OnValueChange => PeerToggle.OnValueChangedAsObservable();
+        public IObservable<bool> OnValueChange => PeerToggle.OnValueChangedAsObservable();
 
-        public UniRx.IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
-        public UniRx.IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
 
-        public UniRx.IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
+        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
 
         protected override TextStyle DefaultTextStyle
         {

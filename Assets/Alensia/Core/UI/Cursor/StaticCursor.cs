@@ -26,6 +26,6 @@ namespace Alensia.Core.UI.Cursor
 
         public override Vector2 Size => Image == null ? Vector2.zero : new Vector2(Image.width, Image.height);
 
-        public override UniRx.IObservable<Texture2D> Create() => Observable.Return(Image);
+        public override IObservable<Texture2D> Create() => Observable.Return(Image);
     }
 }

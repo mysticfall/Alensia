@@ -5,6 +5,7 @@ using UnityEngine;
 using Zenject;
 #if UNITY_EDITOR
 using UnityEditor;
+
 #endif
 
 namespace Alensia.Core.Game
@@ -19,15 +20,13 @@ namespace Alensia.Core.Game
 
         public bool Paused => _paused.Value;
 
-        public UniRx.IObservable<float> OnTimeScaleChange => _timeScale;
+        public IObservable<float> OnTimeScaleChange => _timeScale;
 
-        public UniRx.IObservable<bool> OnPauseStateChange => _paused;
+        public IObservable<bool> OnPauseStateChange => _paused;
 
-        public UniRx.IObservable<Unit> OnPause =>
-            OnPauseStateChange.Where(s => s).AsSingleUnitObservable();
+        public IObservable<Unit> OnPause => OnPauseStateChange.Where(s => s).AsSingleUnitObservable();
 
-        public UniRx.IObservable<Unit> OnResume =>
-            OnPauseStateChange.Where(s => !s).AsSingleUnitObservable();
+        public IObservable<Unit> OnResume => OnPauseStateChange.Where(s => !s).AsSingleUnitObservable();
 
         private readonly IReactiveProperty<float> _timeScale;
 

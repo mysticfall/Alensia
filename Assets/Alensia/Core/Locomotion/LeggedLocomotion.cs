@@ -27,7 +27,7 @@ namespace Alensia.Core.Locomotion
             }
         }
 
-        public UniRx.IObservable<Pacing> OnPacingChange => _pacing;
+        public IObservable<Pacing> OnPacingChange => _pacing;
 
         private Vector3 _lastVelocity;
 

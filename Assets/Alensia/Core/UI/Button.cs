@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Alensia.Core.I18n;
@@ -9,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 using UEButton = UnityEngine.UI.Button;
 
 namespace Alensia.Core.UI

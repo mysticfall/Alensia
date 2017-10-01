@@ -65,7 +65,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        public UniRx.IObservable<float> OnValueChange => _value;
+        public IObservable<float> OnValueChange => _value;
 
         protected override ImageAndColor DefaultBackground
         {

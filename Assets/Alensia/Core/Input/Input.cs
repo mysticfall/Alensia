@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Common;
+﻿using System;
+using Alensia.Core.Common;
 using Alensia.Core.Input.Generic;
 using UniRx;
 

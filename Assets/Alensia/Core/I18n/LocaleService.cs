@@ -26,7 +26,7 @@ namespace Alensia.Core.I18n
             }
         }
 
-        public UniRx.IObservable<CultureInfo> OnLocaleChange => _locale;
+        public IObservable<CultureInfo> OnLocaleChange => _locale;
 
         private readonly IReactiveProperty<CultureInfo> _locale;
 

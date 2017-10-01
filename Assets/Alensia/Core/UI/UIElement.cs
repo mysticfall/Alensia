@@ -29,12 +29,11 @@ namespace Alensia.Core.UI
 
         public GameObject GameObject => gameObject;
 
-        public UniRx.IObservable<Unit> OnShow => this.OnEnableAsObservable();
+        public IObservable<Unit> OnShow => this.OnEnableAsObservable();
 
-        public UniRx.IObservable<Unit> OnHide => this.OnDisableAsObservable();
+        public IObservable<Unit> OnHide => this.OnDisableAsObservable();
 
-        public UniRx.IObservable<bool> OnVisibilityChange =>
-            OnShow.Select(_ => true).Merge(OnHide.Select(_ => false));
+        public IObservable<bool> OnVisibilityChange => OnShow.Select(_ => true).Merge(OnHide.Select(_ => false));
 
         protected virtual IList<Object> Peers => new List<Object>();
 

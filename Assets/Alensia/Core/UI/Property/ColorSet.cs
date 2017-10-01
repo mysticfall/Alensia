@@ -123,11 +123,11 @@ namespace Alensia.Core.UI.Property
         {
         }
 
-        public ColorSetReactiveProperty(UniRx.IObservable<ColorSet> source) : base(source)
+        public ColorSetReactiveProperty(IObservable<ColorSet> source) : base(source)
         {
         }
 
-        public ColorSetReactiveProperty(UniRx.IObservable<ColorSet> source, ColorSet initialValue) : base(source, initialValue)
+        public ColorSetReactiveProperty(IObservable<ColorSet> source, ColorSet initialValue) : base(source, initialValue)
         {
         }
     }

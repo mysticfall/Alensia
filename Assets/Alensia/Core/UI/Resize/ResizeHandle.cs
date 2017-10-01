@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Common;
+﻿using System;
+using Alensia.Core.Common;
 using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Event;
 using UniRx;
@@ -131,7 +132,7 @@ namespace Alensia.Core.UI.Resize
 
         protected override UIComponent CreatePristineInstance()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

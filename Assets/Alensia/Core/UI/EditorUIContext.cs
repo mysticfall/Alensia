@@ -18,11 +18,11 @@ namespace Alensia.Core.UI
 
         public IInteractableComponent ActiveComponent { get; set; }
 
-        public UniRx.IObservable<UIStyle> OnStyleChange => _styleProperty;
+        public IObservable<UIStyle> OnStyleChange => _styleProperty;
 
-        public UniRx.IObservable<CultureInfo> OnLocaleChange => _localeProperty;
+        public IObservable<CultureInfo> OnLocaleChange => _localeProperty;
 
-        public UniRx.IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponentProperty;
+        public IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponentProperty;
 
         [SerializeField] private UIStyle _style;
 

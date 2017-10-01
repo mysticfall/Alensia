@@ -112,11 +112,11 @@ namespace Alensia.Core.UI.Property
         {
         }
 
-        public ImageAndColorReactiveProperty(UniRx.IObservable<ImageAndColor> source) : base(source)
+        public ImageAndColorReactiveProperty(IObservable<ImageAndColor> source) : base(source)
         {
         }
 
-        public ImageAndColorReactiveProperty(UniRx.IObservable<ImageAndColor> source,
+        public ImageAndColorReactiveProperty(IObservable<ImageAndColor> source,
             ImageAndColor initialValue) : base(source, initialValue)
         {
         }

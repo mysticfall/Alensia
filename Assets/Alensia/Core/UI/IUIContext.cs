@@ -1,6 +1,6 @@
+using System;
 using System.Globalization;
 using Alensia.Core.I18n;
-using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.UI

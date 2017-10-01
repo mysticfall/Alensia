@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using UniRx;
 
 namespace Alensia.Core.I18n
 {

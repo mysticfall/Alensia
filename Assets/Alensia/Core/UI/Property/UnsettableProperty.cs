@@ -180,12 +180,12 @@ namespace Alensia.Core.UI.Property
         {
         }
 
-        public UnsettableColorReactiveProperty(UniRx.IObservable<UnsettableColor> source) : base(source)
+        public UnsettableColorReactiveProperty(IObservable<UnsettableColor> source) : base(source)
         {
         }
 
         public UnsettableColorReactiveProperty(
-            UniRx.IObservable<UnsettableColor> source,
+            IObservable<UnsettableColor> source,
             UnsettableColor initialValue) : base(source, initialValue)
         {
         }

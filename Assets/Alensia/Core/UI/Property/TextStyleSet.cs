@@ -128,11 +128,11 @@ namespace Alensia.Core.UI.Property
         {
         }
 
-        public TextStyleSetReactiveProperty(UniRx.IObservable<TextStyleSet> source) : base(source)
+        public TextStyleSetReactiveProperty(IObservable<TextStyleSet> source) : base(source)
         {
         }
 
-        public TextStyleSetReactiveProperty(UniRx.IObservable<TextStyleSet> source,
+        public TextStyleSetReactiveProperty(IObservable<TextStyleSet> source,
             TextStyleSet initialValue) : base(source, initialValue)
         {
         }

@@ -49,7 +49,7 @@ namespace Alensia.Core.UI.Cursor
             _framesPerSecond = framePerSecond;
         }
 
-        public override UniRx.IObservable<Texture2D> Create()
+        public override IObservable<Texture2D> Create()
         {
             var interval = Observable
                 .Interval(

@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Alensia.Core.UI.Event;
-using UniRx;
 
 namespace Alensia.Core.UI
 {

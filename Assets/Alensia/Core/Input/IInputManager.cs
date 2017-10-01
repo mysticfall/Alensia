@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Input.Generic;
-using UniRx;
 
 namespace Alensia.Core.Input
 {

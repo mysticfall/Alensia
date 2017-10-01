@@ -29,7 +29,7 @@ namespace Alensia.Core.Input
         {
         }
 
-        protected override UniRx.IObservable<float> Observe(UniRx.IObservable<long> onTick)
+        protected override IObservable<float> Observe(IObservable<long> onTick)
         {
             var source = onTick
                 .Where(_ => Triggers.All(t => t.Up))

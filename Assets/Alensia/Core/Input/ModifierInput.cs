@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine.Assertions;
@@ -9,8 +10,7 @@ namespace Alensia.Core.Input
     {
         public IList<ITrigger> Modifiers { get; }
 
-        protected override IObservable<long> OnTick => 
-            base.OnTick.Where(_ => Modifiers.All(t => t.Hold));
+        protected override IObservable<long> OnTick => base.OnTick.Where(_ => Modifiers.All(t => t.Hold));
 
         protected ModifierInput() :
             this(Enumerable.Empty<ITrigger>().ToList())

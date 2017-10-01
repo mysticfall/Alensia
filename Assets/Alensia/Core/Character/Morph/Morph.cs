@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Character.Morph.Generic;
+﻿using System;
+using Alensia.Core.Character.Morph.Generic;
 using UniRx;
 using UnityEngine.Assertions;
 

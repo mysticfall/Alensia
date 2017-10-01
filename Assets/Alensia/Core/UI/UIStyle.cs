@@ -218,12 +218,11 @@ namespace Alensia.Core.UI
         {
         }
 
-        public UIStyleReactiveProperty(UniRx.IObservable<UIStyle> source) : base(source)
+        public UIStyleReactiveProperty(IObservable<UIStyle> source) : base(source)
         {
         }
 
-        public UIStyleReactiveProperty(UniRx.IObservable<UIStyle> source,
-            UIStyle initialValue) : base(source, initialValue)
+        public UIStyleReactiveProperty(IObservable<UIStyle> source, UIStyle initialValue) : base(source, initialValue)
         {
         }
     }

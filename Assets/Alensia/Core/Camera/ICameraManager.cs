@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alensia.Core.Character;
-using UniRx;
 
 namespace Alensia.Core.Camera
 {

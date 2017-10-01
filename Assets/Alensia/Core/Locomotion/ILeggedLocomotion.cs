@@ -1,5 +1,5 @@
-﻿using Alensia.Core.Physics;
-using UniRx;
+﻿using System;
+using Alensia.Core.Physics;
 using UnityEngine;
 
 namespace Alensia.Core.Locomotion

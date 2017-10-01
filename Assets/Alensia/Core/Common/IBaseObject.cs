@@ -10,8 +10,8 @@ namespace Alensia.Core.Common
 
         bool Disposed { get; }
 
-        UniRx.IObservable<Unit> OnInitialize { get; }
+        IObservable<Unit> OnInitialize { get; }
 
-        UniRx.IObservable<Unit> OnDispose { get; }
+        IObservable<Unit> OnDispose { get; }
     }
 }

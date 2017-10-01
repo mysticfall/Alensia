@@ -103,21 +103,21 @@ namespace Alensia.Core.UI
             }
         }
 
-        public UniRx.IObservable<string> OnValueChange
+        public IObservable<string> OnValueChange
         {
             get { return PeerDropdown.onValueChanged.AsObservable().Select(i => Items[i].Key); }
         }
 
-        public UniRx.IObservable<IReadOnlyList<DropdownItem>> OnItemsChange
+        public IObservable<IReadOnlyList<DropdownItem>> OnItemsChange
         {
             get { return _items.Select(i => (IReadOnlyList<DropdownItem>) i.ToList()); }
         }
 
-        public UniRx.IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
+        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable();
 
-        public UniRx.IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
+        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable();
 
-        public UniRx.IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
+        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable();
 
         protected override TextStyle DefaultTextStyle
         {

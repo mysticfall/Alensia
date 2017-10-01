@@ -74,14 +74,12 @@ namespace Alensia.Core.I18n
         {
         }
 
-        public TranslatableTextReactiveProperty(
-            UniRx.IObservable<TranslatableText> source) : base(source)
+        public TranslatableTextReactiveProperty(IObservable<TranslatableText> source) : base(source)
         {
         }
 
         public TranslatableTextReactiveProperty(
-            UniRx.IObservable<TranslatableText> source,
-            TranslatableText initialValue) : base(source, initialValue)
+            IObservable<TranslatableText> source, TranslatableText initialValue) : base(source, initialValue)
         {
         }
     }

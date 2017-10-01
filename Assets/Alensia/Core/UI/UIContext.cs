@@ -23,11 +23,11 @@ namespace Alensia.Core.UI
             set { _activeComponent.Value = value; }
         }
 
-        public UniRx.IObservable<UIStyle> OnStyleChange => _style;
+        public IObservable<UIStyle> OnStyleChange => _style;
 
-        public UniRx.IObservable<CultureInfo> OnLocaleChange => Translator.LocaleService.OnLocaleChange;
+        public IObservable<CultureInfo> OnLocaleChange => Translator.LocaleService.OnLocaleChange;
 
-        public UniRx.IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponent;
+        public IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponent;
 
         protected DiContainer DiContainer { get; }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
@@ -35,7 +36,7 @@ namespace Alensia.Core.Control
 
         public PlayerController(
             [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
-            IList<IControl> controls) : base(controls)
+            IList<IControl> controls) : this(null, player, controls)
         {
         }
 

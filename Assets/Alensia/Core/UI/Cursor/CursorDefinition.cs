@@ -1,5 +1,5 @@
-﻿using Alensia.Core.Common;
-using UniRx;
+﻿using System;
+using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 

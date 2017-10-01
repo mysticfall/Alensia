@@ -1,5 +1,5 @@
+using System;
 using Alensia.Core.Common;
-using UniRx;
 
 namespace Alensia.Core.Character.Morph
 {

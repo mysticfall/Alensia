@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Alensia.Core.Character;
 using Alensia.Core.Camera;
+using Alensia.Core.Character;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.Locomotion;
@@ -9,7 +9,6 @@ using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Tuple = UniRx.Tuple;
 
 namespace Alensia.Core.Control
 {

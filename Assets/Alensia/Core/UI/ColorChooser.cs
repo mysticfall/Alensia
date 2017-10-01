@@ -21,7 +21,7 @@ namespace Alensia.Core.UI
             set { _value.Value = value; }
         }
 
-        public UniRx.IObservable<Color> OnValueChange => _value;
+        public IObservable<Color> OnValueChange => _value;
 
         public InputText RedInput => _redInput ?? (_redInput = FindPeer<InputText>("InputRed"));
 
