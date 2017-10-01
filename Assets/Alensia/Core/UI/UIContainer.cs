@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using UnityEngine;
 
 namespace Alensia.Core.UI
 {
     public abstract class UIContainer : UIComponent, IContainer
     {
-        public virtual IList<IComponent> Children => transform.Cast<Transform>()
-            .Select(c => c.GetComponent<IComponent>())
-            .Where(c => c != null)
-            .ToList();
+        public virtual IList<IComponent> Children => transform.GetChildren<IComponent>().ToList();
 
         public override void Initialize(IUIContext context)
         {
