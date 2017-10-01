@@ -15,13 +15,14 @@ namespace Alensia.Core.I18n
         }
 
         protected override IMessages Load(
-            TextAsset resource, CultureInfo locale, IMessages parent)
+            IReadOnlyList<TextAsset> resources, CultureInfo locale, IMessages parent)
         {
-            Assert.IsNotNull(resource, "resource != null");
+            Assert.IsNotNull(resources, "resource != null");
             Assert.IsNotNull(locale, "locale != null");
 
-            var dictionary = JObject
-                .Parse(resource.text)
+            var dictionary = resources
+                .Select(r => r.text)
+                .Select(JObject.Parse)
                 .Descendants()
                 .Where(p => !p.Any())
                 .Aggregate(new Dictionary<string, string>(), Aggregate);

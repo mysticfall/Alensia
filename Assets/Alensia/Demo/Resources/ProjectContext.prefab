@@ -74,5 +74,5 @@ MonoBehaviour:
     - _tag: en-US
     - _tag: ko-KR
   Translations:
-    BaseName: Messages
-    ResourcePath: Translations
+    Resources:
+    - Translations/Messages

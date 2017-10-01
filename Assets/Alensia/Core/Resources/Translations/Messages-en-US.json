@@ -1,0 +1,11 @@
+{
+    "common": {
+        "buttons": {
+            "ok": "Ok",
+            "cancel": "Cancel",
+            "close": "Close",
+            "yes": "Yes",
+            "no": "No"
+        }
+    }
+}
