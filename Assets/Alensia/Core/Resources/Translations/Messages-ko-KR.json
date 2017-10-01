@@ -7,5 +7,13 @@
             "yes": "예",
             "no": "아니오"
         }
+    },
+    "components": {
+        "ColorChooser": {
+            "title": "색상 선택",
+            "red": "빨간색",
+            "green": "녹색",
+            "blue": "파란색"
+        }
     }
 }

@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 224915874196149524}
   - component: {fileID: 114626841865641354}
   - component: {fileID: 114971613146816884}
+  - component: {fileID: 114721245542361808}
   m_Layer: 0
   m_Name: SliderRed
   m_TagString: Untagged
@@ -226,6 +227,7 @@ GameObject:
   - component: {fileID: 222387363558541256}
   - component: {fileID: 114589597544409620}
   - component: {fileID: 114762527910039374}
+  - component: {fileID: 114366807142726854}
   m_Layer: 0
   m_Name: InputGreen
   m_TagString: Untagged
@@ -243,6 +245,7 @@ GameObject:
   - component: {fileID: 224365124522126518}
   - component: {fileID: 114877661568767800}
   - component: {fileID: 114089249379013378}
+  - component: {fileID: 114334635055629086}
   m_Layer: 0
   m_Name: SliderGreen
   m_TagString: Untagged
@@ -312,6 +315,7 @@ GameObject:
   - component: {fileID: 222220113437887670}
   - component: {fileID: 114259637571574272}
   - component: {fileID: 114397180059719766}
+  - component: {fileID: 114341280946813928}
   m_Layer: 0
   m_Name: InputBlue
   m_TagString: Untagged
@@ -378,6 +382,7 @@ GameObject:
   - component: {fileID: 224220342387415354}
   - component: {fileID: 114127739358679010}
   - component: {fileID: 114275576149425500}
+  - component: {fileID: 114370937214656426}
   m_Layer: 0
   m_Name: SliderBlue
   m_TagString: Untagged
@@ -445,6 +450,7 @@ GameObject:
   - component: {fileID: 114456494662227026}
   - component: {fileID: 222005933013136116}
   - component: {fileID: 114816611943205550}
+  - component: {fileID: 114260530003222488}
   m_Layer: 0
   m_Name: ColorChooser
   m_TagString: Untagged
@@ -514,6 +520,7 @@ GameObject:
   - component: {fileID: 222425820193014500}
   - component: {fileID: 114797564036194200}
   - component: {fileID: 114195617170532340}
+  - component: {fileID: 114431810117316000}
   m_Layer: 0
   m_Name: InputHex
   m_TagString: Untagged
@@ -601,6 +608,7 @@ GameObject:
   - component: {fileID: 222081765915140658}
   - component: {fileID: 114161536522509868}
   - component: {fileID: 114697326718695892}
+  - component: {fileID: 114348903727300114}
   m_Layer: 0
   m_Name: InputRed
   m_TagString: Untagged
@@ -708,7 +716,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 0
+  m_Text: 64
 --- !u!114 &114063130741707612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,7 +776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 0
+  m_Text: 64
 --- !u!114 &114078155486126776
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -785,7 +793,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Green
-      _textKey: 
+      _textKey: components.ColorChooser.green
   _textStyle:
     value:
       _font:
@@ -855,7 +863,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.2509804
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -960,7 +968,7 @@ MonoBehaviour:
   _cursor:
     value: pointer
   _value:
-    value: 0
+    value: 0.2509804
   _minValue:
     value: 0
   _maxValue:
@@ -1111,7 +1119,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Red
-      _textKey: 
+      _textKey: components.ColorChooser.red
   _textStyle:
     value:
       _font:
@@ -1195,10 +1203,10 @@ MonoBehaviour:
     m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 0
+  m_Text: 128
 --- !u!114 &114195617170532340
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1258,7 +1266,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0, g: 0, b: 0, a: 0}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0, g: 0, b: 0, a: 0}
-  m_Text: '#000000'
+  m_Text: '#804040'
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1280,7 +1288,7 @@ MonoBehaviour:
   _cursor:
     value: text
   _value:
-    value: 0
+    value: 64
   _placeholderText:
     value:
       _text: Enter text...
@@ -1567,7 +1575,7 @@ MonoBehaviour:
   _cursor:
     value: text
   _value:
-    value: 0
+    value: 128
   _placeholderText:
     value:
       _text: Enter text...
@@ -1881,7 +1889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.5019608, g: 0.2509804, b: 0.2509804, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1949,6 +1957,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114260530003222488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698451432782786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114264475197516646
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2024,7 +2043,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.2509804
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2122,6 +2141,39 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114334635055629086
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521182394972820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114341280946813928
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557262941680046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114348903727300114
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1927075698676380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114364847352208808
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2149,6 +2201,28 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114366807142726854
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520878580110944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114370937214656426
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649305778771922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114380502162985846
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2241,7 +2315,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0, g: 0, b: 0, a: 0}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0, g: 0, b: 0, a: 0}
-  m_Text: 0
+  m_Text: 64
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2278,6 +2352,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0
   m_Text: Enter text...
+--- !u!114 &114431810117316000
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787294016776174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114440708955375142
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2329,8 +2414,8 @@ MonoBehaviour:
   _colorCanvas: {fileID: 114302477699370096}
   _hueCanvas: {fileID: 114251176453267332}
   _selectedCanvas: {fileID: 114242135484545042}
-  _colorPointer: {fileID: 0}
-  _huePointer: {fileID: 0}
+  _colorPointer: {fileID: 114301396707607162}
+  _huePointer: {fileID: 114123012397554282}
   _redLabel: {fileID: 114154307237171632}
   _greenLabel: {fileID: 114078155486126776}
   _blueLabel: {fileID: 114974766477288028}
@@ -2385,7 +2470,7 @@ MonoBehaviour:
   _cursor:
     value: text
   _value:
-    value: '#000000'
+    value: '#804040'
   _placeholderText:
     value:
       _text: Enter text...
@@ -2726,7 +2811,7 @@ MonoBehaviour:
   _cursor:
     value: pointer
   _value:
-    value: 0
+    value: 0.5019608
   _minValue:
     value: 0
   _maxValue:
@@ -2974,7 +3059,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0, g: 0, b: 0, a: 0}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0, g: 0, b: 0, a: 0}
-  m_Text: 0
+  m_Text: 128
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -3010,7 +3095,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: '#000000'
+  m_Text: '#804040'
+--- !u!114 &114721245542361808
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1473657310509506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb219b23cdf4b314f94a27bca3cc8012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114762527910039374
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -3070,7 +3166,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0, g: 0, b: 0, a: 0}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0, g: 0, b: 0, a: 0}
-  m_Text: 0
+  m_Text: 64
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -3092,7 +3188,7 @@ MonoBehaviour:
   _cursor:
     value: text
   _value:
-    value: 0
+    value: 64
   _placeholderText:
     value:
       _text: Enter text...
@@ -3466,7 +3562,7 @@ MonoBehaviour:
   _cursor:
     value: pointer
   _value:
-    value: 0
+    value: 0.2509804
   _minValue:
     value: 0
   _maxValue:
@@ -3703,7 +3799,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5019608
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3725,7 +3821,7 @@ MonoBehaviour:
   _text:
     value:
       _text: Blue
-      _textKey: 
+      _textKey: components.ColorChooser.blue
   _textStyle:
     value:
       _font:
@@ -4295,7 +4391,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 75, y: 76.29804}
   m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224461717769162270
