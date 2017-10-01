@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Geom
 {
-    public interface ITransformable: IManagedEntity
+    public interface ITransformable: IGameObject
     {
         Transform Transform { get; }
     }

@@ -66,11 +66,11 @@ namespace Alensia.Core.Game
             lock (this)
             {
                 var screen = UIManager.FindScreen(ScreenNames.Windows);
-                var menu = screen.FindUI<IUIHandler>(MainMenu);
+                var menu = screen.FindUI<IComponentHandler>(MainMenu);
 
                 if (menu == null)
                 {
-                    screen.ShowUI<IUIHandler>(MainMenu);
+                    screen.ShowUI<IComponentHandler>(MainMenu);
                 }
                 else
                 {

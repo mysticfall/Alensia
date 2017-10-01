@@ -2,14 +2,14 @@
 
 namespace Alensia.Core.Common
 {
-    public interface IManagedEntity
+    public interface IGameObject
     {
         GameObject GameObject { get; }
     }
 
-    public static class ManagedEntityExtensions
+    public static class GameObjectExtensions
     {
-        public static bool IsDestroyed(this IManagedEntity entity) => IsDestroyed(entity.GameObject);
+        public static bool IsDestroyed(this IGameObject gameObject) => IsDestroyed(gameObject.GameObject);
 
         public static bool IsDestroyed(this GameObject gameObject)
         {
