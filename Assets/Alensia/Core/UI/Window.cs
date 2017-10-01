@@ -63,28 +63,11 @@ namespace Alensia.Core.UI
 
         private ResizeHelper _resizer;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.Initialize(context);
+            base.InitializeComponent(context, isPlaying);
 
-            if (!Application.isPlaying) return;
-
-            Header?.Initialize(Context);
-
-            Header?.OnDrag
-                .Select(e => RectTransform.anchoredPosition + e.delta)
-                .Subscribe(v => RectTransform.anchoredPosition = v)
-                .AddTo(this);
-
-            ButtonPanel?
-                .GetChildren<IComponent>()
-                .ToList()
-                .ForEach(c => c.Initialize(Context));
-        }
-
-        protected override void InitializeProperties(IUIContext context)
-        {
-            base.InitializeProperties(context);
+            if (!isPlaying) return;
 
             _resizer = new ResizeHelper(this);
 
@@ -100,6 +83,23 @@ namespace Alensia.Core.UI
                 .Where(_ => Header != null)
                 .Subscribe(v => Header.Interactable = v)
                 .AddTo(this);
+        }
+
+        protected override void InitializeChildren(IUIContext context)
+        {
+            base.InitializeChildren(context);
+
+            Header?.Initialize(Context);
+
+            Header?.OnDrag
+                .Select(e => RectTransform.anchoredPosition + e.delta)
+                .Subscribe(v => RectTransform.anchoredPosition = v)
+                .AddTo(this);
+
+            ButtonPanel?
+                .GetChildren<IComponent>()
+                .ToList()
+                .ForEach(c => c.Initialize(Context));
         }
 
         protected override void OnDestroy()

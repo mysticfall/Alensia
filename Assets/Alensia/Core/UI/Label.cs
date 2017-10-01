@@ -73,9 +73,11 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Text _peerText;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _text
                 .Subscribe(v => UpdatePeer(PeerText, v))

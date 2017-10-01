@@ -13,7 +13,7 @@ using Zenject;
 
 namespace Alensia.Demo.UMA
 {
-    public class CameraControl : UIHandler<Panel>
+    public class CameraControl : ComponentHandler<Panel>
     {
         [Inject(Id = PlayerController.PlayerAliasName)] public IReferenceAlias<IHumanoid> Alias { get; }
 

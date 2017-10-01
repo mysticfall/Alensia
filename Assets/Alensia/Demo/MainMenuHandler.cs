@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Alensia.Demo
 {
-    public class MainMenuHandler : UIHandler<Panel>
+    public class MainMenuHandler : ComponentHandler<Panel>
     {
         [Inject]
         public IGame Game { get; }
@@ -17,7 +17,7 @@ namespace Alensia.Demo
         public IPlayerController Controller { get; }
 
         [Inject]
-        public IUIManager UIManager { get; }
+        public IUIContext UIContext { get; }
 
         [Inject]
         public ILocaleService LocaleService { get; }
@@ -39,14 +39,14 @@ namespace Alensia.Demo
             base.Initialize(context);
 
             ButtonResume.OnPointerSelect
-                .Subscribe(_ => Close())
+                .Subscribe(_ => Remove())
                 .AddTo(this);
 
             ButtonQuit.OnPointerSelect
                 .Subscribe(_ => Game.Quit())
                 .AddTo(this);
 
-            OnClose
+            OnRemove
                 .Where(_ => Controller.Active)
                 .Subscribe(_ => ResumeGame(_playerControlEnabled));
 
@@ -63,10 +63,10 @@ namespace Alensia.Demo
                 .AddTo(this);
 
             ChoiceStyle.Items = Styles.Select(s => new DropdownItem(s.Name, s.Name)).ToList();
-            ChoiceStyle.Value = UIManager.Style.Name;
+            ChoiceStyle.Value = UIContext.Style.Name;
             ChoiceStyle.OnValueChange
                 .Select(v => Styles.ToList().Find(s => s.Name == v))
-                .Subscribe(s => UIManager.Style = s)
+                .Subscribe(s => UIContext.Style = s)
                 .AddTo(this);
 
             _playerControlEnabled = Controller.PlayerControlEnabled;

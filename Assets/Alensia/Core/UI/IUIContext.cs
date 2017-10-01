@@ -1,31 +1,22 @@
 using System;
-using System.Globalization;
+using Alensia.Core.Common;
 using Alensia.Core.I18n;
+using Alensia.Core.UI.Cursor;
+using Alensia.Core.UI.Screen;
 using UnityEngine;
 
 namespace Alensia.Core.UI
 {
-    public interface IUIContext
+    public interface IUIContext : IScreenManager, IStylable, ILocalizationContext, IInjectionRoot
     {
-        UIStyle Style { get; }
+        CursorState CursorState { get; set; }
 
-        CultureInfo Locale { get; }
-
-        ITranslator Translator { get; }
+        string DefaultCursor { get; set; }
 
         IInteractableComponent ActiveComponent { get; set; }
 
-        IObservable<UIStyle> OnStyleChange { get; }
-
-        IObservable<CultureInfo> OnLocaleChange { get; }
-
         IObservable<IInteractableComponent> OnActiveComponentChange { get; }
 
-        TUI Instantiate<TDef, TUI>(TDef definition, Transform parent)
-            where TDef : IUIDefinition
-            where TUI : IUIElement;
-
-        TUI Instantiate<TUI>(GameObject item, Transform parent)
-            where TUI : IUIElement;
+        TUI Instantiate<TUI>(GameObject prefab, Transform parent) where TUI : IUIElement;
     }
 }

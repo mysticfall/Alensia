@@ -204,9 +204,9 @@ namespace Alensia.Core.UI
 
         private bool _changingHue;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.Initialize(context);
+            base.InitializeComponent(context, isPlaying);
 
             PaintHueCanvas();
             PaintColorCanvas(CanvasHue);
@@ -249,11 +249,8 @@ namespace Alensia.Core.UI
             onBlueChange
                 .Subscribe(v => BlueSlider.Value = v)
                 .AddTo(this);
-        }
 
-        protected override void InitializeProperties(IUIContext context)
-        {
-            base.InitializeProperties(context);
+            if (!isPlaying) return;
 
             ColorCanvas
                 .OnDragAsObservable()
@@ -268,20 +265,20 @@ namespace Alensia.Core.UI
 
             Func<List<float>, bool> validate = v => v[0] >= 0 && v[1] >= 0 && v[2] >= 0;
 
-            var onRedChange = RedInput.OnEdit
+            var onRedEdit = RedInput.OnEdit
                 .Select(StringToColorValue)
                 .Select(v => new List<float> {v, GreenInputValue, BlueInputValue})
                 .Where(validate);
-            var onGreenChange = GreenInput.OnEdit
+            var onGreenEdit = GreenInput.OnEdit
                 .Select(StringToColorValue)
                 .Select(v => new List<float> {RedInputValue, v, BlueInputValue})
                 .Where(validate);
-            var onBlueChange = BlueInput.OnEdit
+            var onBlueEdit = BlueInput.OnEdit
                 .Select(StringToColorValue)
                 .Select(v => new List<float> {RedInputValue, GreenInputValue, v})
                 .Where(validate);
 
-            var onInputChange = onRedChange.Merge(onGreenChange, onBlueChange);
+            var onInputChange = onRedEdit.Merge(onGreenEdit, onBlueEdit);
 
             // ReSharper disable once PossibleInvalidOperationException
             var onHexChange = HexInput.OnEdit

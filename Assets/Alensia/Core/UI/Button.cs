@@ -67,11 +67,14 @@ namespace Alensia.Core.UI
             set { _iconSize.Value = value; }
         }
 
-        public IObservable<PointerEventData> OnPointerPress => this.OnPointerDownAsObservable().Where(_ => Interactable);
+        public IObservable<PointerEventData> OnPointerPress =>
+            this.OnPointerDownAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnPointerRelease => this.OnPointerUpAsObservable().Where(_ => Interactable);
+        public IObservable<PointerEventData> OnPointerRelease =>
+            this.OnPointerUpAsObservable().Where(_ => Interactable);
 
-        public IObservable<PointerEventData> OnPointerSelect => this.OnPointerClickAsObservable().Where(_ => Interactable);
+        public IObservable<PointerEventData> OnPointerSelect =>
+            this.OnPointerClickAsObservable().Where(_ => Interactable);
 
         protected override TextStyle DefaultTextStyle
         {
@@ -158,9 +161,11 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private LayoutElement _iconLayout;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _text
                 .Subscribe(UpdateText)
@@ -194,9 +199,9 @@ namespace Alensia.Core.UI
             UpdateText(Text);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             UpdateText(Text);
             UpdateIcon(Icon.ValueFor(this));

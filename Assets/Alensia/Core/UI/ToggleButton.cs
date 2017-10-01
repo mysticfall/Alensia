@@ -151,9 +151,11 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private Transform _peerBackground;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _text
                 .Subscribe(v => UpdatePeer(PeerText, v))

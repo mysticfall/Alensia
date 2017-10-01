@@ -19,7 +19,7 @@ namespace Alensia.Demo
 
         public ThirdPersonCamera.Settings ThirdPersonCamera;
 
-        public UIManager.Settings UI;
+        public UIContext.Settings UI;
 
         protected virtual void OnValidate()
         {
@@ -38,9 +38,8 @@ namespace Alensia.Demo
 
         protected virtual void InstallUI()
         {
-            Container.Bind<UIManager.Settings>().FromInstance(UI);
-
-            Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
+            Container.Bind<UIContext.Settings>().FromInstance(UI);
+            Container.BindInterfacesAndSelfTo<UIContext>().AsSingle();
         }
 
         protected virtual void InstallCameras()

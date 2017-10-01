@@ -100,9 +100,11 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private Transform _peerSlideArea;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _background
                 .Select(v => v.ValueFor(this))
@@ -114,9 +116,9 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             Peer.size = 0.2f;
             Peer.value = 0;

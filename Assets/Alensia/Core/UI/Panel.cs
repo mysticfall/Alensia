@@ -56,9 +56,11 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Image _peerImage;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _opaque
                 .Subscribe(v => PeerImage.enabled = v)
@@ -68,9 +70,9 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             PeerImage.enabled = Opaque;
         }

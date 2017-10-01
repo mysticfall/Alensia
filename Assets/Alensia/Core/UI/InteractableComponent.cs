@@ -43,9 +43,11 @@ namespace Alensia.Core.UI
 
         private InteractionHandler<THotspot> _tracker;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             PeerSelectable.transition = Selectable.Transition.None;
 
@@ -61,9 +63,9 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             PeerSelectable.interactable = _interactable.Value;
             PeerSelectable.transition = Selectable.Transition.None;

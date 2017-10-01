@@ -242,9 +242,11 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private ToggleButton _peerToggle;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             OnItemsChange
                 .Subscribe(UpdateItems)

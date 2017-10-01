@@ -1,13 +1,19 @@
+using System;
 using Alensia.Core.Common;
 using Alensia.Core.Geom;
+using UniRx;
 using UnityEngine;
 
 namespace Alensia.Core.UI
 {
-    public interface IUIElement : IUIContextHolder, INamed, IHideable, ITransformable
+    public interface IUIElement : IUIContextHolder, INamed, IHideable, IValidatable, ITransformable
     {
         RectTransform RectTransform { get; }
 
+        IObservable<Unit> OnRemove { get; }
+
         void Initialize(IUIContext context);
+
+        void Remove();
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -8,7 +10,7 @@ namespace Alensia.Core.UI.Screen
     [RequireComponent(typeof(Canvas))]
     public class Screen : UIElement, IScreen
     {
-        public IReadOnlyList<IUIHandler> Items => GetComponentsInChildren<IUIHandler>();
+        public IReadOnlyList<IComponentHandler> Items => Transform.GetChildren<IComponentHandler>().ToList();
 
         public IReadOnlyDictionary<string, ScreenItemDefinition> ItemDefinitions { get; private set; }
 
@@ -22,6 +24,8 @@ namespace Alensia.Core.UI.Screen
 
             Canvas = GetComponent<Canvas>();
 
+            if (!Application.isPlaying) return;
+
             Assert.IsNotNull(
                 Canvas,
                 $"No Canvas component attached to the screen: '{Name}'.");
@@ -31,32 +35,18 @@ namespace Alensia.Core.UI.Screen
 
             CreateInitialItems();
 
-            foreach (var handler in Items)
+            foreach (var component in Items.Select(i => i.Component))
             {
-                handler.Initialize(context);
+                component.Initialize(context);
             }
         }
 
-        protected virtual void CreateInitialItems()
-        {
-            var items = Items.ToDictionary(i => i.Name, i => i);
+        public T FindUI<T>() where T : class, IComponentHandler => Items.OfType<T>().FirstOrDefault();
 
-            ItemDefinitions.Values
-                .Where(i => i.Enable && !items.ContainsKey(i.Name))
-                .ToList()
-                .ForEach(d => CreateItem<IUIHandler>(d));
-        }
+        public T FindUI<T>(string key) where T : class, IComponentHandler =>
+            Items.FirstOrDefault(i => i.Name == key) as T;
 
-        protected virtual T CreateItem<T>(ScreenItemDefinition definition) where T : IUIHandler
-        {
-            return Context.Instantiate<ScreenItemDefinition, T>(definition, transform);
-        }
-
-        public T FindUI<T>() where T : class, IUIHandler => GetComponentInChildren<T>();
-
-        public T FindUI<T>(string key) where T : class, IUIHandler => transform.Find(key)?.GetComponent<T>();
-
-        public T ShowUI<T>(string key) where T : class, IUIHandler
+        public T ShowUI<T>(string key) where T : class, IComponentHandler
         {
             var definition = ItemDefinitions[key];
 
@@ -71,10 +61,58 @@ namespace Alensia.Core.UI.Screen
 
                 if (handler != null) return handler;
 
-                handler = CreateItem<T>(definition);
+                handler = Instantiate<T>(definition);
             }
 
             return handler;
+        }
+
+        protected virtual void CreateInitialItems()
+        {
+            var items = Items.ToDictionary(i => i.Name, i => i);
+
+            ItemDefinitions.Values
+                .Where(i => i.Enable && !items.ContainsKey(i.Name))
+                .ToList()
+                .ForEach(d => Instantiate<IComponentHandler>(d));
+        }
+
+        protected virtual T Instantiate<T>(ScreenItemDefinition definition)
+            where T : IComponentHandler
+        {
+            T ui;
+
+            var item = definition.Item;
+
+            if (item.scene != GameObject.scene)
+            {
+                ui = Instantiate(item, Transform).GetComponent<T>();
+            }
+            else
+            {
+                ui = item.GetComponent<T>();
+
+                if (item.transform.parent != Transform)
+                {
+                    item.transform.SetParent(Transform);
+                }
+            }
+
+            if (ui == null)
+            {
+                throw new ArgumentException(
+                    $"Unable to find a suitable component on object: '{item.name}'.");
+            }
+
+            ui.GameObject.name = definition.Name;
+            ui.Visible = definition.Enable;
+
+            if (ui.Component.Context == null)
+            {
+                ui.Component.Initialize(Context);
+            }
+
+            return ui;
         }
     }
 }

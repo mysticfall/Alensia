@@ -15,7 +15,7 @@ namespace Alensia.Core.Game
 
         public string MainMenu { get; set; } = "MainMenu";
 
-        public IUIManager UIManager { get; }
+        public IUIContext UIContext { get; }
 
         public IBindingKey<ITriggerInput> ShowMenu = Keys.ShowMenu;
 
@@ -24,12 +24,12 @@ namespace Alensia.Core.Game
         public override bool Valid => base.Valid && ShowMenuInput != null && MainMenu != null;
 
         public GameControl(
-            IUIManager uiManager,
+            IUIContext uiContext,
             IInputManager inputManager) : base(inputManager)
         {
-            Assert.IsNotNull(uiManager, "uiManager != null");
+            Assert.IsNotNull(uiContext, "uiContext != null");
 
-            UIManager = uiManager;
+            UIContext = uiContext;
         }
 
         protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {ShowMenu};
@@ -65,7 +65,7 @@ namespace Alensia.Core.Game
         {
             lock (this)
             {
-                var screen = UIManager.FindScreen(ScreenNames.Windows);
+                var screen = UIContext.FindScreen(ScreenNames.Windows);
                 var menu = screen.FindUI<IComponentHandler>(MainMenu);
 
                 if (menu == null)
@@ -74,7 +74,7 @@ namespace Alensia.Core.Game
                 }
                 else
                 {
-                    menu.Close();
+                    menu.Remove();
                 }
             }
         }

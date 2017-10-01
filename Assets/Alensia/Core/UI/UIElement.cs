@@ -23,6 +23,8 @@ namespace Alensia.Core.UI
             set { enabled = value; }
         }
 
+        public bool Valid => !IsDestroyed();
+
         public RectTransform RectTransform => _rectTransform ?? (_rectTransform = GetComponent<RectTransform>());
 
         public Transform Transform => transform;
@@ -35,11 +37,11 @@ namespace Alensia.Core.UI
 
         public IObservable<bool> OnVisibilityChange => OnShow.Select(_ => true).Merge(OnHide.Select(_ => false));
 
+        public IObservable<Unit> OnRemove => this.OnDestroyAsObservable();
+
         protected virtual IList<Object> Peers => new List<Object>();
 
         protected virtual HideFlags PeerFlags => HideFlags.HideInHierarchy | HideFlags.HideInInspector;
-
-        protected virtual bool InitializeInEditor => false;
 
         private RectTransform _rectTransform;
 
@@ -57,21 +59,15 @@ namespace Alensia.Core.UI
             }
 
             Context = context;
+
+            Context.DiContainer?.Inject(this);
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
+        public void Show() => Visible = true;
 
-            if (Context != null || Application.isPlaying || !InitializeInEditor) return;
+        public void Hide() => Visible = false;
 
-            var context = CreateEditorUIContext();
-
-            if (context != null)
-            {
-                Initialize(context);
-            }
-        }
+        public void Remove() => Destroy(GameObject);
 
         protected override void OnDisable()
         {
@@ -83,12 +79,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected virtual EditorUIContext CreateEditorUIContext()
-        {
-            return Resources.Load<EditorUIContext>("UI/EditorUIContext");
-        }
-
-        protected virtual void UpdateEditor()
+        protected virtual void OnEditorUpdate()
         {
         }
 
@@ -118,13 +109,9 @@ namespace Alensia.Core.UI
 
         protected virtual void OnValidate()
         {
-            UpdateEditor();
+            OnEditorUpdate();
             ApplyHideFlags();
         }
 #pragma warning restore 108,114
-
-        public void Show() => Visible = true;
-
-        public void Hide() => Visible = false;
     }
 }

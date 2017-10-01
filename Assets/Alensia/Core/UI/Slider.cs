@@ -146,18 +146,15 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private Transform _peerHandleSlideArea;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.Initialize(context);
+            base.InitializeComponent(context, isPlaying);
 
             _value
                 .Subscribe(v => PeerSlider.value = v)
                 .AddTo(this);
-        }
 
-        protected override void InitializeProperties(IUIContext context)
-        {
-            base.InitializeProperties(context);
+            if (!isPlaying) return;
 
             PeerSlider
                 .OnValueChangedAsObservable()
@@ -185,9 +182,9 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             PeerSlider.minValue = MinValue;
             PeerSlider.maxValue = MaxValue;

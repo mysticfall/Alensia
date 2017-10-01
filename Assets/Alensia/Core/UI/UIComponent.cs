@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Alensia.Core.I18n;
 using Alensia.Core.UI.Property;
+using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,9 +14,13 @@ namespace Alensia.Core.UI
 {
     public abstract class UIComponent : UIElement, IComponent
     {
+        public IScreen Screen => transform.GetComponentInParent<IScreen>();
+
         public IComponent Parent => transform.parent?.GetComponent<IComponent>();
 
         public IEnumerable<IComponent> Ancestors => new AncestorEnumerable(this);
+
+        public IEnumerable<IComponentHandler> Handlers => GetComponents<IComponentHandler>();
 
         public UIStyle Style
         {
@@ -21,7 +28,7 @@ namespace Alensia.Core.UI
             set { _style.Value = value; }
         }
 
-        protected override bool InitializeInEditor => true;
+        public IObservable<UIStyle> OnStyleChange => _style;
 
         protected virtual TextStyle DefaultTextStyle => Style?.TextStyles?["Text"];
 
@@ -45,7 +52,38 @@ namespace Alensia.Core.UI
 
             if (Application.isPlaying)
             {
-                InitializeProperties(context);
+                InitializeComponent(context, true);
+                InitializeHandlers(context);
+            }
+            else
+            {
+                InitializeComponent(context, false);
+            }
+        }
+
+        protected virtual void InitializeComponent(IUIContext context, bool isPlaying)
+        {
+        }
+
+        protected virtual void InitializeHandlers(IUIContext context)
+        {
+            Handlers
+                .Where(h => h.Context == null)
+                .ToList()
+                .ForEach(h => h.Initialize(Context));
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            if (Context != null || Application.isPlaying) return;
+
+            var context = CreateEditorUIContext();
+
+            if (context != null)
+            {
+                Initialize(context);
             }
         }
 
@@ -59,15 +97,16 @@ namespace Alensia.Core.UI
             }
         }
 
+        protected virtual EditorUIContext CreateEditorUIContext()
+        {
+            return Resources.Load<EditorUIContext>("UI/EditorUIContext");
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
             _observers.Clear();
-        }
-
-        protected virtual void InitializeProperties(IUIContext context)
-        {
         }
 
         protected override void Reset()
@@ -80,7 +119,7 @@ namespace Alensia.Core.UI
 
             DestroyImmediate(source.gameObject);
 
-            UpdateEditor();
+            OnEditorUpdate();
         }
 
         protected virtual void ResetFromInstance(UIComponent component)
@@ -89,9 +128,9 @@ namespace Alensia.Core.UI
 
         protected abstract UIComponent CreatePristineInstance();
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             OnLocaleChanged(Context?.Locale);
             OnStyleChanged(Style);

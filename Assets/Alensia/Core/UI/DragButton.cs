@@ -31,9 +31,11 @@ namespace Alensia.Core.UI
             Style?.ImageAndColorSets?["DragButton.Icon"]?.Merge(base.DefaultIconSet) ??
             base.DefaultIconSet;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             OnInteractingStateChange.Subscribe(UpdateCursor).AddTo(this);
         }

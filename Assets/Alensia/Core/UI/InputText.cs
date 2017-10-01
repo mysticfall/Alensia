@@ -203,18 +203,15 @@ namespace Alensia.Core.UI
 
         [SerializeField, HideInInspector] private Text _peerPlaceholder;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.Initialize(context);
+            base.InitializeComponent(context, isPlaying);
 
             _value
                 .Subscribe(v => PeerInput.text = v)
                 .AddTo(this);
-        }
 
-        protected override void InitializeProperties(IUIContext context)
-        {
-            base.InitializeProperties(context);
+            if (!isPlaying) return;
 
             PeerInput
                 .OnValueChangedAsObservable()
@@ -269,9 +266,9 @@ namespace Alensia.Core.UI
             UpdatePlaceholder(PlaceholderText);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             UpdatePlaceholder(PlaceholderText);
         }

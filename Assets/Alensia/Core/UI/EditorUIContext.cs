@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Alensia.Core.I18n;
+using Alensia.Core.UI.Cursor;
+using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Alensia.Core.UI
 {
@@ -10,11 +15,21 @@ namespace Alensia.Core.UI
     {
         public ResourceSettings Resources;
 
-        public UIStyle Style => _style;
+        public UIStyle Style
+        {
+            get { return _style; }
+            set { _style = value; }
+        }
 
         public CultureInfo Locale => _locale?.ToCulture();
 
         public ITranslator Translator { get; private set; }
+
+        public DiContainer DiContainer => null;
+
+        public CursorState CursorState { get; set; }
+
+        public string DefaultCursor { get; set; }
 
         public IInteractableComponent ActiveComponent { get; set; }
 
@@ -39,6 +54,10 @@ namespace Alensia.Core.UI
             _styleProperty = new ReactiveProperty<UIStyle>();
             _localeProperty = new ReactiveProperty<CultureInfo>();
             _activeComponentProperty = new ReactiveProperty<IInteractableComponent>();
+        }
+
+        public void Initialize()
+        {
         }
 
         internal void RefreshStyle()
@@ -77,15 +96,21 @@ namespace Alensia.Core.UI
             return translator;
         }
 
-        public TUI Instantiate<TDef, TUI>(TDef definition, Transform parent)
-            where TDef : IUIDefinition where TUI : IUIElement
+        public T Instantiate<T>(GameObject item, Transform parent) where T : IUIElement
         {
             throw new NotImplementedException();
         }
 
-        public TUI Instantiate<TUI>(GameObject item, Transform parent) where TUI : IUIElement
+        public IReadOnlyList<IScreen> Screens => Enumerable.Empty<IScreen>().ToList();
+
+        public IScreen FindScreen(string screen) => null;
+
+        public void ShowScreen(string screen)
         {
-            throw new NotImplementedException();
+        }
+
+        public void HideScreen(string screen)
+        {
         }
     }
 }

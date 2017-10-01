@@ -45,9 +45,11 @@ namespace Alensia.Core.UI
 
         private InteractionHandler<DraggableHeader> _tracker;
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _tracker = new InteractionHandler<DraggableHeader>(
                 this,

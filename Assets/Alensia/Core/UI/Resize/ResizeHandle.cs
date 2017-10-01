@@ -66,9 +66,11 @@ namespace Alensia.Core.UI.Resize
             _interactable = new BoolReactiveProperty(true);
         }
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             var layout = this.GetOrAddComponent<LayoutElement>();
 

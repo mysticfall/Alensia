@@ -10,15 +10,5 @@ namespace Alensia.Core.UI
         IComponent IComponentHandler.Component => Component;
 
         private T _component;
-
-        public override void Initialize(IUIContext context)
-        {
-            base.Initialize(context);
-
-            if (Component.Context == null)
-            {
-                Component.Initialize(context);
-            }
-        }
     }
 }

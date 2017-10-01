@@ -121,19 +121,11 @@ namespace Alensia.Core.UI
 
         [NonSerialized] private Transform _content;
 
-        public override void Initialize(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.Initialize(context);
+            base.InitializeComponent(context, isPlaying);
 
-            if (!Application.isPlaying) return;
-
-            HorizontalScrollBar?.Initialize(Context);
-            VerticalScrollBar?.Initialize(Context);
-        }
-
-        protected override void InitializeProperties(IUIContext context)
-        {
-            base.InitializeProperties(context);
+            if (!isPlaying) return;
 
             _horizontalScrollbarVisibility
                 .Merge(_verticalScrollbarVisibility)
@@ -145,9 +137,17 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void InitializeChildren(IUIContext context)
         {
-            base.UpdateEditor();
+            base.InitializeChildren(context);
+
+            HorizontalScrollBar?.Initialize(context);
+            VerticalScrollBar?.Initialize(context);
+        }
+
+        protected override void OnEditorUpdate()
+        {
+            base.OnEditorUpdate();
 
             UpdateScrollbarVisibility();
         }

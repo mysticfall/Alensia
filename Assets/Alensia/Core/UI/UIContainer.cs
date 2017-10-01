@@ -11,13 +11,19 @@ namespace Alensia.Core.UI
 
         public override void Initialize(IUIContext context)
         {
+            if (Application.isPlaying)
+            {
+                InitializeChildren(context);
+            }
+
             base.Initialize(context);
+        }
 
-            if (!Application.isPlaying) return;
-
+        protected virtual void InitializeChildren(IUIContext context)
+        {
             foreach (var child in Children)
             {
-                child.Initialize(Context);
+                child.Initialize(context);
             }
         }
     }

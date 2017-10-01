@@ -130,9 +130,11 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected override void InitializeProperties(IUIContext context)
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            base.InitializeProperties(context);
+            base.InitializeComponent(context, isPlaying);
+
+            if (!isPlaying) return;
 
             _background
                 .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
@@ -149,9 +151,9 @@ namespace Alensia.Core.UI
                 .AddTo(this);
         }
 
-        protected override void UpdateEditor()
+        protected override void OnEditorUpdate()
         {
-            base.UpdateEditor();
+            base.OnEditorUpdate();
 
             UpdateIcon(Icon);
 
