@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character.Morph
 {
-    public abstract class Morph<T> : IMorph<T>
+    public class Morph<T> : IMorph<T>
     {
         public string Name { get; }
 
@@ -30,7 +30,7 @@ namespace Alensia.Core.Character.Morph
 
         private readonly IReactiveProperty<T> _value;
 
-        protected Morph(string name, T value, T defaultValue)
+        public Morph(string name, T value, T defaultValue)
         {
             Assert.IsNotNull(name, "name != null");
 
