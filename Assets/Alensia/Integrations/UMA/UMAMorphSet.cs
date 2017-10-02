@@ -6,6 +6,7 @@ using Alensia.Core.Character.Morph;
 using Alensia.Core.Character.Morph.Generic;
 using UMA;
 using UMA.CharacterSystem;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Integrations.UMA
@@ -54,7 +55,10 @@ namespace Alensia.Integrations.UMA
                 }
             }
 
-            return allDna.SelectMany(CreateMorphs);
+            var morphs = allDna.SelectMany(CreateMorphs);
+            var colors = Avatar.characterColors.Colors.Select(CreateMorph);
+
+            return morphs.Concat(colors);
         }
 
         protected virtual IEnumerable<IMorph> CreateMorphs(UMADnaBase dna)
@@ -70,25 +74,47 @@ namespace Alensia.Integrations.UMA
             });
         }
 
+        protected virtual IMorph CreateMorph(DynamicCharacterAvatar.ColorValue colorData)
+        {
+            return new Morph<Color>(colorData.name, colorData.color, Color.black);
+        }
+
         protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
 
         protected override void ChangeRace(Race race) => ChangeUmaRace(race, Sex);
 
         protected override void ApplyMorph(IMorph morph)
         {
-            var value = morph as IMorph<float>;
+            var dna = morph as IMorph<float>;
 
-            if (value == null || !_dnaMappings.ContainsKey(morph.Name)) return;
+            if (dna != null && _dnaMappings.ContainsKey(morph.Name))
+            {
+                var mapping = _dnaMappings[morph.Name];
 
-            var mapping = _dnaMappings[morph.Name];
+                ApplyDNA(mapping.Hash, mapping.Index, dna.Value);
+            }
 
-            ApplyMorph(mapping.Hash, mapping.Index, value.Value);
+            var color = morph as IMorph<Color>;
+
+            if (color != null)
+            {
+                ApplyColor(color.Name, color.Value);
+            }
         }
 
-        protected virtual void ApplyMorph(int dnaIndex, int valueIndex, float value)
+        protected virtual void ApplyDNA(int dnaIndex, int valueIndex, float value)
         {
             Data.GetDna(dnaIndex).SetValue(valueIndex, value);
             Avatar.ForceUpdate(true);
+        }
+
+        protected virtual void ApplyColor(string name, Color color)
+        {
+            var data = Avatar.GetColor(name);
+
+            data.color = color;
+
+            Avatar.SetColor(name, data);
         }
 
         protected virtual void ChangeUmaRace(Race race, Sex sex)

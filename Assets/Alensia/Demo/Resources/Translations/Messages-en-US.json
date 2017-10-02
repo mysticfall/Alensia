@@ -18,7 +18,8 @@
         },
         "headers": {
             "morphs": "Character Morphs",
-            "camera": "Camera Control"
+            "camera": "Camera Control",
+            "colors": "Colors"          
         },
         "buttons": {
             "reset": "Reset"

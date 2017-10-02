@@ -18,7 +18,8 @@
         },
         "headers": {
             "morphs": "캐릭터 변형",
-            "camera": "카메라 조정"
+            "camera": "카메라 조정",
+            "colors": "색상 선택"
         },
         "buttons": {
             "reset": "초기화"
