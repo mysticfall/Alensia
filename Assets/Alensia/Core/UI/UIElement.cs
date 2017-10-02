@@ -63,11 +63,11 @@ namespace Alensia.Core.UI
             Context.DiContainer?.Inject(this);
         }
 
-        public void Show() => Visible = true;
+        public virtual void Show() => Visible = true;
 
-        public void Hide() => Visible = false;
+        public virtual void Hide() => Visible = false;
 
-        public void Remove() => Destroy(GameObject);
+        public virtual void Remove() => Destroy(GameObject);
 
         protected override void OnDisable()
         {
