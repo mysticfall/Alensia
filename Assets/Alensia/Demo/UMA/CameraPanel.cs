@@ -2,8 +2,6 @@
 using System.Linq;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
-using Alensia.Core.Common;
-using Alensia.Core.Control;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Event;
 using UniRx;
@@ -13,11 +11,10 @@ using Zenject;
 
 namespace Alensia.Demo.UMA
 {
-    public class CameraControl : ComponentHandler<Panel>
+    public class CameraPanel : CharacterPanel
     {
-        [Inject(Id = PlayerController.PlayerAliasName)] public IReferenceAlias<IHumanoid> Alias { get; }
-
-        [Inject] public ICameraManager CameraManager { get; }
+        [Inject]
+        public ICameraManager CameraManager { get; }
 
         public CharacterCamera Camera { get; private set; }
 
@@ -82,17 +79,6 @@ namespace Alensia.Demo.UMA
                 .Subscribe(ZoomCamera)
                 .AddTo(this);
 
-            Alias.OnChange
-                .Select(v => v?.Animator)
-                .Subscribe(v =>
-                {
-                    AnimationToggle.enabled = v != null;
-                    AnimationToggle.Value = v != null && v.enabled;
-
-                    Animator = v;
-                })
-                .AddTo(this);
-
             AnimationToggle.enabled = false;
             AnimationToggle.OnValueChange
                 .Where(_ => Animator != null)
@@ -108,6 +94,16 @@ namespace Alensia.Demo.UMA
                     .Subscribe(FocusCamera)
                     .AddTo(this);
             }
+        }
+
+        protected override void LoadCharacter(IHumanoid character)
+        {
+            base.LoadCharacter(character);
+
+            Animator = character?.Animator;
+
+            AnimationToggle.enabled = Animator != null;
+            AnimationToggle.Value = Animator != null && Animator.enabled;
         }
 
         private void MoveCamera(Vector2 delta)

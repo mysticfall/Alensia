@@ -1,66 +1,41 @@
 using Alensia.Core.Character.Morph;
-using Alensia.Core.I18n;
 using Alensia.Core.UI;
-using UMA.CharacterSystem;
+using Alensia.Demo.UMA.Generic;
 using UniRx;
+using UnityEngine;
 
 namespace Alensia.Demo.UMA
 {
-    public class MorphSlider : ComponentHandler<Panel>
+    public class MorphSlider : MorphControl<RangedMorph<float>>
     {
-        public RangedMorph<float> Morph
+        protected Slider Slider => _slider ?? FindPeer<Slider>("Slider");
+
+        [SerializeField, HideInInspector] private Slider _slider;
+
+        protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
-            get { return _morph; }
-            set
-            {
-                if (Equals(_morph, value)) return;
+            base.InitializeComponent(context, isPlaying);
 
-                _morph = value;
-
-                if (Context != null)
-                {
-                    UpdateMorph();
-                }
-            }
-        }
-
-        public Label Label { get; private set; }
-
-        public Slider Slider { get; private set; }
-
-        private RangedMorph<float> _morph;
-
-        public override void Initialize(IUIContext context)
-        {
-            base.Initialize(context);
-
-            Label = GetComponentInChildren<Label>();
-            Slider = GetComponentInChildren<Slider>();
+            if (!isPlaying) return;
 
             Slider.OnValueChange
                 .Where(_ => Morph != null)
                 .Subscribe(v => Morph.Value = v)
                 .AddTo(this);
-
-            UpdateMorph();
         }
 
-        protected virtual void UpdateMorph()
+        protected override void UpdateMorph()
         {
+            base.UpdateMorph();
+
             if (Morph == null)
             {
-                Label.Text = new TranslatableText("(none)");
-
                 Slider.MinValue = 0;
                 Slider.MaxValue = 1;
                 Slider.Value = 0;
             }
             else
             {
-                var displanName = Morph.Name.BreakupCamelCase();
-
-                Label.Text = new TranslatableText(displanName);
-
                 Slider.MinValue = Morph.MinValue;
                 Slider.MaxValue = Morph.MaxValue;
                 Slider.Value = Morph.Value;
