@@ -1,0 +1,5 @@
+Optional is a robust option/maybe type for C#.
+
+ * Homepage: https://github.com/nlkl/Optional
+ * License: MIT
+ * Version: 3.2.0
