@@ -104,6 +104,9 @@ namespace Alensia.Core.UI
         {
             base.InitializeComponent(context, isPlaying);
 
+            Peer.size = 0.2f;
+            Peer.value = 0;
+
             if (!isPlaying) return;
 
             _background
@@ -114,14 +117,6 @@ namespace Alensia.Core.UI
                 .Select(v => v.ValueFor(this))
                 .Subscribe(v => v.Update(PeerHandle, DefaultHandleImage))
                 .AddTo(this);
-        }
-
-        protected override void OnEditorUpdate()
-        {
-            base.OnEditorUpdate();
-
-            Peer.size = 0.2f;
-            Peer.value = 0;
         }
 
         protected override void OnStyleChanged(UIStyle style)
