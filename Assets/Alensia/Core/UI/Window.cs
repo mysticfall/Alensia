@@ -110,6 +110,11 @@ namespace Alensia.Core.UI
                 .Subscribe(v => _resizer.Active = v)
                 .AddTo(this);
 
+            _backdrop
+                .Where(_ => BackdropImage != null)
+                .Subscribe(v => v.Update(BackdropImage, DefaultBackdrop))
+                .AddTo(this);
+
             var parentStatusChanged = Transform
                 .OnTransformParentChangedAsObservable()
                 .Select(_ => Transform.parent != null);
@@ -182,7 +187,8 @@ namespace Alensia.Core.UI
             parent.transform.SetSiblingIndex(index);
 
             _backdropImage = parent.GetComponent<Image>();
-            _backdropImage.color = new Color(0f, 0f, 0f, 0.5f);
+
+            Backdrop.Update(_backdropImage, DefaultBackdrop);
 
             var layout = parent.GetComponent<RectTransform>();
 
