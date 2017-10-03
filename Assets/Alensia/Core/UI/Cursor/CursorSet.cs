@@ -37,7 +37,7 @@ namespace Alensia.Core.UI.Cursor
 
         public bool Contains(string key) => CursorMap.ContainsKey(key);
 
-        public CursorDefinition this[string key] => CursorMap[key];
+        public CursorDefinition this[string key] => CursorMap.ContainsKey(key) ? CursorMap[key] : null;
 
         private void OnEnable()
         {

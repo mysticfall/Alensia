@@ -102,8 +102,8 @@ namespace Alensia.Core.UI
 
             whenNotNull.Merge(whenNull)
                 .Select(c => c ?? CursorNames.Default)
-                .Merge(OnActiveComponentChange.Where(c => c == null).Select(_ => CursorNames.Default))
-                .Select(c => Style?.CursorSet?[c])
+                .Select(FindCursor)
+                .Where(c => c != null)
                 .Subscribe(UpdateCursor)
                 .AddTo(this);
         }
@@ -214,6 +214,16 @@ namespace Alensia.Core.UI
             _cursor = null;
 
             base.OnDisposed();
+        }
+
+        protected virtual CursorDefinition FindCursor(string name)
+        {
+            var cursors = Style?.CursorSet;
+            var key = name ?? DefaultCursor;
+
+            if (cursors == null || key == null) return null;
+
+            return cursors[key] ?? (DefaultCursor != null ? cursors[DefaultCursor] : null);
         }
 
         protected virtual void UpdateCursor(CursorDefinition cursor)
