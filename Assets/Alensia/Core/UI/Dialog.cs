@@ -33,16 +33,18 @@ namespace Alensia.Core.UI
         {
             base.InitializeComponent(context, isPlaying);
 
+            if (!isPlaying) return;
+
             _selected = false;
 
-            OkButton.OnPointerSelect
+            OkButton?.OnPointerSelect
                 .Subscribe(_ =>
                 {
                     _selected = true;
                     Remove();
                 })
                 .AddTo(this);
-            CloseButton.OnPointerSelect
+            CloseButton?.OnPointerSelect
                 .Subscribe(_ => Remove())
                 .AddTo(this);
         }
