@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.UI.Resize;
 using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
@@ -17,6 +18,12 @@ namespace Alensia.Core.UI
         {
             get { return _movable.Value; }
             set { _movable.Value = value; }
+        }
+
+        public bool Resizable
+        {
+            get { return _resizable.Value; }
+            set { _resizable.Value = value; }
         }
 
         public DraggableHeader Header =>
@@ -43,11 +50,15 @@ namespace Alensia.Core.UI
 
         [SerializeField] private BoolReactiveProperty _movable;
 
+        [SerializeField] private BoolReactiveProperty _resizable;
+
         [SerializeField, HideInInspector] private DraggableHeader _header;
 
         [SerializeField, HideInInspector] private VerticalLayoutGroup _layoutGroup;
 
         [NonSerialized] private Transform _content;
+
+        private ResizeHelper _resizer;
 
         protected override void InitializeComponent(IUIContext context, bool isPlaying)
         {
@@ -58,6 +69,16 @@ namespace Alensia.Core.UI
             _movable
                 .Where(_ => Header != null)
                 .Subscribe(v => Header.Interactable = v)
+                .AddTo(this);
+
+            _resizer = new ResizeHelper(this);
+
+            _resizer.Initialize();
+            _resizer.Activate();
+
+            _resizable
+                .Where(_ => _resizer != null)
+                .Subscribe(v => _resizer.Active = v)
                 .AddTo(this);
         }
 
@@ -89,6 +110,14 @@ namespace Alensia.Core.UI
             RectTransform.anchoredPosition = Vector2.zero;
         }
 
+        protected override void OnDestroy()
+        {
+            _resizer?.Dispose();
+            _resizer = null;
+
+            base.OnDestroy();
+        }
+
         protected override void ResetFromInstance(UIComponent component)
         {
             base.ResetFromInstance(component);
@@ -96,6 +125,7 @@ namespace Alensia.Core.UI
             var source = (Window) component;
 
             Movable = source.Movable;
+            Resizable = source.Resizable;
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();
