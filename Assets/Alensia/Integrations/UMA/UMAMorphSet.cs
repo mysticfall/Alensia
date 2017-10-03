@@ -4,8 +4,10 @@ using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Character.Morph;
 using Alensia.Core.Character.Morph.Generic;
+using Alensia.Core.Common;
 using UMA;
 using UMA.CharacterSystem;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -37,6 +39,17 @@ namespace Alensia.Integrations.UMA
 
             Race = RaceRepository.GetRaceFromUMARace(umaRace);
             Sex = RaceRepository.GetSexFromUMARace(umaRace).ValueOr(Sex.Other);
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Avatar.RecipeUpdated.AsObservable()
+                .Subscribe(_ => UpdateMorphs())
+                .AddTo(this);
+
+            UpdateMorphs();
         }
 
         protected override IEnumerable<IMorph> CreateMorphs()
@@ -79,10 +92,6 @@ namespace Alensia.Integrations.UMA
             return new Morph<Color>(colorData.name, colorData.color, Color.black);
         }
 
-        protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
-
-        protected override void ChangeRace(Race race) => ChangeUmaRace(race, Sex);
-
         protected override void ApplyMorph(IMorph morph)
         {
             var dna = morph as IMorph<float>;
@@ -116,6 +125,10 @@ namespace Alensia.Integrations.UMA
 
             Avatar.SetColor(name, data);
         }
+
+        protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
+
+        protected override void ChangeRace(Race race) => ChangeUmaRace(race, Sex);
 
         protected virtual void ChangeUmaRace(Race race, Sex sex)
         {

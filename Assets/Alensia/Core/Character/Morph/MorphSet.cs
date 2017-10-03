@@ -66,17 +66,7 @@ namespace Alensia.Core.Character.Morph
             _morphListeners = new CompositeDisposable();
         }
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            OnSexChange.AsUnitObservable()
-                .Merge(OnRaceChange.AsUnitObservable())
-                .Subscribe(_ => UpdateMorphs())
-                .AddTo(this);
-        }
-
-        private void UpdateMorphs()
+        protected void UpdateMorphs()
         {
             lock (this)
             {
