@@ -208,46 +208,46 @@ namespace Alensia.Core.UI
             base.InitializeComponent(context, isPlaying);
 
             _value
-                .Subscribe(v => PeerInput.text = v)
+                .Subscribe(v => PeerInput.text = v, Debug.LogError)
                 .AddTo(this);
 
             if (!isPlaying) return;
 
             PeerInput
                 .OnValueChangedAsObservable()
-                .Subscribe(v => Value = v)
+                .Subscribe(v => Value = v, Debug.LogError)
                 .AddTo(this);
 
             _readOnly
-                .Subscribe(v => PeerInput.readOnly = v)
+                .Subscribe(v => PeerInput.readOnly = v, Debug.LogError)
                 .AddTo(this);
             _characterLimit
-                .Subscribe(v => PeerInput.characterLimit = v)
+                .Subscribe(v => PeerInput.characterLimit = v, Debug.LogError)
                 .AddTo(this);
             _caretWidth
-                .Subscribe(v => PeerInput.caretWidth = v)
+                .Subscribe(v => PeerInput.caretWidth = v, Debug.LogError)
                 .AddTo(this);
 
             _placeholderText
-                .Subscribe(UpdatePlaceholder)
+                .Subscribe(UpdatePlaceholder, Debug.LogError)
                 .AddTo(this);
 
             _textStyle
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle), Debug.LogError)
                 .AddTo(this);
             _placeholderTextStyle
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerPlaceholder, DefaultPlaceholderStyle))
+                .Subscribe(v => v.Update(PeerPlaceholder, DefaultPlaceholderStyle), Debug.LogError)
                 .AddTo(this);
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _selectionColor
                 .Select(v => v.OrDefault(DefaultSelectionColor))
-                .Subscribe(v => PeerInput.selectionColor = v)
+                .Subscribe(v => PeerInput.selectionColor = v, Debug.LogError)
                 .AddTo(this);
             _caretColor
                 .Select(v => v.HasValue ? v : DefaultCaretColor)
@@ -255,7 +255,7 @@ namespace Alensia.Core.UI
                 {
                     PeerInput.customCaretColor = v.HasValue;
                     PeerInput.caretColor = v.OrDefault(Color.black);
-                })
+                }, Debug.LogError)
                 .AddTo(this);
         }
 

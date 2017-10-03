@@ -217,37 +217,37 @@ namespace Alensia.Core.UI
 
             OnValueChange
                 .Where(_ => !_changingColor && !_changingHue)
-                .Subscribe(v => CanvasColor = v)
+                .Subscribe(v => CanvasColor = v, Debug.LogError)
                 .AddTo(this);
             OnValueChange
-                .Subscribe(v => SelectedCanvas.color = v)
+                .Subscribe(v => SelectedCanvas.color = v, Debug.LogError)
                 .AddTo(this);
             OnValueChange
                 .Select(ColorUtility.ToHtmlStringRGB)
-                .Subscribe(v => HexInput.Value = "#" + v)
+                .Subscribe(v => HexInput.Value = "#" + v, Debug.LogError)
                 .AddTo(this);
 
             onRedChange
                 .Select(ColorValueToString)
-                .Subscribe(v => RedInput.Value = v)
+                .Subscribe(v => RedInput.Value = v, Debug.LogError)
                 .AddTo(this);
             onGreenChange
                 .Select(ColorValueToString)
-                .Subscribe(v => GreenInput.Value = v)
+                .Subscribe(v => GreenInput.Value = v, Debug.LogError)
                 .AddTo(this);
             onBlueChange
                 .Select(ColorValueToString)
-                .Subscribe(v => BlueInput.Value = v)
+                .Subscribe(v => BlueInput.Value = v, Debug.LogError)
                 .AddTo(this);
 
             onRedChange
-                .Subscribe(v => RedSlider.Value = v)
+                .Subscribe(v => RedSlider.Value = v, Debug.LogError)
                 .AddTo(this);
             onGreenChange
-                .Subscribe(v => GreenSlider.Value = v)
+                .Subscribe(v => GreenSlider.Value = v, Debug.LogError)
                 .AddTo(this);
             onBlueChange
-                .Subscribe(v => BlueSlider.Value = v)
+                .Subscribe(v => BlueSlider.Value = v, Debug.LogError)
                 .AddTo(this);
 
             if (!isPlaying) return;
@@ -255,12 +255,12 @@ namespace Alensia.Core.UI
             ColorCanvas
                 .OnDragAsObservable()
                 .Merge(ColorCanvas.OnPointerClickAsObservable())
-                .Subscribe(OnColorCanvasDrag)
+                .Subscribe(OnColorCanvasDrag, Debug.LogError)
                 .AddTo(this);
             HueCanvas
                 .OnDragAsObservable()
                 .Merge(HueCanvas.OnPointerClickAsObservable())
-                .Subscribe(OnHueCanvasDrag)
+                .Subscribe(OnHueCanvasDrag, Debug.LogError)
                 .AddTo(this);
 
             Func<List<float>, bool> validate = v => v[0] >= 0 && v[1] >= 0 && v[2] >= 0;
@@ -297,7 +297,7 @@ namespace Alensia.Core.UI
                 .Merge(onSliderChange)
                 .Select(v => new Color(v[0], v[1], v[2]))
                 .Merge(onHexChange)
-                .Subscribe(v => Value = v)
+                .Subscribe(v => Value = v, Debug.LogError)
                 .AddTo(this);
         }
 

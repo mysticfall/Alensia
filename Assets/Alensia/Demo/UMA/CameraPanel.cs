@@ -53,7 +53,7 @@ namespace Alensia.Demo.UMA
                     .TakeUntil(button.OnDragEnd)
                     .RepeatSafe()
                     .Select(i => Normalize(i[1] - i[0], direction))
-                    .Subscribe(MoveCamera)
+                    .Subscribe(MoveCamera, Debug.LogError)
                     .AddTo(this);
             };
 
@@ -61,7 +61,7 @@ namespace Alensia.Demo.UMA
             register(MoveButton, Vector3.up);
 
             ResetButton.OnPointerSelect
-                .Subscribe(_ => ResetCamera())
+                .Subscribe(_ => ResetCamera(), Debug.LogError)
                 .AddTo(this);
 
             var max = Camera.DistanceSettings.Maximum;
@@ -76,13 +76,13 @@ namespace Alensia.Demo.UMA
             ZoomSlider.Value = InitialZoom;
             ZoomSlider
                 .OnValueChange
-                .Subscribe(ZoomCamera)
+                .Subscribe(ZoomCamera, Debug.LogError)
                 .AddTo(this);
 
             AnimationToggle.enabled = false;
             AnimationToggle.OnValueChange
                 .Where(_ => Animator != null)
-                .Subscribe(v => Animator.enabled = v)
+                .Subscribe(v => Animator.enabled = v, Debug.LogError)
                 .AddTo(this);
 
             var focusButtons = FocusControlPanel.Children.Cast<Button>();
@@ -91,7 +91,7 @@ namespace Alensia.Demo.UMA
             {
                 button.OnPointerSelect
                     .Select(v => v.selectedObject.GetComponent<FocusTarget>())
-                    .Subscribe(FocusCamera)
+                    .Subscribe(FocusCamera, Debug.LogError)
                     .AddTo(this);
             }
         }

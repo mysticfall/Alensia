@@ -4,6 +4,7 @@ using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
@@ -51,7 +52,10 @@ namespace Alensia.Core.Control
             _enabled = new ReactiveProperty<bool>(true);
 
             PlayerAlias = player;
-            PlayerAlias.OnChange.Subscribe(OnPlayerChange).AddTo(this);
+
+            PlayerAlias.OnChange
+                .Subscribe(OnPlayerChange, Debug.LogError)
+                .AddTo(this);
         }
 
         protected override void OnInitialized()
@@ -59,7 +63,7 @@ namespace Alensia.Core.Control
             base.OnInitialized();
 
             OnPlayerControlStateChange
-                .Subscribe(v => PlayerControls.ToList().ForEach(c => c.Active = v))
+                .Subscribe(v => PlayerControls.ToList().ForEach(c => c.Active = v), Debug.LogError)
                 .AddTo(this);
         }
 

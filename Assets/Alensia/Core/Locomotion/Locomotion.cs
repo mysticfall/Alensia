@@ -23,8 +23,12 @@ namespace Alensia.Core.Locomotion
 
             Transform = transform;
 
-            OnInitialize.Subscribe(_ => Activate()).AddTo(this);
-            OnActiveStateChange.Subscribe(_ => Reset()).AddTo(this);
+            OnInitialize
+                .Subscribe(_ => Activate(), Debug.LogError)
+                .AddTo(this);
+            OnActiveStateChange
+                .Subscribe(_ => Reset(), Debug.LogError)
+                .AddTo(this);
         }
 
         public float Move(Vector3 direction)

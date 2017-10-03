@@ -42,10 +42,10 @@ namespace Alensia.Core.UI
                 {
                     _selected = true;
                     Remove();
-                })
+                }, Debug.LogError)
                 .AddTo(this);
             CloseButton?.OnPointerSelect
-                .Subscribe(_ => Remove())
+                .Subscribe(_ => Remove(), Debug.LogError)
                 .AddTo(this);
         }
 

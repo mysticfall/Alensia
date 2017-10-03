@@ -1,6 +1,7 @@
 ﻿using System;
 using Alensia.Core.Common;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
@@ -62,14 +63,14 @@ namespace Alensia.Core.UI.Event
             OnStateChange
                 .Where(_ => (Interacting || Highlighted) && !Component.HasActiveChild())
                 .Where(_ => Context.ActiveComponent == null || !Context.ActiveComponent.Interacting)
-                .Subscribe(_ => Context.ActiveComponent = Component)
+                .Subscribe(_ => Context.ActiveComponent = Component, Debug.LogError)
                 .AddTo(this);
 
             OnStateChange
                 .Merge(Component.OnHide)
                 .Where(_ => ReferenceEquals(Context.ActiveComponent, Component))
                 .Where(_ => !Interacting && !Highlighted)
-                .Subscribe(_ => Context.ActiveComponent = Component.FindFirstActiveAncestor())
+                .Subscribe(_ => Context.ActiveComponent = Component.FindFirstActiveAncestor(), Debug.LogError)
                 .AddTo(this);
         }
 

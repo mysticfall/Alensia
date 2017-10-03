@@ -137,17 +137,17 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             _background
-                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _icon
-                .Subscribe(UpdateIcon)
+                .Subscribe(UpdateIcon, Debug.LogError)
                 .AddTo(this);
             _iconSize
                 .Subscribe(v =>
                 {
                     IconLayout.preferredWidth = v.x;
                     IconLayout.preferredHeight = v.y;
-                })
+                }, Debug.LogError)
                 .AddTo(this);
         }
 

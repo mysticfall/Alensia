@@ -168,27 +168,27 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             _text
-                .Subscribe(UpdateText)
+                .Subscribe(UpdateText, Debug.LogError)
                 .AddTo(this);
             _textStyle
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle), Debug.LogError)
                 .AddTo(this);
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _icon
                 .Select(v => v.ValueFor(this))
-                .Subscribe(UpdateIcon)
+                .Subscribe(UpdateIcon, Debug.LogError)
                 .AddTo(this);
             _iconSize
                 .Subscribe(v =>
                 {
                     IconLayout.preferredWidth = v.x;
                     IconLayout.preferredHeight = v.y;
-                })
+                }, Debug.LogError)
                 .AddTo(this);
         }
 

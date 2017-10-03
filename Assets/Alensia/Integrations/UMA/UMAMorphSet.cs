@@ -46,7 +46,7 @@ namespace Alensia.Integrations.UMA
             base.OnInitialized();
 
             Avatar.RecipeUpdated.AsObservable()
-                .Subscribe(_ => UpdateMorphs())
+                .Subscribe(_ => UpdateMorphs(), Debug.LogError)
                 .AddTo(this);
 
             UpdateMorphs();

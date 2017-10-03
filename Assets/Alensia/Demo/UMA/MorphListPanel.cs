@@ -29,7 +29,7 @@ namespace Alensia.Demo.UMA
                 .Cast<IHumanoid, IMorphable>()
                 .Select(p => p.Morphs.OnMorphsChange)
                 .Switch()
-                .Subscribe(m => LoadMorphs(m.ToList()))
+                .Subscribe(m => LoadMorphs(m.ToList()), Debug.LogError)
                 .AddTo(this);
         }
 

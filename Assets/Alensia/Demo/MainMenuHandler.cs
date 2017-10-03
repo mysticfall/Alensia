@@ -4,6 +4,7 @@ using Alensia.Core.Game;
 using Alensia.Core.I18n;
 using Alensia.Core.UI;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace Alensia.Demo
@@ -39,34 +40,34 @@ namespace Alensia.Demo
             base.Initialize(context);
 
             ButtonResume.OnPointerSelect
-                .Subscribe(_ => Remove())
+                .Subscribe(_ => Remove(), Debug.LogError)
                 .AddTo(this);
 
             ButtonQuit.OnPointerSelect
-                .Subscribe(_ => Game.Quit())
+                .Subscribe(_ => Game.Quit(), Debug.LogError)
                 .AddTo(this);
 
             OnRemove
                 .Where(_ => Controller.Active)
-                .Subscribe(_ => ResumeGame(_playerControlEnabled));
+                .Subscribe(_ => ResumeGame(_playerControlEnabled), Debug.LogError);
 
             LocaleService.OnLocaleChange
                 .Select(_ => LocaleService.SupportedLocales)
                 .Select(l => l.Select(i => new DropdownItem(i.ToString(), i.NativeName)))
-                .Subscribe(i => ChoiceLanguage.Items = i.ToList())
+                .Subscribe(i => ChoiceLanguage.Items = i.ToList(), Debug.LogError)
                 .AddTo(this);
 
             ChoiceLanguage.Value = LocaleService.CurrentLocale.ToString();
             ChoiceLanguage.OnValueChange
                 .Select(k => new LanguageTag(k).ToCulture())
-                .Subscribe(l => LocaleService.CurrentLocale = l)
+                .Subscribe(l => LocaleService.CurrentLocale = l, Debug.LogError)
                 .AddTo(this);
 
             ChoiceStyle.Items = Styles.Select(s => new DropdownItem(s.Name, s.Name)).ToList();
             ChoiceStyle.Value = UIContext.Style.Name;
             ChoiceStyle.OnValueChange
                 .Select(v => Styles.ToList().Find(s => s.Name == v))
-                .Subscribe(s => UIContext.Style = s)
+                .Subscribe(s => UIContext.Style = s, Debug.LogError)
                 .AddTo(this);
 
             _playerControlEnabled = Controller.PlayerControlEnabled;

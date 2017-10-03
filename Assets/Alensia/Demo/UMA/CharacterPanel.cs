@@ -3,6 +3,7 @@ using Alensia.Core.Common;
 using Alensia.Core.Control;
 using Alensia.Core.UI;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace Alensia.Demo.UMA
@@ -18,7 +19,7 @@ namespace Alensia.Demo.UMA
 
             Alias.OnChange
                 .Where(p => p != null)
-                .Subscribe(LoadCharacter)
+                .Subscribe(LoadCharacter, Debug.LogError)
                 .AddTo(this);
         }
 

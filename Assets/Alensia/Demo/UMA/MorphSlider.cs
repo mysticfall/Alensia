@@ -20,7 +20,7 @@ namespace Alensia.Demo.UMA
 
             Slider.OnValueChange
                 .Where(_ => Morph != null)
-                .Subscribe(v => Morph.Value = v)
+                .Subscribe(v => Morph.Value = v, Debug.LogError)
                 .AddTo(this);
         }
 

@@ -43,11 +43,11 @@ namespace Alensia.Core.Game
 
             _timeScale
                 .Where(_ => !Paused)
-                .Subscribe(scale => Time.timeScale = scale)
+                .Subscribe(scale => Time.timeScale = scale, Debug.LogError)
                 .AddTo(this);
             _paused
                 .Select(v => v ? 0 : settings.TimeScale)
-                .Subscribe(scale => Time.timeScale = scale)
+                .Subscribe(scale => Time.timeScale = scale, Debug.LogError)
                 .AddTo(this);
         }
 

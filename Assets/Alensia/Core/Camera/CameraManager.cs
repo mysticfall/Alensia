@@ -4,6 +4,7 @@ using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Camera
@@ -36,7 +37,10 @@ namespace Alensia.Core.Camera
 
             _mode = new ReactiveProperty<ICameraMode>();
 
-            _mode.Pairwise().Subscribe(Switch).AddTo(this);
+            _mode
+                .Pairwise()
+                .Subscribe(Switch, Debug.LogError)
+                .AddTo(this);
         }
 
         private static void Switch(Pair<ICameraMode> cameras)

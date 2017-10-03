@@ -249,33 +249,33 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             OnItemsChange
-                .Subscribe(UpdateItems)
+                .Subscribe(UpdateItems, Debug.LogError)
                 .AddTo(this);
 
             _textStyle
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerDropdown.captionText, DefaultTextStyle))
+                .Subscribe(v => v.Update(PeerDropdown.captionText, DefaultTextStyle), Debug.LogError)
                 .AddTo(this);
             _itemTextStyle
                 .Select(v => v.Merge(DefaultItemTextStyleSet))
-                .Subscribe(v => PeerToggle.TextStyle = v)
+                .Subscribe(v => PeerToggle.TextStyle = v, Debug.LogError)
                 .AddTo(this);
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerImage, DefaultBackground))
+                .Subscribe(v => v.Update(PeerImage, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _popupBackground
                 .Select(v => v.Merge(DefaultPopupBackground))
-                .Subscribe(v => PeerScrollPanel.Background = v)
+                .Subscribe(v => PeerScrollPanel.Background = v, Debug.LogError)
                 .AddTo(this);
             _itemBackground
                 .Select(v => v.Merge(DefaultItemBackgroundSet))
-                .Subscribe(v => PeerToggle.Checkbox = v)
+                .Subscribe(v => PeerToggle.Checkbox = v, Debug.LogError)
                 .AddTo(this);
             _arrowImage
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage))
+                .Subscribe(v => v.Update(PeerArrow, DefaultArrowImage), Debug.LogError)
                 .AddTo(this);
         }
 

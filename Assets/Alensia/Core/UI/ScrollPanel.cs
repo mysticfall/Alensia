@@ -129,11 +129,11 @@ namespace Alensia.Core.UI
 
             _horizontalScrollbarVisibility
                 .Merge(_verticalScrollbarVisibility)
-                .Subscribe(_ => UpdateScrollbarVisibility())
+                .Subscribe(_ => UpdateScrollbarVisibility(), Debug.LogError)
                 .AddTo(this);
 
             _scrollSensitivity
-                .Subscribe(v => PeerScrollRect.scrollSensitivity = v)
+                .Subscribe(v => PeerScrollRect.scrollSensitivity = v, Debug.LogError)
                 .AddTo(this);
         }
 

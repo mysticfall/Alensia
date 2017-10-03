@@ -58,7 +58,9 @@ namespace Alensia.Core.UI
 
             _tracker.Initialize();
 
-            _interactable.Subscribe(v => _tracker.Interactable = v).AddTo(this);
+            _interactable
+                .Subscribe(v => _tracker.Interactable = v, Debug.LogError)
+                .AddTo(this);
         }
 
         protected override void OnDestroy()

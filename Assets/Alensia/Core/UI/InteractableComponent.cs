@@ -54,12 +54,14 @@ namespace Alensia.Core.UI
             _tracker = new InteractionHandler<THotspot>(this, CreateHighlightTracker(), CreateInterationTracker());
             _tracker.Initialize();
 
-            _interactable.Subscribe(v => _tracker.Interactable = v).AddTo(this);
+            _interactable
+                .Subscribe(v => _tracker.Interactable = v, Debug.LogError)
+                .AddTo(this);
 
             _tracker.OnStateChange
                 .Select(_ => Style)
                 .Where(v => v != null)
-                .Subscribe(_ => OnStyleChanged(Style))
+                .Subscribe(_ => OnStyleChanged(Style), Debug.LogError)
                 .AddTo(this);
         }
 

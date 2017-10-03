@@ -63,10 +63,10 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             _opaque
-                .Subscribe(v => PeerImage.enabled = v)
+                .Subscribe(v => PeerImage.enabled = v, Debug.LogError)
                 .AddTo(this);
             _background
-                .Subscribe(v => v.Update(PeerImage, DefaultBackground))
+                .Subscribe(v => v.Update(PeerImage, DefaultBackground), Debug.LogError)
                 .AddTo(this);
         }
 

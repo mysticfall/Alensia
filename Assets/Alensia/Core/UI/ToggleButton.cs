@@ -158,29 +158,29 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             _text
-                .Subscribe(v => UpdatePeer(PeerText, v))
+                .Subscribe(v => UpdatePeer(PeerText, v), Debug.LogError)
                 .AddTo(this);
             _textStyle
                 .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
-                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle), Debug.LogError)
                 .AddTo(this);
 
             _checkmark
                 .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
-                .Subscribe(v => v.Update(PeerCheckmark, DefaultCheckmark))
+                .Subscribe(v => v.Update(PeerCheckmark, DefaultCheckmark), Debug.LogError)
                 .AddTo(this);
             _checkbox
                 .Select(v => v.ValueFor(!Interactable, Highlighted, Value))
-                .Subscribe(v => v.Update(PeerCheckbox, DefaultCheckbox))
+                .Subscribe(v => v.Update(PeerCheckbox, DefaultCheckbox), Debug.LogError)
                 .AddTo(this);
             _toggleGroup
-                .Subscribe(v => PeerToggle.group = v)
+                .Subscribe(v => PeerToggle.group = v, Debug.LogError)
                 .AddTo(this);
 
             OnValueChange
                 .Select(_ => Style)
                 .Where(v => v != null)
-                .Subscribe(_ => OnStyleChanged(Style))
+                .Subscribe(_ => OnStyleChanged(Style), Debug.LogError)
                 .AddTo(this);
         }
 

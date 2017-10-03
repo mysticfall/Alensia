@@ -4,6 +4,7 @@ using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.UI.Cursor;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Control
@@ -41,7 +42,7 @@ namespace Alensia.Core.Control
             Controls
                 .Select(c => c.OnActiveStateChange)
                 .Merge()
-                .Subscribe(_ => CheckInputStatus())
+                .Subscribe(_ => CheckInputStatus(), Debug.LogError)
                 .AddTo(this);
 
             CheckInputStatus();

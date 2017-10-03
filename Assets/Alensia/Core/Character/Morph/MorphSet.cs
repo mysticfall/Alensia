@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
 using UniRx;
+using UnityEngine;
 
 namespace Alensia.Core.Character.Morph
 {
@@ -76,13 +77,18 @@ namespace Alensia.Core.Character.Morph
 
                 foreach (var morph in Morphs)
                 {
-                    morph.OnChange.Subscribe(_ =>
-                    {
-                        ApplyMorph(morph);
-                        _morphChange.OnNext(morph);
-                    }).AddTo(_morphListeners);
+                    morph.OnChange
+                        .Select(_ => morph)
+                        .Subscribe(HandleMorphChange, Debug.LogError)
+                        .AddTo(_morphListeners);
                 }
             }
+        }
+
+        private void HandleMorphChange(IMorph morph)
+        {
+            ApplyMorph(morph);
+            _morphChange.OnNext(morph);
         }
 
         protected override void OnDisposed()

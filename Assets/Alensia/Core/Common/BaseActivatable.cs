@@ -1,5 +1,6 @@
 ﻿using System;
 using UniRx;
+using UnityEngine;
 
 namespace Alensia.Core.Common
 {
@@ -50,8 +51,12 @@ namespace Alensia.Core.Common
         {
             base.OnInitialized();
 
-            OnActivate.Subscribe(_ => OnActivated()).AddTo(this);
-            OnDeactivate.Subscribe(_ => OnDeactivated()).AddTo(this);
+            OnActivate
+                .Subscribe(_ => OnActivated(), Debug.LogError)
+                .AddTo(this);
+            OnDeactivate
+                .Subscribe(_ => OnDeactivated(), Debug.LogError)
+                .AddTo(this);
 
             if (_lazyActivation) Activate();
         }

@@ -111,11 +111,11 @@ namespace Alensia.Core.UI
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _handleImage
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerHandle, DefaultHandleImage))
+                .Subscribe(v => v.Update(PeerHandle, DefaultHandleImage), Debug.LogError)
                 .AddTo(this);
         }
 

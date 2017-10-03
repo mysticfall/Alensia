@@ -91,7 +91,7 @@ namespace Alensia.Core.Control
                 .Zip(X.OnChange, Y.OnChange, Running.OnChange)
                 .Where(_ => Valid)
                 .Select(xs => Tuple.Create(new Vector2(xs[0], xs[1]).normalized, xs[2]))
-                .Subscribe(r => OnMove(r.Item1, r.Item2 > 0))
+                .Subscribe(r => OnMove(r.Item1, r.Item2 > 0), Debug.LogError)
                 .AddTo(disposables);
         }
 

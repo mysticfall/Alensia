@@ -37,7 +37,9 @@ namespace Alensia.Core.UI
 
             if (!isPlaying) return;
 
-            OnInteractingStateChange.Subscribe(UpdateCursor).AddTo(this);
+            OnInteractingStateChange
+                .Subscribe(UpdateCursor, Debug.LogError)
+                .AddTo(this);
         }
 
         private static void UpdateCursor(bool interacting)

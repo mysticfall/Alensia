@@ -91,11 +91,13 @@ namespace Alensia.Core.UI.Resize
 
             _tracker.Initialize();
 
-            _interactable.Subscribe(v => _tracker.Interactable = v).AddTo(this);
+            _interactable
+                .Subscribe(v => _tracker.Interactable = v, Debug.LogError)
+                .AddTo(this);
 
             OnDrag
                 .Where(_ => Target != null)
-                .Subscribe(Resize)
+                .Subscribe(Resize, Debug.LogError)
                 .AddTo(this);
         }
 

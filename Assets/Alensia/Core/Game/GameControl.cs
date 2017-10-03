@@ -5,6 +5,7 @@ using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Screen;
 using UniRx;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Game
@@ -57,7 +58,7 @@ namespace Alensia.Core.Game
         {
             ShowMenuInput?.OnChange
                 .Where(_ => Valid)
-                .Subscribe(_ => OnShowMenu())
+                .Subscribe(_ => OnShowMenu(), Debug.LogError)
                 .AddTo(disposables);
         }
 

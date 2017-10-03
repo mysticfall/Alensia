@@ -80,10 +80,10 @@ namespace Alensia.Core.UI
             if (!isPlaying) return;
 
             _text
-                .Subscribe(v => UpdatePeer(PeerText, v))
+                .Subscribe(v => UpdatePeer(PeerText, v), Debug.LogError)
                 .AddTo(this);
             _textStyle
-                .Subscribe(v => v.Update(PeerText, DefaultTextStyle))
+                .Subscribe(v => v.Update(PeerText, DefaultTextStyle), Debug.LogError)
                 .AddTo(this);
         }
 

@@ -43,11 +43,11 @@ namespace Alensia.Core.UI
             base.Initialize(context);
 
             context.OnStyleChange
-                .Subscribe(OnStyleChanged)
+                .Subscribe(OnStyleChanged, Debug.LogError)
                 .AddTo(_observers);
 
             context.OnLocaleChange
-                .Subscribe(OnLocaleChanged)
+                .Subscribe(OnLocaleChanged, Debug.LogError)
                 .AddTo(_observers);
 
             if (Application.isPlaying)

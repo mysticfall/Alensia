@@ -151,34 +151,34 @@ namespace Alensia.Core.UI
             base.InitializeComponent(context, isPlaying);
 
             _value
-                .Subscribe(v => PeerSlider.value = v)
+                .Subscribe(v => PeerSlider.value = v, Debug.LogError)
                 .AddTo(this);
 
             if (!isPlaying) return;
 
             PeerSlider
                 .OnValueChangedAsObservable()
-                .Subscribe(v => Value = v)
+                .Subscribe(v => Value = v, Debug.LogError)
                 .AddTo(this);
 
             _minValue
-                .Subscribe(v => PeerSlider.minValue = v)
+                .Subscribe(v => PeerSlider.minValue = v, Debug.LogError)
                 .AddTo(this);
             _maxValue
-                .Subscribe(v => PeerSlider.maxValue = v)
+                .Subscribe(v => PeerSlider.maxValue = v, Debug.LogError)
                 .AddTo(this);
 
             _background
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerBackground, DefaultBackground))
+                .Subscribe(v => v.Update(PeerBackground, DefaultBackground), Debug.LogError)
                 .AddTo(this);
             _fillImage
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerFill, DefaultFillImage))
+                .Subscribe(v => v.Update(PeerFill, DefaultFillImage), Debug.LogError)
                 .AddTo(this);
             _handleImage
                 .Select(v => v.ValueFor(this))
-                .Subscribe(v => v.Update(PeerHandle, DefaultHandleImage))
+                .Subscribe(v => v.Update(PeerHandle, DefaultHandleImage), Debug.LogError)
                 .AddTo(this);
         }
 

@@ -22,7 +22,7 @@ namespace Alensia.Demo.UMA
             SexMenu.OnValueChange
                 .Where(_ => Morphs != null)
                 .Select(v => (Sex) Enum.Parse(typeof(Sex), v))
-                .Subscribe(OnSexChange)
+                .Subscribe(OnSexChange, Debug.LogError)
                 .AddTo(this);
         }
 

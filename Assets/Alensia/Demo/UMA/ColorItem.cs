@@ -21,7 +21,7 @@ namespace Alensia.Demo.UMA
 
             Button.OnPointerSelect
                 .Where(_ => Morph != null)
-                .Subscribe(_ => ShowColorChooser())
+                .Subscribe(_ => ShowColorChooser(), Debug.LogError)
                 .AddTo(this);
         }
 

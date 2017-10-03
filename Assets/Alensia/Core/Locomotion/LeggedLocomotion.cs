@@ -57,7 +57,9 @@ namespace Alensia.Core.Locomotion
 
             GroundDetector = groundDetector;
 
-            groundDetector.OnGroundedStateChange.Subscribe(OnGroundedStateChange).AddTo(this);
+            groundDetector.OnGroundedStateChange
+                .Subscribe(OnGroundedStateChange, Debug.LogError)
+                .AddTo(this);
         }
 
         public void Walk(Vector2 direction, float heading)

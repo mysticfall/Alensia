@@ -1,5 +1,6 @@
 ﻿using System;
 using UniRx;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Alensia.Core.UI.Event
@@ -18,7 +19,7 @@ namespace Alensia.Core.UI.Event
 
             _listener = Component
                 .ObserveEveryValueChanged(c => c.isFocused)
-                .Subscribe(ChangeState);
+                .Subscribe(ChangeState, Debug.LogError);
         }
 
         protected override void OnDeactivated()

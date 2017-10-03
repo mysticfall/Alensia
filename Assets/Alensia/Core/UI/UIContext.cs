@@ -104,7 +104,7 @@ namespace Alensia.Core.UI
                 .Select(c => c ?? CursorNames.Default)
                 .Select(FindCursor)
                 .Where(c => c != null)
-                .Subscribe(UpdateCursor)
+                .Subscribe(UpdateCursor, Debug.LogError)
                 .AddTo(this);
         }
 

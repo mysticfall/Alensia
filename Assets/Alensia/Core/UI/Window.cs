@@ -97,7 +97,7 @@ namespace Alensia.Core.UI
 
             _movable
                 .Where(_ => Header != null)
-                .Subscribe(v => Header.Interactable = v)
+                .Subscribe(v => Header.Interactable = v, Debug.LogError)
                 .AddTo(this);
 
             _resizer = new ResizeHelper(this);
@@ -107,12 +107,12 @@ namespace Alensia.Core.UI
 
             _resizable
                 .Where(_ => _resizer != null)
-                .Subscribe(v => _resizer.Active = v)
+                .Subscribe(v => _resizer.Active = v, Debug.LogError)
                 .AddTo(this);
 
             _backdrop
                 .Where(_ => BackdropImage != null)
-                .Subscribe(v => v.Update(BackdropImage, DefaultBackdrop))
+                .Subscribe(v => v.Update(BackdropImage, DefaultBackdrop), Debug.LogError)
                 .AddTo(this);
 
             var parentStatusChanged = Transform
@@ -131,12 +131,12 @@ namespace Alensia.Core.UI
 
             shouldBackdropExists
                 .Where(v => v && BackdropImage == null)
-                .Subscribe(_ => ShowBackdrop())
+                .Subscribe(_ => ShowBackdrop(), Debug.LogError)
                 .AddTo(this);
 
             shouldBackdropExists
                 .Where(v => !v && BackdropImage != null)
-                .Subscribe(_ => HideBackdrop())
+                .Subscribe(_ => HideBackdrop(), Debug.LogError)
                 .AddTo(this);
         }
 
@@ -148,7 +148,7 @@ namespace Alensia.Core.UI
 
             Header?.OnDrag
                 .Select(e => RectTransform.anchoredPosition + e.delta)
-                .Subscribe(v => RectTransform.anchoredPosition = v)
+                .Subscribe(v => RectTransform.anchoredPosition = v, Debug.LogError)
                 .AddTo(this);
         }
 
