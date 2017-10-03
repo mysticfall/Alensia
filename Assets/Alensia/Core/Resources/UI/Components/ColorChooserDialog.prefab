@@ -1099,6 +1099,19 @@ MonoBehaviour:
     value: 1
   _resizable:
     value: 0
+  _modal:
+    value: 1
+  _backdrop:
+    value:
+      _color:
+        _hasValue: 0
+        _value: {r: 0, g: 0, b: 0, a: 0}
+      _image:
+        _hasValue: 0
+        _value: {fileID: 0}
+      _type:
+        _hasValue: 0
+        _value: 0
   _header: {fileID: 0}
   _layoutGroup: {fileID: 114932149219458900}
   _okButton: {fileID: 114468550263412308}

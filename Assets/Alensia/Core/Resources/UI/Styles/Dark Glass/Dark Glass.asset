@@ -79,6 +79,17 @@ MonoBehaviour:
       _type:
         _hasValue: 1
         _value: 1
+  - _name: Window.Backdrop
+    _value:
+      _color:
+        _hasValue: 1
+        _value: {r: 0, g: 0, b: 0, a: 0.391}
+      _image:
+        _hasValue: 0
+        _value: {fileID: 0}
+      _type:
+        _hasValue: 0
+        _value: 0
   _imageAndColorSets:
   - _name: Button.Background
     _value:

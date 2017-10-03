@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.UI.Property;
 using Alensia.Core.UI.Resize;
 using Alensia.Core.UI.Screen;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -26,6 +28,23 @@ namespace Alensia.Core.UI
             set { _resizable.Value = value; }
         }
 
+        public bool Modal
+        {
+            get { return _modal.Value; }
+            set { _modal.Value = value; }
+        }
+
+        public ImageAndColor Backdrop
+        {
+            get { return _backdrop.Value; }
+            set
+            {
+                Assert.IsNotNull(value, "value != null");
+
+                _backdrop.Value = value;
+            }
+        }
+
         public DraggableHeader Header =>
             _header ?? (_header = Transform.Find("Header").GetComponent<DraggableHeader>());
 
@@ -33,8 +52,12 @@ namespace Alensia.Core.UI
 
         public override IList<IComponent> Children => ContentPanel.GetChildren<IComponent>().ToList();
 
+        protected virtual ImageAndColor DefaultBackdrop => Style?.ImagesAndColors?["Window.Backdrop"];
+
         protected VerticalLayoutGroup LayoutGroup =>
             _layoutGroup ?? (_layoutGroup = GetComponent<VerticalLayoutGroup>());
+
+        protected Image BackdropImage => _backdropImage;
 
         protected override IList<Object> Peers
         {
@@ -52,9 +75,15 @@ namespace Alensia.Core.UI
 
         [SerializeField] private BoolReactiveProperty _resizable;
 
+        [SerializeField] private BoolReactiveProperty _modal;
+
+        [SerializeField] private ImageAndColorReactiveProperty _backdrop;
+
         [SerializeField, HideInInspector] private DraggableHeader _header;
 
         [SerializeField, HideInInspector] private VerticalLayoutGroup _layoutGroup;
+
+        [NonSerialized] private Image _backdropImage;
 
         [NonSerialized] private Transform _content;
 
@@ -80,6 +109,30 @@ namespace Alensia.Core.UI
                 .Where(_ => _resizer != null)
                 .Subscribe(v => _resizer.Active = v)
                 .AddTo(this);
+
+            var parentStatusChanged = Transform
+                .OnTransformParentChangedAsObservable()
+                .Select(_ => Transform.parent != null);
+
+            var hasValidParent = new ReactiveProperty<bool>(Transform.parent != null).Merge(parentStatusChanged);
+
+            var visible = new ReactiveProperty<bool>(enabled).Merge(OnVisibilityChange);
+
+            var shouldBackdropExists =
+                Observable
+                    .CombineLatest(_modal, visible, hasValidParent)
+                    .Select(i => i.All(v => v))
+                    .DistinctUntilChanged();
+
+            shouldBackdropExists
+                .Where(v => v && BackdropImage == null)
+                .Subscribe(_ => ShowBackdrop())
+                .AddTo(this);
+
+            shouldBackdropExists
+                .Where(v => !v && BackdropImage != null)
+                .Subscribe(_ => HideBackdrop())
+                .AddTo(this);
         }
 
         protected override void InitializeChildren(IUIContext context)
@@ -92,6 +145,16 @@ namespace Alensia.Core.UI
                 .Select(e => RectTransform.anchoredPosition + e.delta)
                 .Subscribe(v => RectTransform.anchoredPosition = v)
                 .AddTo(this);
+        }
+
+        protected override void OnStyleChanged(UIStyle style)
+        {
+            base.OnStyleChanged(style);
+
+            if (BackdropImage != null)
+            {
+                Backdrop.Update(BackdropImage, DefaultBackdrop);
+            }
         }
 
         public override void Show() => Show(null);
@@ -110,6 +173,33 @@ namespace Alensia.Core.UI
             RectTransform.anchoredPosition = Vector2.zero;
         }
 
+        private void ShowBackdrop()
+        {
+            var index = Transform.GetSiblingIndex();
+            var parent = new GameObject($"{Name} Backdrop", typeof(Image));
+
+            parent.transform.SetParent(Transform.parent);
+            parent.transform.SetSiblingIndex(index);
+
+            _backdropImage = parent.GetComponent<Image>();
+            _backdropImage.color = new Color(0f, 0f, 0f, 0.5f);
+
+            var layout = parent.GetComponent<RectTransform>();
+
+            layout.anchorMin = Vector2.zero;
+            layout.anchorMax = Vector2.one;
+
+            layout.offsetMin = Vector2.zero;
+            layout.offsetMax = Vector2.zero;
+        }
+
+        private void HideBackdrop()
+        {
+            Destroy(_backdropImage.gameObject);
+
+            _backdropImage = null;
+        }
+
         protected override void OnDestroy()
         {
             _resizer?.Dispose();
@@ -126,6 +216,9 @@ namespace Alensia.Core.UI
 
             Movable = source.Movable;
             Resizable = source.Resizable;
+            Modal = source.Modal;
+
+            Backdrop = source.Backdrop;
         }
 
         protected override UIComponent CreatePristineInstance() => CreateInstance();

@@ -500,26 +500,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114325118397341488, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: _installers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114325118397341488, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: _installerPrefabs.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: umaAdditionalRecipes.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: characterColors._colors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4981335916740340, guid: 7d5e0f3d9ab6e4b60857adda1aafd399, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -550,7 +530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4981335916740340, guid: 7d5e0f3d9ab6e4b60857adda1aafd399, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
         type: 2}
@@ -560,53 +540,6 @@ Prefab:
     - target: {fileID: 1933231850096410, guid: 7d5e0f3d9ab6e4b60857adda1aafd399, type: 2}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: umaAdditionalRecipes.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 920d59ac577b2d9449aa36a4d9e86f10,
-        type: 2}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: showPlaceholder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114325118397341488, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: _installers.Array.data[0]
-      value: 
-      objectReference: {fileID: 125631333}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: activeRace.name
-      value: HumanFemaleHighPoly
-      objectReference: {fileID: 0}
-    - target: {fileID: 114546701804063038, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: Context
-      value: 
-      objectReference: {fileID: 336978692}
-    - target: {fileID: 114546701804063038, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: Customizer
-      value: 
-      objectReference: {fileID: 1333699605109508, guid: 310e6241a433449adbecc6776ec0833f,
-        type: 2}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: defaultChangeRaceOptions
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114546701804063038, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: RaceLibrary
-      value: 
-      objectReference: {fileID: 1760603115}
-    - target: {fileID: 114690889163183176, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-        type: 2}
-      propertyPath: loadBlendShapes
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d5e0f3d9ab6e4b60857adda1aafd399, type: 2}
@@ -752,14 +685,8 @@ Transform:
   - {fileID: 1248467733}
   - {fileID: 2126135814}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &125631333 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114546701804063038, guid: 7d5e0f3d9ab6e4b60857adda1aafd399,
-    type: 2}
-  m_PrefabInternal: {fileID: 69635797}
-  m_Script: {fileID: 11500000, guid: 2c5e8c07820346f8be6fea6d8d2775e6, type: 3}
 --- !u!1 &244279844
 GameObject:
   m_ObjectHideFlags: 0
@@ -5543,7 +5470,7 @@ MonoBehaviour:
     _enable: 1
     _order: 0
   - _name: MainMenu
-    _item: {fileID: 1380675176791754, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+    _item: {fileID: 1966944876048830, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
     _singleton: 1
     _enable: 0
     _order: 0
@@ -7916,12 +7843,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 1
---- !u!114 &1760603115 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11464156, guid: fe29e3c90ef88194184c6f3656db5ec5,
-    type: 2}
-  m_PrefabInternal: {fileID: 971055982}
-  m_Script: {fileID: 11500000, guid: 20680b3241850f340b2d42b5685d8ed3, type: 3}
 --- !u!1 &1825957963
 GameObject:
   m_ObjectHideFlags: 3
@@ -8406,7 +8327,7 @@ Prefab:
     - target: {fileID: 224634209900527882, guid: 29aa02674434e4444ba31c7c919a295e,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.00001335144
       objectReference: {fileID: 0}
     - target: {fileID: 114954361146182098, guid: 29aa02674434e4444ba31c7c919a295e,
         type: 2}
