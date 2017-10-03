@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e51b5f5a8a166140bb25f982e78d57e, type: 3}
-  m_Name: Player
+  m_Name: HumanFemalePreset
   m_EditorClassIdentifier: 
   recipeType: DynamicCharacterAvatar
   DisplayValue: 

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e51b5f5a8a166140bb25f982e78d57e, type: 3}
+  m_Name: HumanMalePreset
+  m_EditorClassIdentifier: 
+  recipeType: DynamicCharacterAvatar
+  DisplayValue: 
+  compatibleRaces: []
+  wardrobeRecipeThumbs: []
+  wardrobeSlot: None
+  Hides: []
+  suppressWardrobeSlots: []
+  activeWardrobeSet:
+  - slot: Hair
+    recipe: MaleHair1
+  - slot: Underwear
+    recipe: MaleUnderwear
+  recipeString: '{"packedRecipeType":"DynamicCharacterAvatar","name":"HumanMalePreset","race":"HumanMaleHighPoly","dna":[{"dnaType":"UMADnaHumanoid","dnaTypeHash":-212795365,"packedDna":"{\"height\":130,\"headSize\":128,\"headWidth\":128,\"neckThickness\":128,\"armLength\":129,\"forearmLength\":128,\"armWidth\":131,\"forearmWidth\":107,\"handsSize\":105,\"feetSize\":97,\"legSeparation\":121,\"upperMuscle\":133,\"lowerMuscle\":140,\"upperWeight\":146,\"lowerWeight\":109,\"legsSize\":131,\"belly\":85,\"waist\":95,\"gluteusSize\":170,\"earsSize\":139,\"earsPosition\":96,\"earsRotation\":128,\"noseSize\":128,\"noseCurve\":128,\"noseWidth\":128,\"noseInclination\":128,\"nosePosition\":128,\"nosePronounced\":128,\"noseFlatten\":128,\"chinSize\":128,\"chinPronounced\":128,\"chinPosition\":128,\"mandibleSize\":116,\"jawsSize\":128,\"jawsPosition\":128,\"cheekSize\":128,\"cheekPosition\":128,\"lowCheekPronounced\":128,\"lowCheekPosition\":128,\"foreheadSize\":128,\"foreheadPosition\":128,\"lipsSize\":128,\"mouthSize\":128,\"eyeRotation\":128,\"eyeSize\":128,\"breastSize\":155}"},{"dnaType":"UMADnaTutorial","dnaTypeHash":-1679007774,"packedDna":"{\"eyeSpacing\":128}"}],"characterColors":[{"name":"Skin","colors":[238,234,225,255,0,0,0,0,255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0]},{"name":"Hair","colors":[90,55,36,255,0,0,0,0,255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0]},{"name":"Eyes","colors":[73,104,255,255,0,0,0,0,255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0]}],"wardrobeSet":[{"slot":"Hair","recipe":"MaleHair1"},{"slot":"Underwear","recipe":"MaleUnderwear"}],"raceAnimatorController":""}'

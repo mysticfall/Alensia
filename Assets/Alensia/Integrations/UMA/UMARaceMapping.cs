@@ -2,41 +2,62 @@ using System;
 using System.Collections.Generic;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
+using Optional;
+using UMA;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Alensia.Integrations.UMA
 {
     [Serializable]
     public class UMARaceMapping : IEditorSettings
     {
-        public string Name;
+        public string Name => _name;
 
-        public string Male;
+        public UMARecipeBase Male => _male;
 
-        public string Female;
+        public UMARecipeBase Female => _female;
 
-        public string Other;
+        public UMARecipeBase Other => _other;
+
+        [SerializeField] private string _name;
+
+        [SerializeField] private UMARecipeBase _male;
+
+        [SerializeField] private UMARecipeBase _female;
+
+        [SerializeField] private UMARecipeBase _other;
+
+        private IDictionary<Sex, RaceData> _raceData;
+
+        public UMARaceMapping()
+        {
+            _raceData = new Dictionary<Sex, RaceData>();
+        }
 
         public Race GetRace()
         {
             var sexes = new List<Sex>(3);
 
-            if (!string.IsNullOrEmpty(Male)) sexes.Add(Sex.Male);
-            if (!string.IsNullOrEmpty(Female)) sexes.Add(Sex.Female);
-            if (!string.IsNullOrEmpty(Other)) sexes.Add(Sex.Other);
+            if (Male != null) sexes.Add(Sex.Male);
+            if (Female != null) sexes.Add(Sex.Female);
+            if (Other != null) sexes.Add(Sex.Other);
 
             return new Race(Name, sexes);
         }
 
-        public Sex? GetSex(string umaRace)
+        public Option<Sex> GetSex(string umaRace, UMAContext context)
         {
-            if (umaRace == Male) return Sex.Male;
-            if (umaRace == Female) return Sex.Female;
-            if (umaRace == Other) return Sex.Other;
+            Assert.IsNotNull(umaRace, "umaRace != null");
 
-            return null;
+            if (umaRace == GetRaceData(Sex.Male, context)?.raceName) return Sex.Male.Some();
+            if (umaRace == GetRaceData(Sex.Female, context)?.raceName) return Sex.Female.Some();
+            if (umaRace == GetRaceData(Sex.Other, context)?.raceName) return Sex.Other.Some();
+
+            return Option.None<Sex>();
         }
 
-        public string GetUMARace(Sex sex)
+        public UMARecipeBase GetRacePreset(Sex sex)
         {
             switch (sex)
             {
@@ -49,6 +70,51 @@ namespace Alensia.Integrations.UMA
             }
         }
 
-        public bool Matches(string umaRace) => umaRace == Male || umaRace == Female || umaRace == Other;
+        public RaceData GetRaceData(Sex sex, UMAContext context)
+        {
+            RaceData data = null;
+
+            lock (_raceData)
+            {
+                if (_raceData.ContainsKey(sex))
+                {
+                    return _raceData[sex];
+                }
+
+                UMARecipeBase recipe;
+
+                switch (sex)
+                {
+                    case Sex.Male:
+                        recipe = Male;
+                        break;
+                    case Sex.Female:
+                        recipe = Female;
+                        break;
+                    default:
+                        recipe = Other;
+                        break;
+                }
+
+                if (recipe != null)
+                {
+                    var umaData = new UMAData.UMARecipe();
+
+                    recipe.Load(umaData, context);
+
+                    data = umaData.raceData;
+
+                    _raceData[sex] = data;
+                }
+            }
+
+            return data;
+        }
+
+        public bool Matches(string umaRace, UMAContext context) =>
+            umaRace != null && (
+                umaRace == GetRaceData(Sex.Male, context)?.raceName ||
+                umaRace == GetRaceData(Sex.Female, context)?.raceName ||
+                umaRace == GetRaceData(Sex.Other, context)?.raceName);
     }
 }

@@ -36,7 +36,7 @@ namespace Alensia.Integrations.UMA
             var umaRace = avatar.activeRace.name;
 
             Race = RaceRepository.GetRaceFromUMARace(umaRace);
-            Sex = Sex.Female;
+            Sex = RaceRepository.GetSexFromUMARace(umaRace).ValueOr(Sex.Other);
         }
 
         protected override IEnumerable<IMorph> CreateMorphs()
@@ -119,22 +119,15 @@ namespace Alensia.Integrations.UMA
 
         protected virtual void ChangeUmaRace(Race race, Sex sex)
         {
-            var name = RaceRepository.GetUMARace(race, sex);
+            var preset = RaceRepository.GetRacePreset(race, sex);
 
-            if (name == null)
+            if (preset == null)
             {
                 throw new ArgumentException(
                     $"Cannot determine UMA race: sex = '{sex}', race = '{race}'.");
             }
 
-            var raceData = RaceRepository.RaceLibrary.GetRace(name);
-
-            if (raceData == null)
-            {
-                throw new ArgumentException($"Unknown UMA race: '{name}'.");
-            }
-
-            Avatar.ChangeRace(raceData);
+            Avatar.LoadFromRecipe(preset);
         }
 
         private struct DNAKey

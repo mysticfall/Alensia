@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
+using Optional;
 using UMA;
 using UnityEngine.Assertions;
 
@@ -10,9 +11,11 @@ namespace Alensia.Integrations.UMA
 {
     public class UMARaceRepository : IRaceRepository
     {
+        public UMAContext Context { get; }
+
         public IReadOnlyList<Race> Races { get; }
 
-        public RaceLibraryBase RaceLibrary { get; }
+        public RaceLibraryBase RaceLibrary => Context.raceLibrary;
 
         protected IReadOnlyList<UMARaceMapping> Mappings => _mappings;
 
@@ -20,45 +23,40 @@ namespace Alensia.Integrations.UMA
 
         private readonly IDictionary<string, Race> _raceMappings;
 
-        public UMARaceRepository(Settings settings, RaceLibraryBase raceLibrary)
+        public UMARaceRepository(Settings settings, UMAContext context)
         {
             Assert.IsNotNull(settings, "settings != null");
             Assert.IsNotNull(settings.RaceMappings, "RaceMappings != null");
-
-            RaceLibrary = raceLibrary;
+            Assert.IsNotNull(context, "context != null");
 
             _mappings = settings.RaceMappings.ToList();
             _raceMappings = _mappings.ToDictionary(k => k.Name, e => e.GetRace());
 
             Races = _mappings.Select(m => m.GetRace()).ToList().AsReadOnly();
+            Context = context;
         }
 
-        public virtual string GetUMARace(Race race, Sex sex)
+        public virtual UMARecipeBase GetRacePreset(Race race, Sex sex)
         {
             Assert.IsNotNull(race, "race != null");
 
-            return _mappings.Find(m => m.Name == race.Name)?.GetUMARace(sex);
+            return _mappings.Find(m => m.Name == race.Name)?.GetRacePreset(sex);
         }
 
         public virtual Race GetRaceFromUMARace(string umaRace)
         {
             Assert.IsNotNull(umaRace, "umaRace != null");
 
-            return _mappings.Find(m => m.Matches(umaRace))?.GetRace();
+            return _mappings.Find(m => m.Matches(umaRace, Context))?.GetRace();
         }
 
-        public virtual Sex GetSexFromUMARace(string umaRace)
+        public virtual Option<Sex> GetSexFromUMARace(string umaRace)
         {
             Assert.IsNotNull(umaRace, "umaRace != null");
 
-            var sex = _mappings.Find(m => m.Matches(umaRace))?.GetSex(umaRace);
+            var mapping = _mappings.Find(m => m.Matches(umaRace, Context));
 
-            if (!sex.HasValue)
-            {
-                throw new ArgumentOutOfRangeException(nameof(umaRace));
-            }
-
-            return sex.Value;
+            return mapping?.GetSex(umaRace, Context) ?? Option.None<Sex>();
         }
 
         public bool Contains(string key) => _raceMappings.ContainsKey(key);
@@ -68,15 +66,7 @@ namespace Alensia.Integrations.UMA
         [Serializable]
         public class Settings : IEditorSettings
         {
-            public UMARaceMapping[] RaceMappings =
-            {
-                new UMARaceMapping
-                {
-                    Name = Race.Human.Name,
-                    Male = "HumanMaleHighPoly",
-                    Female = "HumanFemaleHighPoly"
-                }
-            };
+            public UMARaceMapping[] RaceMappings;
         }
     }
 }
