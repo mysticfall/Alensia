@@ -101,6 +101,8 @@ namespace Alensia.Core.UI
             throw new NotImplementedException();
         }
 
+        public Transform ScreenRoot => null;
+
         public IReadOnlyList<IScreen> Screens => Enumerable.Empty<IScreen>().ToList();
 
         public IScreen FindScreen(string screen) => null;

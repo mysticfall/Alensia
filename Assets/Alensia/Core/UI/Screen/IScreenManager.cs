@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace Alensia.Core.UI.Screen
 {
     public interface IScreenManager : IInitializable
     {
+        Transform ScreenRoot { get; }
+
         IReadOnlyList<IScreen> Screens { get; }
 
         IScreen FindScreen(string name);
