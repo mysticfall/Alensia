@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Alensia.Core.UI.Event;
+using Alensia.Core.Interaction;
 
 namespace Alensia.Core.UI
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Alensia.Core.UI.Event
+namespace Alensia.Core.Interaction
 {
     public interface IInteractable
     {

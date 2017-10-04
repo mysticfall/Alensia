@@ -2,6 +2,8 @@
 using System.Linq;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
+using Alensia.Core.Interaction;
+using Alensia.Core.Interaction.Event;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Event;
 using UniRx;

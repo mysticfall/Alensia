@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.EventSystems;
 
-namespace Alensia.Core.UI.Event
+namespace Alensia.Core.Interaction.Event
 {
     public interface IPointerDragAware
     {

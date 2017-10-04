@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Alensia.Core.I18n;
-using Alensia.Core.UI.Event;
+using Alensia.Core.Interaction.Event;
 using Alensia.Core.UI.Property;
 using UniRx;
 using UniRx.Triggers;
