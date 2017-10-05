@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Common
 {
-    public abstract class BaseObject : IBaseObject
+    public abstract class ManagedObject : IManagedObject
     {
         public bool Initialized => _initialized.Value;
 
@@ -22,7 +22,7 @@ namespace Alensia.Core.Common
         // ReSharper disable once CollectionNeverQueried.Global
         internal readonly ICollection<IDisposable> Disposables;
 
-        protected BaseObject()
+        protected ManagedObject()
         {
             _initialized = new ReactiveProperty<bool>();
             _disposed = new ReactiveProperty<bool>();
@@ -76,7 +76,7 @@ namespace Alensia.Core.Common
     public static class BaseObjectExtensions
     {
         public static void AddTo<T>(
-            this T disposable, BaseObject parent) where T : IDisposable
+            this T disposable, ManagedObject parent) where T : IDisposable
         {
             Assert.IsNotNull(parent, "parent != null");
 

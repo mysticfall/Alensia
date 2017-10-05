@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Character.Morph
 {
-    public abstract class MorphSet : BaseObject, IMorphSet
+    public abstract class MorphSet : ManagedMonoBehavior, IMorphSet
     {
         public Race Race
         {

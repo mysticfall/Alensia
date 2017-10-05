@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Character;
-using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Control
@@ -16,7 +14,8 @@ namespace Alensia.Core.Control
 
         public IHumanoid Player => PlayerAlias.Reference;
 
-        public IReferenceAlias<IHumanoid> PlayerAlias { get; }
+        [Inject(Id = PlayerAliasName)] 
+        public CharacterAlias PlayerAlias { get; }
 
         public IReadOnlyList<IPlayerControl> PlayerControls =>
             Controls.Select(c => c as IPlayerControl).Where(c => c != null).ToList();
@@ -35,32 +34,18 @@ namespace Alensia.Core.Control
 
         private readonly IReactiveProperty<bool> _enabled;
 
-        public PlayerController(
-            [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
-            IList<IControl> controls) : this(null, player, controls)
+        public PlayerController()
         {
-        }
-
-        [Inject]
-        public PlayerController(
-            [InjectOptional] Settings settings,
-            [Inject(Id = PlayerAliasName)] IReferenceAlias<IHumanoid> player,
-            IList<IControl> controls) : base(settings, controls)
-        {
-            Assert.IsNotNull(player, "player != null");
-
             _enabled = new ReactiveProperty<bool>(true);
-
-            PlayerAlias = player;
-
-            PlayerAlias.OnChange
-                .Subscribe(OnPlayerChange, Debug.LogError)
-                .AddTo(this);
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            PlayerAlias.OnChange
+                .Subscribe(OnPlayerChange, Debug.LogError)
+                .AddTo(this);
 
             OnPlayerControlStateChange
                 .Subscribe(v => PlayerControls.ToList().ForEach(c => c.Active = v), Debug.LogError)

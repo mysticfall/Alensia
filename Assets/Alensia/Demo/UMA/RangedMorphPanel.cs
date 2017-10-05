@@ -35,6 +35,10 @@ namespace Alensia.Demo.UMA
         {
             base.LoadMorphs(morphs);
 
+            var runtimeContext = Context as IRuntimeUIContext;
+
+            if (runtimeContext == null) return;
+
             var ranges = morphs
                 .OrderBy(m => m.Name)
                 .Select(m => m as RangedMorph<float>)
@@ -42,9 +46,7 @@ namespace Alensia.Demo.UMA
 
             foreach (var morph in ranges)
             {
-                var slider = Context.Instantiate<MorphSlider>(
-                    MorphSliderPrefab,
-                    ContentPanel);
+                var slider = runtimeContext.Instantiate<MorphSlider>(MorphSliderPrefab, ContentPanel);
 
                 slider.Morph = morph;
             }

@@ -5,7 +5,7 @@ using UniRx;
 
 namespace Alensia.Core.Input
 {
-    public abstract class Input<T> : BaseObject, IInput<T>
+    public abstract class Input<T> : ManagedObject, IInput<T>
     {
         public T Value => _value.Value;
 

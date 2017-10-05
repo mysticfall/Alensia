@@ -15,7 +15,7 @@ namespace Alensia.Core.UI
     {
         public static bool HasActiveChild(this IInteractableComponent component)
         {
-            var active = component.Context.ActiveComponent;
+            var active = (component.Context as IRuntimeUIContext)?.ActiveComponent;
 
             return active?.Ancestors.FirstOrDefault(c => ReferenceEquals(c, component)) != null;
         }

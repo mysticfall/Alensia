@@ -4,52 +4,51 @@ using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Character.Morph;
 using Alensia.Core.Character.Morph.Generic;
-using Alensia.Core.Common;
 using UMA;
 using UMA.CharacterSystem;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Integrations.UMA
 {
     public class UMAMorphSet : MorphSet
     {
+        [Inject]
         public DynamicCharacterAvatar Avatar { get; }
 
         public UMAData Data => Avatar?.umaData;
 
         public RaceData RaceData => Avatar?.activeRace.data;
 
+        [Inject]
         public UMARaceRepository RaceRepository { get; }
 
         private readonly IDictionary<string, DNAKey> _dnaMappings;
 
-        public UMAMorphSet(DynamicCharacterAvatar avatar, UMARaceRepository raceRepository)
+        private bool _initialized;
+
+        public UMAMorphSet()
         {
-            Assert.IsNotNull(avatar, "avatar != null");
-            Assert.IsNotNull(raceRepository, "raceRepository != null");
-
-            Avatar = avatar;
-            RaceRepository = raceRepository;
-
             _dnaMappings = new Dictionary<string, DNAKey>();
-
-            var umaRace = avatar.activeRace.name;
-
-            Race = RaceRepository.GetRaceFromUMARace(umaRace);
-            Sex = RaceRepository.GetSexFromUMARace(umaRace).ValueOr(Sex.Other);
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
+            var umaRace = Avatar.activeRace.name;
+
+            Race = RaceRepository.GetRaceFromUMARace(umaRace);
+            Sex = RaceRepository.GetSexFromUMARace(umaRace).ValueOr(Sex.Other);
+
             Avatar.RecipeUpdated.AsObservable()
                 .Subscribe(_ => UpdateMorphs(), Debug.LogError)
                 .AddTo(this);
 
             UpdateMorphs();
+
+            _initialized = true;
         }
 
         protected override IEnumerable<IMorph> CreateMorphs()
@@ -80,10 +79,10 @@ namespace Alensia.Integrations.UMA
 
             return values.Select(tuple =>
             {
-                var name = tuple.Item1;
-                var value = tuple.Item2;
+                var morphName = tuple.Item1;
+                var morphValue = tuple.Item2;
 
-                return new RangedMorph<float>(name, value, 0, 0, 1);
+                return new RangedMorph<float>(morphName, morphValue, 0, 0, 1);
             });
         }
 
@@ -117,13 +116,13 @@ namespace Alensia.Integrations.UMA
             Avatar.ForceUpdate(true);
         }
 
-        protected virtual void ApplyColor(string name, Color color)
+        protected virtual void ApplyColor(string colorName, Color color)
         {
-            var data = Avatar.GetColor(name);
+            var data = Avatar.GetColor(colorName);
 
             data.color = color;
 
-            Avatar.SetColor(name, data);
+            Avatar.SetColor(colorName, data);
         }
 
         protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
@@ -132,6 +131,8 @@ namespace Alensia.Integrations.UMA
 
         protected virtual void ChangeUmaRace(Race race, Sex sex)
         {
+            if (!_initialized) return;
+
             var preset = RaceRepository.GetRacePreset(race, sex);
 
             if (preset == null)

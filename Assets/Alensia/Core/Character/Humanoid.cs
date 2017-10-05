@@ -1,34 +1,35 @@
 ﻿using Alensia.Core.Locomotion;
 using Alensia.Core.Sensor;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Character
 {
     public class Humanoid : Character<IBinocularVision, ILeggedLocomotion>, IHumanoid
     {
-        public override Transform Head { get; }
+        public override Race Race => _race;
 
+        public override Sex Sex => _sex;
+
+        public override Transform Head => _head;
+
+        [Inject]
         public override IBinocularVision Vision { get; }
 
+        [Inject]
         public override ILeggedLocomotion Locomotion { get; }
 
-        public Humanoid(
-            [InjectOptional] Race race,
-            [InjectOptional] Sex sex,
-            IBinocularVision vision,
-            ILeggedLocomotion locomotion,
-            Animator animator,
-            Transform transform) : base(race, sex, animator, transform)
+        [SerializeField] private Race _race = Race.Human;
+
+        [SerializeField] private Sex _sex = Sex.Male;
+
+        private Transform _head;
+
+        protected override void OnInitialized()
         {
-            Assert.IsNotNull(vision, "vision != null");
-            Assert.IsNotNull(locomotion, "locomotion != null");
+            base.OnInitialized();
 
-            Head = GetBodyPart(HumanBodyBones.Head);
-
-            Vision = vision;
-            Locomotion = locomotion;
+            _head = GetBodyPart(HumanBodyBones.Head);
         }
 
         public Transform GetBodyPart(HumanBodyBones bone) => Animator.GetBoneTransform(bone);

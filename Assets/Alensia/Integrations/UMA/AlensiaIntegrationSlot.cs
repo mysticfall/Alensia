@@ -26,6 +26,16 @@ namespace Alensia.Integrations.UMA
 
             if (context != null && !context.Initialized)
             {
+                var avatar = character.GetComponent<UMAAvatarBase>();
+
+                if (avatar != null)
+                {
+                    context.Container
+                        .BindInterfacesAndSelfTo(avatar.GetType())
+                        .FromInstance(avatar)
+                        .AsSingle();
+                }
+
                 context.Run();
             }
         }

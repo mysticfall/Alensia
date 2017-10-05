@@ -60,7 +60,7 @@ namespace Alensia.Core.UI
 
             Context = context;
 
-            Context.DiContainer?.Inject(this);
+            (Context as IRuntimeUIContext)?.DiContainer?.Inject(this);
         }
 
         public virtual void Show() => Visible = true;
@@ -109,7 +109,11 @@ namespace Alensia.Core.UI
 
         protected virtual void OnValidate()
         {
-            OnEditorUpdate();
+            if (!Application.isPlaying)
+            {
+                OnEditorUpdate();
+            }
+
             ApplyHideFlags();
         }
 #pragma warning restore 108,114

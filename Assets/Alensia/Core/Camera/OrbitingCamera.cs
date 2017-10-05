@@ -1,5 +1,4 @@
-﻿using Alensia.Core.Common;
-using Alensia.Core.Geom;
+﻿using Alensia.Core.Geom;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -52,12 +51,16 @@ namespace Alensia.Core.Camera
 
         private readonly IReactiveProperty<float> _distance;
 
-        protected OrbitingCamera(
-            UnityEngine.Camera camera) : base(camera)
+        protected OrbitingCamera()
         {
             _heading = new ReactiveProperty<float>();
             _elevation = new ReactiveProperty<float>();
             _distance = new ReactiveProperty<float>();
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
             Observable
                 .Zip(_heading, _elevation, _distance)
@@ -66,9 +69,9 @@ namespace Alensia.Core.Camera
                 .AddTo(this);
         }
 
-        public override void Reset()
+        public override void ResetCamera()
         {
-            base.Reset();
+            base.ResetCamera();
 
             Distance = DistanceSettings.Default;
         }

@@ -7,6 +7,6 @@ namespace Alensia.Core.Camera
     {
         UnityEngine.Camera Camera { get; }
 
-        void Reset();
+        void ResetCamera();
     }
 }

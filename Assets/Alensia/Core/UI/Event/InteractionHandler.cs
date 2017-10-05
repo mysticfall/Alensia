@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace Alensia.Core.UI.Event
 {
-    public class InteractionHandler<T> : BaseActivatable, IHighlightable, IInteractable, IUIContextHolder
+    public class InteractionHandler<T> : ActivatableObject, IHighlightable, IInteractable, IUIContextHolder
         where T : UIBehaviour
     {
         public readonly IInteractableComponent Component;
@@ -61,17 +61,21 @@ namespace Alensia.Core.UI.Event
             HighlightTracker.Initialize();
             InteractionTracker.Initialize();
 
+            var runtimeContext = Context as IRuntimeUIContext;
+
+            if (runtimeContext == null) return;
+
             OnStateChange
                 .Where(_ => (Interacting || Highlighted) && !Component.HasActiveChild())
-                .Where(_ => Context.ActiveComponent == null || !Context.ActiveComponent.Interacting)
-                .Subscribe(_ => Context.ActiveComponent = Component, Debug.LogError)
+                .Where(_ => runtimeContext.ActiveComponent == null || !runtimeContext.ActiveComponent.Interacting)
+                .Subscribe(_ => runtimeContext.ActiveComponent = Component, Debug.LogError)
                 .AddTo(this);
 
             OnStateChange
                 .Merge(Component.OnHide)
-                .Where(_ => ReferenceEquals(Context.ActiveComponent, Component))
+                .Where(_ => ReferenceEquals(runtimeContext.ActiveComponent, Component))
                 .Where(_ => !Interacting && !Highlighted)
-                .Subscribe(_ => Context.ActiveComponent = Component.FindFirstActiveAncestor(), Debug.LogError)
+                .Subscribe(_ => runtimeContext.ActiveComponent = Component.FindFirstActiveAncestor(), Debug.LogError)
                 .AddTo(this);
         }
 
@@ -80,9 +84,11 @@ namespace Alensia.Core.UI.Event
             HighlightTracker.Dispose();
             InteractionTracker.Dispose();
 
-            if (Context != null && ReferenceEquals(Context.ActiveComponent, Component))
+            var rc = Context as IRuntimeUIContext;
+
+            if (rc != null && ReferenceEquals(rc.ActiveComponent, Component))
             {
-                Context.ActiveComponent = Component.FindFirstActiveAncestor();
+                rc.ActiveComponent = Component.FindFirstActiveAncestor();
             }
 
             base.OnDisposed();

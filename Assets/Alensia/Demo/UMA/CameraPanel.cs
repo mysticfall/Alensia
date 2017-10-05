@@ -2,19 +2,20 @@
 using System.Linq;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
-using Alensia.Core.Interaction;
+using Alensia.Core.Control;
 using Alensia.Core.Interaction.Event;
 using Alensia.Core.UI;
-using Alensia.Core.UI.Event;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Demo.UMA
 {
     public class CameraPanel : CharacterPanel
     {
+        [Inject(Id = PlayerController.PlayerAliasName)]
+        public CharacterAlias PlayerAlias { get; }
+
         [Inject]
         public ICameraManager CameraManager { get; }
 
@@ -42,9 +43,11 @@ namespace Alensia.Demo.UMA
         {
             base.Initialize(context);
 
-            Camera = CameraManager.Mode as CharacterCamera;
+            Camera = CameraManager.Switch<CharacterCamera>();
 
-            Assert.IsNotNull(Camera, "Camera != null");
+            PlayerAlias.OnChange
+                .Subscribe(Camera.Track)
+                .AddTo(this);
 
             Action<IPointerDragAware, Vector3> register = (button, direction) =>
             {

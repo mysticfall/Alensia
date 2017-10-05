@@ -5,12 +5,13 @@ using Alensia.Core.Common;
 using Alensia.Core.Input;
 using Alensia.Core.UI.Cursor;
 using UniRx;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public abstract class Control : BaseActivatable, IControl
+    public abstract class Control : ActivatableMonoBehavior, IControl
     {
+        [Inject]
         public IInputManager InputManager { get; }
 
         public ICollection<IBindingKey> Bindings { get; private set; }
@@ -23,19 +24,18 @@ namespace Alensia.Core.Control
 
         private readonly ICollection<IDisposable> _disposables = new CompositeDisposable();
 
-        protected Control(IInputManager inputManager)
+        protected Control()
         {
-            Assert.IsNotNull(inputManager, "inputManager != null");
-
-            InputManager = inputManager;
             Bindings = Enumerable.Empty<IBindingKey>().ToList();
-
-            InputManager.OnBindingChange.Subscribe(ProcessBindingChange).AddTo(this);
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            InputManager.OnBindingChange
+                .Subscribe(ProcessBindingChange)
+                .AddTo(this);
 
             Bindings = PrepareBindings().ToList().AsReadOnly();
 

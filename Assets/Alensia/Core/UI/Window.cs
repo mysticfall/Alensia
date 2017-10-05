@@ -168,7 +168,7 @@ namespace Alensia.Core.UI
         {
             base.Show();
 
-            var targetScreen = screen ?? Context.FindScreen(ScreenNames.Windows);
+            var targetScreen = screen ?? (Context as IRuntimeUIContext)?.FindScreen(ScreenNames.Windows);
 
             if (targetScreen != null)
             {

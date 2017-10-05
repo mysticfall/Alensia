@@ -6,7 +6,7 @@ using Alensia.Core.UI;
 using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Game
 {
@@ -14,8 +14,9 @@ namespace Alensia.Core.Game
     {
         public const string Category = "General";
 
-        public string MainMenu { get; set; } = "MainMenu";
+        public string MainMenu => _mainMenu;
 
+        [Inject]
         public IUIContext UIContext { get; }
 
         public IBindingKey<ITriggerInput> ShowMenu = Keys.ShowMenu;
@@ -24,16 +25,9 @@ namespace Alensia.Core.Game
 
         public override bool Valid => base.Valid && ShowMenuInput != null && MainMenu != null;
 
-        public GameControl(
-            IUIContext uiContext,
-            IInputManager inputManager) : base(inputManager)
-        {
-            Assert.IsNotNull(uiContext, "uiContext != null");
-
-            UIContext = uiContext;
-        }
-
         protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {ShowMenu};
+
+        [SerializeField] private string _mainMenu = "MainMenu";
 
         protected override void RegisterDefaultBindings()
         {
@@ -66,12 +60,12 @@ namespace Alensia.Core.Game
         {
             lock (this)
             {
-                var screen = UIContext.FindScreen(ScreenNames.Windows);
-                var menu = screen.FindUI<IComponentHandler>(MainMenu);
+                var screen = (UIContext as IRuntimeUIContext)?.FindScreen(ScreenNames.Windows);
+                var menu = screen?.FindUI<IComponentHandler>(MainMenu);
 
                 if (menu == null)
                 {
-                    screen.ShowUI<IComponentHandler>(MainMenu);
+                    screen?.ShowUI<IComponentHandler>(MainMenu);
                 }
                 else
                 {

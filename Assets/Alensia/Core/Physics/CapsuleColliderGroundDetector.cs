@@ -1,21 +1,9 @@
 ﻿using UnityEngine;
-using Zenject;
 
 namespace Alensia.Core.Physics
 {
     public class CapsuleColliderGroundDetector : RayCastingGroundDetector<CapsuleCollider>
     {
-        public CapsuleColliderGroundDetector(CapsuleCollider target) :
-            this(new GroundDetectionSettings(), target)
-        {
-        }
-
-        [Inject]
-        public CapsuleColliderGroundDetector(
-            GroundDetectionSettings settings, CapsuleCollider target) : base(settings, target)
-        {
-        }
-
         protected override Vector3 CalculateOrigin(CapsuleCollider target)
         {
             var bounds = Target.bounds;
@@ -29,8 +17,8 @@ namespace Alensia.Core.Physics
             return UnityEngine.Physics.SphereCastAll(
                 ray,
                 target.radius,
-                Settings.Tolerance,
-                Settings.GroundLayer);
+                Tolerance,
+                GroundLayer);
         }
     }
 }

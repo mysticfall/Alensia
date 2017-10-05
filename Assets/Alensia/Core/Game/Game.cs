@@ -2,7 +2,6 @@
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
-using Zenject;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -10,7 +9,7 @@ using UnityEditor;
 
 namespace Alensia.Core.Game
 {
-    public class Game : BaseObject, IGame
+    public class Game : ManagedMonoBehavior, IGame
     {
         public float TimeScale
         {
@@ -28,27 +27,28 @@ namespace Alensia.Core.Game
 
         public IObservable<Unit> OnResume => OnPauseStateChange.Where(s => !s).AsSingleUnitObservable();
 
-        private readonly IReactiveProperty<float> _timeScale;
+        [SerializeField] private FloatReactiveProperty _timeScale;
 
-        private readonly IReactiveProperty<bool> _paused;
+        [SerializeField] private BoolReactiveProperty _paused;
 
-        public Game([InjectOptional] Settings settings)
+        public Game()
         {
-            settings = settings ?? new Settings();
+            _timeScale = new FloatReactiveProperty(1);
+            _paused = new BoolReactiveProperty();
+        }
 
-            Time.timeScale = settings.TimeScale;
-
-            _timeScale = new ReactiveProperty<float>(Time.timeScale);
-            _paused = new ReactiveProperty<bool>();
-
+        protected override void OnInitialized()
+        {
             _timeScale
                 .Where(_ => !Paused)
                 .Subscribe(scale => Time.timeScale = scale, Debug.LogError)
                 .AddTo(this);
             _paused
-                .Select(v => v ? 0 : settings.TimeScale)
+                .Select(v => v ? 0 : TimeScale)
                 .Subscribe(scale => Time.timeScale = scale, Debug.LogError)
                 .AddTo(this);
+
+            base.OnInitialized();
         }
 
         public void Pause() => _paused.Value = true;
@@ -63,11 +63,5 @@ namespace Alensia.Core.Game
             Application.Quit();
 #endif
         }
-    }
-
-    [Serializable]
-    public class Settings : IEditorSettings
-    {
-        public float TimeScale = 1;
     }
 }

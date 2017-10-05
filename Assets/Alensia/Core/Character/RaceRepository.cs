@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
-    public class RaceRepository : IRaceRepository
+    public class RaceRepository : ManagedMonoBehavior, IRaceRepository
     {
-        public IReadOnlyList<Race> Races { get; }
+        public IReadOnlyList<Race> Races => _races;
 
-        private readonly IDictionary<string, Race> _mappings;
+        private IDictionary<string, Race> _mappings;
+
+        [SerializeField] private Race[] _races;
 
         public RaceRepository() : this(new List<Race> {Race.Human})
         {
@@ -18,14 +22,20 @@ namespace Alensia.Core.Character
         {
             Assert.IsNotNull(races, "races != null");
 
-            Races = races.ToList().AsReadOnly();
+            _races = races.ToArray();
+        }
 
+        protected override void OnInitialized()
+        {
+            _races = _races ?? new Race[0];
             _mappings = new Dictionary<string, Race>();
 
             foreach (var race in Races)
             {
                 _mappings[race.Name] = race;
             }
+
+            base.OnInitialized();
         }
 
         public bool Contains(string key) => _mappings.ContainsKey(key);

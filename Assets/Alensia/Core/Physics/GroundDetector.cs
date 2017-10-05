@@ -8,11 +8,21 @@ using UnityEngine;
 
 namespace Alensia.Core.Physics
 {
-    public abstract class GroundDetector : BaseObject, IGroundDetector
+    public abstract class GroundDetector : ManagedMonoBehavior, IGroundDetector
     {
-        public abstract GroundDetectionSettings Settings { get; }
-
         public abstract Collider Target { get; }
+
+        public LayerMask GroundLayer
+        {
+            get { return _groundLayer; }
+            set { _groundLayer = value; }
+        }
+
+        public float Tolerance
+        {
+            get { return _tolerance; }
+            set { _tolerance = value; }
+        }
 
         public ISet<Collider> GroundContacts => _grounds.ToHashSet();
 
@@ -35,6 +45,10 @@ namespace Alensia.Core.Physics
             }
         }
 
+        [SerializeField]private LayerMask _groundLayer = -1;
+
+        [SerializeField]private float _tolerance = 0.2f;
+
         private readonly ReactiveCollection<Collider> _grounds;
 
         protected GroundDetector()
@@ -42,7 +56,7 @@ namespace Alensia.Core.Physics
             _grounds = new ReactiveCollection<Collider>();
         }
 
-        protected virtual bool IsGround(Collider collider) => true;
+        protected virtual bool IsGround(Collider c) => true;
 
         protected void OnDetectGround(IEnumerable<Collider> grounds)
         {

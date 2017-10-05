@@ -2,13 +2,13 @@ using System;
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
-    public abstract class Locomotion : BaseActivatable, ITickable
+    public abstract class Locomotion : ActivatableMonoBehavior, ITickable
     {
+        [Inject]
         public Transform Transform { get; }
 
         public GameObject GameObject => Transform.gameObject;
@@ -17,11 +17,9 @@ namespace Alensia.Core.Locomotion
 
         private Vector3 _targetAngularVelocity;
 
-        protected Locomotion(Transform transform)
+        protected override void OnInitialized()
         {
-            Assert.IsNotNull(transform, "transform != null");
-
-            Transform = transform;
+            base.OnInitialized();
 
             OnInitialize
                 .Subscribe(_ => Activate(), Debug.LogError)
@@ -82,7 +80,7 @@ namespace Alensia.Core.Locomotion
         {
             if (!Active) return;
 
-            Update(_targetVelocity, _targetAngularVelocity);
+            UpdateVelocity(_targetVelocity, _targetAngularVelocity);
 
             Reset();
         }
@@ -91,7 +89,7 @@ namespace Alensia.Core.Locomotion
 
         protected abstract Vector3 CalculateAngularVelocity(Vector3 axis, float? degrees = null);
 
-        protected virtual void Update(Vector3 velocity, Vector3 angularVelocity)
+        protected virtual void UpdateVelocity(Vector3 velocity, Vector3 angularVelocity)
         {
             UpdateVelocity(velocity);
             UpdateRotation(angularVelocity);

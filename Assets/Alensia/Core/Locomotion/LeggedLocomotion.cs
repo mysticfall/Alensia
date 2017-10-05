@@ -10,10 +10,11 @@ namespace Alensia.Core.Locomotion
 {
     public class LeggedLocomotion : AnimatedLocomotion, ILeggedLocomotion
     {
-        public WalkSpeedSettings MaximumSpeed => _settings.MaximumSpeed;
+        public WalkSpeedSettings MaximumSpeed => _maximumSpeed;
 
-        public LocomotionVariables JumpingAndFallingVariables => _settings.JumpingAndFallingVariables;
+        public LocomotionVariables JumpingAndFallingVariables => _jumpingAndFallingVariables;
 
+        [Inject]
         public IGroundDetector GroundDetector { get; }
 
         public Pacing Pacing
@@ -31,33 +32,25 @@ namespace Alensia.Core.Locomotion
 
         private Vector3 _lastVelocity;
 
-        private readonly IReactiveProperty<Pacing> _pacing;
+        [SerializeField] private LocomotionVariables _jumpingAndFallingVariables;
 
-        private readonly Settings _settings;
+        [SerializeField] private WalkSpeedSettings _maximumSpeed;
 
-        public LeggedLocomotion(
-            IGroundDetector groundDetector,
-            Animator animator,
-            Transform transform) :
-            this(null, groundDetector, animator, transform)
+        [SerializeField, HideInInspector] private PacingReactiveProperty _pacing;
+
+        public LeggedLocomotion()
         {
+            _pacing = new PacingReactiveProperty(Pacing.Walking());
+
+            _maximumSpeed = new WalkSpeedSettings();
+            _jumpingAndFallingVariables = new LocomotionVariables();
         }
 
-        [Inject]
-        public LeggedLocomotion(
-            [InjectOptional] Settings settings,
-            IGroundDetector groundDetector,
-            Animator animator,
-            Transform transform) : base(settings, animator, transform)
+        protected override void OnInitialized()
         {
-            Assert.IsNotNull(groundDetector, "groundDetector != null");
+            base.OnInitialized();
 
-            _settings = settings ?? new Settings();
-            _pacing = new ReactiveProperty<Pacing>(Pacing.Walking());
-
-            GroundDetector = groundDetector;
-
-            groundDetector.OnGroundedStateChange
+            GroundDetector.OnGroundedStateChange
                 .Subscribe(OnGroundedStateChange, Debug.LogError)
                 .AddTo(this);
         }
@@ -140,14 +133,6 @@ namespace Alensia.Core.Locomotion
             var rotation = Quaternion.AngleAxis(angle, angularVelocity.normalized);
 
             Transform.localRotation *= rotation;
-        }
-
-        [Serializable]
-        public new class Settings : AnimatedLocomotion.Settings
-        {
-            public WalkSpeedSettings MaximumSpeed = new WalkSpeedSettings();
-
-            public LocomotionVariables JumpingAndFallingVariables = new LocomotionVariables();
         }
 
         [Serializable]

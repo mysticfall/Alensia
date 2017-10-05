@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Alensia.Core.Input
 {
-    public class InputManager : BaseObject, IInputManager, ITickable
+    public class InputManager : ManagedMonoBehavior, IInputManager, ITickable
     {
         public ICollection<IBindingKey> Keys => _bindings.AsReadOnly();
 

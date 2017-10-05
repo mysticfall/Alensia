@@ -2,44 +2,37 @@
 using Alensia.Core.Animation;
 using Alensia.Core.Common;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Locomotion
 {
     public abstract class AnimatedLocomotion : Locomotion, IAnimatable
     {
-        public bool UseRootMotionForMovement => _settings.UseRootMotionForMovement;
+        [Inject]
+        public Animator Animator { get; }
 
-        public bool UseRootMotionForRotation => _settings.UseRootMotionForRotation;
+        public bool UseRootMotionForMovement => _useRootMotionForMovement;
+
+        public bool UseRootMotionForRotation => _useRootMotionForRotation;
 
         public bool UseRootMotion => UseRootMotionForMovement || UseRootMotionForRotation;
 
-        public MovementVariables MovementVariables => _settings.MovementVariables;
+        public MovementVariables MovementVariables => _movementVariables;
 
-        public RotationVariables RotationVariables => _settings.RotationVariables;
+        public RotationVariables RotationVariables => _rotationVariables;
 
-        public Animator Animator { get; }
+        [SerializeField] private bool _useRootMotionForMovement = true;
 
-        private readonly Settings _settings;
+        [SerializeField] private bool _useRootMotionForRotation;
 
-        protected AnimatedLocomotion(
-            Animator animator,
-            Transform transform) : this(null, animator, transform)
+        [SerializeField] private MovementVariables _movementVariables;
+
+        [SerializeField] private RotationVariables _rotationVariables;
+
+        protected AnimatedLocomotion()
         {
-        }
-
-        [Inject]
-        protected AnimatedLocomotion(
-            [InjectOptional] Settings settings,
-            Animator animator,
-            Transform transform) : base(transform)
-        {
-            Assert.IsNotNull(animator, "animator != null");
-
-            _settings = settings ?? new Settings();
-
-            Animator = animator;
+            _movementVariables = new MovementVariables();
+            _rotationVariables = new RotationVariables();
         }
 
         protected override void OnActivated()
@@ -59,7 +52,7 @@ namespace Alensia.Core.Locomotion
             base.OnDeactivated();
         }
 
-        protected override void Update(Vector3 velocity, Vector3 angularVelocity)
+        protected override void UpdateVelocity(Vector3 velocity, Vector3 angularVelocity)
         {
             UpdateVelocityVariables(velocity);
 
@@ -92,18 +85,6 @@ namespace Alensia.Core.Locomotion
             Animator.SetFloat(RotationVariables.SpeedPitch, angularVelocity.x);
             Animator.SetFloat(RotationVariables.SpeedYaw, angularVelocity.y);
             Animator.SetFloat(RotationVariables.SpeedRoll, angularVelocity.z);
-        }
-
-        [Serializable]
-        public class Settings : IEditorSettings
-        {
-            public bool UseRootMotionForMovement = true;
-
-            public bool UseRootMotionForRotation = false;
-
-            public MovementVariables MovementVariables = new MovementVariables();
-
-            public RotationVariables RotationVariables = new RotationVariables();
         }
     }
 

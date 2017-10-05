@@ -1,18 +1,15 @@
-﻿using System;
-using Alensia.Core.Character;
-using Alensia.Core.Common;
+﻿using Alensia.Core.Character;
 using UnityEngine;
-using Zenject;
 
 namespace Alensia.Core.Camera
 {
     public class ThirdPersonCamera : OrbitingCamera, IThirdPersonCamera
     {
-        public override RotationalConstraints RotationalConstraints => _settings.Rotation;
+        public override RotationalConstraints RotationalConstraints => _rotation;
 
-        public override DistanceSettings DistanceSettings => _settings.Distance;
+        public override DistanceSettings DistanceSettings => _distance;
 
-        public WallAvoidanceSettings WallAvoidanceSettings => _settings.WallAvoidance;
+        public WallAvoidanceSettings WallAvoidanceSettings => _wallAvoidance;
 
         public override bool Valid => base.Valid && Target != null;
 
@@ -24,18 +21,23 @@ namespace Alensia.Core.Camera
 
         public override Vector3 AxisUp => Target.Transform.up;
 
-        private readonly Settings _settings;
+        [SerializeField] private RotationalConstraints _rotation;
 
-        public ThirdPersonCamera(UnityEngine.Camera camera) : this(null, camera)
-        {
-        }
+        [SerializeField] private DistanceSettings _distance;
 
-        [Inject]
-        public ThirdPersonCamera(
-            [InjectOptional] Settings settings,
-            UnityEngine.Camera camera) : base(camera)
+        [SerializeField] private WallAvoidanceSettings _wallAvoidance;
+
+        public ThirdPersonCamera()
         {
-            _settings = settings ?? new Settings();
+            _rotation = new RotationalConstraints
+            {
+                Down = 80,
+                Side = 180,
+                Up = 80
+            };
+
+            _distance = new DistanceSettings();
+            _wallAvoidance = new WallAvoidanceSettings();
         }
 
         public void Track(ICharacter target)
@@ -44,8 +46,7 @@ namespace Alensia.Core.Camera
             Distance = DistanceSettings.Default;
         }
 
-        protected override void UpdatePosition(
-            float heading, float elevation, float distance)
+        protected override void UpdatePosition(float heading, float elevation, float distance)
         {
             var preferredDistance = distance;
 
@@ -67,21 +68,6 @@ namespace Alensia.Core.Camera
             }
 
             base.UpdatePosition(heading, elevation, preferredDistance);
-        }
-
-        [Serializable]
-        public class Settings : IEditorSettings
-        {
-            public RotationalConstraints Rotation = new RotationalConstraints
-            {
-                Down = 80,
-                Side = 180,
-                Up = 80
-            };
-
-            public DistanceSettings Distance = new DistanceSettings();
-
-            public WallAvoidanceSettings WallAvoidance = new WallAvoidanceSettings();
         }
     }
 }

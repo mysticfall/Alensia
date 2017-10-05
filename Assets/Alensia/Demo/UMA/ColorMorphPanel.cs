@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Character.Morph;
 using Alensia.Core.Character.Morph.Generic;
+using Alensia.Core.UI;
 using UnityEngine;
 
 namespace Alensia.Demo.UMA
@@ -14,16 +15,18 @@ namespace Alensia.Demo.UMA
         {
             base.LoadMorphs(morphs);
 
+            var runtimeContext = Context as IRuntimeUIContext;
+
             var colors = morphs
                 .OrderBy(m => m.Name)
                 .Select(m => m as IMorph<Color>)
                 .Where(m => m != null);
 
+            if (runtimeContext == null) return;
+
             foreach (var morph in colors)
             {
-                var item = Context.Instantiate<ColorItem>(
-                    ColorItemPrefab,
-                    ContentPanel);
+                var item = runtimeContext.Instantiate<ColorItem>(ColorItemPrefab, ContentPanel);
 
                 item.Morph = morph;
             }

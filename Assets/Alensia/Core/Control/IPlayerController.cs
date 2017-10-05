@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Alensia.Core.Character;
-using Alensia.Core.Common;
 using UniRx;
 
 namespace Alensia.Core.Control
@@ -10,7 +9,7 @@ namespace Alensia.Core.Control
     {
         IHumanoid Player { get; }
 
-        IReferenceAlias<IHumanoid> PlayerAlias { get; }
+        CharacterAlias PlayerAlias { get; }
 
         IReadOnlyList<IPlayerControl> PlayerControls { get; }
 

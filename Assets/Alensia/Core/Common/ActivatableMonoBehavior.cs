@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Alensia.Core.Common
 {
-    public abstract class BaseActivatable : BaseObject, IActivatable
+    public class ActivatableMonoBehavior : ManagedMonoBehavior, IActivatable
     {
         public bool Active
         {
@@ -38,7 +38,7 @@ namespace Alensia.Core.Common
 
         private readonly IReactiveProperty<bool> _active;
 
-        protected BaseActivatable()
+        protected ActivatableMonoBehavior()
         {
             _active = new ReactiveProperty<bool>();
         }

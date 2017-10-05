@@ -57,10 +57,10 @@ namespace Alensia.Demo
                 .Subscribe(i => ChoiceLanguage.Items = i.ToList(), Debug.LogError)
                 .AddTo(this);
 
-            ChoiceLanguage.Value = LocaleService.CurrentLocale.ToString();
+            ChoiceLanguage.Value = LocaleService.Locale.ToString();
             ChoiceLanguage.OnValueChange
                 .Select(k => new LanguageTag(k).ToCulture())
-                .Subscribe(l => LocaleService.CurrentLocale = l, Debug.LogError)
+                .Subscribe(l => LocaleService.Locale = l, Debug.LogError)
                 .AddTo(this);
 
             ChoiceStyle.Items = Styles.Select(s => new DropdownItem(s.Name, s.Name)).ToList();

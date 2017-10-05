@@ -7,9 +7,11 @@ namespace Alensia.Core.Physics
 {
     public interface IGroundDetector
     {
-        GroundDetectionSettings Settings { get; }
-
         Collider Target { get; }
+
+        LayerMask GroundLayer { get; set; }
+
+        float Tolerance { get; set; }
 
         ISet<Collider> GroundContacts { get; }
 

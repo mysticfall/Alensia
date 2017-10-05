@@ -97,7 +97,7 @@ namespace Alensia.Core.UI
             }
         }
 
-        protected virtual EditorUIContext CreateEditorUIContext()
+        protected virtual IUIContext CreateEditorUIContext()
         {
             return Resources.Load<EditorUIContext>("UI/EditorUIContext");
         }

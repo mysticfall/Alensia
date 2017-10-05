@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Alensia.Core.Common
 {
-    public interface IBaseObject : IInitializable, IDisposable
+    public interface IManagedObject : IInitializable, IDisposable
     {
         bool Initialized { get; }
 

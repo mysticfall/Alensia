@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Alensia.Core.UI.Resize
 {
-    public class ResizeHelper : BaseActivatable
+    public class ResizeHelper : ActivatableObject
     {
         public readonly IComponent Target;
 

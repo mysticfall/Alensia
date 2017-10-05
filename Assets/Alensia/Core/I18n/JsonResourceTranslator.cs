@@ -9,11 +9,6 @@ namespace Alensia.Core.I18n
 {
     public class JsonResourceTranslator : ResourceTranslator<TextAsset>
     {
-        public JsonResourceTranslator(ResourceSettings resourceSettings, ILocaleService localeService) :
-            base(resourceSettings, localeService)
-        {
-        }
-
         protected override IMessages Load(
             IReadOnlyList<TextAsset> resources, CultureInfo locale, IMessages parent)
         {

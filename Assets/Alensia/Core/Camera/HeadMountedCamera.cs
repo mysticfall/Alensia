@@ -1,6 +1,4 @@
-﻿using System;
-using Alensia.Core.Character;
-using Alensia.Core.Common;
+﻿using Alensia.Core.Character;
 using Alensia.Core.Geom;
 using UniRx;
 using UnityEngine;
@@ -37,19 +35,19 @@ namespace Alensia.Core.Camera
 
         public float LookAhead
         {
-            get { return _settings.LookAhead; }
-            set { _settings.LookAhead = value; }
+            get { return _lookAhead; }
+            set { _lookAhead = value; }
         }
 
         public Vector3 CameraOffset
         {
-            get { return _settings.CameraOffset; }
-            set { _settings.CameraOffset = value; }
+            get { return _cameraOffset; }
+            set { _cameraOffset = value; }
         }
 
         public override bool Valid => base.Valid && Head != null;
 
-        public override RotationalConstraints RotationalConstraints => _settings.Rotation;
+        public override RotationalConstraints RotationalConstraints => _rotation;
 
         public ICharacter Target { get; private set; }
 
@@ -59,16 +57,15 @@ namespace Alensia.Core.Camera
         {
             get
             {
-                var offset = Head.TransformDirection(CameraOffset) *
-                             CameraOffset.magnitude;
+                var offset = Head.TransformDirection(CameraOffset) * CameraOffset.magnitude;
 
                 return (Target?.Vision?.Pivot ?? Head.position) + offset;
             }
         }
 
-        public override Vector3 AxisUp => _settings.HeadAxisUp.Of(Head);
+        public override Vector3 AxisUp => _headAxisUp.Of(Head);
 
-        public override Vector3 AxisForward => _settings.HeadAxisFoward.Of(Head);
+        public override Vector3 AxisForward => _headAxisFoward.Of(Head);
 
         protected Vector3 FocalPoint
         {
@@ -80,27 +77,38 @@ namespace Alensia.Core.Camera
             }
         }
 
+        [SerializeField] private RotationalConstraints _rotation;
+
+        [SerializeField] [Range(0.1f, 10f)] private float _lookAhead = 10f;
+
+        [SerializeField] private Vector3 _cameraOffset = new Vector3(0, 0, 0.03f);
+
+        [SerializeField] private Axis _headAxisUp = Axis.Y;
+
+        [SerializeField] private Axis _headAxisFoward = Axis.Z;
+
         private readonly IReactiveProperty<float> _heading;
 
         private readonly IReactiveProperty<float> _elevation;
 
         private Quaternion _initialRotation;
 
-        private readonly Settings _settings;
-
-        public HeadMountedCamera(UnityEngine.Camera camera) : this(null, camera)
+        public HeadMountedCamera()
         {
-        }
-
-        [Inject]
-        public HeadMountedCamera(
-            [InjectOptional] Settings settings,
-            UnityEngine.Camera camera) : base(camera)
-        {
-            _settings = settings ?? new Settings();
-
             _heading = new ReactiveProperty<float>();
             _elevation = new ReactiveProperty<float>();
+
+            _rotation = new RotationalConstraints
+            {
+                Down = 65,
+                Side = 85,
+                Up = 60
+            };
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
             OnDeactivate
                 .Where(_ => Head != null)
@@ -140,25 +148,6 @@ namespace Alensia.Core.Camera
         public virtual void LateTick()
         {
             if (Valid && Active) UpdatePosition(Heading, Elevation);
-        }
-
-        [Serializable]
-        public class Settings : IEditorSettings
-        {
-            public RotationalConstraints Rotation = new RotationalConstraints
-            {
-                Down = 65,
-                Side = 85,
-                Up = 60
-            };
-
-            [Range(0.1f, 10f)] public float LookAhead = 10f;
-
-            public Vector3 CameraOffset = new Vector3(0, 0, 0.03f);
-
-            public Axis HeadAxisUp = Axis.Y;
-
-            public Axis HeadAxisFoward = Axis.Z;
         }
     }
 }

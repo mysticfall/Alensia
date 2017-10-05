@@ -1,37 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Common;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Physics
 {
     public class CollisionBasedGroundDetector : GroundDetector
     {
-        public override GroundDetectionSettings Settings { get; }
-
+        [Inject]
         public override Collider Target { get; }
 
-        public CollisionBasedGroundDetector(Collider target) : 
-            this(new GroundDetectionSettings(), target)
+        protected override void OnInitialized()
         {
-        }
+            base.OnInitialized();
 
-        [Inject]
-        public CollisionBasedGroundDetector(
-            GroundDetectionSettings settings, Collider target)
-        {
-            Assert.IsNotNull(settings, "settings != null");
-            Assert.IsNotNull(target, "target != null");
-
-            Settings = settings;
-            Target = target;
-
-            target.OnCollisionEnterAsObservable().Subscribe(OnCollisionEnter).AddTo(this);
-            target.OnCollisionExitAsObservable().Subscribe(OnCollisionExit).AddTo(this);
+            Target.OnCollisionEnterAsObservable()
+                .Subscribe(OnCollisionEnter)
+                .AddTo(this);
+            Target.OnCollisionExitAsObservable()
+                .Subscribe(OnCollisionExit)
+                .AddTo(this);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -53,7 +43,7 @@ namespace Alensia.Core.Physics
             var bottom = center - extent;
 
             var grounds = from c in contacts
-                where c.point.y <= bottom + Settings.Tolerance && IsGround(c.otherCollider)
+                where c.point.y <= bottom + Tolerance && IsGround(c.otherCollider)
                 select c.otherCollider;
 
             return grounds;

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
-using Alensia.Core.Input;
-using Alensia.Core.Input.Generic;
 using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
@@ -29,37 +27,13 @@ namespace Alensia.Core.Control
             }
         }
 
-        public IBindingKey<IAxisInput> Zoom => ZoomableCameraControl.Keys.Zoom;
-
-        protected IAxisInput Scroll { get; private set; }
-
         public override CursorState CursorState => CursorState.Hidden;
 
         public override bool Valid => base.Valid && Player != null && CameraManager.Mode is IPerspectiveCamera;
 
-        private IHumanoid _player;
+        [InjectOptional] private IHumanoid _player;
 
-        public PlayerCameraControl(
-            [InjectOptional] IHumanoid player,
-            ViewSensitivity sensitivity,
-            ICameraManager cameraManager,
-            IInputManager inputManager) : base(sensitivity, cameraManager, inputManager)
-        {
-            Player = player;
-        }
-
-        protected override bool Supports(ICameraMode camera) =>
-            camera is IFirstPersonCamera || camera is IThirdPersonCamera;
-
-        protected override void OnBindingChange(IBindingKey key)
-        {
-            base.OnBindingChange(key);
-
-            if (Equals(key, Zoom))
-            {
-                Scroll = InputManager.Get(Zoom);
-            }
-        }
+        protected override bool Supports(ICameraMode mode) => mode is IFirstPersonCamera || mode is IThirdPersonCamera;
 
         protected override void Subscribe(ICollection<IDisposable> disposables)
         {
@@ -70,7 +44,7 @@ namespace Alensia.Core.Control
                 .Where(_ => CameraManager.Mode is IThirdPersonCamera)
                 .Where(v => v > 0)
                 .Select(_ => (IZoomableCamera) CameraManager.Mode)
-                .Where(camera => Mathf.Approximately(camera.Distance, camera.DistanceSettings.Minimum))
+                .Where(c => Mathf.Approximately(c.Distance, c.DistanceSettings.Minimum))
                 .Select(_ => (IThirdPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToFirstPerson)
                 .AddTo(disposables);
@@ -84,27 +58,35 @@ namespace Alensia.Core.Control
                 .AddTo(disposables);
         }
 
+        protected override void OnZoom(float input)
+        {
+            if (CameraManager.Mode is IZoomableCamera)
+            {
+                base.OnZoom(input);
+            }
+        }
+
         protected virtual void OnPlayerChange(IHumanoid player)
         {
             if (player == null) return;
 
-            CameraManager.ToThirdPerson(player).Reset();
+            CameraManager.ToThirdPerson(player)?.ResetCamera();
         }
 
-        protected void SwitchToFirstPerson(IThirdPersonCamera camera)
+        protected void SwitchToFirstPerson(IThirdPersonCamera mode)
         {
             var firstPersonCamera = CameraManager.ToFirstPerson(Player);
 
-            firstPersonCamera.Heading = camera.Heading;
-            firstPersonCamera.Elevation = camera.Elevation;
+            firstPersonCamera.Heading = mode.Heading;
+            firstPersonCamera.Elevation = mode.Elevation;
         }
 
-        protected void SwitchToThirdPerson(IFirstPersonCamera camera)
+        protected void SwitchToThirdPerson(IFirstPersonCamera mode)
         {
             var thirdPersonCamera = CameraManager.ToThirdPerson(Player);
 
-            thirdPersonCamera.Heading = camera.Heading;
-            thirdPersonCamera.Elevation = camera.Elevation;
+            thirdPersonCamera.Heading = mode.Heading;
+            thirdPersonCamera.Elevation = mode.Elevation;
         }
     }
 }

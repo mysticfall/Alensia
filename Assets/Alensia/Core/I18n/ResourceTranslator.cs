@@ -2,23 +2,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Alensia.Core.I18n
 {
     public abstract class ResourceTranslator<T> : Translator where T : Object
     {
-        public IReadOnlyList<string> ResourceNames => _resourceSettings.Resources;
+        public IReadOnlyList<string> ResourceNames => _resources;
 
-        private readonly ResourceSettings _resourceSettings;
+        [SerializeField] string[] _resources;
 
-        protected ResourceTranslator(
-            ResourceSettings resourceSettings, ILocaleService localeService) : base(localeService)
+        protected ResourceTranslator()
         {
-            Assert.IsNotNull(resourceSettings, "resourceSettings != null");
-            Assert.IsNotNull(resourceSettings.Resources, "resourceSettings.Resources == null");
-
-            _resourceSettings = resourceSettings;
+            _resources = new[] {"Translations/Messages"};
         }
 
         protected virtual string GetResourceName(string baseName, CultureInfo locale) =>

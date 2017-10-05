@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Alensia.Core.UI.Event
 {
-    public abstract class EventTracker<T> : BaseActivatable
+    public abstract class EventTracker<T> : ActivatableObject
         where T : UIBehaviour
     {
         public T Component { get; }

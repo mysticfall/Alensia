@@ -1,12 +1,12 @@
 ﻿using Alensia.Core.Common;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class CameraMode : BaseActivatable, ICameraMode
+    public abstract class CameraMode : ActivatableMonoBehavior, ICameraMode
     {
-        public UnityEngine.Camera Camera { get; }
+        public UnityEngine.Camera Camera => _camera ?? UnityEngine.Camera.main;
 
         public Transform Transform => Camera.transform;
 
@@ -14,14 +14,9 @@ namespace Alensia.Core.Camera
 
         public virtual bool Valid => true;
 
-        protected CameraMode(UnityEngine.Camera camera)
-        {
-            Assert.IsNotNull(camera, "camera != null");
+        [InjectOptional] private UnityEngine.Camera _camera;
 
-            Camera = camera;
-        }
-
-        public virtual void Reset()
+        public virtual void ResetCamera()
         {
         }
     }

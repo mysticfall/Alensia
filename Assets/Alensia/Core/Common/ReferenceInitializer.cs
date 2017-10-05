@@ -1,36 +1,36 @@
 ﻿using UniRx;
-using UnityEngine.Assertions;
+using UnityEngine;
 using Zenject;
 
 namespace Alensia.Core.Common
 {
-    public class ReferenceInitializer<T> : BaseObject where T : class
+    public abstract class ReferenceInitializer<TVal, TRef> : ManagedMonoBehavior, INamed
+        where TVal : class
+        where TRef : class, IReferenceAlias<TVal>
     {
-        public IReferenceAlias<T> Alias { get; }
+        public string Name => string.IsNullOrEmpty(_name) ? null : _name;
 
-        public Lazy<T> Value { get; }
+        public TRef Alias { get; private set; }
 
+        [Inject]
+        public Lazy<TVal> Value { get; }
+
+        [Inject]
         public DiContainer Container { get; }
 
-        public ReferenceInitializer(string name, Lazy<T> value, DiContainer container)
-        {
-            Assert.IsNotNull(container, "container != null");
-
-            Value = value;
-            Container = container;
-
-            Alias = name == null
-                ? container.Resolve<IReferenceAlias<T>>()
-                : container.ResolveId<IReferenceAlias<T>>(name);
-        }
+        [SerializeField] private string _name;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
+            Alias = Name == null
+                ? Container.Resolve<TRef>()
+                : Container.ResolveId<TRef>(Name);
+
             var value = Value.Value;
 
-            var initializable = value as IBaseObject;
+            var initializable = value as IManagedObject;
 
             if (initializable == null || initializable.Initialized)
             {

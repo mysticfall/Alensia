@@ -1,7 +1,6 @@
-﻿using Alensia.Core.Common;
-using Alensia.Core.Input;
-using UniRx;
-using UnityEngine.Assertions;
+﻿using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Alensia.Core.Camera
 {
@@ -9,24 +8,25 @@ namespace Alensia.Core.Camera
     {
         public const string Category = "Camera";
 
+        [Inject]
         public ICameraManager CameraManager { get; }
 
-        public ViewSensitivity Sensitivity { get; }
+        public ViewSensitivity Sensitivity => _sensitivity;
 
         public override bool Valid => base.Valid && _cameraSupported;
 
+        [SerializeField] private ViewSensitivity _sensitivity;
+
         private bool _cameraSupported;
 
-        protected CameraControl(
-            ViewSensitivity sensitivity,
-            ICameraManager cameraManager,
-            IInputManager inputManager) : base(inputManager)
+        protected CameraControl()
         {
-            Assert.IsNotNull(sensitivity, "sensitivity != null");
-            Assert.IsNotNull(cameraManager, "cameraManager != null");
+            _sensitivity = new ViewSensitivity();
+        }
 
-            Sensitivity = sensitivity;
-            CameraManager = cameraManager;
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
             CameraManager.OnCameraModeChange
                 .Select(Supports)
@@ -34,6 +34,6 @@ namespace Alensia.Core.Camera
                 .AddTo(this);
         }
 
-        protected virtual bool Supports(ICameraMode camera) => true;
+        protected virtual bool Supports(ICameraMode mode) => true;
     }
 }

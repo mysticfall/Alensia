@@ -4,29 +4,27 @@ using System.Linq;
 using Alensia.Core.Common;
 using UniRx;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.I18n
 {
-    public abstract class Translator : BaseObject, ITranslator
+    public abstract class Translator : ManagedMonoBehavior, ITranslator
     {
+        [Inject]
         public ILocaleService LocaleService { get; }
 
         public IMessages Messages { get; private set; }
 
-        protected Translator(ILocaleService localeService)
+        protected override void OnInitialized()
         {
-            Assert.IsNotNull(localeService, "localeService != null");
-
-            LocaleService = localeService;
-
             LocaleService.OnLocaleChange
                 .Where(_ => Initialized)
                 .Subscribe(OnLocaleChange)
                 .AddTo(this);
 
-            OnInitialize
-                .Subscribe(_ => Messages = Load(LocaleService.CurrentLocale))
-                .AddTo(this);
+            Messages = Load(LocaleService.Locale);
+
+            base.OnInitialized();
         }
 
         protected virtual void OnLocaleChange(CultureInfo locale) => Messages = Load(locale);
@@ -62,13 +60,13 @@ namespace Alensia.Core.I18n
             var locales = new List<CultureInfo>();
 
             while (!Equals(parent, CultureInfo.InvariantCulture) &&
-                   !Equals(parent, LocaleService.DefaultLocale))
+                   !Equals(parent, LocaleService.FallbackLocale))
             {
                 locales.Add(parent);
                 parent = parent.Parent;
             }
 
-            locales.Add(LocaleService.DefaultLocale);
+            locales.Add(LocaleService.FallbackLocale);
 
             return locales;
         }

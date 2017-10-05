@@ -19,11 +19,7 @@ namespace Alensia.Core.I18n
 
         [SerializeField] private string _textKey;
 
-        public TranslatableText(string text) : this(text, null)
-        {
-        }
-
-        public TranslatableText(string text, string textKey)
+        public TranslatableText(string text, string textKey = null)
         {
             _text = text;
             _textKey = textKey;
@@ -38,7 +34,7 @@ namespace Alensia.Core.I18n
         }
 
         public string Translate(ITranslator translator) =>
-            Translatable ? translator.Translate(TextKey) : Text;
+            Translatable ? translator?.Translate(TextKey) ?? Text : Text;
 
         protected bool Equals(TranslatableText other)
         {

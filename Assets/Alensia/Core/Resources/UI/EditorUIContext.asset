@@ -11,9 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8378ab57ad9e4e87b4e72bd3251cf40f, type: 3}
   m_Name: EditorUIContext
   m_EditorClassIdentifier: 
-  Resources:
-    BaseName: Messages
-    ResourcePath: Translations
-  _style: {fileID: 11400000, guid: f031c9c4caf1b4e5b812be6ed66e8a96, type: 2}
+  _style: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
   _locale:
     _tag: en-US

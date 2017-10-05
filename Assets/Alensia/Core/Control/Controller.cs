@@ -1,35 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.UI;
 using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Control
 {
-    public class Controller : BaseActivatable, IController
+    public class Controller : ActivatableMonoBehavior, IController
     {
-        public CursorState DefaultCursorState => _settings.DefaultCursorState;
+        [Inject]
+        public IRuntimeUIContext UIContext { get; }
 
-        public IReadOnlyList<IControl> Controls { get; }
+        public CursorState DefaultCursorState => UIContext.CursorState;
 
-        private readonly Settings _settings;
+        public IReadOnlyList<IControl> Controls => _controls.ToList();
 
-        public Controller(IList<IControl> controls) : this(null, controls)
-        {
-        }
-
-        public Controller(Settings settings, IList<IControl> controls)
-        {
-            Assert.IsNotNull(controls, "controls != null");
-            Assert.IsTrue(controls.Any(), "controls.Any()");
-
-            Controls = controls.ToList().AsReadOnly();
-
-            _settings = settings ?? new Settings();
-        }
+        [Inject] private IList<IControl> _controls;
 
         protected override void OnInitialized()
         {
@@ -81,12 +70,6 @@ namespace Alensia.Core.Control
             {
                 control.Deactivate();
             }
-        }
-
-        [Serializable]
-        public class Settings : IEditorSettings
-        {
-            public CursorState DefaultCursorState = CursorState.Vislbe;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Alensia.Core.Physics
@@ -8,25 +7,9 @@ namespace Alensia.Core.Physics
     public abstract class RayCastingGroundDetector<T> : GroundDetector, IFixedTickable
         where T : Collider
     {
-        public override GroundDetectionSettings Settings { get; }
-
         public override Collider Target => _target;
 
-        private readonly T _target;
-
-        protected RayCastingGroundDetector(T target) : this(new GroundDetectionSettings(), target)
-        {
-        }
-
-        [Inject]
-        protected RayCastingGroundDetector(GroundDetectionSettings settings, T target)
-        {
-            Assert.IsNotNull(settings, "settings != null");
-            Assert.IsNotNull(target, "target != null");
-
-            Settings = settings;
-            _target = target;
-        }
+        [Inject] private T _target;
 
         protected virtual void DetectGround()
         {

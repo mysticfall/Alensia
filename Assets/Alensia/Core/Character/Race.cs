@@ -1,14 +1,25 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
+    [Serializable]
     public class Race
     {
-        public string Name { get; }
+        public string Name => _name;
 
-        public IReadOnlyCollection<Sex> Sexes { get; }
+        public IReadOnlyCollection<Sex> Sexes => _sexes;
+
+        [SerializeField] private string _name;
+
+        [SerializeField] private Sex[] _sexes;
+
+        private Race()
+        {
+        }
 
         public Race(string name) : this(name, new List<Sex> {Sex.Male, Sex.Female})
         {
@@ -25,8 +36,8 @@ namespace Alensia.Core.Character
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.IsTrue(values.Any(), "sexes.Any()");
 
-            Name = name;
-            Sexes = values;
+            _name = name;
+            _sexes = values.ToArray();
         }
 
         public override bool Equals(object obj)

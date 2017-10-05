@@ -8,7 +8,7 @@ using Alensia.Core.Locomotion;
 using Alensia.Core.UI.Cursor;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Control
 {
@@ -24,7 +24,8 @@ namespace Alensia.Core.Control
 
         public IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
 
-        public readonly ICameraManager CameraManager;
+        [Inject]
+        public ICameraManager CameraManager { get; }
 
         public Pacing WalkingPace = Pacing.Walking();
 
@@ -43,15 +44,6 @@ namespace Alensia.Core.Control
                                       Y != null &&
                                       Running != null &&
                                       Locomotion.Active;
-
-        public PlayerMovementControl(
-            ICameraManager cameraManager,
-            IInputManager inputManager) : base(inputManager)
-        {
-            Assert.IsNotNull(cameraManager, "cameraManager != null");
-
-            CameraManager = cameraManager;
-        }
 
         protected override ICollection<IBindingKey> PrepareBindings() =>
             new List<IBindingKey> {Horizontal, Vertical, HoldToRun};
@@ -97,13 +89,13 @@ namespace Alensia.Core.Control
 
         protected virtual void OnMove(Vector2 input, bool running)
         {
-            var camera = CameraManager.Mode as IRotatableCamera;
+            var cam = CameraManager.Mode as IRotatableCamera;
 
-            if (input.magnitude > 0 && camera is IPerspectiveCamera)
+            if (input.magnitude > 0 && cam is IPerspectiveCamera)
             {
-                var speed = Locomotion.RotateTowards(Vector3.up, camera.Heading);
+                var speed = Locomotion.RotateTowards(Vector3.up, cam.Heading);
 
-                camera.Heading -= speed * Time.deltaTime;
+                cam.Heading -= speed * Time.deltaTime;
             }
 
             var movement = input.normalized;

@@ -6,10 +6,11 @@ using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class CameraManager : BaseObject, ICameraManager
+    public class CameraManager : ManagedMonoBehavior, ICameraManager
     {
         public ICameraMode Mode
         {
@@ -22,25 +23,27 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public IReadOnlyCollection<ICameraMode> AvailableModes { get; }
+        public IReadOnlyCollection<ICameraMode> AvailableModes => _availableModes?.ToList();
 
         public IObservable<ICameraMode> OnCameraModeChange => _mode;
 
+        [Inject] private IList<ICameraMode> _availableModes;
+
         private readonly IReactiveProperty<ICameraMode> _mode;
 
-        public CameraManager(IList<ICameraMode> modes)
+        public CameraManager()
         {
-            Assert.IsNotNull(modes, "modes != null");
-            Assert.IsTrue(modes.Any(), "modes.Any()");
-
-            AvailableModes = modes.ToList().AsReadOnly();
-
             _mode = new ReactiveProperty<ICameraMode>();
+        }
 
+        protected override void OnInitialized()
+        {
             _mode
                 .Pairwise()
                 .Subscribe(Switch, Debug.LogError)
                 .AddTo(this);
+
+            base.OnInitialized();
         }
 
         private static void Switch(Pair<ICameraMode> cameras)
@@ -51,40 +54,40 @@ namespace Alensia.Core.Camera
 
         public T Switch<T>() where T : class, ICameraMode
         {
-            var camera = AvailableModes.FirstOrDefault(m => m is T) as T;
+            var cam = AvailableModes.FirstOrDefault(m => m is T) as T;
 
-            if (camera != null)
+            if (cam != null)
             {
-                Mode = camera;
+                Mode = cam;
             }
 
-            return camera;
+            return cam;
         }
 
         public IFirstPersonCamera ToFirstPerson(ICharacter target)
         {
-            var camera = Switch<IFirstPersonCamera>();
+            var cam = Switch<IFirstPersonCamera>();
 
-            if (camera == null) return null;
+            if (cam == null) return null;
 
-            camera.Track(target);
+            cam.Track(target);
 
-            Mode = camera;
+            Mode = cam;
 
-            return camera;
+            return cam;
         }
 
         public IThirdPersonCamera ToThirdPerson(ICharacter target)
         {
-            var camera = Switch<IThirdPersonCamera>();
+            var cam = Switch<IThirdPersonCamera>();
 
-            if (camera == null) return null;
+            if (cam == null) return null;
 
-            camera.Track(target);
+            cam.Track(target);
 
-            Mode = camera;
+            Mode = cam;
 
-            return camera;
+            return cam;
         }
     }
 }

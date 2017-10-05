@@ -2,7 +2,7 @@
 
 namespace Alensia.Core.Sensor
 {
-    public abstract class Sense : BaseActivatable, ISense
+    public abstract class Sense : ActivatableMonoBehavior, ISense
     {
     }
 }

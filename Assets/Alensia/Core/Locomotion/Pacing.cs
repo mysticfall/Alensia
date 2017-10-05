@@ -1,15 +1,28 @@
-﻿namespace Alensia.Core.Locomotion
+﻿using System;
+using UniRx;
+using UnityEngine;
+
+namespace Alensia.Core.Locomotion
 {
+    [Serializable]
     public class Pacing
     {
-        public readonly string Name;
+        public string Name => _name;
 
-        public readonly float SpeedModifier;
+        public float SpeedModifier => _speedModifier;
+
+        [SerializeField] private string _name;
+
+        [SerializeField] private float _speedModifier;
+
+        private Pacing()
+        {
+        }
 
         public Pacing(string name, float speedModifier)
         {
-            Name = name;
-            SpeedModifier = speedModifier;
+            _name = name;
+            _speedModifier = speedModifier;
         }
 
         public static Pacing Walking(float speedModifier = 1)
@@ -30,6 +43,27 @@
         public static Pacing Running(float speedModifier = 2)
         {
             return new Pacing("Running", speedModifier);
+        }
+    }
+
+    [Serializable]
+    public class PacingReactiveProperty : ReactiveProperty<Pacing>
+    {
+        public PacingReactiveProperty()
+        {
+        }
+
+        public PacingReactiveProperty(
+            Pacing initialValue) : base(initialValue)
+        {
+        }
+
+        public PacingReactiveProperty(IObservable<Pacing> source) : base(source)
+        {
+        }
+
+        public PacingReactiveProperty(IObservable<Pacing> source, Pacing initialValue) : base(source, initialValue)
+        {
         }
     }
 }

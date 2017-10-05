@@ -18,13 +18,9 @@ namespace Alensia.Core.Camera
 
         public Vector3 AxisRight => Vector3.Cross(AxisUp, AxisForward);
 
-        protected RotatableCamera(UnityEngine.Camera camera) : base(camera)
+        public override void ResetCamera()
         {
-        }
-
-        public override void Reset()
-        {
-            base.Reset();
+            base.ResetCamera();
 
             Heading = 0;
             Elevation = 0;

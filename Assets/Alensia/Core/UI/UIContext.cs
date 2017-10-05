@@ -15,8 +15,9 @@ using UECursor = UnityEngine.Cursor;
 
 namespace Alensia.Core.UI
 {
-    public class UIContext : BaseObject, IUIContext
+    public class UIContext : ManagedMonoBehavior, IRuntimeUIContext
     {
+        [Inject]
         public DiContainer DiContainer { get; }
 
         public UIStyle Style
@@ -30,15 +31,16 @@ namespace Alensia.Core.UI
             }
         }
 
-        public CultureInfo Locale => Translator?.LocaleService?.CurrentLocale;
+        public CultureInfo Locale => Translator?.LocaleService?.Locale;
 
+        [Inject]
         public ITranslator Translator { get; }
 
-        public Transform ScreenRoot { get; }
+        public Transform ScreenRoot => _screenRoot ?? transform;
 
         public IReadOnlyList<IScreen> Screens => ScreenRoot.GetComponents<IScreen>();
 
-        public IReadOnlyDictionary<string, ScreenDefinition> ScreenDefinitions { get; }
+        public IReadOnlyDictionary<string, ScreenDefinition> ScreenDefinitions { get; private set; }
 
         public IInteractableComponent ActiveComponent
         {
@@ -48,47 +50,53 @@ namespace Alensia.Core.UI
 
         public CursorState CursorState
         {
-            get { return CursorState.Current; }
-            set { value?.Apply(); }
+            get { return _cursorState; }
+            set
+            {
+                value?.Apply();
+                _cursorState = value;
+            }
         }
 
-        public string DefaultCursor { get; set; }
+        public string DefaultCursor
+        {
+            get { return _defaultCursor; }
+            set { _defaultCursor = value; }
+        }
 
-        public IObservable<CultureInfo> OnLocaleChange => Translator.LocaleService.OnLocaleChange;
+        public IObservable<CultureInfo> OnLocaleChange => Translator?.LocaleService?.OnLocaleChange;
 
-        public IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponent.Where(_ => Initialized);
+        public IObservable<IInteractableComponent> OnActiveComponentChange => _activeComponent?.Where(_ => Initialized);
 
         public IObservable<UIStyle> OnStyleChange => _style;
 
-        private readonly IReactiveProperty<UIStyle> _style;
+        [SerializeField] private UIStyleReactiveProperty _style;
+
+        [SerializeField] private Transform _screenRoot;
+
+        [SerializeField] private ScreenDefinition[] _screens;
+
+        [SerializeField, PredefinedLiteral(typeof(CursorNames))] private string _defaultCursor;
+
+        [SerializeField] private CursorState _cursorState;
 
         private readonly IReactiveProperty<IInteractableComponent> _activeComponent;
 
         private IDisposable _cursor;
 
-        public UIContext(
-            Settings settings,
-            ITranslator translator,
-            DiContainer container)
+        public UIContext()
         {
-            Assert.IsNotNull(settings, "settings != null");
-            Assert.IsNotNull(translator, "translator != null");
-            Assert.IsNotNull(container, "container != null");
-
-            Translator = translator;
-            DiContainer = container;
-
-            _style = new UIStyleReactiveProperty(settings.Style);
+            _style = new UIStyleReactiveProperty();
             _activeComponent = new ReactiveProperty<IInteractableComponent>();
 
-            ScreenRoot = settings.ScreenRoot;
-            ScreenDefinitions = settings.Screens?.ToDictionary(i => i.Name, i => i) ??
-                                new Dictionary<string, ScreenDefinition>();
+            _defaultCursor = CursorNames.Default;
+            _cursorState = CursorState.Vislbe;
         }
 
         protected override void OnInitialized()
         {
-            base.OnInitialized();
+            ScreenDefinitions = _screens?.ToDictionary(i => i.Name, i => i) ??
+                                new Dictionary<string, ScreenDefinition>();
 
             CreateScreens();
 
@@ -106,6 +114,10 @@ namespace Alensia.Core.UI
                 .Where(c => c != null)
                 .Subscribe(UpdateCursor, Debug.LogError)
                 .AddTo(this);
+
+            CursorState?.Apply();
+
+            base.OnInitialized();
         }
 
         protected virtual void CreateScreens()
@@ -146,27 +158,30 @@ namespace Alensia.Core.UI
             screen?.Initialize(this);
         }
 
-        public virtual IScreen FindScreen(string name) => ScreenRoot.Find(name)?.GetComponent<IScreen>();
-
-        public virtual void ShowScreen(string name)
+        public virtual IScreen FindScreen(string screen)
         {
-            var screen = FindScreen(name);
+            return ScreenRoot.Find(screen)?.GetComponent<IScreen>();
+        }
 
-            if (screen != null && !screen.Visible)
+        public virtual void ShowScreen(string screen)
+        {
+            var instance = FindScreen(screen);
+
+            if (instance != null && !instance.Visible)
             {
-                screen.Visible = true;
+                instance.Visible = true;
             }
         }
 
-        public virtual void HideScreen(string name)
+        public virtual void HideScreen(string screen)
         {
-            Assert.IsNotNull(name, "name != null");
+            Assert.IsNotNull(screen, "name != null");
 
-            var screen = FindScreen(name);
+            var instance = FindScreen(screen);
 
-            if (screen != null && screen.Visible)
+            if (instance != null && instance.Visible)
             {
-                screen.Visible = false;
+                instance.Visible = false;
             }
         }
 
@@ -216,10 +231,10 @@ namespace Alensia.Core.UI
             base.OnDisposed();
         }
 
-        protected virtual CursorDefinition FindCursor(string name)
+        protected virtual CursorDefinition FindCursor(string cursor)
         {
             var cursors = Style?.CursorSet;
-            var key = name ?? DefaultCursor;
+            var key = cursor ?? DefaultCursor;
 
             if (cursors == null || key == null) return null;
 
@@ -238,16 +253,6 @@ namespace Alensia.Core.UI
                     UECursor.SetCursor(image, pos, CursorMode.ForceSoftware);
                 });
             }
-        }
-
-        [Serializable]
-        public class Settings : IEditorSettings
-        {
-            public UIStyle Style;
-
-            public Transform ScreenRoot;
-
-            public ScreenDefinition[] Screens;
         }
     }
 }

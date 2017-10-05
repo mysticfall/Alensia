@@ -1,22 +1,21 @@
-﻿using System.Linq;
-using Alensia.Core.Character.Generic;
+﻿using Alensia.Core.Character.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Sensor;
 using UnityEngine;
-using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public abstract class Character<TVision, TLocomotion> : BaseObject, ICharacter<TVision, TLocomotion>
+    public abstract class Character<TVision, TLocomotion> : ManagedMonoBehavior, ICharacter<TVision, TLocomotion>
         where TVision : class, IVision
         where TLocomotion : class, ILocomotion
     {
-        public virtual string Name => Transform.name;
+        public string Name => _name;
 
-        public virtual Race Race { get; }
+        public abstract Race Race { get; }
 
-        public virtual Sex Sex { get; }
+        public abstract Sex Sex { get; }
 
         public abstract Transform Head { get; }
 
@@ -24,8 +23,10 @@ namespace Alensia.Core.Character
 
         public abstract TLocomotion Locomotion { get; }
 
+        [Inject]
         public Animator Animator { get; }
 
+        [Inject]
         public Transform Transform { get; }
 
         public GameObject GameObject => Transform.gameObject;
@@ -34,18 +35,6 @@ namespace Alensia.Core.Character
 
         ILocomotion ILocomotive.Locomotion => Locomotion;
 
-        protected Character(Race race, Sex sex, Animator animator, Transform transform)
-        {
-            Assert.IsNotNull(race, "race != null");
-            Assert.IsNotNull(animator, "animator != null");
-            Assert.IsNotNull(transform, "transform != null");
-
-            Assert.IsTrue(race.Sexes.Contains(sex), $"Unsupported sex: '{sex}'.");
-
-            Race = race;
-            Sex = sex;
-            Animator = animator;
-            Transform = transform;
-        }
+        [SerializeField] private string _name;
     }
 }

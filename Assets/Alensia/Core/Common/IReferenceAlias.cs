@@ -2,7 +2,7 @@
 
 namespace Alensia.Core.Common
 {
-    public interface IReferenceAlias<T>
+    public interface IReferenceAlias<T> : INamed
     {
         T Reference { get; set; }
 

@@ -1,26 +1,34 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Alensia.Core.Character
 {
     public class HumanEyesight : Eyesight
     {
-        public override Transform LeftEye { get; }
+        public override Transform LeftEye => _leftEye;
 
-        public override Transform RightEye { get; }
+        public override Transform RightEye => _rightEye;
 
-        public HumanEyesight(Animator animator)
+        private Transform _leftEye;
+
+        private Transform _rightEye;
+
+        [Inject]
+        public Animator Animator { get; }
+
+        protected override void OnInitialized()
         {
-            Assert.IsNotNull(animator, "animator != null");
+            base.OnInitialized();
 
-            var leftEye = animator.GetBoneTransform(HumanBodyBones.LeftEye);
-            var rightEye = animator.GetBoneTransform(HumanBodyBones.RightEye);
+            var leftEye = Animator.GetBoneTransform(HumanBodyBones.LeftEye);
+            var rightEye = Animator.GetBoneTransform(HumanBodyBones.RightEye);
 
             Assert.IsNotNull(leftEye, "leftEye != null");
             Assert.IsNotNull(rightEye, "rightEye != null");
 
-            LeftEye = leftEye;
-            RightEye = rightEye;
+            _leftEye = leftEye;
+            _rightEye = rightEye;
         }
     }
 }

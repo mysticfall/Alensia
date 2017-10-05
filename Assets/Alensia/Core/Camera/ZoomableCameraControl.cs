@@ -14,14 +14,7 @@ namespace Alensia.Core.Camera
 
         public override bool Valid => base.Valid && Scroll != null;
 
-        public ZoomableCameraControl(
-            ViewSensitivity sensitivity,
-            ICameraManager cameraManager,
-            IInputManager inputManager) : base(sensitivity, cameraManager, inputManager)
-        {
-        }
-
-        protected override bool Supports(ICameraMode camera) => camera is IZoomableCamera;
+        protected override bool Supports(ICameraMode mode) => mode is IZoomableCamera;
 
         protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {Zoom};
 
@@ -53,9 +46,9 @@ namespace Alensia.Core.Camera
 
         protected virtual void OnZoom(float input) => OnZoom(input, (IZoomableCamera) CameraManager.Mode);
 
-        protected virtual void OnZoom(float input, IZoomableCamera camera)
+        protected virtual void OnZoom(float input, IZoomableCamera mode)
         {
-            camera.Distance += input * Sensitivity.Zoom;
+            mode.Distance += input * Sensitivity.Zoom;
         }
 
         public class Keys : RotatableCameraControl.Keys
