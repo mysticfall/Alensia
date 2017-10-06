@@ -8,9 +8,7 @@ namespace Alensia.Core.Camera
     {
         public UnityEngine.Camera Camera => _camera ?? UnityEngine.Camera.main;
 
-        public Transform Transform => Camera.transform;
-
-        public GameObject GameObject => Transform.gameObject;
+        public override Transform Transform => Camera?.transform;
 
         public virtual bool Valid => true;
 

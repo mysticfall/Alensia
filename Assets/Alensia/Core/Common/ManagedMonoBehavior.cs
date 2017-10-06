@@ -11,9 +11,9 @@ namespace Alensia.Core.Common
 
         public bool Disposed => _disposed.Value;
 
-        public GameObject GameObject => gameObject;
+        public virtual GameObject GameObject => gameObject;
 
-        public Transform Transform => transform;
+        public virtual Transform Transform => transform;
 
         public IObservable<Unit> OnInitialize => _initialized.Where(v => v).AsUnitObservable();
 

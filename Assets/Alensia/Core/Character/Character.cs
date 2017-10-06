@@ -27,9 +27,7 @@ namespace Alensia.Core.Character
         public Animator Animator { get; }
 
         [Inject]
-        public Transform Transform { get; }
-
-        public GameObject GameObject => Transform.gameObject;
+        public override Transform Transform { get; }
 
         IVision ISeeing.Vision => Vision;
 

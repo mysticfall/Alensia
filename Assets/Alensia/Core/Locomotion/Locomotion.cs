@@ -9,9 +9,7 @@ namespace Alensia.Core.Locomotion
     public abstract class Locomotion : ActivatableMonoBehavior, ITickable
     {
         [Inject]
-        public Transform Transform { get; }
-
-        public GameObject GameObject => Transform.gameObject;
+        public override Transform Transform { get; }
 
         private Vector3 _targetVelocity;
 
