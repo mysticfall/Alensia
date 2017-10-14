@@ -11,7 +11,7 @@ namespace Alensia.Core.Control
 
         CharacterAlias PlayerAlias { get; }
 
-        IReadOnlyList<IPlayerControl> PlayerControls { get; }
+        IEnumerable<IPlayerControl> PlayerControls { get; }
 
         bool PlayerControlEnabled { get; set; }
 

@@ -50,7 +50,7 @@ namespace Alensia.Core.UI
 
         public Transform ContentPanel => _content ?? (_content = Transform.Find("Content"));
 
-        public override IList<IComponent> Children => ContentPanel.GetChildren<IComponent>().ToList();
+        public override IEnumerable<IComponent> Children => ContentPanel.GetChildren<IComponent>().ToList();
 
         protected virtual ImageAndColor DefaultBackdrop => Style?.ImagesAndColors?["Window.Backdrop"];
 

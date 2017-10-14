@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using UniRx;
@@ -8,7 +9,7 @@ namespace Alensia.Core.Camera
 {
     public class ZoomableCameraControl : CameraControl
     {
-        public IBindingKey<IAxisInput> Zoom => Keys.Zoom;
+        public virtual IBindingKey<IAxisInput> Zoom => Keys.Zoom;
 
         protected IAxisInput Scroll { get; private set; }
 
@@ -16,7 +17,7 @@ namespace Alensia.Core.Camera
 
         protected override bool Supports(ICameraMode mode) => mode is IZoomableCamera;
 
-        protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {Zoom};
+        protected override IEnumerable<IBindingKey> PrepareBindings() => new List<IBindingKey> {Zoom};
 
         protected override void RegisterDefaultBindings()
         {
@@ -51,6 +52,7 @@ namespace Alensia.Core.Camera
             mode.Distance += input * Sensitivity.Zoom;
         }
 
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
         public class Keys : RotatableCameraControl.Keys
         {
             public static IBindingKey<IAxisInput> Zoom = new BindingKey<IAxisInput>(Category + ".Zoom");

@@ -15,11 +15,9 @@ namespace Alensia.Core.UI.Resize
 
         public readonly ResizeDirections Directions;
 
-        public Transform HandleParent => _handleParent;
+        public Transform HandleParent { get; private set; }
 
         public ICollection<ResizeHandle> Handles { get; private set; }
-
-        private Transform _handleParent;
 
         public ResizeHelper(IComponent target, ResizeDirections directions = ResizeDirections.All)
         {
@@ -35,7 +33,7 @@ namespace Alensia.Core.UI.Resize
         {
             base.OnInitialized();
 
-            _handleParent = CreateHandleParent(Target.Transform);
+            HandleParent = CreateHandleParent(Target.Transform);
 
             var handles = new List<ResizeHandle>(8);
 
@@ -141,7 +139,7 @@ namespace Alensia.Core.UI.Resize
 
             Object.Destroy(HandleParent);
 
-            _handleParent = null;
+            HandleParent = null;
 
             Handles = Enumerable.Empty<ResizeHandle>().ToList();
         }

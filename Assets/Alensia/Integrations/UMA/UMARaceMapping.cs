@@ -28,7 +28,7 @@ namespace Alensia.Integrations.UMA
 
         [SerializeField] private UMARecipeBase _other;
 
-        private IDictionary<Sex, RaceData> _raceData;
+        private readonly IDictionary<Sex, RaceData> _raceData;
 
         public UMARaceMapping()
         {

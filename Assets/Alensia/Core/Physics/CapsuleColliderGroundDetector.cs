@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Alensia.Core.Physics
 {
@@ -12,7 +13,7 @@ namespace Alensia.Core.Physics
             return bounds.center - offset;
         }
 
-        protected override RaycastHit[] CastRay(Ray ray, CapsuleCollider target)
+        protected override IEnumerable<RaycastHit> CastRay(Ray ray, CapsuleCollider target)
         {
             return UnityEngine.Physics.SphereCastAll(
                 ray,

@@ -61,21 +61,24 @@ namespace Alensia.Core.UI.Event
             HighlightTracker.Initialize();
             InteractionTracker.Initialize();
 
-            var runtimeContext = Context as IRuntimeUIContext;
-
-            if (runtimeContext == null) return;
+            if (!(Context is IRuntimeUIContext)) return;
 
             OnStateChange
                 .Where(_ => (Interacting || Highlighted) && !Component.HasActiveChild())
-                .Where(_ => runtimeContext.ActiveComponent == null || !runtimeContext.ActiveComponent.Interacting)
-                .Subscribe(_ => runtimeContext.ActiveComponent = Component, Debug.LogError)
+                .Where(_ =>
+                    ((IRuntimeUIContext) Context).ActiveComponent == null ||
+                    !((IRuntimeUIContext) Context).ActiveComponent.Interacting)
+                .Subscribe(_ => 
+                    ((IRuntimeUIContext) Context).ActiveComponent = Component, Debug.LogError)
                 .AddTo(this);
 
             OnStateChange
                 .Merge(Component.OnHide)
-                .Where(_ => ReferenceEquals(runtimeContext.ActiveComponent, Component))
+                .Where(_ => ReferenceEquals(((IRuntimeUIContext) Context).ActiveComponent, Component))
                 .Where(_ => !Interacting && !Highlighted)
-                .Subscribe(_ => runtimeContext.ActiveComponent = Component.FindFirstActiveAncestor(), Debug.LogError)
+                .Subscribe(_ => 
+                    ((IRuntimeUIContext) Context).ActiveComponent = Component.FindFirstActiveAncestor(), 
+                    Debug.LogError)
                 .AddTo(this);
         }
 

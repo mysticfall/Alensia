@@ -8,7 +8,7 @@ namespace Alensia.Core.UI.Screen
     {
         Canvas Canvas { get; }
 
-        IReadOnlyList<IComponentHandler> Items { get; }
+        IEnumerable<IComponentHandler> Items { get; }
 
         T FindUI<T>() where T : class, IComponentHandler;
 

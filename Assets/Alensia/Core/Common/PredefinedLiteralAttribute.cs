@@ -6,11 +6,11 @@ namespace Alensia.Core.Common
 {
     public class PredefinedLiteralAttribute : PropertyAttribute
     {
-        public Type Type;
+        public readonly Type Type;
 
-        public bool Optional;
+        public readonly bool Optional;
 
-        public bool AllowCustom;
+        public readonly bool AllowCustom;
 
         public PredefinedLiteralAttribute(
             Type type, bool optional = true, bool allowCustom = true)

@@ -8,7 +8,7 @@ namespace Alensia.Core.UI.Screen
     {
         Transform ScreenRoot { get; }
 
-        IReadOnlyList<IScreen> Screens { get; }
+        IEnumerable<IScreen> Screens { get; }
 
         IScreen FindScreen(string name);
 

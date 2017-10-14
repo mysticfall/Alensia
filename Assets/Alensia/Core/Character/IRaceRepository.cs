@@ -5,6 +5,6 @@ namespace Alensia.Core.Character
 {
     public interface IRaceRepository : IDirectory<Race>
     {
-        IReadOnlyList<Race> Races { get; }
+        IEnumerable<Race> Races { get; }
     }
 }

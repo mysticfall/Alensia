@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using Alensia.Core.UI;
@@ -25,7 +26,7 @@ namespace Alensia.Core.Game
 
         public override bool Valid => base.Valid && ShowMenuInput != null && MainMenu != null;
 
-        protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {ShowMenu};
+        protected override IEnumerable<IBindingKey> PrepareBindings() => new List<IBindingKey> {ShowMenu};
 
         [SerializeField] private string _mainMenu = "MainMenu";
 
@@ -78,9 +79,10 @@ namespace Alensia.Core.Game
         {
         }
 
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
         public static class Keys
         {
-            public static IBindingKey<ITriggerInput> ShowMenu =
+            public static IBindingKey<ITriggerInput> ShowMenu = 
                 new BindingKey<ITriggerInput>(Category + ".ShowMenu");
         }
     }

@@ -69,7 +69,7 @@ namespace Alensia.Core.Control
 
         protected abstract void Subscribe(ICollection<IDisposable> disposables);
 
-        protected abstract ICollection<IBindingKey> PrepareBindings();
+        protected abstract IEnumerable<IBindingKey> PrepareBindings();
 
         protected virtual void RegisterDefaultBindings()
         {

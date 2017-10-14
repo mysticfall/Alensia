@@ -6,7 +6,7 @@ namespace Alensia.Core.Input
 {
     public interface IInputManager
     {
-        ICollection<IBindingKey> Keys { get; }
+        IEnumerable<IBindingKey> Keys { get; }
 
         T Get<T>(IBindingKey<T> key) where T : class, IInput;
 

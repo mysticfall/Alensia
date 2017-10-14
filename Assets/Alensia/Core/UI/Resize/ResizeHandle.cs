@@ -1,6 +1,5 @@
 ﻿using System;
 using Alensia.Core.Common;
-using Alensia.Core.Interaction;
 using Alensia.Core.Interaction.Event;
 using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Event;

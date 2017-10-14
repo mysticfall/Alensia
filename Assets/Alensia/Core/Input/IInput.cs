@@ -9,7 +9,7 @@ namespace Alensia.Core.Input
 
     namespace Generic
     {
-        public interface IInput<T> : IInput
+        public interface IInput<out T> : IInput
         {
             T Value { get; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Alensia.Core.Input;
 using Alensia.Core.Input.Generic;
 using UniRx;
@@ -9,11 +10,11 @@ namespace Alensia.Core.Camera
 {
     public class OrbitingCameraControl : CameraControl
     {
-        public IBindingKey<IAxisInput> Yaw => Keys.Yaw;
+        public virtual IBindingKey<IAxisInput> Yaw => Keys.Yaw;
 
-        public IBindingKey<IAxisInput> Pitch => Keys.Pitch;
+        public virtual IBindingKey<IAxisInput> Pitch => Keys.Pitch;
 
-        public IBindingKey<IAxisInput> Zoom => Keys.Zoom;
+        public virtual IBindingKey<IAxisInput> Zoom => Keys.Zoom;
 
         protected IAxisInput X { get; private set; }
 
@@ -25,7 +26,7 @@ namespace Alensia.Core.Camera
 
         protected override bool Supports(ICameraMode mode) => mode is IOrbitingCamera;
 
-        protected override ICollection<IBindingKey> PrepareBindings() => new List<IBindingKey> {Yaw, Pitch, Zoom};
+        protected override IEnumerable<IBindingKey> PrepareBindings() => new List<IBindingKey> {Yaw, Pitch, Zoom};
 
         protected override void RegisterDefaultBindings()
         {
@@ -87,6 +88,7 @@ namespace Alensia.Core.Camera
             mode.Distance += input * Sensitivity.Zoom;
         }
 
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
         public class Keys
         {
             public static IBindingKey<IAxisInput> Yaw = new BindingKey<IAxisInput>(Category + ".Yaw");

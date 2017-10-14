@@ -10,7 +10,7 @@ namespace Alensia.Core.UI.Screen
     [RequireComponent(typeof(Canvas))]
     public class Screen : UIElement, IScreen
     {
-        public IReadOnlyList<IComponentHandler> Items => Transform.GetChildren<IComponentHandler>().ToList();
+        public IEnumerable<IComponentHandler> Items => Transform.GetChildren<IComponentHandler>().ToList();
 
         public IReadOnlyDictionary<string, ScreenItemDefinition> ItemDefinitions { get; private set; }
 

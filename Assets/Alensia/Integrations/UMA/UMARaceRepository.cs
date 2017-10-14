@@ -15,7 +15,7 @@ namespace Alensia.Integrations.UMA
         [Inject]
         public UMAContext Context { get; }
 
-        public IReadOnlyList<Race> Races => _races;
+        public IEnumerable<Race> Races => _races;
 
         public RaceLibraryBase RaceLibrary => Context.raceLibrary;
 

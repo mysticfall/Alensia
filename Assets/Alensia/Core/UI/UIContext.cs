@@ -38,7 +38,7 @@ namespace Alensia.Core.UI
 
         public Transform ScreenRoot => _screenRoot ?? transform;
 
-        public IReadOnlyList<IScreen> Screens => ScreenRoot.GetComponents<IScreen>();
+        public IEnumerable<IScreen> Screens => ScreenRoot.GetComponents<IScreen>();
 
         public IReadOnlyDictionary<string, ScreenDefinition> ScreenDefinitions { get; private set; }
 

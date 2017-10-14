@@ -13,7 +13,7 @@ namespace Alensia.Core.Physics
 
         float Tolerance { get; set; }
 
-        ISet<Collider> GroundContacts { get; }
+        IEnumerable<Collider> GroundContacts { get; }
 
         bool Grounded { get; }
 

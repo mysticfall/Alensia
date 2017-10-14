@@ -7,9 +7,9 @@ namespace Alensia.Core.I18n
 {
     public abstract class ResourceTranslator<T> : Translator where T : Object
     {
-        public IReadOnlyList<string> ResourceNames => _resources;
+        public IEnumerable<string> ResourceNames => _resources;
 
-        [SerializeField] string[] _resources;
+        [SerializeField] private string[] _resources;
 
         protected ResourceTranslator()
         {

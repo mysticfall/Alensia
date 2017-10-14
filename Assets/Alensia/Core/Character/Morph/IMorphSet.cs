@@ -9,7 +9,7 @@ namespace Alensia.Core.Character.Morph
 
         Sex Sex { get; set; }
 
-        IReadOnlyList<IMorph> Morphs { get; }
+        IEnumerable<IMorph> Morphs { get; }
 
         IObservable<Race> OnRaceChange { get; }
 

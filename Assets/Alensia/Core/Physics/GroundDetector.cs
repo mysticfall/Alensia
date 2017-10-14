@@ -24,7 +24,7 @@ namespace Alensia.Core.Physics
             set { _tolerance = value; }
         }
 
-        public ISet<Collider> GroundContacts => _grounds.ToHashSet();
+        public IEnumerable<Collider> GroundContacts => _grounds.ToHashSet();
 
         public bool Grounded => _grounds.Any();
 

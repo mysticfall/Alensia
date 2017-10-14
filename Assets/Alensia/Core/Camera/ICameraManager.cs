@@ -8,7 +8,7 @@ namespace Alensia.Core.Camera
     {
         ICameraMode Mode { get; set; }
 
-        IReadOnlyCollection<ICameraMode> AvailableModes { get; }
+        IEnumerable<ICameraMode> AvailableModes { get; }
 
         T Switch<T>() where T : class, ICameraMode;
 

@@ -51,7 +51,7 @@ namespace Alensia.Core.I18n
                 .Aggregate<CultureInfo, IMessages>(null, (chain, loc) => Load(loc, chain) ?? chain);
         }
 
-        protected virtual IList<CultureInfo> GetFallbackLocaleHierarchy(CultureInfo locale)
+        protected virtual IEnumerable<CultureInfo> GetFallbackLocaleHierarchy(CultureInfo locale)
         {
             Assert.IsNotNull(locale, "locale != null");
 

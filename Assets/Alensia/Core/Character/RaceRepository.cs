@@ -8,7 +8,7 @@ namespace Alensia.Core.Character
 {
     public class RaceRepository : ManagedMonoBehavior, IRaceRepository
     {
-        public IReadOnlyList<Race> Races => _races;
+        public IEnumerable<Race> Races => _races;
 
         private IDictionary<string, Race> _mappings;
 

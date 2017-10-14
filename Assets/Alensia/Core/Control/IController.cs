@@ -8,7 +8,7 @@ namespace Alensia.Core.Control
     {
         CursorState DefaultCursorState { get; }
 
-        IReadOnlyList<IControl> Controls { get; }
+        IEnumerable<IControl> Controls { get; }
 
         T FindControl<T>() where T : IControl;
 

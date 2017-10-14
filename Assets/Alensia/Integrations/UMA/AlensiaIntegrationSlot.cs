@@ -24,20 +24,19 @@ namespace Alensia.Integrations.UMA
             var character = umaData.transform.root;
             var context = character.GetComponentInChildren<GameObjectContext>();
 
-            if (context != null && !context.Initialized)
+            if (context == null || context.Initialized) return;
+
+            var avatar = character.GetComponent<UMAAvatarBase>();
+
+            if (avatar != null)
             {
-                var avatar = character.GetComponent<UMAAvatarBase>();
-
-                if (avatar != null)
-                {
-                    context.Container
-                        .BindInterfacesAndSelfTo(avatar.GetType())
-                        .FromInstance(avatar)
-                        .AsSingle();
-                }
-
-                context.Run();
+                context.Container
+                    .BindInterfacesAndSelfTo(avatar.GetType())
+                    .FromInstance(avatar)
+                    .AsSingle();
             }
+
+            context.Run();
         }
     }
 }

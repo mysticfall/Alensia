@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Alensia.Core.Physics
 {
@@ -11,7 +12,7 @@ namespace Alensia.Core.Physics
             return bounds.center - new Vector3(0, bounds.extents.y - 0.001f);
         }
 
-        protected override RaycastHit[] CastRay(Ray ray, Collider target)
+        protected override IEnumerable<RaycastHit> CastRay(Ray ray, Collider target)
         {
             return UnityEngine.Physics.RaycastAll(ray, Tolerance, GroundLayer);
         }

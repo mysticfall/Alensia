@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -23,7 +24,7 @@ namespace Alensia.Core.Physics
 
         protected virtual Ray CreateRay() => new Ray(CalculateOrigin(_target), Vector3.down);
 
-        protected abstract RaycastHit[] CastRay(Ray ray, T target);
+        protected abstract IEnumerable<RaycastHit> CastRay(Ray ray, T target);
 
         public void FixedTick() => DetectGround();
     }

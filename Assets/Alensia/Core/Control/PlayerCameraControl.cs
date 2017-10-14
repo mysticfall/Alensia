@@ -40,9 +40,7 @@ namespace Alensia.Core.Control
             base.Subscribe(disposables);
 
             Scroll.OnChange
-                .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IThirdPersonCamera)
-                .Where(v => v > 0)
+                .Where(v => Valid && CameraManager.Mode is IThirdPersonCamera && v > 0)
                 .Select(_ => (IZoomableCamera) CameraManager.Mode)
                 .Where(c => Mathf.Approximately(c.Distance, c.DistanceSettings.Minimum))
                 .Select(_ => (IThirdPersonCamera) CameraManager.Mode)
@@ -50,9 +48,7 @@ namespace Alensia.Core.Control
                 .AddTo(disposables);
 
             Scroll.OnChange
-                .Where(_ => Valid)
-                .Where(_ => CameraManager.Mode is IFirstPersonCamera)
-                .Where(v => v < 0)
+                .Where(v => Valid && CameraManager.Mode is IFirstPersonCamera && v < 0)
                 .Select(_ => (IFirstPersonCamera) CameraManager.Mode)
                 .Subscribe(SwitchToThirdPerson)
                 .AddTo(disposables);

@@ -16,7 +16,7 @@ namespace Alensia.Core.Control
 
         public CursorState DefaultCursorState => UIContext.CursorState;
 
-        public IReadOnlyList<IControl> Controls => _controls.ToList();
+        public IEnumerable<IControl> Controls => _controls.ToList();
 
         [Inject] private IList<IControl> _controls;
 

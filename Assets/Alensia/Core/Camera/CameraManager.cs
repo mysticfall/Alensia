@@ -23,7 +23,7 @@ namespace Alensia.Core.Camera
             }
         }
 
-        public IReadOnlyCollection<ICameraMode> AvailableModes => _availableModes?.ToList();
+        public IEnumerable<ICameraMode> AvailableModes => _availableModes?.ToList();
 
         public IObservable<ICameraMode> OnCameraModeChange => _mode;
 

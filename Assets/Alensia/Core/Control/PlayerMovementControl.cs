@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Alensia.Core.Camera;
 using Alensia.Core.Character;
 using Alensia.Core.Input;
@@ -18,11 +19,11 @@ namespace Alensia.Core.Control
 
         public override ILeggedLocomotion Locomotion => Player?.Locomotion;
 
-        public IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
+        public virtual IBindingKey<IAxisInput> Horizontal => Keys.Horizontal;
 
-        public IBindingKey<IAxisInput> Vertical => Keys.Vertical;
+        public virtual IBindingKey<IAxisInput> Vertical => Keys.Vertical;
 
-        public IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
+        public virtual IBindingKey<TriggerStateInput> HoldToRun => Keys.HoldToRun;
 
         [Inject]
         public ICameraManager CameraManager { get; }
@@ -45,7 +46,7 @@ namespace Alensia.Core.Control
                                       Running != null &&
                                       Locomotion.Active;
 
-        protected override ICollection<IBindingKey> PrepareBindings() =>
+        protected override IEnumerable<IBindingKey> PrepareBindings() =>
             new List<IBindingKey> {Horizontal, Vertical, HoldToRun};
 
         protected override void RegisterDefaultBindings()
@@ -113,6 +114,7 @@ namespace Alensia.Core.Control
             }
         }
 
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
         public static class Keys
         {
             public static IBindingKey<IAxisInput> Horizontal =

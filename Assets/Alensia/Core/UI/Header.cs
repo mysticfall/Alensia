@@ -41,7 +41,7 @@ namespace Alensia.Core.UI
 
         public Transform ControlPanel => _controlPanel ?? (_controlPanel = Transform.Find("Controls"));
 
-        public IList<IComponent> Controls => ControlPanel.GetComponentsInChildren<IComponent>();
+        public IEnumerable<IComponent> Controls => ControlPanel.GetComponentsInChildren<IComponent>();
 
         protected override TextStyle DefaultTextStyle
         {

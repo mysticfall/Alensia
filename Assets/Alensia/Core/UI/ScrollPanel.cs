@@ -66,7 +66,7 @@ namespace Alensia.Core.UI
             set { _verticalScrollbarVisibility.Value = value; }
         }
 
-        public override IList<IComponent> Children => Content.Cast<Transform>()
+        public override IEnumerable<IComponent> Children => Content.Cast<Transform>()
             .Select(c => c.GetComponent<IComponent>())
             .Where(c => c != null)
             .ToList();

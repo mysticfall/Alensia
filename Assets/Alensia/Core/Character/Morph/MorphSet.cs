@@ -35,7 +35,7 @@ namespace Alensia.Core.Character.Morph
             }
         }
 
-        public IReadOnlyList<IMorph> Morphs => _morphs.Value;
+        public IEnumerable<IMorph> Morphs => _morphs.Value;
 
         public IObservable<Race> OnRaceChange => _race;
 

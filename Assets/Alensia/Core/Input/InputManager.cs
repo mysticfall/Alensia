@@ -10,7 +10,7 @@ namespace Alensia.Core.Input
 {
     public class InputManager : ManagedMonoBehavior, IInputManager, ITickable
     {
-        public ICollection<IBindingKey> Keys => _bindings.AsReadOnly();
+        public IEnumerable<IBindingKey> Keys => _bindings.AsReadOnly();
 
         public IObservable<IBindingKey> OnBindingChange => _onBindingChange;
 

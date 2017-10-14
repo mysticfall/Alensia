@@ -7,7 +7,7 @@ namespace Alensia.Core.UI
 {
     public abstract class UIContainer : UIComponent, IContainer
     {
-        public virtual IList<IComponent> Children => transform.GetChildren<IComponent>().ToList();
+        public virtual IEnumerable<IComponent> Children => transform.GetChildren<IComponent>().ToList();
 
         public override void Initialize(IUIContext context)
         {

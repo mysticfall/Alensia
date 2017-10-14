@@ -17,7 +17,7 @@ namespace Alensia.Core.Control
         [Inject(Id = PlayerAliasName)] 
         public CharacterAlias PlayerAlias { get; }
 
-        public IReadOnlyList<IPlayerControl> PlayerControls =>
+        public IEnumerable<IPlayerControl> PlayerControls =>
             Controls.Select(c => c as IPlayerControl).Where(c => c != null).ToList();
 
         public bool PlayerControlEnabled
