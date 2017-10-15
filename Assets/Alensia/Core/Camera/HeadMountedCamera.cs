@@ -1,4 +1,5 @@
-﻿using Alensia.Core.Character;
+﻿using System;
+using Alensia.Core.Character;
 using Alensia.Core.Geom;
 using UniRx;
 using UnityEngine;
@@ -66,6 +67,12 @@ namespace Alensia.Core.Camera
 
         public override Vector3 AxisForward => _headAxisFoward.Of(Head);
 
+        public FocusSettings FocusSettings => _focus;
+
+        public Transform Focus => Active && Valid ? _focused.Value : null;
+
+        public IObservable<Transform> OnFocusChange => _focused.Where(_ => Active && Valid);
+
         protected Vector3 FocalPoint
         {
             get
@@ -86,9 +93,13 @@ namespace Alensia.Core.Camera
 
         [SerializeField] private Axis _headAxisFoward = Axis.Z;
 
+        [SerializeField] private FocusSettings _focus;
+
         private readonly IReactiveProperty<float> _heading;
 
         private readonly IReactiveProperty<float> _elevation;
+
+        private readonly IReactiveProperty<Transform> _focused;
 
         private Quaternion _initialRotation;
 
@@ -103,6 +114,9 @@ namespace Alensia.Core.Camera
                 Side = 85,
                 Up = 60
             };
+
+            _focus = new FocusSettings();
+            _focused = new ReactiveProperty<Transform>();
         }
 
         protected override void OnInitialized()
@@ -131,7 +145,11 @@ namespace Alensia.Core.Camera
             _initialRotation = Head.localRotation;
         }
 
-        public virtual void UpdatePosition() => UpdatePosition(Heading, Elevation);
+        public virtual void UpdatePosition()
+        {
+            UpdatePosition(Heading, Elevation);
+            UpdateFocus();
+        }
 
         protected virtual void UpdatePosition(float heading, float elevation)
         {
@@ -144,6 +162,24 @@ namespace Alensia.Core.Camera
             Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
 
             Transform.LookAt(FocalPoint);
+        }
+
+        protected virtual void UpdateFocus()
+        {
+            if (!FocusSettings.TrackFocus)
+            {
+                _focused.Value = null;
+
+                return;
+            }
+
+            var ray = new Ray(Transform.position, Transform.forward);
+            var distance = FocusSettings.MaximumDistance;
+            var layer = FocusSettings.Layer;
+
+            RaycastHit hit;
+
+            _focused.Value = UnityEngine.Physics.Raycast(ray, out hit, distance, layer) ? hit.transform : null;
         }
     }
 }

@@ -25,9 +25,18 @@ namespace Alensia.Core.Camera
 
         public IEnumerable<ICameraMode> AvailableModes => _availableModes?.ToList();
 
+        public Transform Focus => (_mode.Value as IFocusTrackingCamera)?.Focus;
+
         public IObservable<ICameraMode> OnCameraModeChange => _mode;
 
         public IObservable<Unit> OnCameraUpdate => _cameraUpdate;
+
+        public IObservable<Transform> OnFocusChange =>
+            OnCameraModeChange
+                .OfType<ICameraMode, IFocusTrackingCamera>()
+                .Cast<ICameraMode, IFocusTrackingCamera>()
+                .Select(c => c.OnFocusChange)
+                .Switch();
 
         [Inject] private IList<ICameraMode> _availableModes;
 

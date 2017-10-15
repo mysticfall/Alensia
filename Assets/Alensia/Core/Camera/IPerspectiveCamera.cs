@@ -2,7 +2,7 @@
 
 namespace Alensia.Core.Camera
 {
-    public interface IPerspectiveCamera : ITrackingCamera<ICharacter>
+    public interface IPerspectiveCamera : ITrackingCamera<ICharacter>, IFocusTrackingCamera
     {
     }
 }

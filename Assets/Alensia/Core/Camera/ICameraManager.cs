@@ -5,7 +5,7 @@ using UniRx;
 
 namespace Alensia.Core.Camera
 {
-    public interface ICameraManager
+    public interface ICameraManager : IFocusTracking
     {
         ICameraMode Mode { get; set; }
 
