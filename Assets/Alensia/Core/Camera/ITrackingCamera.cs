@@ -2,7 +2,7 @@
 
 namespace Alensia.Core.Camera
 {
-    public interface ITrackingCamera<T> : ICameraMode where T : ITransformable
+    public interface ITrackingCamera<T> : IUpdatableCamera where T : ITransformable
     {
         T Target { get; }
 

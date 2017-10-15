@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Alensia.Core.Character;
+using UniRx;
 
 namespace Alensia.Core.Camera
 {
@@ -10,12 +11,14 @@ namespace Alensia.Core.Camera
 
         IEnumerable<ICameraMode> AvailableModes { get; }
 
+        IObservable<ICameraMode> OnCameraModeChange { get; }
+
+        IObservable<Unit> OnCameraUpdate{ get; }
+
         T Switch<T>() where T : class, ICameraMode;
 
         IFirstPersonCamera ToFirstPerson(ICharacter target);
 
         IThirdPersonCamera ToThirdPerson(ICharacter target);
-
-        IObservable<ICameraMode> OnCameraModeChange { get; }
     }
 }

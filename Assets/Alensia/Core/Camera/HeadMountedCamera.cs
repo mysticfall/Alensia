@@ -3,11 +3,10 @@ using Alensia.Core.Geom;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class HeadMountedCamera : RotatableCamera, IFirstPersonCamera, ILateTickable
+    public class HeadMountedCamera : RotatableCamera, IFirstPersonCamera
     {
         public override float Heading
         {
@@ -132,6 +131,8 @@ namespace Alensia.Core.Camera
             _initialRotation = Head.localRotation;
         }
 
+        public virtual void UpdatePosition() => UpdatePosition(Heading, Elevation);
+
         protected virtual void UpdatePosition(float heading, float elevation)
         {
             Head.localRotation = Quaternion.identity;
@@ -143,11 +144,6 @@ namespace Alensia.Core.Camera
             Transform.rotation = Quaternion.LookRotation(AxisForward, AxisUp);
 
             Transform.LookAt(FocalPoint);
-        }
-
-        public virtual void LateTick()
-        {
-            if (Valid && Active) UpdatePosition(Heading, Elevation);
         }
     }
 }

@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public class CameraManager : ManagedMonoBehavior, ICameraManager
+    public class CameraManager : ManagedMonoBehavior, ICameraManager, ILateTickable
     {
         public ICameraMode Mode
         {
@@ -27,13 +27,18 @@ namespace Alensia.Core.Camera
 
         public IObservable<ICameraMode> OnCameraModeChange => _mode;
 
+        public IObservable<Unit> OnCameraUpdate => _cameraUpdate;
+
         [Inject] private IList<ICameraMode> _availableModes;
 
         private readonly IReactiveProperty<ICameraMode> _mode;
 
+        private readonly ISubject<Unit> _cameraUpdate;
+
         public CameraManager()
         {
             _mode = new ReactiveProperty<ICameraMode>();
+            _cameraUpdate = new Subject<Unit>();
         }
 
         protected override void OnInitialized()
@@ -44,6 +49,13 @@ namespace Alensia.Core.Camera
                 .AddTo(this);
 
             base.OnInitialized();
+        }
+
+        protected override void OnDisposed()
+        {
+            _cameraUpdate.OnCompleted();
+
+            base.OnDisposed();
         }
 
         private static void Switch(Pair<ICameraMode> cameras)
@@ -88,6 +100,17 @@ namespace Alensia.Core.Camera
             Mode = cam;
 
             return cam;
+        }
+
+        public void LateTick()
+        {
+            var updatable = Mode as IUpdatableCamera;
+
+            if (updatable == null) return;
+
+            updatable.UpdatePosition();
+
+            _cameraUpdate.OnNext(Unit.Default);
         }
     }
 }

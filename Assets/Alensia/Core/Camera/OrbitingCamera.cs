@@ -1,11 +1,10 @@
 ﻿using Alensia.Core.Geom;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 namespace Alensia.Core.Camera
 {
-    public abstract class OrbitingCamera : RotatableCamera, IOrbitingCamera, ILateTickable
+    public abstract class OrbitingCamera : RotatableCamera, IOrbitingCamera, IUpdatableCamera
     {
         public abstract DistanceSettings DistanceSettings { get; }
 
@@ -76,6 +75,8 @@ namespace Alensia.Core.Camera
             Distance = DistanceSettings.Default;
         }
 
+        public virtual void UpdatePosition() => UpdatePosition(Heading, Elevation, Distance);
+
         protected virtual void UpdatePosition(
             float heading, float elevation, float distance)
         {
@@ -93,11 +94,6 @@ namespace Alensia.Core.Camera
                 Transform.RotateAround(Pivot, AxisUp, heading);
                 Transform.LookAt(Pivot, AxisUp);
             }
-        }
-
-        public virtual void LateTick()
-        {
-            if (Valid && Active) UpdatePosition(Heading, Elevation, Distance);
         }
     }
 }
