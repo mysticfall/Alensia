@@ -1,5 +1,4 @@
 ﻿using Alensia.Core.Character.Generic;
-using Alensia.Core.Common;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Sensor;
 using UnityEngine;
@@ -7,12 +6,10 @@ using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public abstract class Character<TVision, TLocomotion> : ManagedMonoBehavior, ICharacter<TVision, TLocomotion>
+    public abstract class Character<TVision, TLocomotion> : Entity.Entity, ICharacter<TVision, TLocomotion>
         where TVision : class, IVision
         where TLocomotion : class, ILocomotion
     {
-        public string Name => _name;
-
         public abstract Race Race { get; }
 
         public abstract Sex Sex { get; }
@@ -32,7 +29,5 @@ namespace Alensia.Core.Character
         IVision ISeeing.Vision => Vision;
 
         ILocomotion ILocomotive.Locomotion => Locomotion;
-
-        [SerializeField] private string _name;
     }
 }
