@@ -18,5 +18,7 @@ namespace Alensia.Core.UI.Screen
         /// If there is no UI definition with the given name.
         /// </exception>
         T ShowUI<T>(string name) where T : class, IComponentHandler;
+
+        Vector2 ToViewportPoint(Vector2 position, UnityEngine.Camera camera);
     }
 }

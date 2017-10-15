@@ -67,6 +67,16 @@ namespace Alensia.Core.UI.Screen
             return handler;
         }
 
+        public Vector2 ToViewportPoint(Vector2 position, UnityEngine.Camera cam)
+        {
+            var viewPos = cam.WorldToViewportPoint(position);
+
+            var delta = RectTransform.sizeDelta;
+            var offset = new Vector2(delta.x / 2f, delta.y / 2f);
+
+            return new Vector2(viewPos.x * delta.x, viewPos.y * delta.y) - offset;
+        }
+
         protected virtual void CreateInitialItems()
         {
             var items = Items.ToDictionary(i => i.Name, i => i);
