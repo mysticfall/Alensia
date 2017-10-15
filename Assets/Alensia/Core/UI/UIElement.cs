@@ -19,8 +19,8 @@ namespace Alensia.Core.UI
 
         public bool Visible
         {
-            get { return enabled; }
-            set { enabled = value; }
+            get { return GameObject.activeInHierarchy; }
+            set { GameObject.SetActive(value); }
         }
 
         public bool Valid => !IsDestroyed();

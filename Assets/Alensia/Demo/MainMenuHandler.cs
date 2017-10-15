@@ -73,6 +73,8 @@ namespace Alensia.Demo
             _playerControlEnabled = Controller.PlayerControlEnabled;
 
             PauseGame();
+
+            Visible = true;
         }
 
         protected virtual void PauseGame()
