@@ -35,9 +35,9 @@ namespace Alensia.Core.UI.Screen
 
             CreateInitialItems();
 
-            foreach (var component in Items.Select(i => i.Component))
+            foreach (var item in Items.Select(i => i.Component).Where(c => c.Context == null))
             {
-                component.Initialize(context);
+                item.Initialize(context);
             }
         }
 
