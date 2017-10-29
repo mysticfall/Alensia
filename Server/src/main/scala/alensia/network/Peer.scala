@@ -51,7 +51,17 @@ class Peer(
           log.debug("Received a ping: {}.", pingSequence)
 
           socket ! Udp.Send(Pong(pingSequence), address)
-        case MtuCheck | MtuOk =>
+        case MtuCheck =>
+          val mtu = MtuCheck.mtu(data)
+
+          val requested = SupportedMtu(mtu)
+          val actual = data.size
+
+          log.debug("Checking MTU: requested = {}, actual = {}.", requested, actual)
+
+          if (requested == actual) {
+            socket ! Udp.Send(MtuOk(mtu), address)
+          }
         case Unreliable =>
           val payload = Unreliable.payload(data)
 
@@ -66,6 +76,6 @@ class Peer(
   override def postStop() {
     super.postStop()
 
-    log.debug("Stopping a peer for '{}'.", self.path)
+    log.debug("Stopping the peer for '{}'.", self.path)
   }
 }

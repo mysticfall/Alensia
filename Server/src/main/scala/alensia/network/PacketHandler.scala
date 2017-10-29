@@ -109,8 +109,16 @@ object PacketHandler {
   object NatIntroduction extends PacketHandler(13)
   object NatPunchMessage extends PacketHandler(14)
 
-  object MtuCheck extends PacketHandler(15)
-  object MtuOk extends PacketHandler(16)
+  trait MtuPacket {
+
+    def mtu(data: ByteString): Int = BitConverter.readInt(data.tail)
+  }
+
+  object MtuCheck extends PacketHandler(15) with MtuPacket
+  object MtuOk extends PacketHandler(16) with MtuPacket {
+
+    def apply(mtu: Int): ByteString = id.toByte +: BitConverter.writeInt(mtu)
+  }
 
   object DiscoveryRequest extends PacketHandler(17)
   object DiscoveryResponse extends PacketHandler(18)
