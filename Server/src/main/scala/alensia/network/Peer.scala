@@ -7,6 +7,7 @@ import scala.annotation.tailrec
 import akka.actor.{ Actor, ActorLogging, ActorRef, PoisonPill }
 import akka.io.Udp
 import akka.util.ByteString
+import alensia.network.BitConverter._
 import alensia.network.PacketHandler._
 
 class Peer(
@@ -32,7 +33,7 @@ class Peer(
           @tailrec
           def unpack(merged: ByteString): Unit = {
             if (merged.nonEmpty) {
-              val size = BitConverter.readShort(merged)
+              val size = readShort(merged)
 
               receive {
                 merged.drop(2).take(size)
@@ -65,7 +66,7 @@ class Peer(
         case Unreliable =>
           val payload = Unreliable.payload(data)
 
-          log.info("### Received: {}, {}.", BitConverter.readInt(payload), BitConverter.readInt(payload, 4))
+          log.info("### Received: {}, {}.", readInt(payload), readInt(payload, 4))
         case Disconnect =>
           self ! PoisonPill
         case _ =>

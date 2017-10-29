@@ -1,6 +1,7 @@
 package alensia.network
 
 import akka.util.ByteString
+import alensia.network.BitConverter._
 
 sealed abstract class PacketHandler(val id: Int) {
 
@@ -50,7 +51,7 @@ object PacketHandler {
 
     import SequencedPacket._
 
-    def sequence(data: ByteString): Short = BitConverter.readShort(data, 1)
+    def sequence(data: ByteString): Short = readShort(data, 1)
 
     def relativeSequence(number: Int, expected: Int): Int =
       (number - expected + MaxSequence + HalfMaxSequence) % MaxSequence - HalfMaxSequence
@@ -87,19 +88,19 @@ object PacketHandler {
   object Ping extends PacketHandler(6) with SequencedPacket
   object Pong extends PacketHandler(7) with SequencedPacket {
 
-    def apply(sequence: Short): ByteString = id.toByte +: BitConverter.writeShort(sequence)
+    def apply(sequence: Short): ByteString = id.toByte +: writeShort(sequence)
   }
 
   object ConnectRequest extends PacketHandler(8) {
 
     def connectionKey(data: ByteString): String = data.drop(13).utf8String
 
-    def connectionId(data: ByteString): Long = BitConverter.readLong(data.drop(5))
+    def connectionId(data: ByteString): Long = readLong(data.drop(5))
   }
 
   object ConnectAccept extends PacketHandler(9) {
 
-    def apply(connectionId: Long): ByteString = id.toByte +: BitConverter.writeLong(connectionId)
+    def apply(connectionId: Long): ByteString = id.toByte +: writeLong(connectionId)
   }
 
   object Disconnect extends PacketHandler(10)
@@ -111,13 +112,13 @@ object PacketHandler {
 
   trait MtuPacket {
 
-    def mtu(data: ByteString): Int = BitConverter.readInt(data.tail)
+    def mtu(data: ByteString): Int = readInt(data.tail)
   }
 
   object MtuCheck extends PacketHandler(15) with MtuPacket
   object MtuOk extends PacketHandler(16) with MtuPacket {
 
-    def apply(mtu: Int): ByteString = id.toByte +: BitConverter.writeInt(mtu)
+    def apply(mtu: Int): ByteString = id.toByte +: writeInt(mtu)
   }
 
   object DiscoveryRequest extends PacketHandler(17)
