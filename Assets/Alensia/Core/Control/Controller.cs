@@ -22,8 +22,6 @@ namespace Alensia.Core.Control
 
         protected override void OnInitialized()
         {
-            DefaultCursorState.Apply();
-
             base.OnInitialized();
 
             Activate();
@@ -33,8 +31,6 @@ namespace Alensia.Core.Control
                 .Merge()
                 .Subscribe(_ => CheckInputStatus(), Debug.LogError)
                 .AddTo(this);
-
-            CheckInputStatus();
         }
 
         protected override void OnDisposed()
