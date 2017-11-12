@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
+  m_AmbientSkyColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_AmbientEquatorColor: {r: 0.43137255, g: 0.47058824, b: 0.54901963, a: 1}
   m_AmbientGroundColor: {r: 0.15686275, g: 0.15686275, b: 0.23529412, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: bf1bf92a3ce592e40b898be6c21cc2fa, type: 2}
   m_HaloStrength: 0.5
@@ -327,7 +327,7 @@ MonoBehaviour:
     loadDefaultRecipes: 1
     recipes: []
   raceAnimationControllers:
-    defaultAnimationController: {fileID: 9100000, guid: 0bb348c06b38f4c949d949ceb835dc7c,
+    defaultAnimationController: {fileID: 9100000, guid: 8aa94c4b083cd4e3e93909b32ba12ff8,
       type: 2}
     animators: []
     dynamicallyAddFromResources: 1
@@ -888,6 +888,214 @@ MonoBehaviour:
   _identifier: 
   _context: {fileID: 0}
   _bindType: 0
+--- !u!1 &841497548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1244357630558506, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 841497553}
+  - component: {fileID: 841497552}
+  - component: {fileID: 841497551}
+  - component: {fileID: 841497550}
+  - component: {fileID: 841497549}
+  m_Layer: 0
+  m_Name: Strafe
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!195 &841497549
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 195715190273237990, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841497548}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.3
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 90
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &841497550
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 136263887322974680, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841497548}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!54 &841497551
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 54720650772611554, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841497548}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0.01
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &841497552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841497548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcffb0a198605474c8a4d1c67c1515fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 2070513985}
+  umaData: {fileID: 0}
+  umaRecipe: {fileID: 11400000, guid: a9005f9e7c24e4a40b8211e08fe84c51, type: 2}
+  umaAdditionalRecipes:
+  - {fileID: 11400000, guid: 1f292487d7383514f97c491cadfb0442, type: 2}
+  umaGenerator: {fileID: 0}
+  animationController: {fileID: 9100000, guid: b4357ee1f94b2474bb1ce0e93e509d83, type: 2}
+  CharacterCreated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterDnaUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  RecipeUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  hide: 0
+  loadBlendShapes: 0
+  activeRace:
+    name: 
+  defaultChangeRaceOptions: 8
+  cacheCurrentState: 1
+  rebuildSkeleton: 0
+  preloadWardrobeRecipes:
+    loadDefaultRecipes: 1
+    recipes: []
+  raceAnimationControllers:
+    defaultAnimationController: {fileID: 9100000, guid: d29421325278b4a24b86ed0cbd3fe4ca,
+      type: 2}
+    animators: []
+    dynamicallyAddFromResources: 1
+    resourcesFolderPath: 
+    dynamicallyAddFromAssetBundles: 0
+    assetBundleNames: 
+  characterColors:
+    _colors:
+    - name: Hair
+      channelMask:
+      - {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+    - name: Eyes
+      channelMask:
+      - {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+    - name: Skin
+      channelMask:
+      - {r: 0.9338235, g: 0.9185755, b: 0.88575906, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.9632353, g: 0.82158303, b: 0.82158303, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+  loadPathType: 2
+  loadPath: CharacterRecipes
+  loadFilename: 
+  loadString: 
+  loadFileOnStart: 1
+  waitForBundles: 1
+  defaultLoadOptions: 31
+  savePathType: 0
+  savePath: CharacterRecipes
+  saveFilename: 
+  makeUniqueFilename: 0
+  ensureSharedColors: 0
+  defaultSaveOptions: 15
+  BoundsOffset: {x: 0, y: 0, z: 0}
+  showPlaceholder: 1
+  previewModel: 1
+  customModel: {fileID: 0}
+  customRotation: {x: 0, y: 0, z: 0}
+  previewColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _buildCharacterEnabled: 1
+--- !u!4 &841497553
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4896524035336274, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841497548}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -28.46, y: 0, z: 16.004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1 &845667510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1330,214 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &1107697225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1244357630558506, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1107697230}
+  - component: {fileID: 1107697229}
+  - component: {fileID: 1107697228}
+  - component: {fileID: 1107697227}
+  - component: {fileID: 1107697226}
+  m_Layer: 0
+  m_Name: Idle
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!195 &1107697226
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 195715190273237990, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107697225}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.3
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 90
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &1107697227
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 136263887322974680, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107697225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!54 &1107697228
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 54720650772611554, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107697225}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0.01
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &1107697229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107697225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcffb0a198605474c8a4d1c67c1515fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 2070513985}
+  umaData: {fileID: 0}
+  umaRecipe: {fileID: 11400000, guid: a9005f9e7c24e4a40b8211e08fe84c51, type: 2}
+  umaAdditionalRecipes:
+  - {fileID: 11400000, guid: 1f292487d7383514f97c491cadfb0442, type: 2}
+  umaGenerator: {fileID: 0}
+  animationController: {fileID: 9100000, guid: b4357ee1f94b2474bb1ce0e93e509d83, type: 2}
+  CharacterCreated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CharacterDnaUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  RecipeUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UMA.UMADataEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  hide: 0
+  loadBlendShapes: 0
+  activeRace:
+    name: 
+  defaultChangeRaceOptions: 8
+  cacheCurrentState: 1
+  rebuildSkeleton: 0
+  preloadWardrobeRecipes:
+    loadDefaultRecipes: 1
+    recipes: []
+  raceAnimationControllers:
+    defaultAnimationController: {fileID: 9100000, guid: ef1e87b368b26487fb56ba3c14046ee7,
+      type: 2}
+    animators: []
+    dynamicallyAddFromResources: 1
+    resourcesFolderPath: 
+    dynamicallyAddFromAssetBundles: 0
+    assetBundleNames: 
+  characterColors:
+    _colors:
+    - name: Hair
+      channelMask:
+      - {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+    - name: Eyes
+      channelMask:
+      - {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+    - name: Skin
+      channelMask:
+      - {r: 0.9338235, g: 0.9185755, b: 0.88575906, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.9632353, g: 0.82158303, b: 0.82158303, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      valuesConverted: 0
+  loadPathType: 2
+  loadPath: CharacterRecipes
+  loadFilename: 
+  loadString: 
+  loadFileOnStart: 1
+  waitForBundles: 1
+  defaultLoadOptions: 31
+  savePathType: 0
+  savePath: CharacterRecipes
+  saveFilename: 
+  makeUniqueFilename: 0
+  ensureSharedColors: 0
+  defaultSaveOptions: 15
+  BoundsOffset: {x: 0, y: 0, z: 0}
+  showPlaceholder: 1
+  previewModel: 1
+  customModel: {fileID: 0}
+  customRotation: {x: 0, y: 0, z: 0}
+  previewColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _buildCharacterEnabled: 1
+--- !u!4 &1107697230
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4896524035336274, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107697225}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -31.46, y: 0, z: 16.004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1139194925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1582,7 @@ GameObject:
   - component: {fileID: 1186094797}
   - component: {fileID: 1186094796}
   m_Layer: 0
-  m_Name: Walker
+  m_Name: Walking Side
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1816,7 +2232,7 @@ GameObject:
   - component: {fileID: 1721369622}
   - component: {fileID: 1721369621}
   m_Layer: 0
-  m_Name: Walker (2)
+  m_Name: Walking Back
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2457,7 +2873,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2090786174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 625.8205, y: 298.113, z: -15.475376}
+  m_LocalPosition: {x: 631.8205, y: 298.113, z: -15.475376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 845667511}
@@ -2622,7 +3038,7 @@ GameObject:
   - component: {fileID: 2098102828}
   - component: {fileID: 2098102827}
   m_Layer: 0
-  m_Name: Walker (1)
+  m_Name: Walking Front
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
