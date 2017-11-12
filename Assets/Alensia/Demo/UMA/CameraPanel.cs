@@ -45,10 +45,6 @@ namespace Alensia.Demo.UMA
 
             Camera = CameraManager.Switch<CharacterCamera>();
 
-            PlayerAlias.OnChange
-                .Subscribe(Camera.Track)
-                .AddTo(this);
-
             Action<IPointerDragAware, Vector3> register = (button, direction) =>
             {
                 var events = button.OnDrag.Select(v => v.position);
@@ -69,16 +65,6 @@ namespace Alensia.Demo.UMA
                 .Subscribe(_ => ResetCamera(), Debug.LogError)
                 .AddTo(this);
 
-            var max = Camera.DistanceSettings.Maximum;
-            var min = Camera.DistanceSettings.Minimum;
-
-            var diff = max - min;
-
-            var zoom = Mathf.Approximately(diff, 0) ? 0 : (Camera.Distance - min) / diff;
-
-            InitialZoom = Mathf.Clamp(zoom, min, max);
-
-            ZoomSlider.Value = InitialZoom;
             ZoomSlider
                 .OnValueChange
                 .Subscribe(ZoomCamera, Debug.LogError)
@@ -109,6 +95,15 @@ namespace Alensia.Demo.UMA
 
             AnimationToggle.enabled = Animator != null;
             AnimationToggle.Value = Animator != null && Animator.enabled;
+
+            Camera.Track(character);
+
+            var target = FocusControlPanel.GetComponentInChildren<FocusTarget>();
+
+            if (target != null)
+            {
+                FocusCamera(target);
+            }
         }
 
         private void MoveCamera(Vector2 delta)
@@ -131,6 +126,7 @@ namespace Alensia.Demo.UMA
         {
             ResetCamera();
 
+            InitialZoom = target.Zoom;
             ZoomSlider.Value = target.Zoom;
 
             Camera.Focus(target.Target);
