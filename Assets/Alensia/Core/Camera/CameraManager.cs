@@ -115,9 +115,10 @@ namespace Alensia.Core.Camera
         {
             var updatable = Mode as IUpdatableCamera;
 
-            if (updatable == null) return;
-
-            updatable.UpdatePosition();
+            if (updatable != null && updatable.Active && updatable.Valid)
+            {
+                updatable.UpdatePosition();
+            }
 
             _cameraUpdate.OnNext(Unit.Default);
         }
