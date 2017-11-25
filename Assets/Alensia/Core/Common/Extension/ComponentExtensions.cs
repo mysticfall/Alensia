@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Common.Extension
 {
     public static class ComponentExtensions
     {

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alensia.Core.Common;
+using Alensia.Core.Common.Extension;
 using Alensia.Core.UI.Screen;
 using Optional;
 using UniRx;

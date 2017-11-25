@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.Common.Extension;
 using Alensia.Core.UI.Property;
 using Alensia.Core.UI.Resize;
 using Alensia.Core.UI.Screen;

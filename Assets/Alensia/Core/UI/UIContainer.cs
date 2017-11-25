@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.Common.Extension;
 using UnityEngine;
 
 namespace Alensia.Core.UI

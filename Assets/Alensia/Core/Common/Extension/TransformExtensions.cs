@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Common.Extension
 {
     public static class TransformExtensions
     {

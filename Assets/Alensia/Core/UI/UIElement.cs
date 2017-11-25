@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Alensia.Core.Common;
+using Alensia.Core.Common.Extension;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
