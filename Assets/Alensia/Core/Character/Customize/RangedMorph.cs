@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Character.Morph
+namespace Alensia.Core.Character.Customize
 {
     public class RangedMorph<T> : Morph<T> where T : IComparable<T>
     {

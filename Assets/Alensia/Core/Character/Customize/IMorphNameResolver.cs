@@ -1,4 +1,4 @@
-﻿namespace Alensia.Core.Character.Morph
+﻿namespace Alensia.Core.Character.Customize
 {
     public interface IMorphNameResolver
     {

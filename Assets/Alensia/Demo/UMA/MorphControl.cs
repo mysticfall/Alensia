@@ -1,4 +1,4 @@
-using Alensia.Core.Character.Morph;
+using Alensia.Core.Character.Customize;
 using Alensia.Core.I18n;
 using Alensia.Core.UI;
 using UMA.CharacterSystem;

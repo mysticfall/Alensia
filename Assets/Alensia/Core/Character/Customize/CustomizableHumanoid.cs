@@ -1,8 +1,8 @@
 using Zenject;
 
-namespace Alensia.Core.Character.Morph
+namespace Alensia.Core.Character.Customize
 {
-    public class MorphableHumanoid : Humanoid, IMorphable
+    public class CustomizableHumanoid : Humanoid, ICustomizable
     {
         [Inject]
         public IMorphSet Morphs { get; }

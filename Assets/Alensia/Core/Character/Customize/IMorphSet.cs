@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Alensia.Core.Character.Morph
+namespace Alensia.Core.Character.Customize
 {
     public interface IMorphSet
     {
