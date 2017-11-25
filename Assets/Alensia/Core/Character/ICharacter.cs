@@ -1,5 +1,5 @@
 ﻿using Alensia.Core.Animation;
-using Alensia.Core.Entity;
+using Alensia.Core.Common;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Locomotion.Generic;
 using Alensia.Core.Sensor;

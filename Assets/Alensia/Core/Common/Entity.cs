@@ -1,8 +1,7 @@
-﻿using Alensia.Core.Common;
-using Alensia.Core.I18n;
+﻿using Alensia.Core.I18n;
 using UnityEngine;
 
-namespace Alensia.Core.Entity
+namespace Alensia.Core.Common
 {
     public class Entity : ManagedMonoBehavior, IEntity
     {

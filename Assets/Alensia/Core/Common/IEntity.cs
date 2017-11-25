@@ -1,7 +1,6 @@
-using Alensia.Core.Common;
 using Alensia.Core.Geom;
 
-namespace Alensia.Core.Entity
+namespace Alensia.Core.Common
 {
     public interface IEntity : ILabelled, ITransformable
     {

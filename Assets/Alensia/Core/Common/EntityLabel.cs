@@ -1,12 +1,11 @@
 using Alensia.Core.Camera;
-using Alensia.Core.Common;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Screen;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Alensia.Core.Entity
+namespace Alensia.Core.Common
 {
     public class EntityLabel : ComponentHandler<Panel>
     {

@@ -1,4 +1,5 @@
 ﻿using Alensia.Core.Character.Generic;
+using Alensia.Core.Common;
 using Alensia.Core.Locomotion;
 using Alensia.Core.Sensor;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public abstract class Character<TVision, TLocomotion> : Entity.Entity, ICharacter<TVision, TLocomotion>
+    public abstract class Character<TVision, TLocomotion> : Entity, ICharacter<TVision, TLocomotion>
         where TVision : class, IVision
         where TLocomotion : class, ILocomotion
     {
