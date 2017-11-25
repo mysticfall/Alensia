@@ -1,4 +1,5 @@
 ﻿using Alensia.Core.Common;
+using Alensia.Core.Interaction;
 using UnityEngine;
 using Zenject;
 

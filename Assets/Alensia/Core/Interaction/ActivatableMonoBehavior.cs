@@ -1,8 +1,9 @@
 ﻿using System;
+using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Interaction
 {
     public class ActivatableMonoBehavior : ManagedMonoBehavior, IActivatable
     {

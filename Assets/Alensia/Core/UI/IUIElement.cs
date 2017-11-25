@@ -1,6 +1,7 @@
 using System;
 using Alensia.Core.Common;
 using Alensia.Core.Geom;
+using Alensia.Core.Interaction;
 using UniRx;
 using UnityEngine;
 

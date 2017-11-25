@@ -1,4 +1,5 @@
 ﻿using System;
+using Alensia.Core.Interaction;
 using UniRx;
 using UnityEngine;
 

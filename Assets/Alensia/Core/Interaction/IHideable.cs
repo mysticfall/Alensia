@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Interaction
 {
     public interface IHideable
     {

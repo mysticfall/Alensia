@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.Input;
+using Alensia.Core.Interaction;
 using Alensia.Core.UI.Cursor;
 using UniRx;
 using Zenject;

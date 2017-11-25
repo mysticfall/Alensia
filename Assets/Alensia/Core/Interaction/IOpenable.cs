@@ -1,6 +1,6 @@
 using System;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Interaction
 {
     public interface IOpenable : IOpenableOnce, ICloseableOnce
     {

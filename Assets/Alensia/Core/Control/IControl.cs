@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Alensia.Core.Common;
 using Alensia.Core.Input;
+using Alensia.Core.Interaction;
 using Alensia.Core.UI.Cursor;
 using Zenject;
 using IValidatable = Alensia.Core.Common.IValidatable;

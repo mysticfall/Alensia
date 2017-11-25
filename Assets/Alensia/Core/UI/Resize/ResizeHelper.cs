@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.Interaction;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;

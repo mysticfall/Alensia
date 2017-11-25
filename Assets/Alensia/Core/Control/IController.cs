@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Common;
+using Alensia.Core.Interaction;
 using Alensia.Core.UI.Cursor;
 
 namespace Alensia.Core.Control

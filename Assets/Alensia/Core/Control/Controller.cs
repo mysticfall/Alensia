@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Alensia.Core.Interaction;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Cursor;
 using UniRx;
