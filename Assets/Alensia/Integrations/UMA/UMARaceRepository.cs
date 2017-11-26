@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Alensia.Integrations.UMA
 {
-    public class UMARaceRepository : ManagedMonoBehavior, IRaceRepository
+    public class UMARaceRepository : ManagedDirectory<Race>, IRaceRepository
     {
         [Inject]
         public UMAContext Context { get; }
@@ -19,18 +19,17 @@ namespace Alensia.Integrations.UMA
 
         public RaceLibraryBase RaceLibrary => Context.raceLibrary;
 
+        protected override IEnumerable<Race> Items => _races ?? Enumerable.Empty<Race>();
+
         [SerializeField] private List<UMARaceMapping> _mappings;
 
         private IReadOnlyList<Race> _races;
-
-        private IDictionary<string, Race> _raceMap;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
             _races = _mappings.Select(m => m.GetRace()).ToList().AsReadOnly();
-            _raceMap = _mappings.ToDictionary(k => k.Name, e => e.GetRace());
         }
 
         public virtual UMARecipeBase GetRacePreset(Race race, Sex sex)
@@ -55,9 +54,5 @@ namespace Alensia.Integrations.UMA
 
             return mapping?.GetSex(umaRace, Context) ?? Option.None<Sex>();
         }
-
-        public bool Contains(string key) => _raceMap != null && _raceMap.ContainsKey(key);
-
-        public Race this[string key] => _raceMap?[key];
     }
 }

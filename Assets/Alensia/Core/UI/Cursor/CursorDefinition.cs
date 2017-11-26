@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.UI.Cursor
 {
-    public abstract class CursorDefinition : IEditorSettings
+    public abstract class CursorDefinition : INamed, IEditorSettings
     {
         public string Name => _name;
 

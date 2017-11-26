@@ -6,11 +6,9 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
-    public class RaceRepository : ManagedMonoBehavior, IRaceRepository
+    public class RaceRepository : ManagedDirectory<Race>, IRaceRepository
     {
         public IEnumerable<Race> Races => _races;
-
-        private IDictionary<string, Race> _mappings;
 
         [SerializeField] private Race[] _races;
 
@@ -25,21 +23,6 @@ namespace Alensia.Core.Character
             _races = races.ToArray();
         }
 
-        protected override void OnInitialized()
-        {
-            _races = _races ?? new Race[0];
-            _mappings = new Dictionary<string, Race>();
-
-            foreach (var race in Races)
-            {
-                _mappings[race.Name] = race;
-            }
-
-            base.OnInitialized();
-        }
-
-        public bool Contains(string key) => _mappings.ContainsKey(key);
-
-        public Race this[string key] => _mappings[key];
+        protected override IEnumerable<Race> Items => _races;
     }
 }

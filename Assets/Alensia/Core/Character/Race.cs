@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alensia.Core.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Alensia.Core.Character
 {
     [Serializable]
-    public class Race
+    public class Race : INamed
     {
         public string Name => _name;
 
