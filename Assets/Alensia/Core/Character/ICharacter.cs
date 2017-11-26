@@ -10,7 +10,7 @@ namespace Alensia.Core.Character
 {
     public interface ICharacter : IEntity, IAnimatable, ISeeing, ILocomotive
     {
-        Race Race { get; }
+        IRace Race { get; }
 
         Sex Sex { get; }
 

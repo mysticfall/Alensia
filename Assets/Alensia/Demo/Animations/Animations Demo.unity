@@ -3040,6 +3040,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc8f492055744d7a92424d85a7f93c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _races:
+  - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
   _mappings:
   - _name: Human
     _male: {fileID: 11400000, guid: 65c9ed220e2dd4e669108662ef3fdb17, type: 2}
@@ -3935,7 +3937,3 @@ MonoBehaviour:
   _displayName:
     _text: 
     _textKey: 
-  _race:
-    _name: Human
-    _sexes: 0100000002000000
-  _sex: 2

@@ -5,12 +5,8 @@ using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public class Humanoid : Character<IBinocularVision, ILeggedLocomotion>, IHumanoid
+    public abstract class Humanoid : Character<IBinocularVision, ILeggedLocomotion>, IHumanoid
     {
-        public override Race Race => _race;
-
-        public override Sex Sex => _sex;
-
         public override Transform Head => _head;
 
         [Inject]
@@ -18,10 +14,6 @@ namespace Alensia.Core.Character
 
         [Inject]
         public override ILeggedLocomotion Locomotion { get; }
-
-        [SerializeField] private Race _race = Race.Human;
-
-        [SerializeField] private Sex _sex = Sex.Male;
 
         private Transform _head;
 

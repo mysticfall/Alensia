@@ -9,7 +9,7 @@ namespace Alensia.Core.Character.Customize
 {
     public abstract class MorphSet : ManagedMonoBehavior, IMorphSet
     {
-        public Race Race
+        public IRace Race
         {
             get { return _race.Value; }
             set
@@ -37,7 +37,7 @@ namespace Alensia.Core.Character.Customize
 
         public IEnumerable<IMorph> Morphs => _morphs.Value;
 
-        public IObservable<Race> OnRaceChange => _race;
+        public IObservable<IRace> OnRaceChange => _race;
 
         public IObservable<Sex> OnSexChange => _sex;
 
@@ -48,7 +48,7 @@ namespace Alensia.Core.Character.Customize
 
         private readonly IReactiveProperty<Sex> _sex;
 
-        private readonly IReactiveProperty<Race> _race;
+        private readonly IReactiveProperty<IRace> _race;
 
         private readonly IReactiveProperty<IReadOnlyList<IMorph>> _morphs;
 
@@ -59,7 +59,7 @@ namespace Alensia.Core.Character.Customize
         protected MorphSet()
         {
             _sex = new ReactiveProperty<Sex>();
-            _race = new ReactiveProperty<Race>();
+            _race = new ReactiveProperty<IRace>();
             _morphs = new ReactiveProperty<IReadOnlyList<IMorph>>(
                 Enumerable.Empty<IMorph>().ToList());
 
@@ -103,7 +103,7 @@ namespace Alensia.Core.Character.Customize
 
         protected abstract void ChangeSex(Sex sex);
 
-        protected abstract void ChangeRace(Race race);
+        protected abstract void ChangeRace(IRace race);
 
         protected abstract void ApplyMorph(IMorph morph);
     }

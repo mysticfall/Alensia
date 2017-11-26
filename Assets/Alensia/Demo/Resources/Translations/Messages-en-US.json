@@ -1,4 +1,9 @@
 {
+    "races": {
+        "human": {
+            "name": "Human"
+        }
+    },
     "MainMenu": {
         "title": "Alensia Demo",
         "labels": {

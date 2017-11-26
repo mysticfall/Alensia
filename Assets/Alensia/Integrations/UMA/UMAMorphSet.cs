@@ -127,9 +127,9 @@ namespace Alensia.Integrations.UMA
 
         protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
 
-        protected override void ChangeRace(Race race) => ChangeUmaRace(race, Sex);
+        protected override void ChangeRace(IRace race) => ChangeUmaRace(race, Sex);
 
-        protected virtual void ChangeUmaRace(Race race, Sex sex)
+        protected virtual void ChangeUmaRace(IRace race, Sex sex)
         {
             if (!_initialized) return;
 

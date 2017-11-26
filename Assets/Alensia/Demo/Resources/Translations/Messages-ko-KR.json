@@ -1,4 +1,9 @@
 {
+    "races": {
+        "human": {
+            "name": "인간"
+        }
+    },
     "MainMenu": {
         "title": "알렌시아 데모",
         "labels": {

@@ -642,7 +642,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 88030509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 591, y: -40, z: 0}
+  m_LocalPosition: {x: 589, y: -40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 544370537}
@@ -2767,10 +2767,6 @@ MonoBehaviour:
   _displayName:
     _text: 
     _textKey: 
-  _race:
-    _name: Human
-    _sexes: 0100000002000000
-  _sex: 1
 --- !u!1 &677176012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,6 +4055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc8f492055744d7a92424d85a7f93c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _races:
+  - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
   _mappings:
   - _name: Human
     _male: {fileID: 11400000, guid: 65c9ed220e2dd4e669108662ef3fdb17, type: 2}
@@ -5941,7 +5939,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1248467732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 631.8205, y: 298.113, z: -15.475376}
+  m_LocalPosition: {x: 629.8205, y: 298.113, z: -15.475376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1410430651}
@@ -6717,7 +6715,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1337684451}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -421, y: 0, z: 0}
+  m_LocalPosition: {x: -419, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1981682669}
@@ -7165,7 +7163,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402717336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 591, y: 290, z: 0}
+  m_LocalPosition: {x: 589, y: 290, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1516338000}

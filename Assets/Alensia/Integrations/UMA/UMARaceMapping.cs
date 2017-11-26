@@ -35,17 +35,6 @@ namespace Alensia.Integrations.UMA
             _raceData = new Dictionary<Sex, RaceData>();
         }
 
-        public Race GetRace()
-        {
-            var sexes = new List<Sex>(3);
-
-            if (Male != null) sexes.Add(Sex.Male);
-            if (Female != null) sexes.Add(Sex.Female);
-            if (Other != null) sexes.Add(Sex.Other);
-
-            return new Race(Name, sexes);
-        }
-
         public Option<Sex> GetSex(string umaRace, UMAContext context)
         {
             Assert.IsNotNull(umaRace, "umaRace != null");

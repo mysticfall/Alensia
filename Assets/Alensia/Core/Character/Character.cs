@@ -11,7 +11,7 @@ namespace Alensia.Core.Character
         where TVision : class, IVision
         where TLocomotion : class, ILocomotion
     {
-        public abstract Race Race { get; }
+        public abstract IRace Race { get; }
 
         public abstract Sex Sex { get; }
 
