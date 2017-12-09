@@ -3,7 +3,7 @@ using Alensia.Core.Common;
 
 namespace Alensia.Core.Character
 {
-    public interface IRace : ILabelled
+    public interface IRace : IForm
     {
         IEnumerable<Sex> Sexes { get; }
     }
