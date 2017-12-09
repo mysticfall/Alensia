@@ -36,6 +36,7 @@ and intend to create a game on their own, I thought there coud be a better way f
  * [_UniRx_](https://www.assetstore.unity3d.com/en/#!/content/17276) (Requires 
  `ENABLE_MONO_BLEEDING_EDGE_EDITOR`, and `ENABLE_MONO_BLEEDING_EDGE_STANDALONE` scripting symbol).
  * [_UMA_](https://www.assetstore.unity3d.com/kr/#!/content/35611) (Optional) Used for _UMA_ integration API and demo.
+ * [_Reorderable List_](https://github.com/cfoulston/Unity-Reorderable-List)
 
 The demo requires [_Standard Assets_](https://www.assetstore.unity3d.com/en/#!/content/32351) 
 package to run, but strafing moves(`A` and `D` key) won't work as intended, because it does not provide any suitable animations.

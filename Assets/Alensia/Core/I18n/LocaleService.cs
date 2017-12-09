@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Alensia.Core.Common;
+using Malee;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,13 +33,13 @@ namespace Alensia.Core.I18n
 
         [SerializeField] private LanguageTag _fallbackLocale;
 
-        [SerializeField] private LanguageTag[] _locales;
+        [SerializeField, Reorderable] private LanguageTagList _locales;
 
         public LocaleService()
         {
             _fallbackLocale = new LanguageTag("en-US");
 
-            _locales = new[] {_fallbackLocale};
+            _locales = new LanguageTagList {_fallbackLocale};
             _locale = new LanguageTagReactiveProperty(_fallbackLocale);
         }
     }

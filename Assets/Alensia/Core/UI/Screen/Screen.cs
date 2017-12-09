@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Common;
 using Alensia.Core.Common.Extension;
+using Malee;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -17,7 +17,7 @@ namespace Alensia.Core.UI.Screen
 
         public Canvas Canvas { get; private set; }
 
-        [SerializeField] private ScreenItemDefinition[] _uiItems;
+        [SerializeField, Reorderable] private ScreenItemDefinitionList _uiItems;
 
         public override void Initialize(IUIContext context)
         {

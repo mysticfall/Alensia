@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Control;
 using Alensia.Core.Game;
 using Alensia.Core.I18n;
 using Alensia.Core.UI;
+using Malee;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -31,7 +33,9 @@ namespace Alensia.Demo
 
         public Button ButtonQuit;
 
-        public UIStyle[] Styles;
+        public IEnumerable<UIStyle> Styles => _styles;
+
+        [SerializeField, Reorderable] private UIStyleList _styles;
 
         private bool _playerControlEnabled;
 

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Common;
+using Malee;
 using UnityEngine;
 
 namespace Alensia.Core.UI.Cursor
@@ -9,17 +11,21 @@ namespace Alensia.Core.UI.Cursor
     {
         public string Name => name;
 
-        [SerializeField] private StaticCursor[] _cursors;
+        [SerializeField, Reorderable] private StaticCursorList _cursors;
 
-        [SerializeField] private AnimatedCursor[] _animatedCursors;
-
-        private void OnEnable()
-        {
-            _cursors = _cursors?.OrderBy(c => c.Name).ToArray();
-            _animatedCursors = _animatedCursors?.OrderBy(c => c.Name).ToArray();
-        }
+        [SerializeField, Reorderable] private AnimatedCursorList _animatedCursors;
 
         protected override IEnumerable<CursorDefinition> Items => 
             _cursors.Concat<CursorDefinition>(_animatedCursors);
+
+        [Serializable]
+        internal class StaticCursorList : ReorderableArray<StaticCursor>
+        {
+        }
+
+        [Serializable]
+        internal class AnimatedCursorList : ReorderableArray<AnimatedCursor>
+        {
+        }
     }
 }

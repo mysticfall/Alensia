@@ -4,6 +4,7 @@ using System.Linq;
 using Alensia.Core.Common;
 using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Property;
+using Malee;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -34,17 +35,17 @@ namespace Alensia.Core.UI
 
         [SerializeField] private CursorSet _cursorSet;
 
-        [SerializeField] private ColorItem[] _colors;
+        [SerializeField, Reorderable] private ColorItemList _colors;
 
-        [SerializeField] private ColorSetItem[] _colorSets;
+        [SerializeField, Reorderable] private ColorSetItemList _colorSets;
 
-        [SerializeField] private ImageAndColorItem[] _imagesAndColors;
+        [SerializeField, Reorderable] private ImageAndColorItemList _imagesAndColors;
 
-        [SerializeField] private ImageAndColorSetItem[] _imageAndColorSets;
+        [SerializeField, Reorderable] private ImageAndColorSetItemList _imageAndColorSets;
 
-        [SerializeField] private TextStyleItem[] _textStyles;
+        [SerializeField, Reorderable] private TextStyleItemList _textStyles;
 
-        [SerializeField] private TextStyleSetItem[] _textStyleSets;
+        [SerializeField, Reorderable] private TextStyleSetItemList _textStyleSets;
 
         [NonSerialized] private StyleItemLookup<ColorItem, UnsettableColor> _colorsLookup;
 
@@ -71,15 +72,6 @@ namespace Alensia.Core.UI
 
         private void UpdateItems()
         {
-            _colors = _colors?.OrderBy(i => i.Name).ToArray();
-            _colorSets = _colorSets?.OrderBy(i => i.Name).ToArray();
-
-            _imagesAndColors = _imagesAndColors?.OrderBy(i => i.Name).ToArray();
-            _imageAndColorSets = _imageAndColorSets?.OrderBy(i => i.Name).ToArray();
-
-            _textStyles = _textStyles?.OrderBy(i => i.Name).ToArray();
-            _textStyleSets = _textStyleSets?.OrderBy(i => i.Name).ToArray();
-
             _colorsLookup = new StyleItemLookup<ColorItem, UnsettableColor>(_colors, _parent?._colorsLookup);
             _colorSetLookup = new StyleItemLookup<ColorSetItem, ColorSet>(_colorSets, _parent?._colorSetLookup);
 
@@ -93,6 +85,11 @@ namespace Alensia.Core.UI
             _textStyleSetLookup = new StyleItemLookup<TextStyleSetItem, TextStyleSet>(
                 _textStyleSets, _parent?._textStyleSetLookup);
         }
+    }
+
+    [Serializable]
+    internal class UIStyleList : ReorderableArray<UIStyle>
+    {
     }
 
     internal class StyleItemLookup<TItem, TValue> : IDirectory<TValue>
@@ -167,11 +164,21 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
+    internal class TextStyleItemList : ReorderableArray<TextStyleItem>
+    {
+    }
+
+    [Serializable]
     internal class TextStyleSetItem : UIStyleItem<TextStyleSet>
     {
         internal TextStyleSetItem(string name, TextStyleSet value) : base(name, value)
         {
         }
+    }
+
+    [Serializable]
+    internal class TextStyleSetItemList : ReorderableArray<TextStyleSetItem>
+    {
     }
 
     [Serializable]
@@ -183,11 +190,21 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
+    internal class ImageAndColorItemList : ReorderableArray<ImageAndColorItem>
+    {
+    }
+
+    [Serializable]
     internal class ImageAndColorSetItem : UIStyleItem<ImageAndColorSet>
     {
         internal ImageAndColorSetItem(string name, ImageAndColorSet value) : base(name, value)
         {
         }
+    }
+
+    [Serializable]
+    internal class ImageAndColorSetItemList : ReorderableArray<ImageAndColorSetItem>
+    {
     }
 
     [Serializable]
@@ -199,11 +216,21 @@ namespace Alensia.Core.UI
     }
 
     [Serializable]
+    internal class ColorItemList : ReorderableArray<ColorItem>
+    {
+    }
+
+    [Serializable]
     internal class ColorSetItem : UIStyleItem<ColorSet>
     {
         internal ColorSetItem(string name, ColorSet value) : base(name, value)
         {
         }
+    }
+
+    [Serializable]
+    internal class ColorSetItemList : ReorderableArray<ColorSetItem>
+    {
     }
 
     [Serializable]

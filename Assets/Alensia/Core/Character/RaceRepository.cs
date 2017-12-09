@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Alensia.Core.Common;
+using Malee;
 using UnityEngine;
 
 namespace Alensia.Core.Character
@@ -8,7 +9,7 @@ namespace Alensia.Core.Character
     {
         public IEnumerable<Race> Races => _races;
 
-        [SerializeField] private Race[] _races;
+        [SerializeField, Reorderable] private RaceList _races;
 
         protected override IEnumerable<Race> Items => _races;
     }

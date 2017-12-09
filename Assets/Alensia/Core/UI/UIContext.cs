@@ -6,6 +6,7 @@ using Alensia.Core.Common;
 using Alensia.Core.I18n;
 using Alensia.Core.UI.Cursor;
 using Alensia.Core.UI.Screen;
+using Malee;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -74,7 +75,7 @@ namespace Alensia.Core.UI
 
         [SerializeField] private Transform _screenRoot;
 
-        [SerializeField] private ScreenDefinition[] _screens;
+        [SerializeField, Reorderable] private ScreenDefinitionList _screens;
 
         [SerializeField, PredefinedLiteral(typeof(CursorNames))] private string _defaultCursor;
 

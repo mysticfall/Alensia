@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Alensia.Core.Character;
+using Malee;
 using Optional;
 using UMA;
 using UnityEngine;
@@ -15,20 +16,20 @@ namespace Alensia.Integrations.UMA
 
         public RaceLibraryBase RaceLibrary => Context.raceLibrary;
 
-        [SerializeField] private List<UMARaceMapping> _mappings;
+        [SerializeField, Reorderable] private UMARaceMappingList _mappings;
 
         public virtual UMARecipeBase GetRacePreset(IRace race, Sex sex)
         {
             Assert.IsNotNull(race, "race != null");
 
-            return _mappings?.Find(m => m.Name == race.Name)?.GetRacePreset(sex);
+            return _mappings?.ToList().Find(m => m.Name == race.Name)?.GetRacePreset(sex);
         }
 
         public virtual IRace GetRaceFromUMARace(string umaRace)
         {
             Assert.IsNotNull(umaRace, "umaRace != null");
 
-            var raceName = _mappings?.Find(m => m.Matches(umaRace, Context))?.Name;
+            var raceName = _mappings?.ToList().Find(m => m.Matches(umaRace, Context))?.Name;
 
             return raceName != null ? this[raceName] : null;
         }
@@ -37,7 +38,7 @@ namespace Alensia.Integrations.UMA
         {
             Assert.IsNotNull(umaRace, "umaRace != null");
 
-            var mapping = _mappings?.Find(m => m.Matches(umaRace, Context));
+            var mapping = _mappings?.ToList().Find(m => m.Matches(umaRace, Context));
 
             return mapping?.GetSex(umaRace, Context) ?? Option.None<Sex>();
         }

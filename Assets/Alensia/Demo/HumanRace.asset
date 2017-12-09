@@ -15,4 +15,5 @@ MonoBehaviour:
   _displayName:
     _text: Human
     _textKey: races.human.name
-  _sexes: 0100000002000000
+  _sexes:
+    array: 0100000002000000

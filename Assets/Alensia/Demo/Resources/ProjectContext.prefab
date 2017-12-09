@@ -145,7 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resources:
-  - Translations/Messages
+    array:
+    - Translations/Messages
 --- !u!114 &114431269475348280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,5 +196,6 @@ MonoBehaviour:
   _fallbackLocale:
     _tag: en-US
   _locales:
-  - _tag: en-US
-  - _tag: ko-KR
+    array:
+    - _tag: en-US
+    - _tag: ko-KR

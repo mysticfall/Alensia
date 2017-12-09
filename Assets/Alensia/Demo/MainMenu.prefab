@@ -2925,9 +2925,10 @@ MonoBehaviour:
   ChoiceStyle: {fileID: 114946065864590782}
   ButtonResume: {fileID: 114937387858328232}
   ButtonQuit: {fileID: 114101579261084660}
-  Styles:
-  - {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
-  - {fileID: 11400000, guid: f031c9c4caf1b4e5b812be6ed66e8a96, type: 2}
+  _styles:
+    array:
+    - {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
+    - {fileID: 11400000, guid: f031c9c4caf1b4e5b812be6ed66e8a96, type: 2}
 --- !u!114 &114640456201398258
 MonoBehaviour:
   m_ObjectHideFlags: 3

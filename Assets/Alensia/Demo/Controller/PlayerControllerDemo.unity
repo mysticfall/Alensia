@@ -170,6 +170,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Player
+--- !u!1 &48911287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 48911288}
+  - component: {fileID: 48911290}
+  - component: {fileID: 48911289}
+  m_Layer: 0
+  m_Name: Races
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48911288
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 48911287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1506224612}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48911289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 48911287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 48911290}
+  _identifier: 
+  _context: {fileID: 0}
+  _bindType: 2
+--- !u!114 &48911290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 48911287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7995e0c6bf747fc968fa21d96d8a943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _races:
+    array:
+    - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
 --- !u!1 &88924576 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1244357630558506, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
@@ -379,16 +439,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 456465229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59edc175a08946e2917025e600227197, type: 3}
+  m_Script: {fileID: 11500000, guid: 7361d4ad3eab40a58647df3d8907f4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Player
+  _name: Ethan
   _displayName:
-    _text: 
+    _text: Ethan
     _textKey: 
-  _race:
-    _name: Human
-    _sexes: 0100000002000000
+  _race: Human
   _sex: 1
 --- !u!114 &456465232
 MonoBehaviour:
@@ -1056,14 +1114,15 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
   _screenRoot: {fileID: 845667511}
   _screens:
-  - _name: Overlay
-    _item: {fileID: 705231345}
-    _enable: 1
-    _order: 0
-  - _name: Windows
-    _item: {fileID: 2090786174}
-    _enable: 1
-    _order: 1
+    array:
+    - _name: Overlay
+      _item: {fileID: 705231345}
+      _enable: 1
+      _order: 0
+    - _name: Windows
+      _item: {fileID: 2090786174}
+      _enable: 1
+      _order: 1
   _defaultCursor: default
   _cursorState:
     _lockState: 0
@@ -1606,6 +1665,7 @@ Transform:
   - {fileID: 465434076}
   - {fileID: 845667511}
   - {fileID: 1825169041}
+  - {fileID: 48911288}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2342,11 +2402,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiItems:
-  - _name: MainMenu
-    _item: {fileID: 1966944876048830, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
-    _singleton: 1
-    _enable: 0
-    _order: 0
+    array:
+    - _name: MainMenu
+      _item: {fileID: 1966944876048830, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+      _singleton: 1
+      _enable: 0
+      _order: 0
 --- !u!1 &2097863676
 GameObject:
   m_ObjectHideFlags: 0

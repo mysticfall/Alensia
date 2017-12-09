@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Alensia.Core.Common;
+using Malee;
 using UnityEngine;
 
 namespace Alensia.Core.I18n
@@ -9,11 +11,11 @@ namespace Alensia.Core.I18n
     {
         public IEnumerable<string> ResourceNames => _resources;
 
-        [SerializeField] private string[] _resources;
+        [SerializeField, Reorderable] private StringList _resources;
 
         protected ResourceTranslator()
         {
-            _resources = new[] {"Translations/Messages"};
+            _resources = new StringList {"Translations/Messages"};
         }
 
         protected virtual string GetResourceName(string baseName, CultureInfo locale) =>

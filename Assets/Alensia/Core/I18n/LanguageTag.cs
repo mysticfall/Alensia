@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Malee;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -32,5 +33,10 @@ namespace Alensia.Core.I18n
         public override int GetHashCode() => _tag != null ? _tag.GetHashCode() : 0;
 
         public override string ToString() => _tag;
+    }
+
+    [Serializable]
+    internal class LanguageTagList : ReorderableArray<LanguageTag>
+    {
     }
 }

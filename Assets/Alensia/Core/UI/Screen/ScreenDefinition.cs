@@ -1,5 +1,6 @@
 using System;
 using Alensia.Core.Common;
+using Malee;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -37,5 +38,10 @@ namespace Alensia.Core.UI.Screen
         [SerializeField] private int _order;
 
         public int CompareTo(IUIDefinition obj) => Order.CompareTo(obj.Order);
+    }
+
+    [Serializable]
+    internal class ScreenDefinitionList : ReorderableArray<ScreenDefinition>
+    {
     }
 }

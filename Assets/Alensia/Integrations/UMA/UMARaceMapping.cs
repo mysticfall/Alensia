@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Alensia.Core.Character;
 using Alensia.Core.Common;
+using Malee;
 using Optional;
 using UMA;
 using UnityEngine;
@@ -105,5 +106,10 @@ namespace Alensia.Integrations.UMA
                 umaRace == GetRaceData(Sex.Male, context)?.raceName ||
                 umaRace == GetRaceData(Sex.Female, context)?.raceName ||
                 umaRace == GetRaceData(Sex.Other, context)?.raceName);
+    }
+
+    [Serializable]
+    internal class UMARaceMappingList : ReorderableArray<UMARaceMapping>
+    {
     }
 }

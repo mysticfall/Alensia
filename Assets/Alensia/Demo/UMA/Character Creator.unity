@@ -4056,12 +4056,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _races:
-  - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
+    array:
+    - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
   _mappings:
-  - _name: Human
-    _male: {fileID: 11400000, guid: 65c9ed220e2dd4e669108662ef3fdb17, type: 2}
-    _female: {fileID: 11400000, guid: a9005f9e7c24e4a40b8211e08fe84c51, type: 2}
-    _other: {fileID: 0}
+    array:
+    - _name: Human
+      _male: {fileID: 11400000, guid: 65c9ed220e2dd4e669108662ef3fdb17, type: 2}
+      _female: {fileID: 11400000, guid: a9005f9e7c24e4a40b8211e08fe84c51, type: 2}
+      _other: {fileID: 0}
 --- !u!114 &805160497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6020,16 +6022,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiItems:
-  - _name: CharacterCustomizer
-    _item: {fileID: 1410430650}
-    _singleton: 1
-    _enable: 1
-    _order: 0
-  - _name: MainMenu
-    _item: {fileID: 1966944876048830, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
-    _singleton: 1
-    _enable: 0
-    _order: 0
+    array:
+    - _name: CharacterCustomizer
+      _item: {fileID: 1410430650}
+      _singleton: 1
+      _enable: 1
+      _order: 0
+    - _name: MainMenu
+      _item: {fileID: 1966944876048830, guid: 1aa669bd256ec4ae4a064794bf773503, type: 2}
+      _singleton: 1
+      _enable: 0
+      _order: 0
 --- !u!1 &1264758996
 GameObject:
   m_ObjectHideFlags: 0
@@ -8028,10 +8031,11 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 461fb8846c0cc448b85e3f447ae71d47, type: 2}
   _screenRoot: {fileID: 1509071208}
   _screens:
-  - _name: Windows
-    _item: {fileID: 1248467732}
-    _enable: 1
-    _order: 0
+    array:
+    - _name: Windows
+      _item: {fileID: 1248467732}
+      _enable: 1
+      _order: 0
   _defaultCursor: default
   _cursorState:
     _lockState: 0
