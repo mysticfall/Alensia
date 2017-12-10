@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Alensia.Core.Common;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Collection
 {
-    public abstract class Directory<T> : IDirectory<T>, IEditorSettings
+    public abstract class ManagedDirectory<T> : ManagedMonoBehavior, IDirectory<T>
         where T : class, INamed
     {
         protected abstract IEnumerable<T> Items { get; }
@@ -32,5 +33,12 @@ namespace Alensia.Core.Common
         public bool Contains(string key) => ItemMap.ContainsKey(key);
 
         public T this[string key] => ItemMap.ContainsKey(key) ? ItemMap[key] : null;
+
+        protected override void OnDisposed()
+        {
+            _itemMap = null;
+
+            base.OnDisposed();
+        }
     }
 }

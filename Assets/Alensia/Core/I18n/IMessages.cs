@@ -1,4 +1,4 @@
-using Alensia.Core.Common;
+using Alensia.Core.Collection;
 
 namespace Alensia.Core.I18n
 {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Alensia.Core.Common;
 using UnityEngine;
 
-namespace Alensia.Core.Common
+namespace Alensia.Core.Collection
 {
     public abstract class PersistedDirectory<T> : ScriptableObject, IDirectory<T>
         where T : class, INamed

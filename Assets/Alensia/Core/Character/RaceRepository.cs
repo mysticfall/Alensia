@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Alensia.Core.Common;
+using Alensia.Core.Collection;
 using Malee;
 using UnityEngine;
 
