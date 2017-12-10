@@ -5,7 +5,7 @@ using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 
-namespace Alensia.Core.Character.Customize
+namespace Alensia.Core.Character.Morph
 {
     public abstract class MorphSet : ManagedMonoBehavior, IMorphSet
     {

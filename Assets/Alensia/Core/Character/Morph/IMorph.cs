@@ -1,7 +1,7 @@
 using System;
 using Alensia.Core.Common;
 
-namespace Alensia.Core.Character.Customize
+namespace Alensia.Core.Character.Morph
 {
     public interface IMorph : INamed
     {

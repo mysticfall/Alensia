@@ -1,9 +1,9 @@
 ﻿using System;
-using Alensia.Core.Character.Customize.Generic;
+using Alensia.Core.Character.Morph.Generic;
 using UniRx;
 using UnityEngine.Assertions;
 
-namespace Alensia.Core.Character.Customize
+namespace Alensia.Core.Character.Morph
 {
     public class Morph<T> : IMorph<T>
     {

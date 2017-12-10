@@ -1,8 +1,9 @@
+using Alensia.Core.Character.Morph;
 using Zenject;
 
-namespace Alensia.Core.Character.Customize
+namespace Alensia.Core.Character
 {
-    public class CustomizableHumanoid : Humanoid, ICustomizable
+    public class CustomizableHumanoid : Humanoid, IMorphable
     {
         public override IRace Race => Morphs.Race;
 

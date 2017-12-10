@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Character;
-using Alensia.Core.Character.Customize;
+using Alensia.Core.Character.Morph;
 using Alensia.Core.UI;
 using UniRx;
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace Alensia.Demo.UMA
         [Inject]
         public IRaceRepository RaceRepository { get; }
 
-        public ICustomizable Player => Alias?.Reference as ICustomizable;
+        public IMorphable Player => Alias?.Reference as IMorphable;
 
         public IMorphSet Morphs => Player?.Morphs;
 
@@ -26,7 +26,7 @@ namespace Alensia.Demo.UMA
 
             Alias.OnChange
                 .Where(p => p != null)
-                .Cast<IHumanoid, ICustomizable>()
+                .Cast<IHumanoid, IMorphable>()
                 .Select(p => p.Morphs.OnMorphsChange)
                 .Switch()
                 .Subscribe(m => LoadMorphs(m.ToList()), Debug.LogError)

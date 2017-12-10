@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Alensia.Core.Character.Customize;
-using Alensia.Core.Character.Customize.Generic;
+using Alensia.Core.Character.Morph;
+using Alensia.Core.Character.Morph.Generic;
 using Alensia.Core.UI;
 using UnityEngine;
 
