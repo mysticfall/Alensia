@@ -10,6 +10,6 @@ namespace Alensia.Core.Item
 
         void Set(TItem item);
 
-        void Clear(string key);
+        void Remove(string key);
     }
 }
