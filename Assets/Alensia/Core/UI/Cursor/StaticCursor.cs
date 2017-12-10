@@ -1,4 +1,5 @@
 using System;
+using Malee;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -27,5 +28,10 @@ namespace Alensia.Core.UI.Cursor
         public override Vector2 Size => Image == null ? Vector2.zero : new Vector2(Image.width, Image.height);
 
         public override IObservable<Texture2D> Create() => Observable.Return(Image);
+    }
+
+    [Serializable]
+    public class StaticCursorList : ReorderableArray<StaticCursor>
+    {
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alensia.Core.Collection;
@@ -18,15 +17,5 @@ namespace Alensia.Core.UI.Cursor
 
         protected override IEnumerable<CursorDefinition> Items => 
             _cursors.Concat<CursorDefinition>(_animatedCursors);
-
-        [Serializable]
-        internal class StaticCursorList : ReorderableArray<StaticCursor>
-        {
-        }
-
-        [Serializable]
-        internal class AnimatedCursorList : ReorderableArray<AnimatedCursor>
-        {
-        }
     }
 }

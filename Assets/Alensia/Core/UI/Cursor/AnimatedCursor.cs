@@ -67,4 +67,9 @@ namespace Alensia.Core.UI.Cursor
                 .RepeatSafe();
         }
     }
+
+    [Serializable]
+    public class AnimatedCursorList : ReorderableArray<AnimatedCursor>
+    {
+    }
 }

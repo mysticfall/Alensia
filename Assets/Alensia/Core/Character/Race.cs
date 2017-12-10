@@ -38,7 +38,7 @@ namespace Alensia.Core.Character
     }
 
     [Serializable]
-    internal class RaceList : ReorderableArray<Race>
+    public class RaceList : ReorderableArray<Race>
     {
     }
 }

@@ -109,7 +109,7 @@ namespace Alensia.Integrations.UMA
     }
 
     [Serializable]
-    internal class UMARaceMappingList : ReorderableArray<UMARaceMapping>
+    public class UMARaceMappingList : ReorderableArray<UMARaceMapping>
     {
     }
 }

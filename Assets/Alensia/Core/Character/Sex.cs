@@ -11,7 +11,7 @@ namespace Alensia.Core.Character
     }
 
     [Serializable]
-    internal class SexList : ReorderableArray<Sex>
+    public class SexList : ReorderableArray<Sex>
     {
     }
 }

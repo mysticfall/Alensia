@@ -41,7 +41,7 @@ namespace Alensia.Core.UI.Screen
     }
 
     [Serializable]
-    internal class ScreenDefinitionList : ReorderableArray<ScreenDefinition>
+    public class ScreenDefinitionList : ReorderableArray<ScreenDefinition>
     {
     }
 }

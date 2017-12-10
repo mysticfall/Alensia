@@ -36,7 +36,7 @@ namespace Alensia.Core.I18n
     }
 
     [Serializable]
-    internal class LanguageTagList : ReorderableArray<LanguageTag>
+    public class LanguageTagList : ReorderableArray<LanguageTag>
     {
     }
 }

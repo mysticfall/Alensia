@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Alensia.Core.Common
 {
     [Serializable]
-    internal class StringList : ReorderableArray<string>
+    public class StringList : ReorderableArray<string>
     {
         public StringList() : base(0)
         {
@@ -17,7 +17,7 @@ namespace Alensia.Core.Common
     }
 
     [Serializable]
-    internal class Texture2DList : ReorderableArray<Texture2D>
+    public class Texture2DList : ReorderableArray<Texture2D>
     {
         public Texture2DList() : base(0)
         {

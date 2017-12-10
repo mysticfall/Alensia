@@ -10,7 +10,7 @@ namespace Alensia.Core.Item
     }
 
     [Serializable]
-    internal class ClothingSlotList : ReorderableArray<ClothingSlot>
+    public class ClothingSlotList : ReorderableArray<ClothingSlot>
     {
     }
 }
