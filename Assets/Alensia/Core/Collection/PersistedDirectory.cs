@@ -9,34 +9,31 @@ namespace Alensia.Core.Collection
     {
         protected abstract IEnumerable<T> Items { get; }
 
-        protected IDictionary<string, T> ItemMap
+        protected IDirectory<T> Directory
         {
             get
             {
                 lock (this)
                 {
-                    if (_itemMap != null) return _itemMap;
+                    if (_directory != null) return _directory;
 
-                    _itemMap = new Dictionary<string, T>();
+                    _directory = new SimpleDirectory<T>(Items);
 
-                    foreach (var item in Items)
-                    {
-                        _itemMap.Add(item.Name, item);
-                    }
-
-                    return _itemMap;
+                    return _directory;
                 }
             }
         }
 
-        private IDictionary<string, T> _itemMap;
+        private IDirectory<T> _directory;
 
-        public bool Contains(string key) => ItemMap.ContainsKey(key);
+        public bool Contains(string key) => Directory.Contains(key);
 
-        public T this[string key] => ItemMap.ContainsKey(key) ? ItemMap[key] : null;
+        public T this[string key] => Directory[key];
 
-        private void OnValidate() => _itemMap = null;
+        protected void ClearCache() => _directory = null;
 
-        private void OnDestroy() => _itemMap = null;
+        private void OnValidate() => ClearCache();
+
+        private void OnDestroy() => ClearCache();
     }
 }

@@ -33,5 +33,10 @@ namespace Alensia.Core.Collection
         public bool Contains(string key) => ItemMap.ContainsKey(key);
 
         public T this[string key] => ItemMap.ContainsKey(key) ? ItemMap[key] : null;
+
+        protected void ClearCache()
+        {
+            _itemMap = null;
+        }
     }
 }
