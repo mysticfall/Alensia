@@ -3,7 +3,7 @@ using Alensia.Core.Common;
 
 namespace Alensia.Core.Collection
 {
-    public abstract class Directory<T> : IDirectory<T>, IEditorSettings
+    public abstract class Directory<T> : IDirectory<T>
         where T : class, INamed
     {
         protected abstract IEnumerable<T> Items { get; }

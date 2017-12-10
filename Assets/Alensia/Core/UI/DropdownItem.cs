@@ -1,5 +1,4 @@
 ﻿using System;
-using Alensia.Core.Common;
 using Alensia.Core.I18n;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -8,7 +7,7 @@ using UEDropdown = UnityEngine.UI.Dropdown;
 namespace Alensia.Core.UI
 {
     [Serializable]
-    public class DropdownItem : IEditorSettings
+    public class DropdownItem
     {
         public string Key => _key;
 

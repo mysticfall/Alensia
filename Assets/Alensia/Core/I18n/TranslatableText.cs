@@ -1,5 +1,4 @@
 ﻿using System;
-using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -7,7 +6,7 @@ using UnityEngine.Assertions;
 namespace Alensia.Core.I18n
 {
     [Serializable]
-    public class TranslatableText : IEditorSettings, ITranslatable
+    public class TranslatableText : ITranslatable
     {
         public string Text => _text;
 

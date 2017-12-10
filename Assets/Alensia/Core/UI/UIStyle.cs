@@ -12,7 +12,7 @@ using UnityEngine.Assertions;
 
 namespace Alensia.Core.UI
 {
-    public class UIStyle : ScriptableObject, INamed, IEditorSettings
+    public class UIStyle : ScriptableObject, INamed
     {
         public string Name => name;
 

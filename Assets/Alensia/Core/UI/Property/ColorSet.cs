@@ -1,5 +1,4 @@
 using System;
-using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -7,8 +6,7 @@ using UnityEngine.Assertions;
 namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class ColorSet : ITransitionalProperty<UnsettableColor>, IMergeableProperty<ColorSet>,
-        IEditorSettings
+    public class ColorSet : ITransitionalProperty<UnsettableColor>, IMergeableProperty<ColorSet>
     {
         public UnsettableColor Normal => _normal;
 

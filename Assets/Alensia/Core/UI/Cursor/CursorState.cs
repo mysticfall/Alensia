@@ -1,13 +1,11 @@
 ﻿using System;
-using Alensia.Core.Common;
 using UnityEngine;
 using UECursor = UnityEngine.Cursor;
 
-// ReSharper disable FieldCanBeMadeReadOnly.Local
 namespace Alensia.Core.UI.Cursor
 {
     [Serializable]
-    public class CursorState : IEditorSettings
+    public class CursorState
     {
         public CursorLockMode LockState => _lockState;
 

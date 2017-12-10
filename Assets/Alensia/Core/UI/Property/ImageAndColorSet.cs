@@ -1,5 +1,4 @@
 using System;
-using Alensia.Core.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -7,8 +6,7 @@ using UnityEngine.Assertions;
 namespace Alensia.Core.UI.Property
 {
     [Serializable]
-    public class ImageAndColorSet : ITransitionalProperty<ImageAndColor>, IMergeableProperty<ImageAndColorSet>,
-        IEditorSettings
+    public class ImageAndColorSet : ITransitionalProperty<ImageAndColor>, IMergeableProperty<ImageAndColorSet>
     {
         public ImageAndColor Normal => _normal;
 
