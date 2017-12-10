@@ -1,9 +1,10 @@
 using Alensia.Core.Character.Morph;
+using Alensia.Core.Item;
 using Zenject;
 
 namespace Alensia.Core.Character
 {
-    public class CustomizableHumanoid : Humanoid, IMorphable
+    public class CustomizableHumanoid : Humanoid, IMorphable, IClothed
     {
         public override IRace Race => Morphs.Race;
 
@@ -11,5 +12,8 @@ namespace Alensia.Core.Character
 
         [Inject]
         public IMorphSet Morphs { get; }
+
+        [Inject]
+        public IClothingContainer Clothings { get; }
     }
 }
