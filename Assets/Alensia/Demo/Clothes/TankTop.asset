@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6379c945885c4f19bebdd528e594ec80, type: 3}
+  m_Name: TankTop
+  m_EditorClassIdentifier: 
+  _name: TankTop
+  _displayName:
+    _text: 
+    _textKey: 
+  _slot: {fileID: 11400000, guid: 630cc873e39e24f8cb745e3440e0f9b3, type: 2}
+  _recipes:
+    array:
+    - {fileID: 11400000, guid: 4b633bed191178548ae210560557b4bb, type: 2}
