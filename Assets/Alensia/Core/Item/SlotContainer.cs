@@ -48,14 +48,14 @@ namespace Alensia.Core.Item
             Assert.IsNotNull(item, "item != null");
 
             var slot = ValidateSlot(item.Slot.Name);
-            var cloth = ValidateItem(item);
+            var entry = ValidateItem(item);
 
             lock (_mappings)
             {
-                AddItem(cloth);
+                AddItem(entry);
 
-                _mappings.Add(slot, cloth);
-                _items.Add(cloth);
+                _mappings.Add(slot, entry);
+                _items.Add(entry);
             }
         }
 
