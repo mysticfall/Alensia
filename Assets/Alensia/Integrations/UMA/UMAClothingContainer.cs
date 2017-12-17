@@ -1,6 +1,9 @@
+using System;
 using System.Linq;
 using Alensia.Core.Character;
 using Alensia.Core.Item;
+using UMA;
+using UMA.CharacterSystem;
 using Zenject;
 
 namespace Alensia.Integrations.UMA
@@ -12,23 +15,24 @@ namespace Alensia.Integrations.UMA
 
         protected override IRace Race => MorphSet.Race;
 
-        protected override void ApplyClothing(UMAClothing item)
+        protected override void ApplyClothing(UMAClothing item) =>
+            ProcessSlot(item, (avatar, recipe) => avatar.SetSlot(recipe));
+        
+        protected override void RemoveClothing(UMAClothing item) =>
+            ProcessSlot(item, (avatar, recipe) => avatar.ClearSlot(recipe.wardrobeSlot));
+
+        protected void ProcessSlot(UMAClothing item, Action<DynamicCharacterAvatar, UMATextRecipe> process)
         {
             var umaRace = MorphSet.RaceData.raceName;
             var recipe = item.Form.Recipes.FirstOrDefault(r => r.compatibleRaces.Contains(umaRace));
 
-            if (recipe != null)
-            {
-                var avatar = MorphSet.Avatar;
+            if (recipe == null) return;
 
-                avatar.SetSlot(recipe);
-                avatar.BuildCharacter();
-            }
-        }
+            var avatar = MorphSet.Avatar;
 
-        protected override void RemoveClothing(string key, UMAClothing item)
-        {
-            throw new System.NotImplementedException();
+            process(avatar, recipe);
+
+            avatar.BuildCharacter();
         }
     }
 }

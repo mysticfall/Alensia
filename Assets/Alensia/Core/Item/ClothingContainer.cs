@@ -73,7 +73,7 @@ namespace Alensia.Core.Item
             {
                 var cloth = CheckItem(item);
 
-                RemoveClothing(slot, cloth);
+                RemoveClothing(cloth);
 
                 _mappings.Remove(slot);
 
@@ -86,7 +86,7 @@ namespace Alensia.Core.Item
 
         protected abstract void ApplyClothing(TItem item);
 
-        protected abstract void RemoveClothing(string key, TItem item);
+        protected abstract void RemoveClothing(TItem item);
 
         private string CheckSlot(string key)
         {
