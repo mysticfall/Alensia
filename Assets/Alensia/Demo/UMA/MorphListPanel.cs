@@ -36,7 +36,7 @@ namespace Alensia.Demo.UMA
         protected virtual void LoadMorphs(IReadOnlyList<IMorph> morphs)
         {
             ContentPanel.gameObject
-                .GetComponentsInChildren<MorphControl>()
+                .GetComponentsInChildren<ControlPanel>()
                 .Select(c => c.GameObject)
                 .ToList()
                 .ForEach(Destroy);

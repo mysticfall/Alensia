@@ -1,7 +1,6 @@
 using Alensia.Core.Character.Morph.Generic;
 using Alensia.Core.UI;
 using Alensia.Core.UI.Property;
-using Alensia.Demo.UMA.Generic;
 using UniRx;
 using UnityEngine;
 

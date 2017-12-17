@@ -1,46 +1,37 @@
 using Alensia.Core.Character.Morph;
 using Alensia.Core.I18n;
-using Alensia.Core.UI;
-using UMA.CharacterSystem;
-using UnityEngine;
+using Zenject;
 
 namespace Alensia.Demo.UMA
 {
-    public abstract class MorphControl : Panel
+    public abstract class MorphControl<T> : ControlPanel where T : IMorph
     {
-        protected Label Label => _label ?? FindPeer<Label>("Label");
+        [Inject]
+        public IMorphNameResolver NameResolver { get; }
 
-        [SerializeField, HideInInspector] private Label _label;
-    }
-
-    namespace Generic
-    {
-        public abstract class MorphControl<T> : MorphControl where T : IMorph
+        public T Morph
         {
-            public T Morph
+            get { return _morph; }
+            set
             {
-                get { return _morph; }
-                set
+                if (Equals(_morph, value)) return;
+
+                _morph = value;
+
+                if (Context != null)
                 {
-                    if (Equals(_morph, value)) return;
-
-                    _morph = value;
-
-                    if (Context != null)
-                    {
-                        UpdateMorph();
-                    }
+                    UpdateMorph();
                 }
             }
+        }
 
-            private T _morph;
+        private T _morph;
 
-            protected virtual void UpdateMorph()
-            {
-                var text = Morph == null ? "(none)" : Morph.Name.BreakupCamelCase();
+        protected virtual void UpdateMorph()
+        {
+            var text = Morph == null ? "(none)" : NameResolver.Resolve(Morph.Name);
 
-                Label.Text = new TranslatableText(text);
-            }
+            Label.Text = new TranslatableText(text);
         }
     }
 }
