@@ -14,6 +14,9 @@ namespace Alensia.Core.Character
         public IMorphSet Morphs { get; }
 
         [Inject]
+        public IBodyPartContainer BodyParts { get; }
+
+        [Inject]
         public IClothingContainer Clothings { get; }
     }
 }

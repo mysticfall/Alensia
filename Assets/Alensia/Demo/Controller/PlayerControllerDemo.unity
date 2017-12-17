@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _races:
     array:
-    - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
+    - {fileID: 11400000, guid: 1e40303f1c2154c7885038d98cde0f56, type: 2}
 --- !u!1 &88924576 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1244357630558506, guid: 642f4e1d1dbbb47f6b06cc8f3a3ebc35,
@@ -1046,11 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiItems:
-  - _name: EntityLabel
-    _item: {fileID: 1333667637969334, guid: 94d230ae09ff6486aa8722042b48e723, type: 2}
-    _singleton: 1
-    _enable: 1
-    _order: 0
+    array: []
 --- !u!1 &845667510
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c5fb55071540b295dcb02f167f5b3b, type: 3}
-  m_Name: Shirt
+  m_Script: {fileID: 11500000, guid: 1528828c369141dda5023675792e5ec9, type: 3}
+  m_Name: Hair
   m_EditorClassIdentifier: 
-  _name: Shirt
+  _name: Hair
   _displayName:
-    _text: Shirt
+    _text: Hair
     _textKey: 

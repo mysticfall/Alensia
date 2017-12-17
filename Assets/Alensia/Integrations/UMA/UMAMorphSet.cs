@@ -39,7 +39,7 @@ namespace Alensia.Integrations.UMA
 
             var umaRace = Avatar.activeRace.name;
 
-            Race = RaceRepository.GetRaceFromUMARace(umaRace);
+            Race = RaceRepository.GetRaceFromUMARace(umaRace) as IMorphableRace;
             Sex = RaceRepository.GetSexFromUMARace(umaRace).ValueOr(Sex.Other);
 
             Avatar.RecipeUpdated.AsObservable()
@@ -127,9 +127,9 @@ namespace Alensia.Integrations.UMA
 
         protected override void ChangeSex(Sex sex) => ChangeUmaRace(Race, sex);
 
-        protected override void ChangeRace(IRace race) => ChangeUmaRace(race, Sex);
+        protected override void ChangeRace(IMorphableRace race) => ChangeUmaRace(race, Sex);
 
-        protected virtual void ChangeUmaRace(IRace race, Sex sex)
+        protected virtual void ChangeUmaRace(IMorphableRace race, Sex sex)
         {
             if (!_initialized) return;
 

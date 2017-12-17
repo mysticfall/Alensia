@@ -394,10 +394,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 96067930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41046756642844c981dcca680fa0be77, type: 3}
+  m_Script: {fileID: 11500000, guid: a73f4490b29e40a59aa3f75d56839c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothings:
+  _items:
     array: []
 --- !u!1 &244279844
 GameObject:
@@ -591,6 +591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306040493}
   - component: {fileID: 306040495}
+  - component: {fileID: 306040496}
   - component: {fileID: 306040494}
   m_Layer: 0
   m_Name: Morph
@@ -625,6 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 306040495}
+  - {fileID: 306040496}
   _identifier: 
   _context: {fileID: 0}
   _bindType: 2
@@ -639,6 +641,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27469a401e804bb484406ccb9102640b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &306040496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 306040492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fff68ebf90f4842905e4b1c5144fd07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _items:
+    array: []
 --- !u!4 &321706971
 Transform:
   m_ObjectHideFlags: 0
@@ -2717,7 +2732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _races:
     array:
-    - {fileID: 11400000, guid: b4a14197df2f648c59f4f23a97d23c43, type: 2}
+    - {fileID: 11400000, guid: 1e40303f1c2154c7885038d98cde0f56, type: 2}
   _mappings:
     array:
     - _name: Human

@@ -5,7 +5,7 @@ namespace Alensia.Core.Character.Morph
 {
     public interface IMorphSet
     {
-        IRace Race { get; set; }
+        IMorphableRace Race { get; set; }
 
         Sex Sex { get; set; }
 

@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73b476dd095461d8cfd116a244c8018, type: 3}
+  m_Script: {fileID: 11500000, guid: e42ae0080f8a496095a9446acd7a8864, type: 3}
   m_Name: HumanRace
   m_EditorClassIdentifier: 
   _name: Human
@@ -20,3 +20,6 @@ MonoBehaviour:
   _clothingSlots:
     array:
     - {fileID: 11400000, guid: 630cc873e39e24f8cb745e3440e0f9b3, type: 2}
+  _bodyPartSlots:
+    array:
+    - {fileID: 11400000, guid: 4d1246c43fcee4fe89bc05c3f8ab4e72, type: 2}
