@@ -2,6 +2,8 @@
 
 Programmer friendly framework to build RPG style games on _Unity_ engine.
 
+**Development is on hold indefinitely since Jan., 2018. Please read the _Status_ section below.**
+
 ## Motivation
 
 I've been writing business applications in _Scala_ and _Java_ for quite a long time, but I always wanted to create my 
@@ -43,9 +45,13 @@ package to run, but strafing moves(`A` and `D` key) won't work as intended, beca
 
 ## Status
 
-It's in a very very very early stage of development. So don't even think about actually using it for anything.
+Development is on hold indefinitely, since I decided to move to [Godot](https://github.com/godotengine) 
+engine and start over. I already started a new project named _[Alley Cat](https://github.com/mysticfall/AlleyCat)_ to 
+continue pursuing my goal.
 
-To track current development, you can subscribe to the official 
+You can read about my motivation of the decision [here](https://forum.unity.com/threads/thinking-about-moving-to-godot.510826/), if you like.
+
+For historic purposes, you can see how the development had been going from the official 
 [forum thread](https://forum.unity3d.com/threads/alensia-an-open-source-programmer-friendly-rpg-framework-in-a-very-very-early-stage.465618/) 
 or the project's [_YouTube_ channel](https://www.youtube.com/playlist?list=PLN4J41q17fIKgwcwiwERReerLBgC9GFDf).
 
